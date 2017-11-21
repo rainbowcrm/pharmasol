@@ -1,0 +1,142 @@
+<CodeGenEntity>
+    <entityName>Division</entityName>
+    <rootpackage>com.primus.wfm.division</rootpackage>
+    <tableName>DIVISIONS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\division</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\division</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>DIVISION_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Division_Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>DIVISION_CODE</dbFieldName>
+            <dataType>String</dataType>
+           <uiRepresentation>
+                <uiLabel>Division_Code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+               <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>address1</fieldName>
+            <dbFieldName>ADDRESS1</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Address1</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>address2</fieldName>
+            <dbFieldName>ADDRESS2</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Address2</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>zipcode</fieldName>
+            <dbFieldName>ZIPCODE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Zipcode</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>city</fieldName>
+            <dbFieldName>CITY</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>City</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>email</fieldName>
+            <dbFieldName>EMAIL</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Email</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>phone</fieldName>
+            <dbFieldName>PHONE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Phone</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>area</fieldName>
+            <dbFieldName>AREA</dbFieldName>
+            <dataType>String</dataType>
+           <uiRepresentation>
+                <uiLabel>Area</uiLabel>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>divType</fieldName>
+            <dbFieldName>DIV_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>DIVTYPE</finiteValueCategory>
+           <uiRepresentation>
+                <uiLabel>Division_Type</uiLabel>
+               <uiControl>UIList</uiControl>
+               <showInFilter> true </showInFilter>
+               <showInList> true </showInList>
+               <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>manager</fieldName>
+            <dbFieldName>MANAGER</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Manager</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>noEmployees</fieldName>
+            <dbFieldName>NO_EMPLOYEES</dbFieldName>
+            <dataType>int</dataType>
+            <uiRepresentation>
+                <uiLabel>No_Employees</uiLabel>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+    </codeGenFields>
+</CodeGenEntity>

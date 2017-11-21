@@ -1,0 +1,68 @@
+<CodeGenEntity>
+    <entityName>Department</entityName>
+    <rootpackage>com.primus.wfm.admin.department</rootpackage>
+    <tableName>DEPARTMENTS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\admin\\department</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\\department</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>DEPARTMENT_CODE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Department_Code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>10</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>DEPARTMENT_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Department_Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>manager</fieldName>
+            <dbFieldName>MANAGER</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Manager</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>noEmployees</fieldName>
+            <dbFieldName>NO_EMPLOYEES</dbFieldName>
+            <dataType>int</dataType>
+            <uiRepresentation>
+                <uiLabel>No_Employees</uiLabel>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+    </codeGenFields>
+</CodeGenEntity>

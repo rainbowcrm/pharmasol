@@ -1,0 +1,5 @@
+ <Page id = "$listPage" definition ="/resources/pages/department/departmentList.xml" modelclass = "$modelClass" >
+ </Page>
+ <Page id = "$addEditPage" definition ="/resources/pages/department/newdepartment.xml" modelclass = "$modelClass" >
+ </Page>
+

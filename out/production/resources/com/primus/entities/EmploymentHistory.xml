@@ -1,0 +1,109 @@
+<CodeGenEntity>
+    <entityName>EmployeeHistory</entityName>
+    <rootpackage>com.primus.wfm.hr.employee</rootpackage>
+    <tableName>HR_EMPLOYEMENT_HISTORY</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\hr\\employee</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\employee</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>lineNumber</fieldName>
+            <dbFieldName>LINE_NUMBER</dbFieldName>
+            <dataType>int</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>profile</fieldName>
+            <dbFieldName>PROFILE_ID</dbFieldName>
+            <dataType>EmployeeProfile</dataType>
+            <Bk>true</Bk>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>companyName</fieldName>
+            <dbFieldName>COMPANY_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>designation</fieldName>
+            <dbFieldName>DESIGNATION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Designation</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>reference</fieldName>
+            <dbFieldName>REFERENCE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Reference</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>employmentFrom</fieldName>
+            <dbFieldName>EMP_FROM</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>EmploymentFrom</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIDate</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>employmentTo</fieldName>
+            <dbFieldName>EMP_TO</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>EmploymentTo</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIDate</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+    </codeGenFields>
+</CodeGenEntity>

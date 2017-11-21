@@ -1,0 +1,111 @@
+<CodeGenEntity>
+    <entityName>Designation</entityName>
+    <rootpackage>com.primus.wfm.hr.designation</rootpackage>
+    <tableName>HR_DESIGNATIONS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\hr\\designation</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\designation</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>title</fieldName>
+            <dbFieldName>DESIGNATION</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Title</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>minQualification</fieldName>
+            <dbFieldName>EXPECTED_QUALIFICIATIONS</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>EDUQUAL</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Min_Qualification</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>managerRole</fieldName>
+            <dbFieldName>IS_MANAGER_ROLE</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiLabel>Is_Manager_Role</uiLabel>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>contractPosition</fieldName>
+            <dbFieldName>IS_CONTRACT_ROLE</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiLabel>IsContract_Position</uiLabel>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>level</fieldName>
+            <dbFieldName>LEVEL</dbFieldName>
+            <dataType>int</dataType>
+            <optionsPopulator>getJobLevels</optionsPopulator>
+            <uiRepresentation>
+                <uiLabel>Job_Level</uiLabel>
+                <uiControl>UIList</uiControl>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>Responsibilities</fieldName>
+            <dbFieldName>RESPONSIBILITIES</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Responsibilities</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UITextArea</uiControl>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>Description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UITextArea</uiControl>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+
+    </codeGenFields>
+</CodeGenEntity>

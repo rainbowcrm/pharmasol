@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "hrcompList" showinFrame ="true" title ="HR Portal | Primus WFM" Object = "com.primus.common.landing.model.LandingModel"
+      Controller = "com.primus.common.landing.controller.LandingController">
+    <Template type= "General"  name = "landingTemplate"></Template>
+    <Forwards>
+        <!-- <Forward key ="NEW">controller?page=compcreate</Forward>
+         <Forward key ="EDIT">controller?page=compcreate</Forward>-->
+    </Forwards>
+
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+
+    <Elements>
+        <UIForm Id ="cust" method = "POST" >
+            <Section type ="topBar"></Section>
+            <Section type ="hrleftsideBar"></Section>
+            <Section type ="hrshortCutBar"></Section>
+
+            <CoreSection>
+                <Section type = "fullPage" >
+                    <Element type = "UIIFrame" src ="./controller?page=paycomponents" Id="frmFameId" style ="coresectionstyle" >
+                    </Element>
+
+                </Section>
+
+
+
+            </CoreSection>
+
+
+            <Section type ="copyRightSection"/>
+        </UIForm>
+    </Elements>
+</Page>

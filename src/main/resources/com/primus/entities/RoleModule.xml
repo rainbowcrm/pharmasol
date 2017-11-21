@@ -1,0 +1,47 @@
+<CodeGenEntity>
+    <entityName>RoleModule</entityName>
+    <rootpackage>com.primus.wfm.admin.role</rootpackage>
+    <tableName>ROLE_MODULES</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\admin\\role</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\\role</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>role</fieldName>
+            <dbFieldName>ROLE_ID</dbFieldName>
+            <dataType>Role</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Role</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>40</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>module</fieldName>
+            <dbFieldName>MODULE_CODE</dbFieldName>
+            <dataType>Module</dataType>
+            <ImportPackage>com.primus.common.application.Module</ImportPackage>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Module</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>50</listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>accessAllowed</fieldName>
+            <dbFieldName>ACCESS_ALLOWED</dbFieldName>
+            <dataType>boolean</dataType>
+        </CodeGenField>
+
+    </codeGenFields>
+
+
+
+</CodeGenEntity>

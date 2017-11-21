@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "wfmlanding" showinFrame ="true" title ="Workforce Management | Primus WFM" Object = "com.primus.common.landing.model.LandingModel"
+      Controller = "com.primus.common.landing.controller.LandingController">
+    <Template type= "General"  name = "fulllandingTemplate"></Template>
+    <Forwards>
+        <!-- <Forward key ="NEW">controller?page=compcreate</Forward>
+         <Forward key ="EDIT">controller?page=compcreate</Forward>-->
+    </Forwards>
+
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+
+    <Elements>
+        <UIForm Id ="cust" method = "POST" >
+            <Section type ="topBar"></Section>
+
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+
+                <Section type = "tileSection" >
+                    <Element type = "UITile" Id="tileAdmin" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "Admin" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100"  onClickJS = "openmodule('adminlanding');" src= "./images/admin.jpg" />
+                        </Detail>
+                    </Element>
+
+                    <Element type = "UITile" Id="tileHR" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "HRIS" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100" onClickJS = "openmodule('hrlanding');" src= "./images/hrportal.png" />
+                        </Detail>
+                    </Element>
+
+                    <Element type = "UITile" Id="tileOper" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "Operations" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idChoperations"  height = "120" width ="100" src= "./images/operations.jpg" />
+                        </Detail>
+                    </Element>
+
+                    <Element label = ""  type = "UILabel" Id = "lblCustTitle1"   value ="" />
+                    <Element label = ""  type = "UILabel" Id = "lblCustTitle2"   value ="" />
+                    <Element label = ""  type = "UILabel" Id = "lblCustTitle3"   value ="" />
+
+                    <Element type = "UITile" Id="tileSelfSer" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "Self Service" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/selfservice.jpg" />
+                        </Detail>
+                    </Element>
+
+                    <Element type = "UITile" Id="tileMgr" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "Manager Portal" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idChmanager"  height = "120" width ="100" src= "./images/manager.png" />
+                        </Detail>
+                    </Element>
+
+                    <Element type = "UITile" Id="tileFin" style ="panel-primary tile" >
+                        <Header>
+                            <Element type = "UILabel" value = "Finance" ></Element>
+                        </Header>
+                        <Detail>
+                            <Element label = ""  type = "UIImage" Id = "idfinance"  height = "120" width ="100" src= "./images/finance.jpg" />
+                        </Detail>
+                    </Element>
+
+
+                </Section>
+
+
+
+            </CoreSection>
+
+
+            <Section type ="copyRightSection"/>
+        </UIForm>
+    </Elements>
+</Page>

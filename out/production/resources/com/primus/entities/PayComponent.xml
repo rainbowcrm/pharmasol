@@ -1,0 +1,137 @@
+<CodeGenEntity>
+    <entityName>PayComponent</entityName>
+    <rootpackage>com.primus.wfm.hr.paycomponent</rootpackage>
+    <tableName>HR_PAYCOMPONENTS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\hr\\paycomponent</fileLocation>
+    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\paycomponent</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>CODE</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>component</fieldName>
+            <dbFieldName>COMPONENT</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Component</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>basicComponent</fieldName>
+            <dbFieldName>IS_BASIC</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiLabel>Is_Basic</uiLabel>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>deduction</fieldName>
+            <dbFieldName>IS_DEDUCTION</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <uiLabel>Is_Deduction</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>calculatedValue</fieldName>
+            <dbFieldName>IS_CALCULATED_VALUE</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <uiLabel>Is_Calculated</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>variableComponent</fieldName>
+            <dbFieldName>IS_VARIABLE</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <uiLabel>Is_Variable</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>contractComponent</fieldName>
+            <dbFieldName>IS_FOR_CONTRACTS</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <uiLabel>Is_Contract</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>sourceComponent</fieldName>
+            <dbFieldName>SOURCE_COMPONENT</dbFieldName>
+            <dataType>PayComponent</dataType>
+            <uiRepresentation>
+                <uiLabel>Parent_Component</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>calculateType</fieldName>
+            <dbFieldName>CALCULATE_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>CALCOPER</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Operand</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+        <CodeGenField>
+            <fieldName>applyConstant</fieldName>
+            <dbFieldName>APPLY_CONSTANT</dbFieldName>
+            <dataType>Float</dataType>
+            <uiRepresentation>
+                <uiLabel>Apply_Constant</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+    </codeGenFields>
+</CodeGenEntity>
