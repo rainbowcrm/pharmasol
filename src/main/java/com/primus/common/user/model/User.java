@@ -9,7 +9,7 @@ import com.techtrade.rads.framework.annotations.RadsPropertySet;
 
 import javax.persistence.*;
 
-@Entity
+/*@Entity
 @Table(name = "USERS")
 @AttributeOverrides({
         @AttributeOverride(name="createdDate", column=@Column(name="CREATED_DATE")),
@@ -18,7 +18,7 @@ import javax.persistence.*;
         @AttributeOverride(name="lastUpdatedBy", column=@Column(name="LAST_UPDATED_BY")),
         @AttributeOverride(name="version", column=@Column(name="VERSION"))
 
-})
+})*/
 public class User extends PrimusModel{
 
     String userId;
