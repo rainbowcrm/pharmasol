@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "newRegion" showinFrame ="true" title ="Region | Primus WFM | Primus WFM" Object = "com.primus.admin.region.model.Region"
+      Controller = "com.primus.admin.region.controller.RegionController">
+    <Template type= "CRUD"  name = "CRUDTemplate"></Template>
+    <Forwards>
+        <Forward key ="CANCEL">controller?page=regions</Forward>
+        <Forward key ="SAVE">regions</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id ="cust" method = "POST" >
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type ="detail">
+                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
+                    <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
+                                        <Element label = "code" type = "UIText" isMandatory="true" Id = "txtcode" property ="code" />
+                                        <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" />
+                                        <Element label = "Head" type = "UIText" isMandatory="false" Id = "txthead" property ="head" />
+                                        <Element label = "Head_UserId" type = "UIText" isMandatory="false" Id = "txtheadUser" property ="headUser" />
+                                        <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
+                                        
+                                    </Section>
+            </CoreSection>
+            <Section type ="summary">
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

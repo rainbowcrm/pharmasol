@@ -16,7 +16,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*@Entity
+@Entity
 @Table(name = "FILTERS")
 @AttributeOverrides({
         @AttributeOverride(name="ID", column=@Column(name="ID")),
@@ -26,7 +26,7 @@ import java.util.List;
         @AttributeOverride(name="lastUpdatedBy", column=@Column(name="LAST_UPDATED_BY")),
         @AttributeOverride(name="version", column=@Column(name="VERSION"))
 
-})*/
+})
 public class PRMFilter  extends PrimusBusinessModel{
 
     Company company;

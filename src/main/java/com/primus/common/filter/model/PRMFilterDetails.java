@@ -4,10 +4,9 @@ import com.techtrade.rads.framework.model.abstracts.ModelObject;
 
 import javax.persistence.*;
 
-/*
+
 @Entity
 @Table(name = "FILTER_DETAILS")
-*/
 public class PRMFilterDetails extends ModelObject {
 
     protected int id;

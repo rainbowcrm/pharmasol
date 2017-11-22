@@ -2,6 +2,8 @@ package com.primus.util;
 
 import com.primus.ApplicationManager;
 import com.primus.abstracts.AbstractValidator;
+import com.primus.admin.region.service.RegionService;
+import com.primus.admin.region.validator.RegionValidator;
 import com.primus.common.GeneralSQL;
 import com.primus.common.company.service.CompanyService;
 import com.primus.common.company.validator.CompanyValidator;
@@ -78,6 +80,13 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     RoleValidator roleValidator;
 
+    @Autowired
+    RegionService regionService;
+
+    @Autowired
+    RegionValidator regionValidator;
+
+
     public  ApplicationManager getApplicationManager()
    {
        return applicationManager ;
@@ -103,6 +112,8 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "DivisionService" : return divisionService ;
             case "DepartmentService" : return departmentService ;
             case "RoleService" : return roleService ;
+            case "RegionService" : return regionService ;
+
 
 
 
@@ -120,6 +131,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "DivisionValidator" : return divisionValidator ;
            case "DepartmentValidator" : return departmentValidator;
            case "RoleValidator" : return roleValidator;
+           case "RegionValidator" : return regionValidator;
 
        }
 

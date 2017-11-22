@@ -4,7 +4,7 @@
     <tableName>DIVISIONS</tableName>
     <controllerType>AbstractCRUDController</controllerType>
     <fileLocation>c:\\wfm\\src\\main\\java\\com\\primus\\wfm\\division</fileLocation>
-    <uiLocation>c:\\wfm\\src\\main\\resources\\pages\\division</uiLocation>
+    <uiLocation>c:\\wfm\\src\\main\m\resources\\pages\\division</uiLocation>
     <codeGenFields>
         <CodeGenField>
             <fieldName>name</fieldName>

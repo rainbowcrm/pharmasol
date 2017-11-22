@@ -1,0 +1,100 @@
+<CodeGenEntity>
+    <entityName>Region</entityName>
+    <rootpackage>com.primus.admin.region</rootpackage>
+    <tableName>REGIONS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\admin\\Region</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\region</uiLocation>
+    <codeGenFields>
+
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>REGION_CODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>REGION_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>head</fieldName>
+            <dbFieldName>REGION_HEAD</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>Head</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>headUser</fieldName>
+            <dbFieldName>REGION_HEAD_USER_ID</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>Head_UserId</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>locations</fieldName>
+            <dbFieldName></dbFieldName>
+            <dataType>Collection</dataType>
+            <entityDefXML>Location</entityDefXML>
+            <ImportPackage>java.util.Collection</ImportPackage>
+            <ChildObject>
+                <dataType>Location</dataType>
+                <fieldName>region</fieldName>
+            </ChildObject>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+                <uiControl>UITable</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth></listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+
+    </codeGenFields>
+</CodeGenEntity>
