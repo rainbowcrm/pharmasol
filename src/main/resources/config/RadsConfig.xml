@@ -4,7 +4,7 @@
 
     </ExternalizeFacade>
     <Properties>
-        <appURL>http://localhost:10110/</appURL>
+        <appURL>http://localhost:10210/</appURL>
         <settings>com.primus.common.DefaultSettings</settings>
         <portalPrefix></portalPrefix>
         <!-- AWS entry <appURL>http://ec2-35-154-225-199.ap-south-1.compute.amazonaws.com:8080/</appURL>
@@ -30,6 +30,10 @@
         <Page id = "divisions" definition ="/resources/pages/division/divisionList.xml" modelclass = "com.primus.admin.division.model.Division" >
         </Page>
         <Page id = "newdivision" definition ="/resources/pages/division/newdivision.xml" modelclass = "com.primus.admin.division.model.Division" >
+        </Page>
+        <Page id = "regions" definition ="/resources/pages/region/regionList.xml" modelclass = "com.primus.admin.region.model.Region" >
+        </Page>
+        <Page id = "newregion" definition ="/resources/pages/region/newregion.xml" modelclass = "com.primus.admin.region.model.Region" >
         </Page>
         <Page id = "departments" definition ="/resources/pages/department/departmentList.xml" modelclass = "com.primus.admin.department.model.Department" >
         </Page>
@@ -129,10 +133,11 @@
 
         <Panel key = "adminMenuPanel"   showInDiv = "false">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Setup" groupId= "menuGRP001"  >
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-university"  />
-                <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Deparments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=departments" iconStyle="fa fa-fw fa-tags"  />
-                <Element label = "" type = "UIMenu" Id = "menu03" style="menustyle" title="Roles" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
-                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Users" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appusers" iconStyle="fa fa-fw fa-camera" />
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Regions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=regions" iconStyle="fa fa-fw fa-flag"  />
+                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Roles" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
+                <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-university"  />
+                <!--<Element label = "" type = "UIMenu" Id = "menu03" style="menustyle" title="Deparments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=departments" iconStyle="fa fa-fw fa-tags"  />-->
+                <Element label = "" type = "UIMenu" Id = "menu05" style="menustyle" title="Users" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appusers" iconStyle="fa fa-fw fa-camera" />
             </Element>
         </Panel>
 

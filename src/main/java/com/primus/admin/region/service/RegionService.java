@@ -35,7 +35,6 @@ public class RegionService extends AbstractService {
      protected void collateBeforUpdate(PrimusModel newObject, PrimusModel oldObject) {
          Region newObj = (Region) newObject;
          Region oldObj = (Region) oldObject;
-
          TransactionUpdateDelta delta = formDelta(oldObj.getLocations(),  newObj.getLocations()) ;
           newObj.getLocations().addAll((List<Location>)delta.getDeletedRecords());
      }

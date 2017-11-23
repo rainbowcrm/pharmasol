@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id = "wfmlanding" showinFrame ="true" title ="Workforce Management | Primus WFM" Object = "com.primus.common.landing.model.LandingModel"
+<Page id = "wfmlanding" showinFrame ="true" title ="Pharma Solutions | Primus CRM" Object = "com.primus.common.landing.model.LandingModel"
       Controller = "com.primus.common.landing.controller.LandingController">
     <Template type= "General"  name = "fulllandingTemplate"></Template>
     <Forwards>
@@ -30,10 +30,10 @@
 
                     <Element type = "UITile" Id="tileHR" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "HRIS" ></Element>
+                            <Element type = "UILabel" value = "Sales_Reps" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100" onClickJS = "openmodule('hrlanding');" src= "./images/hrportal.png" />
+                            <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('agentslanding');" src= "./images/agents.png" />
                         </Detail>
                     </Element>
 
@@ -52,10 +52,10 @@
 
                     <Element type = "UITile" Id="tileSelfSer" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Self Service" ></Element>
+                            <Element type = "UILabel" value = "Stockists" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/selfservice.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/stockists.jpg" />
                         </Detail>
                     </Element>
 

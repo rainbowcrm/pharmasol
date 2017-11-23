@@ -2,7 +2,7 @@
     <entityName>Region</entityName>
     <rootpackage>com.primus.admin.region</rootpackage>
     <tableName>REGIONS</tableName>
-    <controllerType>AbstractCRUDController</controllerType>
+    <controllerType>AbstractTransactionController</controllerType>
     <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\admin\\Region</fileLocation>
     <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\region</uiLocation>
     <codeGenFields>
