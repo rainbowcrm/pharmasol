@@ -14,15 +14,15 @@
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type="header">
+                <Section type="header3col">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
-                    <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                    <Element label="code" type="UIText" isMandatory="true" Id="txtRegioncode" property="code"/>
+                    <Element label="Name" type="UIText" isMandatory="true" Id="txtRegionname" property="name"/>
                     <Element label="Head" type="UIText" isMandatory="false" Id="txthead" property="head"/>
                     <Element label="Head_UserId" type="UIText" isMandatory="false" Id="txtheadUser"
                              property="headUser"/>
-                    <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                    <Element label="Description" type="UIText" isMandatory="false" Id="txtRegiondescription"
                              property="description"/>
 
                 </Section>
@@ -42,21 +42,24 @@
                                     <Element label="" type="UILabel" Id="lblCode" value="Type"/>
                                 </Element>
 
-                                <Element type="UITableCol" width="35%">
+                                <Element type="UITableCol" width="25%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Description"/>
                                 </Element>
+                                <Element type="UITableCol" width="10%">
+                                </Element>
+
                             </Element>
                         </Element>
 
-                        <Element type="UITableRow" dataType="Location" rendered="!Object.isDeleted">
+                        <Element type="UITableRow" dataType="com.primus.admin.region.model.Location" rendered="!Object.isDeleted">
                             <Element type="UITableCol" width="15%">
-                                <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
+                                <Element label="" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
                             </Element>
                             <Element type="UITableCol" width="25%">
-                                <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                                <Element label="" type="UIText" isMandatory="true" Id="txtname" property="name"/>
                             </Element>
                             <Element type="UITableCol" width="20%">
-                                <Element label="Type" type="UIList" isMandatory="true" Id="lstlocationType"
+                                <Element label="" type="UIList" isMandatory="true" Id="lstlocationType"
                                          property="locationType.code">
                                     <options populator="getFiniteValues" populatorParam="LOCTYPE">
                                     </options>
@@ -64,7 +67,7 @@
                             </Element>
 
                             <Element type="UITableCol" width="35%">
-                                <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                                <Element label="" type="UIText" isMandatory="false" Id="txtdescription"
                                          property="description"/>
                             </Element>
                             <Element type="UITableCol" width="10%">

@@ -73,7 +73,7 @@ public class Location extends PrimusBusinessModel {
 
 	Region region ;
 
-	@RadsPropertySet(isBK =  true )
+	@RadsPropertySet(excludeFromJSON =  true,excludeFromMap = true, excludeFromXML = true )
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name  ="REGION_ID")
 	public Region  getRegion ()
@@ -81,7 +81,7 @@ public class Location extends PrimusBusinessModel {
 		return region;
 	}
 
-	@RadsPropertySet(isBK =  true )
+	@RadsPropertySet(excludeFromJSON =  true,excludeFromMap = true, excludeFromXML = true )
 	public void setRegion ( Region   val )
 	{
 		region  = val;

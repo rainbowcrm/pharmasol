@@ -10,6 +10,8 @@ import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.primus.admin.region.model.Region;
 
 
@@ -49,6 +51,15 @@ public class RegionValidator extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
        super.adaptFromUI(model,context) ;
+        Region object = (Region) model ;
+        if(!Utils.isNullCollection(object.getLocations()))  {
+            AtomicInteger index = new AtomicInteger(0);
+            object.getLocations().forEach( line  ->  {
+                //payScaleSplit.setLineNumber(index.incrementAndGet());
+                line.setCompany(object.getCompany());
+                line.setRegion(object);
+            });
+        }
        return null;
     }
 }
