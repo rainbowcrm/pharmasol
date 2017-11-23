@@ -27,6 +27,11 @@ public class DivisionValidator extends AbstractValidator {
     }
 
     @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+        return super.adaptToUI(model, context);
+    }
+
+    @Override
     public List<RadsError> checkforMandatoryFields(PrimusModel model, ProductContext context) {
         Division division = (Division) model;
         List<RadsError> results = new ArrayList<RadsError>();
@@ -65,6 +70,9 @@ public class DivisionValidator extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
         super.adaptFromUI(model, context);
+        Division division = (Division) model ;
+        if(division.getAddress() != null)
+            division.getAddress().setCompany(division.getCompany());
         return null;
     }
 }

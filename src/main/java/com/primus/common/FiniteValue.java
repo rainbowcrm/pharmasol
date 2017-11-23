@@ -24,6 +24,7 @@ public class FiniteValue extends ModelObject implements Serializable,Cloneable{
     public void setType(String type) {
         this.type = type;
     }
+
     @RadsPropertySet(isPK=true, isBK =true)
     @Id
     @Column(name  ="CODE")

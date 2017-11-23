@@ -76,7 +76,8 @@ public class Division extends PrimusBusinessModel {
 
     FiniteValue divType;
 
-    @Column(name = "DIV_TYPE")
+    @ManyToOne(cascade=CascadeType.DETACH)
+    @JoinColumn(name  ="INDUSTRY_TYPE")
     public FiniteValue getDivType() {
         return divType;
     }
@@ -121,7 +122,7 @@ public class Division extends PrimusBusinessModel {
     Address address;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name  ="COMPONENT_ID")
+    @JoinColumn(name  ="ADDRESS_ID")
     public Address getAddress() {
         return address;
     }

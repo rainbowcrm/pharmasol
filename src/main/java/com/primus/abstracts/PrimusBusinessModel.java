@@ -27,10 +27,12 @@ public class PrimusBusinessModel extends  PrimusModel {
 
     @ManyToOne(cascade=CascadeType.DETACH)
     @JoinColumn(name  ="COMPANY_ID")
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
     public Company getCompany() {
         return company;
     }
 
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
     public void setCompany(Company company) {
         this.company = company;
     }

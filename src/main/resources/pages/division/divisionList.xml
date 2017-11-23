@@ -52,8 +52,8 @@
                 </SelectionColumn>
                                       <Column title ="Division_Name"   sortField="DIVISION_NAME" width="35%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="name" />   </Column> 
                                       <Column title ="Division_Code"   sortField="DIVISION_CODE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="code" />   </Column> 
-                                      <Column title ="Phone"   sortField="PHONE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="phone" />   </Column> 
-                                      <Column title ="Division_Type"   sortField="DIV_TYPE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="divType" />   </Column> 
+                                      <Column title ="Phone"   sortField="PHONE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="address.phone" />   </Column>
+                                      <Column title ="Division_Type"   sortField="DIV_TYPE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="divType.description" />   </Column>
                                  </Columns>
              </ListSection>
         </CoreSection>
