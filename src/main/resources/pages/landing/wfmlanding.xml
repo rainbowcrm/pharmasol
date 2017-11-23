@@ -30,7 +30,7 @@
 
                     <Element type = "UITile" Id="tileHR" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Sales_Reps" ></Element>
+                            <Element type = "UILabel" value = "Agents_Workbench" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('agentslanding');" src= "./images/agents.png" />
@@ -52,7 +52,7 @@
 
                     <Element type = "UITile" Id="tileSelfSer" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Stockists" ></Element>
+                            <Element type = "UILabel" value = "Stockist_Portal" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/stockists.jpg" />
@@ -61,7 +61,7 @@
 
                     <Element type = "UITile" Id="tileMgr" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Manager Portal" ></Element>
+                            <Element type = "UILabel" value = "Manager_Portal" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idChmanager"  height = "120" width ="100" src= "./images/manager.png" />

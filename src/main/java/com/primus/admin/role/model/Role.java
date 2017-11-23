@@ -70,8 +70,8 @@ public class Role extends PrimusBusinessModel {
     }
 
     boolean adminAccess;
-    boolean hrAccess;
-    boolean selfserviceAccess;
+    boolean stockistAccess;
+    boolean agentAccess;
     boolean financeAccess;
     boolean operationsAccess;
     boolean mgrPortalAccess;
@@ -86,21 +86,21 @@ public class Role extends PrimusBusinessModel {
     }
 
     @Transient
-    public boolean isHrAccess() {
-        return hrAccess;
+    public boolean isStockistAccess() {
+        return stockistAccess;
     }
 
-    public void setHrAccess(boolean hrAccess) {
-        this.hrAccess = hrAccess;
+    public void setStockistAccess(boolean stockistAccess) {
+        this.stockistAccess = stockistAccess;
     }
 
     @Transient
-    public boolean isSelfserviceAccess() {
-        return selfserviceAccess;
+    public boolean isAgentAccess() {
+        return agentAccess;
     }
 
-    public void setSelfserviceAccess(boolean selfserviceAccess) {
-        this.selfserviceAccess = selfserviceAccess;
+    public void setAgentAccess(boolean agentAccess) {
+        this.agentAccess = agentAccess;
     }
 
     @Transient

@@ -21,8 +21,8 @@
                     <Element label = ""  type = "UILabel" Id = "lblCode1"  />
                     <Element label = ""  type = "UILabel" Id = "lblCode2"  />
                     <Element label = "Admin"  type = "UIBooleanCheckBox" Id = "txtBoolAdminAccess" hiddenControlId= "hdnadminAccess"   property ="adminAccess" />
-                    <Element label = "HR_Portal"  type = "UIBooleanCheckBox" Id = "txtBoolHRAccess" hiddenControlId= "hdnaHRAccess"   property ="hrAccess" />
-                    <Element label = "Self_Service"  type = "UIBooleanCheckBox" Id = "txtBoolSelfServiceAccess" hiddenControlId= "hdnSelfServiceAccess"   property ="selfserviceAccess" />
+                    <Element label = "Stockist_Portal"  type = "UIBooleanCheckBox" Id = "txtBoolStockAccess" hiddenContnrolId= "hdnaSTKAccess"   property ="stockistAccess" />
+                    <Element label = "Agents_Workbench"  type = "UIBooleanCheckBox" Id = "txtBoolAgentAccess" hiddenControlId= "hdnAgentAccess"   property ="agentAccess" />
                     <Element label = ""  type = "UILabel" Id = "lblCode3"  />
                     <Element label = "Manager_Portal"  type = "UIBooleanCheckBox" Id = "txtBoolMGRAccess" hiddenControlId= "hdnaMGRAccess"   property ="mgrPortalAccess" />
                     <Element label = "Operations"  type = "UIBooleanCheckBox" Id = "txtBoolOperAccess" hiddenControlId= "hdnOperAccess"   property ="operationsAccess" />

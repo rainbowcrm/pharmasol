@@ -17,7 +17,7 @@
                 <Section type="header3col">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="code" type="UIText" isMandatory="true" Id="txtRegioncode" property="code"/>
+                    <Element label="Code" type="UIText" isMandatory="true" Id="txtRegioncode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtRegionname" property="name"/>
                     <Element label="Head" type="UIText" isMandatory="false" Id="txthead" property="head"/>
                     <Element label="Head_UserId" type="UIText" isMandatory="false" Id="txtheadUser"

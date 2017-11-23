@@ -19,6 +19,11 @@ public class Module extends ModelObject {
     public static final  String FINANCE = "FINANCE";
     public static final  String MANAGERPORTAL = "MGRPORT";
 
+
+    public static final  String AGENTPORTAL = "AGPORT";
+    public static final  String STOCKIST = "STCK";
+
+
     public Module() {
 
     }

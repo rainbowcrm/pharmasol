@@ -61,10 +61,10 @@ public class RoleValidator extends AbstractValidator {
                 role.setAdminAccess(adminModules.get(0).getAccessAllowed());
             }
 
-            List<RoleModule> hrModules =  role.getRoleModules().stream().filter( roleModule ->
-                    roleModule.getModule().getCode().equalsIgnoreCase(Module.HRIS)).collect(Collectors.toList());
-            if(!Utils.isNullCollection(hrModules)) {
-                role.setHrAccess(hrModules.get(0).getAccessAllowed());
+            List<RoleModule> stkModuled =  role.getRoleModules().stream().filter( roleModule ->
+                    roleModule.getModule().getCode().equalsIgnoreCase(Module.STOCKIST)).collect(Collectors.toList());
+            if(!Utils.isNullCollection(stkModuled)) {
+                role.setStockistAccess(stkModuled.get(0).getAccessAllowed());
             }
 
             List<RoleModule> financeModules =  role.getRoleModules().stream().filter( roleModule ->
@@ -73,10 +73,10 @@ public class RoleValidator extends AbstractValidator {
                 role.setFinanceAccess(financeModules.get(0).getAccessAllowed());
             }
 
-            List<RoleModule> selfServiceModules =  role.getRoleModules().stream().filter( roleModule ->
-                    roleModule.getModule().getCode().equalsIgnoreCase(Module.SELFSERVICE)).collect(Collectors.toList());
-            if(!Utils.isNullCollection(selfServiceModules)) {
-                role.setSelfserviceAccess(selfServiceModules.get(0).getAccessAllowed());
+            List<RoleModule> agModules =  role.getRoleModules().stream().filter( roleModule ->
+                    roleModule.getModule().getCode().equalsIgnoreCase(Module.AGENTPORTAL)).collect(Collectors.toList());
+            if(!Utils.isNullCollection(agModules)) {
+                role.setAgentAccess(agModules.get(0).getAccessAllowed());
             }
 
             List<RoleModule> operationsModules =  role.getRoleModules().stream().filter( roleModule ->
@@ -114,11 +114,11 @@ public class RoleValidator extends AbstractValidator {
 
         if(true)  {
             RoleModule roleModule = new RoleModule();
-            Module module = new Module(Module.HRIS) ;
+            Module module = new Module(Module.AGENTPORTAL) ;
             roleModule.setRole(role);
             roleModule.setModule(module);
             roleModule.setCompany(role.getCompany());
-            roleModule.setAccessAllowed(role.isHrAccess());
+            roleModule.setAccessAllowed(role.isAgentAccess());
             role.addRoleModule(roleModule);
         }
 
@@ -134,11 +134,11 @@ public class RoleValidator extends AbstractValidator {
 
         if(true)  {
             RoleModule roleModule = new RoleModule();
-            Module module = new Module(Module.SELFSERVICE) ;
+            Module module = new Module(Module.STOCKIST) ;
             roleModule.setRole(role);
             roleModule.setModule(module);
             roleModule.setCompany(role.getCompany());
-            roleModule.setAccessAllowed(role.isSelfserviceAccess());
+            roleModule.setAccessAllowed(role.isStockistAccess());
             role.addRoleModule(roleModule);
 
         }
