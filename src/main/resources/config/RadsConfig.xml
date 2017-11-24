@@ -35,6 +35,11 @@
         </Page>
         <Page id = "newregion" definition ="/resources/pages/region/newregion.xml" modelclass = "com.primus.admin.region.model.Region" >
         </Page>
+        <Page id = "stockists" definition ="/resources/pages/stockist/stockistList.xml" modelclass = "com.primus.externals.stockist.model.Stockist" >
+        </Page>
+        <Page id = "newstockist" definition ="/resources/pages/stockist/newstockist.xml" modelclass = "com.primus.externals.stockist.model.Stockist" >
+        </Page>
+
         <Page id = "departments" definition ="/resources/pages/department/departmentList.xml" modelclass = "com.primus.admin.department.model.Department" >
         </Page>
         <Page id = "newdepartment" definition ="/resources/pages/department/newdepartment.xml" modelclass = "com.primus.admin.department.model.Department" >
@@ -139,6 +144,14 @@
                 <!--<Element label = "" type = "UIMenu" Id = "menu03" style="menustyle" title="Deparments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=departments" iconStyle="fa fa-fw fa-tags"  />-->
                 <Element label = "" type = "UIMenu" Id = "menu05" style="menustyle" title="Users" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appusers" iconStyle="fa fa-fw fa-camera" />
             </Element>
+
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="External_Parties" groupId= "menuGRP002"  >
+                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Stockists"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stores" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-medkit"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Doctors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-stethoscope"  />
+
+            </Element>
+
         </Panel>
 
 

@@ -133,6 +133,13 @@ public class CodeGenField extends ModelObject {
                             "</options>";
                     return header + "\n" + options + "\n" + footer;
                 }
+            }else if ("Address".equalsIgnoreCase(uiRepresentation.getUiControl())) {
+                    return " <Element label = \"Address1\" type = \"UIText\" isMandatory=\"true\" Id = \"txtaddress1\" property =\"address.address1\" /> \n "+
+                            " <Element label = \"Address2\" type = \"UIText\" isMandatory=\"false\" Id = \"txtaddress2\" property =\"address.address2\" /> \n "+
+                        " <Element label = \"Street_Name\" type = \"UIText\" isMandatory=\"true\" Id = \"txtStr3\" property =\"address.streetName\" /> \n "+
+                        " <Element label = \"Zipcode\" type = \"UIText\" isMandatory=\"false\" Id = \"txtzipcode\" property =\"address.zipCode\" /> \n "+
+                        " <Element label = \"City\" type = \"UIText\" isMandatory=\"false\" Id = \"txtcity\" property =\"address.city\" /> \n "+
+                        " <Element label = \"Phone\" type = \"UIText\" isMandatory=\"true\" Id = \"txtphone\" property =\"address.phone\" />";
             }
         }
         return  "";

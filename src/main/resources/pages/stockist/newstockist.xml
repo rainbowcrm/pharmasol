@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newStockist" showinFrame="true" title="Stockist | Primus WFM | Primus WFM"
+      Object="com.primus.externals.stockist.model.Stockist"
+      Controller="com.primus.externals.stockist.controller.StockistController">
+    <Template type="CRUD" name="CRUDTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=stockists</Forward>
+        <Forward key="SAVE">stockists</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="detail">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
+                    <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                    <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                             property="description"/>
+                    <Element label="Address1" type="UIText" isMandatory="true" Id="txtaddress1"
+                             property="address.address1"/>
+                    <Element label="Address2" type="UIText" isMandatory="false" Id="txtaddress2"
+                             property="address.address2"/>
+                    <Element label="Street_Name" type="UIText" isMandatory="true" Id="txtStr3"
+                             property="address.streetName"/>
+                    <Element label="Zipcode" type="UIText" isMandatory="false" Id="txtzipcode"
+                             property="address.zipCode"/>
+                    <Element label="City" type="UIText" isMandatory="false" Id="txtcity" property="address.city"/>
+                    <Element label="Phone" type="UIText" isMandatory="true" Id="txtphone" property="address.phone"/>
+                    <Element label="Contact_Person" type="UIText" isMandatory="true" Id="txtconactPerson" property="contactPerson"/>
+                    <Element label="Contact_Person_Phone" type="UIText" isMandatory="false" Id="txotconactPersonPhone" property="contactPersonPhone"/>
+                    <Element label="Email" type="UIText" isMandatory="false" Id="txtcontactEmail"
+                             property="email"/>
+                </Section>
+            </CoreSection>
+            <Section type="summary">
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

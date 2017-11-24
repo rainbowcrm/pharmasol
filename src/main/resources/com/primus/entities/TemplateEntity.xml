@@ -117,6 +117,21 @@
         </uiRepresentation>
     </CodeGenField>
 
+    <!-- Address -->
+    <CodeGenField>
+        <fieldName>address</fieldName>
+        <dbFieldName>ADDRESS_ID</dbFieldName>
+        <dataType>Address</dataType>
+        <uiRepresentation>
+            <uiLabel>Address</uiLabel>
+            <showInFilter> false </showInFilter>
+            <showInList> false </showInList>
+            <uiControl>Address</uiControl>
+        </uiRepresentation>
+        <Mandatory>true</Mandatory>
+    </CodeGenField>
+
+
     <!-- Double -->
     <CodeGenField>
         <fieldName>applyConstant</fieldName>

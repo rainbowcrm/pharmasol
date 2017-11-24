@@ -12,6 +12,8 @@ import com.primus.common.login.service.LoginService;
 import com.primus.abstracts.AbstractService;
 import com.primus.common.user.service.UserService;
 import com.primus.common.user.validator.UserValidator;
+import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.stockist.validator.StockistValidator;
 import com.primus.framework.nextup.NextUPSQL;
 import com.primus.admin.department.service.DepartmentService;
 import com.primus.admin.department.validator.DepartmentValidator;
@@ -86,6 +88,12 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     RegionValidator regionValidator;
 
+    @Autowired
+    StockistService stockistService ;
+
+    @Autowired
+    StockistValidator stockistValidator;
+
 
     public  ApplicationManager getApplicationManager()
    {
@@ -113,9 +121,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "DepartmentService" : return departmentService ;
             case "RoleService" : return roleService ;
             case "RegionService" : return regionService ;
-
-
-
+            case "StockistService": return stockistService ;
 
         }
         return null;
@@ -132,6 +138,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "DepartmentValidator" : return departmentValidator;
            case "RoleValidator" : return roleValidator;
            case "RegionValidator" : return regionValidator;
+           case "StockistValidator" : return stockistValidator;
 
        }
 
@@ -146,4 +153,5 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     public static ServiceLibrary services() {
         return applicationContext.getBean(ServiceLibrary.class);
     }
+
 }

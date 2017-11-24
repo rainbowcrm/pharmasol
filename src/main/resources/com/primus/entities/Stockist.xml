@@ -1,0 +1,66 @@
+<CodeGenEntity>
+    <entityName>Stockist</entityName>
+    <rootpackage>com.primus.externals.stockist</rootpackage>
+    <tableName>STOCKISTS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\externals\\stockist</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\stockist</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>address</fieldName>
+            <dbFieldName>ADDRESS_ID</dbFieldName>
+            <dataType>Address</dataType>
+            <uiRepresentation>
+                <uiLabel>Address</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <uiControl>Address</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+
+    </codeGenFields>
+</CodeGenEntity>
