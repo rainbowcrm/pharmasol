@@ -121,7 +121,7 @@ public class Division extends PrimusBusinessModel {
 
     Address address;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name  ="ADDRESS_ID")
     public Address getAddress() {
         return address;

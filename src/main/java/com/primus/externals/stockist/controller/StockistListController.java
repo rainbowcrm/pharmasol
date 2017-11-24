@@ -3,8 +3,16 @@ package com.primus.externals.stockist.controller;
 import com.primus.abstracts.AbstractListController;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
+import com.primus.common.ServiceFactory;
+import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.service.StockistService;
+import com.techtrade.rads.framework.model.abstracts.ModelObject;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;
+import com.techtrade.rads.framework.utils.Utils;
 
 
+import javax.xml.ws.Service;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,4 +36,15 @@ public class StockistListController extends AbstractListController{
         return "StockistValidator";
     }
 
+    @Override
+    public PageResult submit(List<ModelObject> list, String submitAction ) {
+        StockistService service = ServiceFactory.getStockistService() ;
+        if(!Utils.isNullList(list)) {
+            list.forEach( modelObject ->  {
+                Stockist stockist = (Stockist) modelObject ;
+                service.associateStockist(stockist.getId(),null,getProductContext() ,"ASSOCIATE".equalsIgnoreCase(submitAction)?true:false);
+            } );
+        }
+        return new PageResult();
+    }
 }

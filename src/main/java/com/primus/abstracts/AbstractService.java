@@ -159,7 +159,7 @@ public abstract class AbstractService {
         if (Utils.isNullString(whereCondition)) {
             additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false andcompany.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and company.id= " + context.getLoggedinCompany());
         }
         return getDAO().fetchAllActive(className, additionalCondition.toString(), orderBy);
 

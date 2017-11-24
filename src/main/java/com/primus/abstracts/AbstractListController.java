@@ -39,6 +39,11 @@ public abstract class AbstractListController extends ListController {
 
         return result;
     }
+    public  ProductContext getProductContext()
+
+    {
+        return (ProductContext) getContext() ;
+    }
 
 
     public Object getPrimaryKeyValue(ModelObject object) {

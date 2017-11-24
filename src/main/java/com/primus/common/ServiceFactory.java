@@ -9,6 +9,7 @@ import com.primus.common.company.service.CompanyService;
 import com.primus.common.filter.service.FilterService;
 import com.primus.common.login.service.LoginService;
 import com.primus.common.user.service.UserService;
+import com.primus.externals.stockist.service.StockistService;
 import com.primus.util.ServiceLibrary;
 
 
@@ -66,6 +67,12 @@ public class ServiceFactory {
     public static DepartmentService getDepartmentService()
     {
         DepartmentService service = (DepartmentService)ServiceLibrary.services().getService("DepartmentService")  ;
+        return service ;
+    }
+
+    public static StockistService getStockistService()
+    {
+        StockistService service = (StockistService)ServiceLibrary.services().getService("StockistService")  ;
         return service ;
     }
 

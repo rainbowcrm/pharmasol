@@ -2,13 +2,21 @@ package com.primus.externals.stockist.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.admin.region.model.Location;
+import com.primus.common.ProductContext;
+import com.primus.common.company.model.Company;
 import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.model.StockistAssociation;
+import com.techtrade.rads.framework.model.abstracts.RadsError;
+import com.techtrade.rads.framework.ui.components.SortCriteria;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.externals.stockist.dao.StockistDAO;
 
+import java.util.List;
 
 
 /**
@@ -35,5 +43,83 @@ public class StockistService extends AbstractService {
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
+
+     public List<RadsError> associateStockist (int stockistId, Location location , ProductContext context, boolean associated)
+     {
+
+         StockistAssociation association = stockistDAO.getAssociation(stockistId,context.getCompany().getId());
+         if(association != null) {
+             association.setAssociated(associated);
+             stockistDAO.update(association);
+         }else {
+             Stockist stockist = (Stockist) getById(stockistId);
+             Company company =context.getCompany() ;
+             StockistAssociation association1 =new StockistAssociation();
+             association1.setAssociated(associated);
+             association1.setCompany(company);
+             association1.setStockist(stockist);
+             stockistDAO.create(association1);
+         }
+
+
+         return null;
+
+     }
+
+
+    public long getTotalRecordCount(ProductContext context, String whereCondition) {
+        StringBuffer additionalCondition = new StringBuffer();
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" ");
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition );
+        }
+
+        return getDAO().getTotalRecordCount(getDAO().getEntityClassName(), context, additionalCondition.toString());
+    }
+
+    public List<? extends PrimusModel> listData(int from, int to,
+                                                String whereCondition, ProductContext context, SortCriteria sortCriteria) {
+        return listData(getDAO().getEntityClassName(), from, to, whereCondition, null, context, sortCriteria);
+    }
+
+    public List<? extends PrimusModel> listData(String className, int from, int to,
+                                                String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" "  );
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition );
+        }
+        return stockistDAO.listData(className, from, to, additionalCondition.toString(), orderBy,context.getLoggedinCompany());
+
+    }
+
+    public List<? extends PrimusModel> fetchAllActive(String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+        }
+        return getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
+
+    }
+
+    public List<? extends PrimusModel> fetchAllActive(String className,
+                                                      String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+        }
+        return getDAO().fetchAllActive(className, additionalCondition.toString(), orderBy);
+
+    }
+
 
 }

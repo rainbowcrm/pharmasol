@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "STOCKISTS")
@@ -117,5 +118,28 @@ public class Stockist extends PrimusBusinessModel {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	Collection<StockistAssociation> stockistAssociations ;
+
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "stockist" )
+	public Collection<StockistAssociation> getStockistAssociations() {
+		return stockistAssociations;
+	}
+
+	public void setStockistAssociations(Collection<StockistAssociation> stockistAssociations) {
+		this.stockistAssociations = stockistAssociations;
+	}
+
+	Boolean associatedForCompany;
+
+	@Transient
+	public Boolean getAssociatedForCompany() {
+		return associatedForCompany;
+	}
+
+	public void setAssociatedForCompany(Boolean associatedForCompany) {
+		this.associatedForCompany = associatedForCompany;
 	}
 }

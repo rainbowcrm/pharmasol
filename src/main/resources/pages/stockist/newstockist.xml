@@ -17,7 +17,7 @@
                 <Section type="detail">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
+                    <Element label="Code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
                              property="description"/>
