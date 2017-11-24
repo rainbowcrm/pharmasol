@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="stockistAssociation" showinFrame="true" title="Stockist Association | Primus CRM "
+      Object="com.primus.externals.stockist.model.StockistAssociation"
+      Controller="com.primus.externals.stockist.controller.StockistAssociationController">
+    <Template type="CRUD" name="CRUDTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=stockists</Forward>
+        <Forward key="SAVE">stockists</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="detail">
+                    <Element label="" type="UILabel"  Id="hdnId"  property="stockist.id"/>
+                    <Element label="Name" type="UILabel"  Id="txtname" style="crudlabel"  size="10" property="stockist.name"/>
+                    <Element label="Region" type="UIList"  Id="LstRegion"   property="region.id">
+                        <options populator="getAllRegions" >
+                        </options>
+                    </Element>
+                    <Element label="Location" type="UIList"  Id="LstLocations"   size="10" property="location.id">
+                        <options populator="getAllLocations" >
+                        </options>
+                    </Element>
+                    <Element label="Description" type="UILabel"  Id="txtDescription"  property="description"/>
+
+
+                </Section>
+            </CoreSection>
+        </UIForm>
+    </Elements>
+</Page>

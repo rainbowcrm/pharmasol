@@ -53,10 +53,32 @@ public class StockistDAO extends AbstractDAO{
     }
 
 
+
     public List<PrimusModel> listData(String table, int from , int to , String whereCondition, String orderby, int companyId ) {
+        Query query =  em.createQuery("from " + table   +  ((Utils.isNull(whereCondition))?"":whereCondition) +
+                " " + ((Utils.isNull(orderby))?"": (" order by " + orderby) ) );
+        query.setFirstResult(from);
+        query.setMaxResults(to-from);
+        List<PrimusModel> ans = query.getResultList();
+        if(!Utils.isNull(ans)) {
+            ans.forEach( model ->  {
+                Stockist stockist  =(Stockist) model ;
+                StockistAssociation association = getAssociation(stockist.getId(),companyId);
+                if(association != null)
+                    stockist.setAssociatedForCompany(association.getAssociated());
+                else
+                    stockist.setAssociatedForCompany(false);
+            } );
+        }
+
+        return ans;
+
+    }
+
+   /* public List<PrimusModel> listData(String table, int from , int to , String whereCondition, String orderby, int companyId ) {
 // left outer join  Stockist.address address  &&  address.city,address.phone ,
-        Query query =  em.createQuery(" select Stockist.id, Stockist.code , Stockist.name,Stockist.contactPerson, address.city,address.phone,  association.associated ,association.company.id " +
-                "  from Stockist Stockist  left outer join  Stockist.stockistAssociations association left outer join  Stockist.address address  "  +  ((Utils.isNull(whereCondition))?"":whereCondition) +
+        Query query =  em.createQuery(" select Stockist.id, Stockist.code , Stockist.name,Stockist.contactPerson,   association.associated ,association.company.id " +
+                "  from Stockist Stockist  left  join    Stockist.stockistAssociations association where association.company.id = " +  companyId + "     "  +  ((Utils.isNull(whereCondition))?"":whereCondition) +
                 " " + ((Utils.isNull(orderby))?"": (" order by " + orderby) ) );
         query.setFirstResult(from);
         query.setMaxResults(to-from);
@@ -66,7 +88,7 @@ public class StockistDAO extends AbstractDAO{
             ans.forEach( objects ->  {
                 int id = Integer.parseInt(String.valueOf(objects[0]));
                 String associatedCompany = String.valueOf(objects[7]);
-                if(Utils.isNullString(associatedCompany) ||associatedCompany.equalsIgnoreCase(String.valueOf(companyId)) ) {
+               // if(Utils.isNullString(associatedCompany) ||associatedCompany.equalsIgnoreCase(String.valueOf(companyId)) ) {
                     String code = String.valueOf(objects[1]);
                     String name = String.valueOf(objects[2]);
                     String contactPerson = String.valueOf(objects[3]);
@@ -83,14 +105,14 @@ public class StockistDAO extends AbstractDAO{
                     uiStockist.getAddress().setPhone(phone);
                     uiStockist.setAssociatedForCompany(Boolean.valueOf(associated));
                     results.add(uiStockist);
-                }
+                //}
 
 
             } );
         }
 
         return results;
-    }
+    }*/
 
 }
 

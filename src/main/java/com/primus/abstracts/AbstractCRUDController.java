@@ -27,6 +27,11 @@ public abstract class AbstractCRUDController   extends CRUDController {
     public String getCompanyName() {
         return  ((ProductContext) getContext()).getLoggedinCompanyCode() ;
     }
+    public  ProductContext getProductContext()
+
+    {
+        return (ProductContext) getContext() ;
+    }
     private AbstractService getService ()
     {
         String serviceName = getServiceName() ;

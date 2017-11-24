@@ -123,7 +123,7 @@ public class Stockist extends PrimusBusinessModel {
 	Collection<StockistAssociation> stockistAssociations ;
 
 
-	@OneToMany(cascade= CascadeType.ALL, mappedBy = "stockist" )
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "stockist",fetch = FetchType.LAZY)
 	public Collection<StockistAssociation> getStockistAssociations() {
 		return stockistAssociations;
 	}

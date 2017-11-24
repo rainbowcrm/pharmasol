@@ -44,12 +44,18 @@ public class StockistService extends AbstractService {
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
 
+    public StockistAssociation getStockistAssociation (int stockistId,  ProductContext context)
+    {
+        StockistAssociation association = stockistDAO.getAssociation(stockistId,context.getCompany().getId());
+        return association ;
+    }
      public List<RadsError> associateStockist (int stockistId, Location location , ProductContext context, boolean associated)
      {
 
          StockistAssociation association = stockistDAO.getAssociation(stockistId,context.getCompany().getId());
          if(association != null) {
              association.setAssociated(associated);
+             association.setLocation(location);
              stockistDAO.update(association);
          }else {
              Stockist stockist = (Stockist) getById(stockistId);
@@ -57,6 +63,7 @@ public class StockistService extends AbstractService {
              StockistAssociation association1 =new StockistAssociation();
              association1.setAssociated(associated);
              association1.setCompany(company);
+             association1.setLocation(location);
              association1.setStockist(stockist);
              stockistDAO.create(association1);
          }
@@ -65,6 +72,33 @@ public class StockistService extends AbstractService {
          return null;
 
      }
+
+    public List<RadsError> associateStockist (StockistAssociation newAssociation , ProductContext context)
+    {
+
+        StockistAssociation association = stockistDAO.getAssociation(newAssociation.getStockist().getId(),context.getCompany().getId());
+        if(association != null) {
+            association.setAssociated(newAssociation.getAssociated());
+            association.setLocation(newAssociation.getLocation());
+            association.setDescription(newAssociation.getDescription());
+
+            stockistDAO.update(association);
+        }else {
+            Stockist stockist = (Stockist) getById(newAssociation.getStockist().getId());
+            Company company =context.getCompany() ;
+            StockistAssociation association1 =new StockistAssociation();
+            association1.setAssociated(newAssociation.getAssociated());
+            association1.setCompany(company);
+            association1.setLocation(newAssociation.getLocation());
+            association1.setDescription(newAssociation.getDescription());
+            association1.setStockist(stockist);
+            stockistDAO.create(association1);
+        }
+
+
+        return null;
+
+    }
 
 
     public long getTotalRecordCount(ProductContext context, String whereCondition) {

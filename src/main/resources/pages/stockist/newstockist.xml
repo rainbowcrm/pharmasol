@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id="newStockist" showinFrame="true" title="Stockist | Primus WFM | Primus WFM"
+<Page id="newStockist" showinFrame="true" title="Stockist | Primus CRM "
       Object="com.primus.externals.stockist.model.Stockist"
       Controller="com.primus.externals.stockist.controller.StockistController">
     <Template type="CRUD" name="CRUDTemplate"></Template>

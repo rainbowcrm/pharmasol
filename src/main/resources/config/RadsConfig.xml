@@ -39,6 +39,9 @@
         </Page>
         <Page id = "newstockist" definition ="/resources/pages/stockist/newstockist.xml" modelclass = "com.primus.externals.stockist.model.Stockist" >
         </Page>
+        <Page id = "stockistAssociation" definition ="/resources/pages/stockist/stockistAssociation.xml" modelclass = "com.primus.externals.stockist.model.StockistAssociation" >
+        </Page>
+
 
         <Page id = "departments" definition ="/resources/pages/department/departmentList.xml" modelclass = "com.primus.admin.department.model.Department" >
         </Page>
