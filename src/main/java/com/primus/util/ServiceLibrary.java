@@ -12,6 +12,8 @@ import com.primus.common.login.service.LoginService;
 import com.primus.abstracts.AbstractService;
 import com.primus.common.user.service.UserService;
 import com.primus.common.user.validator.UserValidator;
+import com.primus.externals.doctor.service.DoctorService;
+import com.primus.externals.doctor.validator.DoctorValidator;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.stockist.validator.StockistValidator;
 import com.primus.externals.store.service.StoreService;
@@ -102,6 +104,14 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     StoreValidator storeValidator;
 
+    @Autowired
+    DoctorService doctorService;
+
+    @Autowired
+    DoctorValidator doctorValidator;
+
+
+
     public  ApplicationManager getApplicationManager()
    {
        return applicationManager ;
@@ -130,6 +140,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "RegionService" : return regionService ;
             case "StockistService": return stockistService ;
             case "StoreService": return storeService ;
+            case "DoctorService": return doctorService ;
 
         }
         return null;
@@ -148,6 +159,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "RegionValidator" : return regionValidator;
            case "StockistValidator" : return stockistValidator;
            case "StoreValidator" : return storeValidator ;
+           case "DoctorValidator" : return doctorValidator;
 
        }
 

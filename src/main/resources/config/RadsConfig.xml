@@ -41,12 +41,17 @@
         </Page>
         <Page id = "stockistAssociation" definition ="/resources/pages/stockist/stockistAssociation.xml" modelclass = "com.primus.externals.stockist.model.StockistAssociation" >
         </Page>
-
         <Page id = "stores" definition ="/resources/pages/store/storeList.xml" modelclass = "com.primus.externals.store.model.Store" >
         </Page>
         <Page id = "newstore" definition ="/resources/pages/store/newstore.xml" modelclass = "com.primus.externals.store.model.Store" >
         </Page>
         <Page id = "storeAssociation" definition ="/resources/pages/store/storeAssociation.xml" modelclass = "com.primus.externals.store.model.StoreAssociation" >
+        </Page>
+        <Page id = "doctors" definition ="/resources/pages/doctor/doctorList.xml" modelclass = "com.primus.externals.doctor.model.Doctor" >
+        </Page>
+        <Page id = "newdoctor" definition ="/resources/pages/doctor/newdoctor.xml" modelclass = "com.primus.externals.doctor.model.Doctor" >
+        </Page>
+        <Page id = "doctorAssociation" definition ="/resources/pages/doctor/doctorAssociation.xml" modelclass = "com.primus.externals.doctor.model.DoctorAssociation" >
         </Page>
 
         <Page id = "departments" definition ="/resources/pages/department/departmentList.xml" modelclass = "com.primus.admin.department.model.Department" >
@@ -160,7 +165,7 @@
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="External_Parties" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Stockists"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stores" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
-                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Doctors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Doctors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
 
