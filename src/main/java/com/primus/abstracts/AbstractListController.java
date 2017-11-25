@@ -31,6 +31,7 @@ public abstract class AbstractListController extends ListController {
     protected  abstract  String getAddEditPageKey();
 
     public PageResult goToEdit(List<ModelObject> objects) {
+
         PageResult result = new PageResult();
         result.setNextPageKey(getAddEditPageKey());
         objects.forEach( object ->   {
@@ -234,6 +235,10 @@ public abstract class AbstractListController extends ListController {
 
     @Override
     public List<RadsError> validateforEdit(List<ModelObject> list) {
+        if(list  == null || list.size() != 1   ) {
+            RadsError error = AbstractValidator.getErrorforCode(getProductContext(), CommonErrorCodes.ONE_ROW_REQUIRED,"");
+           return Arrays.asList(error);
+        }
         return null;
     }
 
