@@ -14,6 +14,8 @@ import com.primus.common.user.service.UserService;
 import com.primus.common.user.validator.UserValidator;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.stockist.validator.StockistValidator;
+import com.primus.externals.store.service.StoreService;
+import com.primus.externals.store.validator.StoreValidator;
 import com.primus.framework.nextup.NextUPSQL;
 import com.primus.admin.department.service.DepartmentService;
 import com.primus.admin.department.validator.DepartmentValidator;
@@ -94,6 +96,11 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     StockistValidator stockistValidator;
 
+    @Autowired
+    StoreService storeService;
+
+    @Autowired
+    StoreValidator storeValidator;
 
     public  ApplicationManager getApplicationManager()
    {
@@ -122,6 +129,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "RoleService" : return roleService ;
             case "RegionService" : return regionService ;
             case "StockistService": return stockistService ;
+            case "StoreService": return storeService ;
 
         }
         return null;
@@ -139,6 +147,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "RoleValidator" : return roleValidator;
            case "RegionValidator" : return regionValidator;
            case "StockistValidator" : return stockistValidator;
+           case "StoreValidator" : return storeValidator ;
 
        }
 

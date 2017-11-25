@@ -11,6 +11,7 @@ import com.primus.common.filter.service.FilterService;
 import com.primus.common.login.service.LoginService;
 import com.primus.common.user.service.UserService;
 import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.store.service.StoreService;
 import com.primus.util.ServiceLibrary;
 
 
@@ -80,6 +81,12 @@ public class ServiceFactory {
     public static StockistService getStockistService()
     {
         StockistService service = (StockistService)ServiceLibrary.services().getService("StockistService")  ;
+        return service ;
+    }
+
+    public static StoreService getStoreService()
+    {
+        StoreService service = (StoreService)ServiceLibrary.services().getService("StoreService")  ;
         return service ;
     }
 
