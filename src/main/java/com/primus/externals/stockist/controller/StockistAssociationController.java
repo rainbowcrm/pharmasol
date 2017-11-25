@@ -1,12 +1,20 @@
 package com.primus.externals.stockist.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
+import com.primus.admin.region.model.Location;
+import com.primus.admin.region.model.Region;
+import com.primus.admin.region.service.RegionService;
+import com.primus.common.CommonUtil;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.stockist.model.StockistAssociation;
 import com.primus.externals.stockist.service.StockistService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StockistAssociationController extends AbstractCRUDController {
 
@@ -33,5 +41,29 @@ public class StockistAssociationController extends AbstractCRUDController {
         result.setNextPageKey("stockists");
         result.setResult(TransactionResult.Result.SUCCESS);
         return result;
+    }
+
+    public Map<String,String> getAllRegions()
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Region> regions =(List<Region> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        regions.forEach( region ->  {
+            ans.put(String.valueOf(region.getId()),region.getName());
+        });
+        return ans;
+
+    }
+
+    public Map<String,String> getAllLocations()
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Location> locations =(List<Location> ) service.fetchAllActive("com.primus.admin.region.model.Location",null,"name", getProductContext()) ;
+        locations.forEach( location ->  {
+            ans.put(String.valueOf(location.getId()),location.getName());
+        });
+        return ans;
+
     }
 }

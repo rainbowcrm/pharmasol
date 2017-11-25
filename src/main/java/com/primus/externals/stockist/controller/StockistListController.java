@@ -51,7 +51,13 @@ public class StockistListController extends AbstractListController{
             PageResult result = new PageResult();
             result.setNextPageKey("stockistAssociation");
             Stockist currentOne = (Stockist)list.get(0);
+            currentOne = (Stockist)service.getById(currentOne.getId());
             StockistAssociation association = service.getStockistAssociation(currentOne.getId(),getProductContext());
+            if(association == null) {
+                association  =new StockistAssociation();
+                association.setStockist(currentOne);
+
+            }
             result.setObject(association);
             return result ;
 
