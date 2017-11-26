@@ -177,30 +177,43 @@
             <Element type="UITable" style="topbartable" rows="1" cols="6" align="left">
                 <Element type="UITableRow" align="left">
                     <Element type="UITableCol" width="5%" align="center">
-                        <Element label="" type="UIImage" height="30" width="30" src="./images/customer-icon.png"
-                                 style="threedimage" title="Divisions"
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/region.jpg"
+                                 style="threedimage" title="Regions"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=regions')"/>
+                    </Element>
+                    <Element type="UITableCol" width="5%" align="center">
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/role.png"
+                                 title="Roles" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=roles')"/>
+                    </Element>
+                    <Element type="UITableCol" width="5%" align="center">
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/division.png"
+                                 title="Divisions" style="threedimage"
                                  onClickJS="refreshIFrameSrc('frmFameId','./controller?page=divisions')"/>
                     </Element>
                     <Element type="UITableCol" width="5%" align="center">
-                        <Element label="" type="UIImage" height="30" width="30" src="./images/sales.png"
-                                 title="Departments" style="threedimage"
-                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=departments')"/>
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/users.png"
+                                 title="Users" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=users')"/>
                     </Element>
                     <Element type="UITableCol" width="5%" align="center">
-                        <Element label="" type="UIImage" height="30" width="30" src="./images/operations.jpg"
-                                 title="Roles" style="threedimage"
-                                 onClickJS="window.location.href ='rdscontroller?page=customers'"/>
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/stockists.png"
+                                 title="Stockists" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=stockists')"/>
                     </Element>
                     <Element type="UITableCol" width="5%" align="center">
-                        <Element label="" type="UIImage" height="30" width="30" src="./images/alerts.png" title="Users"
-                                 style="threedimage" onClickJS="window.location.href ='rdscontroller?page=alerts'"/>
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/store.jpg"
+                                 title="Stores" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=stores')"/>
                     </Element>
                     <Element type="UITableCol" width="5%" align="center">
-                        <Element label="" type="UIImage" height="30" width="30" src="./images/purchase.png"
-                                 title="Dashboard" style="threedimage"
-                                 onClickJS="window.location.href ='rdscontroller?page=topic'"/>
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/doctor.jpg"
+                                 title="Doctors" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=doctors')"/>
                     </Element>
-                    <Element type="UITableCol" width="75%">
+
+
+                    <Element type="UITableCol" width="65%">
                         <Element label="" type="UIDiv" style="input-group col-md-12">
                             <Element label="" type="UIText" width="50%" Id="txtGlobalSearch" style="searchstyle"
                                      placeholder="Global Search..."/>
