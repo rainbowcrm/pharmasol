@@ -27,6 +27,8 @@
                         <options populator="getFiniteValues" populatorParam="SPECIAL">
                         </options>
                     </Element>
+                    <Element label="Hospital" type="UIText" isMandatory="false" Id="txtHospital"
+                             property="hospital"/>
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
                              property="description"/>
                     <Element label="Address1" type="UIText" isMandatory="true" Id="txtaddress1"

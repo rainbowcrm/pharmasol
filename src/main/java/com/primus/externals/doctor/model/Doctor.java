@@ -97,6 +97,18 @@ public class Doctor extends PrimusBusinessModel {
 		address  = val;
 	}
 
+
+	String hospital;
+
+	@Column(name  ="HOSPITAL")
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
+	}
+
 	String alternatePhone;
 
 

@@ -4,6 +4,8 @@ import com.primus.ApplicationManager;
 import com.primus.abstracts.AbstractValidator;
 import com.primus.admin.region.service.RegionService;
 import com.primus.admin.region.validator.RegionValidator;
+import com.primus.admin.zone.service.ZoneService;
+import com.primus.admin.zone.validator.ZoneValidator;
 import com.primus.common.GeneralSQL;
 import com.primus.common.company.service.CompanyService;
 import com.primus.common.company.validator.CompanyValidator;
@@ -110,6 +112,12 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     DoctorValidator doctorValidator;
 
+    @Autowired
+    ZoneService zoneService;
+
+    @Autowired
+    ZoneValidator zoneValidator;
+
 
 
     public  ApplicationManager getApplicationManager()
@@ -141,6 +149,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "StockistService": return stockistService ;
             case "StoreService": return storeService ;
             case "DoctorService": return doctorService ;
+            case "ZoneService": return zoneService ;
 
         }
         return null;
@@ -160,6 +169,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "StockistValidator" : return stockistValidator;
            case "StoreValidator" : return storeValidator ;
            case "DoctorValidator" : return doctorValidator;
+           case "ZoneValidator" : return zoneValidator;
 
        }
 

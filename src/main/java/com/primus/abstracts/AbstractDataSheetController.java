@@ -1,7 +1,9 @@
 package com.primus.abstracts;
 
 import com.primus.common.CommonUtil;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
+import com.primus.common.application.Product;
 import com.primus.common.filter.model.PRMFilter;
 import com.primus.common.filter.service.FilterService;
 import com.primus.util.ServiceLibrary;
@@ -11,6 +13,7 @@ import com.techtrade.rads.framework.filter.Filter;
 import com.techtrade.rads.framework.filter.FilterNode;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.ui.abstracts.UIPage;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
@@ -18,6 +21,7 @@ import com.techtrade.rads.framework.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +34,6 @@ public abstract class AbstractDataSheetController extends DataSheetController {
 
     protected  abstract String getValidatorName();
 
-    protected  abstract  String getAddEditPageKey();
 
     private AbstractValidator getValidator()
     {
@@ -53,13 +56,15 @@ public abstract class AbstractDataSheetController extends DataSheetController {
     }
 
     @Override
-    public IRadsContext generateContext(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, UIPage uiPage) {
-        return null;
+    public IRadsContext generateContext(HttpServletRequest request,HttpServletResponse response,UIPage page) {
+        return CommonUtil.generateContext(request,page);
     }
 
+
+
     @Override
-    public IRadsContext generateContext(String s, UIPage uiPage) {
-        return null;
+    public IRadsContext generateContext(String authToken,UIPage page) {
+        return CommonUtil.generateContext(authToken,page);
     }
 
     protected String getFilter(Filter filterData ) {
@@ -152,24 +157,48 @@ public abstract class AbstractDataSheetController extends DataSheetController {
 
 
     @Override
-    public List<ModelObject> getData(int i, Filter filter, SortCriteria sortCriteria) {
-        return null;
+    public List<ModelObject> getData(int pageNumber, Filter filter,SortCriteria sortCriteria) {
+        int from  = (pageNumber-1)*recordsPerPage ;
+        AbstractService serv = getService();
+        return (List)serv.listData(from,  from + recordsPerPage, getFilter(filter),(ProductContext) getContext(),sortCriteria);
+
     }
 
 
 
     @Override
     public int getTotalNumberofPages(Filter filter) {
-        return 0;
+        long totalRecords = getService().getTotalRecordCount((ProductContext) getContext(),getFilter(filter));
+        int rem = (int)totalRecords % recordsPerPage ;
+        if (rem > 0 )
+            return (int)( totalRecords /recordsPerPage ) + 1;
+        else
+            return(int)( totalRecords /recordsPerPage );
     }
 
     @Override
     public long getTotalNumberofRecords(Filter filter) {
-        return 0;
+        long totalRecords = getService().getTotalRecordCount((ProductContext) getContext(),getFilter(filter));
+        return totalRecords;
     }
 
     @Override
-    public PageResult delete(List<ModelObject> list) {
+    public PageResult delete(List<ModelObject> objects) {
+        for (ModelObject object : objects) {
+            ((PrimusModel)object).setDeleted(true);
+        }
+        AbstractService serv = getService();
+        try {
+            return new PageResult( serv.batchUpdate((List)objects, (ProductContext) getContext()));
+        }catch(Exception ex) {
+            Logger.logException("Error",this.getClass(),ex);
+            return new PageResult( TransactionResult.Result.FAILURE,null,null);
+        }
+
+    }
+
+    @Override
+    public PageResult goToEdit(List<ModelObject> objects) {
         return null;
     }
 
@@ -188,16 +217,20 @@ public abstract class AbstractDataSheetController extends DataSheetController {
         return null;
     }
 
-    @Override
-    public PageResult goToEdit(List<ModelObject> list) {
-        return null;
-    }
+
 
     @Override
-    public List<ModelObject> populateFullObjectfromPK(List<ModelObject> list) {
-        return null;
+    public List<ModelObject> populateFullObjectfromPK(List<ModelObject> objects) {
+        AbstractService serv = getService();
+        List<ModelObject> fullObjects = new ArrayList<ModelObject>();
+        if (!Utils.isNullList(objects)) {
+            for (ModelObject obj : objects) {
+                ModelObject fullObj = (ModelObject)serv.getById(obj.getPK());
+                fullObjects.add(fullObj);
+            }
+        }
+        return fullObjects;
     }
-
     @Override
     public List<RadsError> validateforCreate() {
         return null;
@@ -225,7 +258,13 @@ public abstract class AbstractDataSheetController extends DataSheetController {
 
     @Override
     public PageResult update() {
-        return null;
+        AbstractService service = getService();
+        try {
+            return new PageResult( service.batchUpdate((List)objects, (ProductContext) getContext()));
+        }catch(Exception ex) {
+            Logger.logException("Failed" ,this.getClass(),ex);
+            return new PageResult( TransactionResult.Result.FAILURE,null,null);
+        }
     }
 
     public Map<String,String> getFiniteValues(String groupCode)

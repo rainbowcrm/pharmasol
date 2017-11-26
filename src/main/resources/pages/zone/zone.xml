@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "newZone" showinFrame ="true" title ="Zone | Primus Solutions" Object = "com.primus.admin.zone.model.Zone"
+      Controller = "com.primus.admin.zone.controller.ZoneController">
+
+<Template type= "DataSheet"  name = "DataSheetTemplate"></Template>
+    <Forwards>
+        <Forward key ="NEW">controller?page=newZone</Forward>
+        <Forward key ="EDIT">controller?page=newZone</Forward>
+    </Forwards>
+    <AjaxGroups>
+        <AjaxGroup service ="filterSearch">
+            <requestElements>
+                <requestElement key = "filterId">lstSavedFilters</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key = "FilterName" >txtFilterName</responseElement>
+                                    <responseElement key = "name" >txtname</responseElement>
+                                    <responseElement key = "zoneType" >txtzoneType</responseElement>
+                            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
+
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <CoreSection>
+            <ErrorSection>
+            </ErrorSection>
+            <FilterSection>
+            <FilterNode>
+                <Element label = "Saved_Filters"  type = "UIList" Id = "lstSavedFilters"   property ="" >
+                    <options populator =  "getSavedFiters">
+                    </options>
+                </Element>
+            </FilterNode>
+                              <FilterNode> 
+ <Element label = "Name"   type = "UIText" Id = "txtname "  property ="name"  /> 
+  </FilterNode> 
+                              <FilterNode> 
+ <Element label = "Type"   type = "UIList" Id = "txtzoneType "  property ="zoneType"  /> 
+  </FilterNode> 
+                        </FilterSection>
+             <ListSection >
+                <Columns allowrowselection ="Multiple" uniqueproperty = "Id">
+                <SelectionColumn   >
+                    <Element label = ""  type = "UICheckBox" Id = "idChkSel"  rendered="!Object.isDeleted"  property ="Id" />
+                    <Element label = ""  type = "UIImage" Id = "idChkSel"  rendered="Object.isDeleted" height = "21" weight ="21" src= "./images/deletedRow.jpg" />
+                </SelectionColumn>
+                                      <Column title ="Name"   sortField="NAME" width="25%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="name" />   </Column> 
+                                      <Column title ="Type"   sortField="ZONE_TYPE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="zoneType" />   </Column> 
+                                      <Column title ="Description"   sortField="DESCRIPTION" width="35%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="description" />   </Column> 
+                                 </Columns>
+             </ListSection>
+             <DataEntryColumns>
+             <Column width ="5%">
+             <Element label = ""  type = "UIHidden" Id = "idID"  size  = "40" property ="Id" />
+             </Column>
+                           <Column width ="field.$listFieldWidth %">
+                  <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" />
+              </Column>
+                           <Column width ="field.$listFieldWidth %">
+                  <Element label = "Type" type = "UIList" isMandatory="true" Id = "lstzoneType" property ="zoneType.code" >
+<options  populator = "getFiniteValues" populatorParam = "ZONETYPE">  
+ </options>
+</Element>
+              </Column>
+                           <Column width ="field.$listFieldWidth %">
+                  <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
+              </Column>
+                          </DataEntryColumns>
+        </CoreSection>
+         <Section type ="summary">
+             <Element caption = "Add"  type = "UIButton"    Id = "btnAdd"  style="btn btn-primary" iconStyle="glyphicon glyphicon-plus" fixedAction ="FixedAction.ACTION_PAGEFORWARD" fixedActionParam =  "NEW" />
+             <Element caption = "Edit"  type = "UIButton"    Id = "btnEdit"  style="btn btn-warning" iconStyle="glyphicon glyphicon-pencil" fixedAction ="FixedAction.ACTION_GOEDITMODE"  fixedActionParam =  "EDIT"  />
+             <Element caption = "Delete"  type = "UIButton" Id = "btnDel"  style="btn btn-danger" iconStyle="glyphicon glyphicon-trash"  fixedAction ="FixedAction.ACTION_DELETE"  fixedActionParam =  "DELETE"
+                      fixedActionvalidateFunc ="deleteFromList()"/>
+             <Element type= "Panel" key= "NavPanel"  style = "sameline" ></Element>
+         </Section>
+         <Section type ="copyRightSection"/>
+    </Elements>
+ </Page>

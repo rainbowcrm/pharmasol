@@ -31,6 +31,8 @@
         </Page>
         <Page id = "newdivision" definition ="/resources/pages/division/newdivision.xml" modelclass = "com.primus.admin.division.model.Division" >
         </Page>
+        <Page id = "zones" definition ="/resources/pages/zone/zoneList.xml" modelclass = "com.primus.admin.zone.model.Zone" >
+        </Page>
         <Page id = "regions" definition ="/resources/pages/region/regionList.xml" modelclass = "com.primus.admin.region.model.Region" >
         </Page>
         <Page id = "newregion" definition ="/resources/pages/region/newregion.xml" modelclass = "com.primus.admin.region.model.Region" >
@@ -155,6 +157,7 @@
 
         <Panel key = "adminMenuPanel"   showInDiv = "false">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Setup" groupId= "menuGRP001"  >
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Zones"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=zones" iconStyle="fa fa-fw fa-sitemap"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Regions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=regions" iconStyle="fa fa-fw fa-flag"  />
                 <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Roles" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
                 <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-university"  />
