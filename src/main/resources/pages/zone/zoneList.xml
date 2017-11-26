@@ -2,7 +2,7 @@
 <Page id="Zones" showinFrame="true" title="Zone | Primus WFM | Primus WFM" Object="com.primus.admin.zone.model.Zone"
       Controller="com.primus.admin.zone.controller.ZoneController">
 
-    <Template type="List" name="ListTemplate"></Template>
+    <Template type="DataSheet" name="DataSheetTemplate"></Template>
     <Forwards>
         <Forward key="NEW">controller?page=zones</Forward>
         <Forward key="EDIT">controller?page=zones</Forward>
@@ -85,18 +85,23 @@
                 </DataEntryColumns>
             </ListSection>
         </CoreSection>
-        <Section type="summary">
-            <Element caption="Add" type="UIButton" Id="btnAdd" style="btn btn-primary"
-                     iconStyle="glyphicon glyphicon-plus" fixedAction="FixedAction.ACTION_PAGEFORWARD"
-                     fixedActionParam="NEW"/>
-            <Element caption="Edit" type="UIButton" Id="btnEdit" style="btn btn-warning"
-                     iconStyle="glyphicon glyphicon-pencil" fixedAction="FixedAction.ACTION_GOEDITMODE"
-                     fixedActionParam="EDIT"/>
-            <Element caption="Delete" type="UIButton" Id="btnDel" style="btn btn-danger"
-                     iconStyle="glyphicon glyphicon-trash" fixedAction="FixedAction.ACTION_DELETE"
-                     fixedActionParam="DELETE"
-                     fixedActionvalidateFunc="deleteFromList()"/>
-            <Element type="Panel" key="NavPanel" style="sameline"></Element>
+        <Section type ="summary">
+            <If check="Controller.isReadMode">
+                <Element caption="Add" type="UIButton" Id="btnAdd" style="btn btn-primary"
+                         iconStyle="glyphicon glyphicon-plus" fixedAction="FixedAction.ACTION_GOADDMODE"
+                         fixedActionParam="NEW"/>
+                <Element caption="Edit" type="UIButton" Id="btnEdit" style="btn btn-warning"
+                         iconStyle="glyphicon glyphicon-pencil" fixedAction="FixedAction.ACTION_GOEDITMODE"
+                         fixedActionParam="EDIT"/>
+                <Element caption="Delete" type="UIButton" Id="btnDel" style="btn btn-danger"
+                         iconStyle="glyphicon glyphicon-trash" fixedAction="FixedAction.ACTION_DELETE"
+                         fixedActionParam="DELETE"
+                         fixedActionvalidateFunc="deleteFromList()"/>
+                <Element type="Panel" key="NavPanel" style="sameline"></Element>
+            </If>
+            <If check="Controller.isCreateorEditMode">
+                <Element type="Panel" key="CRUDPanel" style="sameline"></Element>
+            </If>
         </Section>
         <Section type="copyRightSection"/>
     </Elements>
