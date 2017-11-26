@@ -49,7 +49,7 @@
                                       <Column title ="code"   sortField="REGION_CODE" width="15%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="code" />   </Column> 
                                       <Column title ="Name"   sortField="REGION_NAME" width="25%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="name" />   </Column> 
                                       <Column title ="Head"   sortField="REGION_HEAD" width="25%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="head" />   </Column> 
-                                      <Column title ="Description"   sortField="DESCRIPTION" width="35%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="description" />   </Column> 
+                                      <Column title ="Zone"   sortField="ZONE.NAME" width="35%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="zone.name" />   </Column>
                                  </Columns>
              </ListSection>
         </CoreSection>

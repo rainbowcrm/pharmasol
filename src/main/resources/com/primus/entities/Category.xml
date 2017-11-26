@@ -1,0 +1,54 @@
+<CodeGenEntity>
+    <entityName>Category</entityName>
+    <rootpackage>com.primus.merchandise.category</rootpackage>
+    <tableName>CATEGORIES</tableName>
+    <controllerType>AbstractDataSheetController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\category</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\category</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>CATEGORY_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>type</fieldName>
+            <dbFieldName>SPECIALIZATION</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>SPECIAL</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Type</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>
+

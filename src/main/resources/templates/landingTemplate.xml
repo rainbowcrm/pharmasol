@@ -34,6 +34,9 @@
         <Section Id ="adminshortCutBar"  style ="shortcutbar"  >
             <Panel key ="adminShortcutbar"  Id ="scutBR" > </Panel>
         </Section>
+        <Section Id ="operationsshortCutBar"  style ="shortcutbar"  >
+            <Panel key ="operationsShortcutbar"  Id ="scutBR" > </Panel>
+        </Section>
         <Section Id ="hrshortCutBar"  style ="shortcutbar"  >
             <Panel key ="hrShortcutbar"  Id ="hrBR" > </Panel>
         </Section>
@@ -42,6 +45,9 @@
         </Section>
         <Section Id ="adminleftsideBar"  style ="leftnav"  >
             <Panel key ="adminMenuPanel"  Id ="leftnav" > </Panel>
+        </Section>
+        <Section Id ="operationsleftsideBar"  style ="leftnav"  >
+            <Panel key ="operationsMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
         <Section Id ="hrleftsideBar"  style ="leftnav"  >
             <Panel key ="hrMenuPanel"  Id ="leftnav" > </Panel>

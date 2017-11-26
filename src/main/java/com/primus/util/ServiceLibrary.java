@@ -27,6 +27,8 @@ import com.primus.admin.role.service.RoleService;
 import com.primus.admin.role.validator.RoleValidator;
 import com.primus.admin.division.service.DivisionService;
 import com.primus.admin.division.validator.DivisionValidator;
+import com.primus.merchandise.category.service.CategoryService;
+import com.primus.merchandise.category.validator.CategoryValidator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -118,6 +120,11 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     ZoneValidator zoneValidator;
 
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    CategoryValidator categoryValidator;
 
 
     public  ApplicationManager getApplicationManager()
@@ -150,6 +157,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "StoreService": return storeService ;
             case "DoctorService": return doctorService ;
             case "ZoneService": return zoneService ;
+            case "CategoryService" : return categoryService;
 
         }
         return null;
@@ -170,6 +178,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "StoreValidator" : return storeValidator ;
            case "DoctorValidator" : return doctorValidator;
            case "ZoneValidator" : return zoneValidator;
+           case "CategoryValidator" : return categoryValidator;
 
        }
 

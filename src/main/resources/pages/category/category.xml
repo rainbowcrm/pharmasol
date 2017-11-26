@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id="Zones" showinFrame="true" title="Zone | Primus WFM " Object="com.primus.admin.zone.model.Zone"
-      Controller="com.primus.admin.zone.controller.ZoneController">
+<Page id="newCategory" showinFrame="true" title="Category | Primus Solutions"
+      Object="com.primus.merchandise.category.model.Category"
+      Controller="com.primus.merchandise.category.controller.CategoryController">
 
     <Template type="DataSheet" name="DataSheetTemplate"></Template>
     <Forwards>
-        <Forward key="NEW">controller?page=zones</Forward>
-        <Forward key="EDIT">controller?page=zones</Forward>
+        <Forward key="NEW">controller?page=categories</Forward>
+        <Forward key="EDIT">controller?page=categories</Forward>
     </Forwards>
     <AjaxGroups>
         <AjaxGroup service="filterSearch">
@@ -15,7 +16,7 @@
             <responseElements>
                 <responseElement key="FilterName">txtFilterName</responseElement>
                 <responseElement key="name">txtname</responseElement>
-                <responseElement key="zoneType">txtzoneType</responseElement>
+                <responseElement key="type">txttype</responseElement>
             </responseElements>
         </AjaxGroup>
     </AjaxGroups>
@@ -37,7 +38,7 @@
                     <Element label="Name" type="UIText" Id="txtname " property="name"/>
                 </FilterNode>
                 <FilterNode>
-                    <Element label="Type" type="UIList" Id="txtzoneType " property="zoneType"/>
+                    <Element label="Type" type="UIList" Id="txttype " property="type"/>
                 </FilterNode>
             </FilterSection>
             <ListSection>
@@ -47,11 +48,11 @@
                         <Element label="" type="UIImage" Id="idChkSel" rendered="Object.isDeleted" height="21"
                                  weight="21" src="./images/deletedRow.jpg"/>
                     </SelectionColumn>
-                    <Column title="Name" sortField="NAME" width="25%">
+                    <Column title="Name" sortField="CATEGORY_NAME" width="25%">
                         <Element label="" type="UINote" Id="idIdNote" property="name"/>
                     </Column>
-                    <Column title="Type" sortField="ZONE_TYPE" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="zoneType.description"/>
+                    <Column title="Type" sortField="SPECIALIZATION" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="type"/>
                     </Column>
                     <Column title="Description" sortField="DESCRIPTION" width="35%">
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>
@@ -60,29 +61,32 @@
                         <Element label = ""  type = "UINote" Id = "idAdEd"   />
                     </Column>
                 </Columns>
-                <DataEntryColumns>
-                    <Column width ="5%">
-                        <Element label = ""  type = "UIHidden" Id = "idCatID"  size  = "40" property ="Id" />
-                    </Column>
-                    <Column width ="25%">
-                        <Element label = ""  type = "UIText" Id = "idCatName"  size  = "40" property ="Name" />
-                        <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
-                    </Column>
-                    <Column width ="20%" >
-                        <Element label = ""  type = "UIList" Id = "lstPrUOM"   property="zoneType.code"  externalise= "true">
-                            <options populator="getFiniteValues" populatorParam="ZONETYPE">
-                            </options>
-                         </Element>
-                    </Column>
-                    <Column width ="35%">
-                        <Element label = ""  type = "UIText" Id = "idDesc" size  = "60" property ="Description" />
-                    </Column>
-                    <Column>
-                        <Element caption = ""  style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"  type = "UIButton" Id = "btnAddRow"    fixedAction ="FixedAction.ACTION_ADDTABLEROW"   rendered = "Controller.isCreateMode" fixedActionParam =  "this"/>
-                        <Element caption = "" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"  type = "UIButton" Id = "btnDelRow"    fixedAction ="FixedAction.ACTION_DELETETABLEROW" rendered = "Controller.isCreateMode"  fixedActionParam =  "this"/>
-                    </Column>
 
-                </DataEntryColumns>
+
+            <DataEntryColumns>
+                <Column width="5%">
+                    <Element label="" type="UIHidden" Id="idID" size="40" property="Id"/>
+                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
+                </Column>
+                <Column width="25%">
+                    <Element label="" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                </Column>
+                <Column width="20%">
+                    <Element label="" type="UIList" isMandatory="true" Id="lsttype" property="type.code">
+                        <options populator="getFiniteValues" populatorParam="SPECIAL">
+                        </options>
+                    </Element>
+                </Column>
+                <Column width="35%">
+                    <Element label="" type="UIText" isMandatory="false" Id="txtdescription"
+                             property="description"/>
+                </Column>
+                <Column>
+                    <Element caption = ""  style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"  type = "UIButton" Id = "btnAddRow"    fixedAction ="FixedAction.ACTION_ADDTABLEROW"   rendered = "Controller.isCreateMode" fixedActionParam =  "this"/>
+                    <Element caption = "" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"  type = "UIButton" Id = "btnDelRow"    fixedAction ="FixedAction.ACTION_DELETETABLEROW" rendered = "Controller.isCreateMode"  fixedActionParam =  "this"/>
+                </Column>
+
+            </DataEntryColumns>
             </ListSection>
         </CoreSection>
         <Section type ="summary">
@@ -103,6 +107,7 @@
                 <Element type="Panel" key="CRUDPanel" style="sameline"></Element>
             </If>
         </Section>
+
         <Section type="copyRightSection"/>
     </Elements>
 </Page>

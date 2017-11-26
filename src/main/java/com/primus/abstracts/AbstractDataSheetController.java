@@ -214,7 +214,17 @@ public abstract class AbstractDataSheetController extends DataSheetController {
 
     @Override
     public List<RadsError> validateforEdit(List<ModelObject> list) {
-        return null;
+
+        List<RadsError> ans = new ArrayList<RadsError>();
+        AbstractValidator validator = getValidator() ;
+        for (ModelObject object: objects) {
+            validator.adaptFromUI((PrimusModel)object, (ProductContext)getContext());
+            List<RadsError> err = validator.validateForCreate((PrimusModel)object, (ProductContext)getContext(),getService());
+
+            if(!Utils.isNullList(err))
+                ans.addAll(err);
+        }
+        return ans;
     }
 
 
@@ -233,17 +243,41 @@ public abstract class AbstractDataSheetController extends DataSheetController {
     }
     @Override
     public List<RadsError> validateforCreate() {
-        return null;
+
+        List<RadsError> ans = new ArrayList<RadsError>();
+        AbstractValidator validator = getValidator() ;
+        for (ModelObject object: objects) {
+            validator.adaptFromUI((PrimusModel)object, (ProductContext)getContext());
+            List<RadsError> err = validator.validateForCreate((PrimusModel)object, (ProductContext)getContext(),getService());
+
+            if(!Utils.isNullList(err))
+                ans.addAll(err);
+        }
+        return ans;
     }
 
     @Override
     public List<RadsError> validateforUpdate() {
-        return null;
+
+        List<RadsError> ans = new ArrayList<RadsError>();
+        AbstractValidator validator = getValidator() ;
+        for (ModelObject object: objects) {
+            validator.adaptFromUI((PrimusModel)object, (ProductContext)getContext());
+            List<RadsError> err = validator.validateForUpdate((PrimusModel)object, (ProductContext)getContext(),getService());
+            if(!Utils.isNullList(err))
+                ans.addAll(err);
+        }
+        return ans;
     }
 
     @Override
     public PageResult create() {
-        return null;
+        AbstractService service = getService();
+        try {
+            return new PageResult( service.batchUpdate((List)objects, (ProductContext)getContext()));
+        }catch(Exception ex) {
+            return new PageResult(TransactionResult.Result.FAILURE,null,null);
+        }
     }
 
     @Override

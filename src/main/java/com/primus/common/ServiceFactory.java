@@ -6,6 +6,7 @@ import com.primus.admin.division.model.Division;
 import com.primus.admin.division.service.DivisionService;
 import com.primus.admin.region.service.RegionService;
 import com.primus.admin.role.service.RoleService;
+import com.primus.admin.zone.service.ZoneService;
 import com.primus.common.company.service.CompanyService;
 import com.primus.common.filter.service.FilterService;
 import com.primus.common.login.service.LoginService;
@@ -66,6 +67,11 @@ public class ServiceFactory {
         return service ;
     }
 
+    public static ZoneService getZoneService()
+    {
+        ZoneService service = (ZoneService)ServiceLibrary.services().getService("ZoneService")  ;
+        return service ;
+    }
 
     public static UserService getUserService()
     {

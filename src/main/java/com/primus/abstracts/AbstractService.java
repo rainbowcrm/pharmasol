@@ -92,10 +92,7 @@ public abstract class AbstractService {
             }
             getDAO().batchUpdate(objects);
         } catch (Exception ex) {
-          /*  RadsError error = CRMValidator.getErrorforCode(context.getLocale(),CRMDBException.ERROR_DIRTY_READ);
-            errors.add(error);
-            result = TransactionResult.Result.FAILURE ;
-            throw new CRMDBException(error) ;*/
+          Logger.logException("Mass update failed" ,this.getClass(),ex);
         }
         return new TransactionResult(result, errors);
     }

@@ -1,7 +1,13 @@
 package com.primus.admin.region.controller;
 
-import com.primus.abstracts.AbstractTransactionController;;
+import com.primus.abstracts.AbstractTransactionController;
+import com.primus.admin.region.model.Region;
+import com.primus.admin.region.service.RegionService;
+import com.primus.admin.zone.model.Zone;
+import com.primus.admin.zone.service.ZoneService;
+import com.primus.common.ServiceFactory;;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,6 +27,17 @@ public class RegionController extends AbstractTransactionController{
         return "RegionValidator";
     }
 
-     
+    public Map<String,String> getAllZones()
+    {
+        Map ans = new LinkedHashMap() ;
+        ZoneService service = ServiceFactory.getZoneService() ;
+        List<Zone> regions =(List<Zone> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        regions.forEach( zone ->  {
+            ans.put(String.valueOf(zone.getId()),zone.getName());
+        });
+        return ans;
+
+    }
+
 
 }

@@ -59,8 +59,8 @@ public class CodeGenerator {
         }
 
         if("ListUI".equalsIgnoreCase(mode) ||  "AllUI".equalsIgnoreCase(mode) || "All".equalsIgnoreCase(mode) )  {
-
-            generateUIlistPage(entity);
+            if (!"AbstractDataSheetController".equalsIgnoreCase(entity.getControllerType()))
+                generateUIlistPage(entity);
         }
     }
 

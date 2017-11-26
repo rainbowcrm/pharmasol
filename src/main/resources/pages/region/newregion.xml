@@ -19,6 +19,10 @@
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="Code" type="UIText" isMandatory="true" Id="txtRegioncode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtRegionname" property="name"/>
+                    <Element label="Zone" type="UIList"  Id="lsyZone"   property="zone.id">
+                        <options populator="getAllZones" >
+                        </options>
+                    </Element>
                     <Element label="Head" type="UIText" isMandatory="false" Id="txthead" property="head"/>
                     <Element label="Head_UserId" type="UIText" isMandatory="false" Id="txtheadUser"
                              property="headUser"/>

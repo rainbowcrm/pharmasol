@@ -42,7 +42,7 @@
                             <Element type = "UILabel" value = "Operations" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChoperations"  height = "120" width ="100" src= "./images/operations.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('operationslanding');" src= "./images/operations.jpg" />
                         </Detail>
                     </Element>
 

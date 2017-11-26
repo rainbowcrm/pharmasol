@@ -27,6 +27,12 @@ public  abstract  class AbstractTransactionController extends TransactionControl
     public String getCompanyName() {
         return  "Primus Solutions";
     }
+
+    public  ProductContext getProductContext()
+    {
+        return (ProductContext) getContext() ;
+    }
+
     private AbstractService getService ()
     {
         String serviceName = getServiceName() ;

@@ -16,10 +16,12 @@ public class PrimusBusinessModel extends  PrimusModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name  ="ID")
+    @RadsPropertySet(isPK = true)
     public int getId() {
         return id;
     }
 
+    @RadsPropertySet(isPK = true)
     public void setId(int id) {
         this.id = id;
     }
