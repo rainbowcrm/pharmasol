@@ -1,0 +1,138 @@
+<CodeGenEntity>
+    <entityName>Sku</entityName>
+    <rootpackage>com.primus.merchandise.sku</rootpackage>
+    <tableName>SKUS</tableName>
+    <controllerType>AbstractTransactionController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\item</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\item</uiLocation>
+    <codeGenFields>
+
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>barcode</fieldName>
+            <dbFieldName>BARCODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>barcode</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>SKU_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>item</fieldName>
+            <dbFieldName>ITEM_ID</dbFieldName>
+            <dataType>Item</dataType>
+            <optionsPopulator></optionsPopulator>
+            <uiRepresentation>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>medUnitValue</fieldName>
+            <dbFieldName>MED_UNIT_VALUE</dbFieldName>
+            <dataType>Double</dataType>
+            <uiRepresentation>
+                <uiLabel>Medicine_Unit_Value</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>uom</fieldName>
+            <dbFieldName>UOM_ID</dbFieldName>
+            <dataType>UOM</dataType>
+            <optionsPopulator>getSaleUOMs</optionsPopulator>
+            <uiRepresentation>
+                <uiLabel>UOM</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>unitPerPack</fieldName>
+            <dbFieldName>UNIT_PERPACK</dbFieldName>
+            <dataType>Double</dataType>
+            <uiRepresentation>
+                <uiLabel>Unit_PerPack</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>wholeSaleRate</fieldName>
+            <dbFieldName>WHOLESALE_RATE</dbFieldName>
+            <dataType>Double</dataType>
+            <uiRepresentation>
+                <uiLabel>WholeSaleRate</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>retailRate</fieldName>
+            <dbFieldName>WHOLESALE_RATE</dbFieldName>
+            <dataType>Double</dataType>
+            <uiRepresentation>
+                <uiLabel>WholeSaleRate</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+    </codeGenFields>
+</CodeGenEntity>

@@ -1,0 +1,154 @@
+<CodeGenEntity>
+    <entityName>Item</entityName>
+    <rootpackage>com.primus.merchandise.item</rootpackage>
+    <tableName>ITEMS</tableName>
+    <controllerType>AbstractTransactionController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\item</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\item</uiLocation>
+    <codeGenFields>
+
+         <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>ITEM_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>product</fieldName>
+            <dbFieldName>PRODUCT_ID</dbFieldName>
+            <dataType>Product</dataType>
+            <optionsPopulator>getProducts</optionsPopulator>
+            <uiRepresentation>
+                <uiLabel>Product</uiLabel>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>medicineUOM</fieldName>
+            <dbFieldName>MEDUNIT</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>MEDSPECUT</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Medicine_UOM</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>taxRate</fieldName>
+            <dbFieldName>TAX_RATE</dbFieldName>
+            <dataType>Double</dataType>
+            <uiRepresentation>
+                <uiLabel>Tax_Rate</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>ingrediants</fieldName>
+            <dbFieldName>INGREDIENTS</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Composition</uiLabel>
+                <showInFilter> false </showInFilter>
+                <uiControl>UITextArea</uiControl>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>usage</fieldName>
+            <dbFieldName>USAGE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Usage</uiLabel>
+                <showInFilter> false </showInFilter>
+                <uiControl>UITextArea</uiControl>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>storage</fieldName>
+            <dbFieldName>STORAGE</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Composition</uiLabel>
+                <showInFilter> false </showInFilter>
+                <uiControl>UITextArea</uiControl>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>skus</fieldName>
+            <dbFieldName></dbFieldName>
+            <dataType>Collection</dataType>
+            <entityDefXML>Location</entityDefXML>
+            <ImportPackage>java.util.Collection</ImportPackage>
+            <ChildObject>
+                <dataType>Sku</dataType>
+                <fieldName>item</fieldName>
+            </ChildObject>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+                <uiControl>UITable</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth></listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+
+    </codeGenFields>
+</CodeGenEntity>

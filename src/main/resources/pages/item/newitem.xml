@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "newItem" showinFrame ="true" title ="Item | Primus WFM | Primus WFM" Object = "com.primus.merchandise.item.model.Item"
+      Controller = "com.primus.merchandise.item.controller.ItemController">
+    <Template type= "Transaction"  name = "TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key ="CANCEL">controller?page=items</Forward>
+        <Forward key ="SAVE">items</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id ="cust" method = "POST" >
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type ="header">
+                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
+                    <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
+                                        <Element label = "code" type = "UIText" isMandatory="true" Id = "txtcode" property ="code" />
+                                        <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" />
+                                        <Element label = "Product"  type = "UILookupDataList"  listId="lstproduct" Id = "txtproduct"    isMandatory="false" property ="product.name"> 
+ <lookupType>product</lookupType>
+ </Element>
+                                        <Element label = "Medicine_UOM" type = "UIList" isMandatory="true" Id = "lstmedicineUOM" property ="medicineUOM.code" >
+<options  populator = "getFiniteValues" populatorParam = "MEDSPECUT">  
+ </options>
+</Element>
+                                        <Element label = "Tax_Rate" type = "UIText" isMandatory="false" Id = "txttaxRate" property ="taxRate" />
+                                        <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
+                                        <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtingrediants" property ="ingrediants" ><rows>5</rows> <cols>30</cols></Element>
+                                        <Element label = "Usage" type = "UITextArea" isMandatory="false" Id = "txtusage" property ="usage" ><rows>5</rows> <cols>30</cols></Element>
+                                        <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtstorage" property ="storage" ><rows>5</rows> <cols>30</cols></Element>
+                                    </Section>
+
+            <Section type ="detailForSale">
+                         </Section>
+             </CoreSection>
+            <Section type ="summary">
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>
