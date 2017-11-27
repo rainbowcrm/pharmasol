@@ -10,7 +10,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "MERCH_PRODUCTS")
 @AttributeOverrides({
         @AttributeOverride(name="ID", column=@Column(name="ID")),
         @AttributeOverride(name="createdDate", column=@Column(name="CREATED_DATE")),

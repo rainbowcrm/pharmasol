@@ -56,10 +56,10 @@
                         <Element label="" type="UINote" Id="idIdNote" property="name"/>
                     </Column>
                     <Column title="Category" sortField="CATEGORY_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="category"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="category.name"/>
                     </Column>
                     <Column title="Type" sortField="MEDICINE_TYPE" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="type"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="type.description"/>
                     </Column>
                     <Column title="Description" sortField="DESCRIPTION" width="25%">
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>
