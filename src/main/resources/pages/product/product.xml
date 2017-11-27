@@ -61,7 +61,7 @@
                     <Column title="Type" sortField="MEDICINE_TYPE" width="20%">
                         <Element label="" type="UINote" Id="idIdNote" property="type"/>
                     </Column>
-                    <Column title="Description" sortField="DESCRIPTION" width="35%">
+                    <Column title="Description" sortField="DESCRIPTION" width="25%">
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>
                     </Column>
                     <Column title="" width="5%">
@@ -75,23 +75,23 @@
                         <Element label="" type="UIHidden" Id="idID" size="40" property="Id"/>
                     </Column>
                     <Column width="25%">
-                        <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                        <Element label="" type="UIText" isMandatory="true" Id="txtname" property="name"/>
                     </Column>
                     <Column width="20%">
-                        <Element label="Category" type="UIList" isMandatory="false" Id="lstcategory"
+                        <Element label="" type="UIList" isMandatory="false" Id="lstcategory"
                                  property="category.id">
                             <options populator="getCategories"
                             ></options>
                         </Element>
                     </Column>
                     <Column width="20%">
-                        <Element label="Type" type="UIList" isMandatory="true" Id="lsttype" property="type.code">
+                        <Element label="" type="UIList" isMandatory="true" Id="lsttype" property="type.code">
                             <options populator="getFiniteValues" populatorParam="MEDTYPE">
                             </options>
                         </Element>
                     </Column>
-                    <Column width="35%">
-                        <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                    <Column width="25%">
+                        <Element label="" type="UIText" isMandatory="false" Id="txtdescription"
                                  property="description"/>
                     </Column>
                     <Column>

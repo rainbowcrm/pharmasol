@@ -14,6 +14,7 @@ import com.primus.common.user.service.UserService;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.service.StoreService;
+import com.primus.merchandise.category.service.CategoryService;
 import com.primus.util.ServiceLibrary;
 
 
@@ -102,6 +103,13 @@ public class ServiceFactory {
         DoctorService service = (DoctorService)ServiceLibrary.services().getService("DoctorService")  ;
         return service ;
     }
+
+    public static CategoryService getCategoryService()
+    {
+        CategoryService service = (CategoryService)ServiceLibrary.services().getService("CategoryService")  ;
+        return service ;
+    }
+
 
     public static Department getDepartment (Department department, ProductContext context) {
         DepartmentService service = getDepartmentService() ;

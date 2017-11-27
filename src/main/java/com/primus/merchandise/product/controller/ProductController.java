@@ -1,7 +1,12 @@
 package com.primus.merchandise.product.controller;
 
-import com.primus.abstracts.AbstractDataSheetController;;
+import com.primus.abstracts.AbstractDataSheetController;
+import com.primus.common.ServiceFactory;
+import com.primus.merchandise.category.model.Category;
+import com.primus.merchandise.category.service.CategoryService;
+import com.techtrade.rads.framework.utils.Utils;;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,7 +30,13 @@ public class ProductController extends AbstractDataSheetController{
  public Map<String, String > getCategories() 
  {
         Map<String , String > ans = new LinkedHashMap<>() ;
-
+     CategoryService service = ServiceFactory.getCategoryService() ;
+     List<Category> list =  (List<Category>) service.fetchAllActive("","",getProductContext());
+     if(!Utils.isNullList(list)) {
+         list.forEach(category ->   {
+             ans.put(String.valueOf(category.getId()),category.getName());
+         });
+     }
         return ans;
     }
  

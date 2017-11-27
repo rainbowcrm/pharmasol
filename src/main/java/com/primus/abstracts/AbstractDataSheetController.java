@@ -55,6 +55,11 @@ public abstract class AbstractDataSheetController extends DataSheetController {
         super();
     }
 
+    public  ProductContext getProductContext()
+    {
+        return (ProductContext) getContext() ;
+    }
+
     @Override
     public IRadsContext generateContext(HttpServletRequest request,HttpServletResponse response,UIPage page) {
         return CommonUtil.generateContext(request,page);
