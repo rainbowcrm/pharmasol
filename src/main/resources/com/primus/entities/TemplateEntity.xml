@@ -84,7 +84,7 @@
             <uiLabel>Operand</uiLabel>
             <uiControl>UIList</uiControl>
             <showInFilter> false </showInFilter>
-            <showInList> false </showInList>
+            <showInList> true </showInList>
             <listFieldWidth>20</listFieldWidth>
         </uiRepresentation>
         <Mandatory>true</Mandatory>
@@ -107,13 +107,15 @@
 
     <!-- Model Object-->
     <CodeGenField>
-        <fieldName>sourceComponent</fieldName>
-        <dbFieldName>SOURCE_COMPONENT</dbFieldName>
-        <dataType>PayComponent</dataType>
+        <fieldName>category</fieldName>
+        <dbFieldName>CATEGORY_ID</dbFieldName>
+        <dataType>Category</dataType>
+        <optionsPopulator>getCategories</optionsPopulator>
         <uiRepresentation>
-            <uiLabel>Parent_Component</uiLabel>
-            <showInFilter> false </showInFilter>
-            <showInList> false </showInList>
+            <uiLabel>Category</uiLabel>
+            <uiControl>UIList</uiControl>
+            <showInFilter> true </showInFilter>
+            <showInList> true </showInList>
         </uiRepresentation>
     </CodeGenField>
 

@@ -35,6 +35,8 @@
         </Page>
         <Page id = "categories" definition ="/resources/pages/category/category.xml" modelclass = "com.primus.merchandise.category.model.Category" >
         </Page>
+        <Page id = "products" definition ="/resources/pages/product/product.xml" modelclass = "com.primus.merchandise.product.model.Product" >
+        </Page>
         <Page id = "regions" definition ="/resources/pages/region/regionList.xml" modelclass = "com.primus.admin.region.model.Region" >
         </Page>
         <Page id = "newregion" definition ="/resources/pages/region/newregion.xml" modelclass = "com.primus.admin.region.model.Region" >
@@ -181,7 +183,7 @@
         <Panel key = "operationsMenuPanel"   showInDiv = "false">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP001"  >
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-sitemap"  />
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=regions" iconStyle="fa fa-fw fa-flag"  />
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-flag"  />
                 <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
 
             </Element>

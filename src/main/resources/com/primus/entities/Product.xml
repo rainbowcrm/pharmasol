@@ -1,0 +1,66 @@
+<CodeGenEntity>
+    <entityName>Product</entityName>
+    <rootpackage>com.primus.merchandise.product</rootpackage>
+    <tableName>PRODUCTS</tableName>
+    <controllerType>AbstractDataSheetController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\product</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\product</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>PRODUCT_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>category</fieldName>
+            <dbFieldName>CATEGORY_ID</dbFieldName>
+            <dataType>Category</dataType>
+            <optionsPopulator>getCategories</optionsPopulator>
+            <uiRepresentation>
+                <uiLabel>Category</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>type</fieldName>
+            <dbFieldName>MEDICINE_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>MEDTYPE</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Type</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>
