@@ -1,7 +1,13 @@
 package com.primus.merchandise.item.controller;
 
-import com.primus.abstracts.AbstractTransactionController;;
+import com.primus.abstracts.AbstractTransactionController;
+import com.primus.common.ServiceFactory;
+import com.primus.merchandise.item.model.UOM;
+import com.primus.merchandise.item.service.UOMService;
+import com.techtrade.rads.framework.utils.Utils;;
+import javax.xml.ws.Service;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,18 +31,31 @@ public class ItemController extends AbstractTransactionController {
     public Map<String, String> getProducts() {
         Map<String, String> ans = new LinkedHashMap<>();
 
+
         return ans;
     }
 
     public Map<String, String> getMeasureUOMs() {
         Map<String, String> ans = new LinkedHashMap<>();
-
+        UOMService uomService = ServiceFactory.getUOMService();
+        List<UOM> uoms= (List<UOM>)uomService.fetchAllActive(" where volumeSpecific = true ","",getProductContext());
+        if(!Utils.isNullList(uoms)) {
+            uoms.forEach( uom ->  {
+                ans.put(String.valueOf(uom.getId()) , uom.getName());
+            });
+        }
         return ans;
     }
 
     public Map<String, String> getSaleUOMs() {
         Map<String, String> ans = new LinkedHashMap<>();
-
+        UOMService uomService = ServiceFactory.getUOMService();
+        List<UOM> uoms= (List<UOM>)uomService.fetchAllActive(" where saleSpecificUOM = true ","",getProductContext());
+        if(!Utils.isNullList(uoms)) {
+            uoms.forEach( uom ->  {
+                ans.put(String.valueOf(uom.getId()) , uom.getName());
+            });
+        }
         return ans;
     }
 

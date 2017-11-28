@@ -15,6 +15,10 @@ import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.service.StoreService;
 import com.primus.merchandise.category.service.CategoryService;
+import com.primus.merchandise.item.service.ItemService;
+import com.primus.merchandise.item.service.SkuService;
+import com.primus.merchandise.item.service.UOMService;
+import com.primus.merchandise.product.service.ProductService;
 import com.primus.util.ServiceLibrary;
 
 
@@ -107,6 +111,30 @@ public class ServiceFactory {
     public static CategoryService getCategoryService()
     {
         CategoryService service = (CategoryService)ServiceLibrary.services().getService("CategoryService")  ;
+        return service ;
+    }
+
+    public static UOMService getUOMService()
+    {
+        UOMService service = (UOMService)ServiceLibrary.services().getService("UOMService")  ;
+        return service ;
+    }
+
+    public static ProductService getProductService()
+    {
+        ProductService service = (ProductService)ServiceLibrary.services().getService("ProductService")  ;
+        return service ;
+    }
+
+    public static ItemService getItemService()
+    {
+        ItemService service = (ItemService)ServiceLibrary.services().getService("ItemService")  ;
+        return service ;
+    }
+
+    public static SkuService getSKUService()
+    {
+        SkuService service = (SkuService)ServiceLibrary.services().getService("SkuService")  ;
         return service ;
     }
 

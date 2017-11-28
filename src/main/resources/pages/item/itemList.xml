@@ -59,7 +59,7 @@
                         <Element label="" type="UINote" Id="idIdNote" property="name"/>
                     </Column>
                     <Column title="Product" sortField="PRODUCT_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="product"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="product.name"/>
                     </Column>
                     <Column title="Description" sortField="DESCRIPTION" width="35%">
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>

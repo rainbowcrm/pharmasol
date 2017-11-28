@@ -182,15 +182,17 @@
 
             </Element>
 
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  >
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-folder"  />
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-file"  />
+                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-television"  />
+
+            </Element>
+
+
         </Panel>
 
         <Panel key = "operationsMenuPanel"   showInDiv = "false">
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP001"  >
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-sitemap"  />
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-flag"  />
-                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-lock"  />
-
-            </Element>
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Operations" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Receiving"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
@@ -448,6 +450,9 @@
             lookuppage= "lookup">
     </Lookup>
         <Lookup type ="division" lookupservice="com.primus.common.lookups.LookupDivisions"
+                lookuppage= "lookup">
+        </Lookup>
+        <Lookup type ="product" lookupservice="com.primus.common.lookups.LookupProducts"
                 lookuppage= "lookup">
         </Lookup>
         <Lookup type ="department" lookupservice="com.primus.common.lookups.LookupDepartments"

@@ -188,7 +188,7 @@ public abstract class AbstractService {
             }
         }
         if (condition.toString().equals(" where ")) return null;
-        List<? extends PrimusModel> objects = listData(object.getClass().getName(), 0, 2, condition.toString(), null, context, null);
+        List<? extends PrimusModel> objects = fetchAllActive(object.getClass().getName(),condition.toString(), null, context);
         if (!Utils.isNullList(objects))
             return objects.get(0);
         else

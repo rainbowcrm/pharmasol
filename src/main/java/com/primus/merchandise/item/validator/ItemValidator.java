@@ -5,6 +5,9 @@ import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
+import com.primus.merchandise.product.model.Product;
+import com.primus.merchandise.product.service.ProductService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -49,6 +52,24 @@ public class ItemValidator extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
        super.adaptFromUI(model,context) ;
-       return null;
+        List<RadsError> ans = new ArrayList<>() ;
+       Item item = (Item) model ;
+       if(item.getProduct() != null ) {
+           ProductService service = ServiceFactory.getProductService();
+           Product product = (Product)service.getByBusinessKey(item.getProduct(), context);
+           if (product == null) {
+               ans.add( getErrorforCode(context, CommonErrorCodes.NOT_FOUND,"Product"));
+           }
+           item.setProduct(product);
+
+       }
+       if (!Utils.isNullCollection(item.getSkus())) {
+           item.getSkus().forEach( sku ->  {
+               sku.setCompany(item.getCompany());
+               sku.setItem(item);
+           });
+
+       }
+       return ans;
     }
 }

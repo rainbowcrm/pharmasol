@@ -22,7 +22,7 @@
 
         <CodeGenField>
             <fieldName>name</fieldName>
-            <dbFieldName>ITEM_NAME</dbFieldName>
+            <dbFieldName>NAME</dbFieldName>
             <dataType>String</dataType>
             <Bk>true</Bk>
             <uiRepresentation>

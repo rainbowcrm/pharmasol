@@ -17,7 +17,7 @@
                 <Section type="header">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
+                    <Element label="code" type="UIText" isMandatory="true" Id="txtItcode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
                     <Element label="Product" type="UILookupDataList" listId="lstproduct" Id="txtproduct"
                              isMandatory="false" property="product.name">
@@ -92,18 +92,18 @@
                                     </Element>
                                 </Element>
 
-                                <Element type="UITableRow" dataType="com.primus.merchandise.item.model.SKU"
+                                <Element type="UITableRow" dataType="com.primus.merchandise.item.model.Sku"
                                          rendered="!Object.isDeleted">
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIText" isMandatory="true" Id="txtcode"
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtSKcode"
                                                  property="code"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIText" isMandatory="true" Id="txtbarcode"
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtSKbarcode"
                                                  property="barcode"/>
                                     </Element>
                                     <Element type="UITableCol" width="20%">
-                                        <Element label="" type="UIText" isMandatory="true" Id="txtname"
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtSKname"
                                                  property="name"/>
                                     </Element>
 
@@ -116,7 +116,7 @@
                                                  property="unitPerPack"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIList" isMandatory="false" Id="lstuom"
+                                        <Element label="" type="UIList" isMandatory="false" Id="lstSKuom"
                                                  property="uom.id">
                                             <options populator="getSaleUOMs"
                                             ></options>
@@ -124,11 +124,11 @@
                                     </Element>
 
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIText" isMandatory="false" Id="txtwholeSaleRate"
+                                        <Element label="" type="UIText" isMandatory="false" Id="txtSKwholeSaleRate"
                                                  property="wholeSaleRate"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIText" isMandatory="false" Id="txtretailRate"
+                                        <Element label="" type="UIText" isMandatory="false" Id="txtSKretailRate"
                                                  property="retailRate"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">

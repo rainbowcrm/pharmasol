@@ -2,13 +2,17 @@ package com.primus.merchandise.item.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.common.ProductContext;
 import com.primus.merchandise.item.model.UOM;
+import com.techtrade.rads.framework.ui.components.SortCriteria;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.merchandise.item.dao.UOMDAO;
 
+import java.util.List;
 
 
 /**
@@ -30,10 +34,46 @@ public class UOMService extends AbstractService {
 
       @Override
      protected void collateBeforUpdate(PrimusModel newObject, PrimusModel oldObject) {
-         UOM newObj = (UOM) newObject;
-         UOM oldObj = (UOM) oldObject;
-         /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
-         payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+
      }
+
+    public List<? extends PrimusModel> listData(String className, int from, int to,
+                                                String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" ");
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition );
+        }
+        return getDAO().listData(className, from, to, additionalCondition.toString(), orderBy);
+
+    }
+
+    public List<? extends PrimusModel> fetchAllActive(String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" ");
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + "  ");
+        }
+        return getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
+
+    }
+
+    public List<? extends PrimusModel> fetchAllActive(String className,
+                                                      String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append("  ");
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + "  ");
+        }
+        return getDAO().fetchAllActive(className, additionalCondition.toString(), orderBy);
+
+    }
+
 
 }

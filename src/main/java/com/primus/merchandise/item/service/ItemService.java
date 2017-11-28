@@ -2,13 +2,16 @@ package com.primus.merchandise.item.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.model.Sku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.merchandise.item.dao.ItemDAO;
 
+import java.util.List;
 
 
 /**
@@ -32,6 +35,8 @@ public class ItemService extends AbstractService {
      protected void collateBeforUpdate(PrimusModel newObject, PrimusModel oldObject) {
          Item newObj = (Item) newObject;
          Item oldObj = (Item) oldObject;
+         TransactionUpdateDelta delta = formDelta(oldObj.getSkus(), newObj.getSkus());
+          newObj.getSkus().addAll((List<Sku>)delta.getDeletedRecords()) ;
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
