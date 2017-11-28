@@ -1,82 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id = "newItem" showinFrame ="true" title ="Item | Primus WFM | Primus WFM" Object = "com.primus.merchandise.item.model.Item"
-      Controller = "com.primus.merchandise.item.controller.ItemController">
-    <Template type= "Transaction"  name = "TransactionTemplate"></Template>
+<Page id="newItem" showinFrame="true" title="Item | Primus WFM | Primus WFM"
+      Object="com.primus.merchandise.item.model.Item"
+      Controller="com.primus.merchandise.item.controller.ItemController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
     <Forwards>
-        <Forward key ="CANCEL">controller?page=items</Forward>
-        <Forward key ="SAVE">items</Forward>
+        <Forward key="CANCEL">controller?page=items</Forward>
+        <Forward key="SAVE">items</Forward>
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
     <Elements>
-        <UIForm Id ="cust" method = "POST" >
+        <UIForm Id="cust" method="POST">
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type ="header">
-                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
-                    <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
-                                        <Element label = "code" type = "UIText" isMandatory="true" Id = "txtcode" property ="code" />
-                                        <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" />
-                                        <Element label = "Product"  type = "UILookupDataList"  listId="lstproduct" Id = "txtproduct"    isMandatory="false" property ="product.name"> 
- <lookupType>product</lookupType>
- </Element>
-                                        <Element label = "Measure_UOM" type = "UIList" isMandatory="false" Id = "lstmeasureUOM" property ="measureUOM.id" >
-<options  populator = "getMeasureUOMs"   
-  ></options>
-</Element>
-                                        <Element label = "Tax_Rate" type = "UIText" isMandatory="false" Id = "txttaxRate" property ="taxRate" />
-                                        <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
-                                        <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtingrediants" property ="ingrediants" ><rows>5</rows> <cols>30</cols></Element>
-                                        <Element label = "Usage" type = "UITextArea" isMandatory="false" Id = "txtusage" property ="usage" ><rows>5</rows> <cols>30</cols></Element>
-                                        <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtstorage" property ="storage" ><rows>5</rows> <cols>30</cols></Element>
-                                        
-                                    </Section>
+                <Section type="header">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
+                    <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+                    <Element label="Product" type="UILookupDataList" listId="lstproduct" Id="txtproduct"
+                             isMandatory="false" property="product.name">
+                        <lookupType>product</lookupType>
+                    </Element>
+                    <Element label="Measure_UOM" type="UIList" isMandatory="false" Id="lstmeasureUOM"
+                             property="measureUOM.id">
+                        <options populator="getMeasureUOMs"
+                        ></options>
+                    </Element>
+                    <Element label="Tax_Rate" type="UIText" isMandatory="false" Id="txttaxRate" property="taxRate"/>
 
-            <Section type ="detailForSale">
-                        <Element type = "UITable" rows = "1" cols = "10" style = "grid" applyStyleonChildren ="true" Id  ="tblTrans" property ="skus  []" >
-            <Element type = "UITableHead" style ="listPageTitle">
-             <Element type = "UITableRow">
-                                      <Element type ="UITableCol" width = "15%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="code" /></Element>
-                                      <Element type ="UITableCol" width = "15%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="barcode" /></Element>
-                                      <Element type ="UITableCol" width = "25%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Name" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="null" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Medicine_Unit_Value" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="UOM" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Unit_PerPack" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="WholeSaleRate" /></Element>
-                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="WholeSaleRate" /></Element>
-                                      <Element type ="UITableCol" width = "35%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Description" /></Element>
-                               </Element>
-             </Element>
+                    <!--<Element label="Composition" type="UITextArea" isMandatory="false" Id="txtingrediants"
+                             property="ingrediants">
+                        <rows>5</rows>
+                        <cols>30</cols>
+                    </Element>-->
+                    <Element label="Usage" type="UITextArea" isMandatory="false" Id="txtusage" property="usage">
+                        <rows>5</rows>
+                        <cols>30</cols>
+                    </Element>
+                    <Element label="Storage" type="UITextArea" isMandatory="false" Id="txtstorage"
+                             property="storage">
+                        <rows>5</rows>
+                        <cols>30</cols>
+                    </Element>
+                    <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                             property="description"/>
 
-             <Element type = "UITableRow"  dataType = "Sku" rendered = "!Object.isDeleted">
-                                                     <Element type ="UITableCol" width = "15%" > <Element label = "code" type = "UIText" isMandatory="true" Id = "txtcode" property ="code" /></Element>
-                                                     <Element type ="UITableCol" width = "15%" > <Element label = "barcode" type = "UIText" isMandatory="true" Id = "txtbarcode" property ="barcode" /></Element>
-                                                     <Element type ="UITableCol" width = "25%" > <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" /></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "null" type = "UIText" isMandatory="false" Id = "txtitem" property ="item" /></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "Medicine_Unit_Value" type = "UIText" isMandatory="false" Id = "txtmedUnitValue" property ="medUnitValue" /></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "UOM" type = "UIList" isMandatory="false" Id = "lstuom" property ="uom.id" >
-<options  populator = "getSaleUOMs"   
-  ></options>
-</Element></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "Unit_PerPack" type = "UIText" isMandatory="false" Id = "txtunitPerPack" property ="unitPerPack" /></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "WholeSaleRate" type = "UIText" isMandatory="false" Id = "txtwholeSaleRate" property ="wholeSaleRate" /></Element>
-                                                     <Element type ="UITableCol" width = "0%" > <Element label = "WholeSaleRate" type = "UIText" isMandatory="false" Id = "txtretailRate" property ="retailRate" /></Element>
-                                                     <Element type ="UITableCol" width = "35%" > <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" /></Element>
-                                  <Element type ="UITableCol" width = "10%">
-                    <Element label="" type ="UIHidden" Id = "hdnsplitlineNo"  property="id" />
-                    <Element label="" type ="UIHidden" Id = "hdnsplitlineversion"  property="version" />
-                 	<Element caption = "" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"  type = "UIButton" Id = "btnAddRow"    fixedAction ="FixedAction.ACTION_ADDTABLEROW"  fixedActionParam =  "this"/>
-                 	<Element caption = "" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"  type = "UIButton" Id = "btnDelRow"    fixedAction ="FixedAction.ACTION_DELETETABLEROW"  fixedActionParam =  "this"/>
-                 </Element>
-             </Element>
+                </Section>
 
+                <Section type="detailForSale">
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                        <Element type="UITab" Id="idEmployeDetails" title="SKU_Variants" showinTable="false">
 
-            </Element>
-                         </Section>
-             </CoreSection>
-            <Section type ="summary">
+                            <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                     Id="tblTrans"
+                                     property="skus[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Barcode"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="SKU"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Unit_Value"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Unit_PerPack"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sale_UOM"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="WholeSaleRate"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="RetaiRate"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+
+                                <Element type="UITableRow" dataType="com.primus.merchandise.item.model.SKU"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtcode"
+                                                 property="code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtbarcode"
+                                                 property="barcode"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UIText" isMandatory="true" Id="txtname"
+                                                 property="name"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" Id="txtmedUnit" property="medUnitValue"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="false" Id="txtunitPerPack"
+                                                 property="unitPerPack"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIList" isMandatory="false" Id="lstuom"
+                                                 property="uom.id">
+                                            <options populator="getSaleUOMs"
+                                            ></options>
+                                        </Element>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="false" Id="txtwholeSaleRate"
+                                                 property="wholeSaleRate"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="false" Id="txtretailRate"
+                                                 property="retailRate"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdnsplitlineNo" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdnsplitlineversion" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRow"
+                                                 fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRow"
+                                                 fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+                            </Element>
+                        </Element>
+                   <Element type="UITab" Id="idCompoSDetails" title="Composition" showinTable="false">
+                       <Element label="" type="UILabel" Id="lblCode" value="Unit_PerPack"/>
+                    </Element>
+
+                    </Element>
+
+                </Section>
+            </CoreSection>
+            <Section type="summary">
             </Section>
 
         </UIForm>

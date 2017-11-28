@@ -64,7 +64,7 @@
                     <Column title="Description" sortField="DESCRIPTION" width="35%">
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>
                     </Column>
-                    
+
                 </Columns>
             </ListSection>
         </CoreSection>
