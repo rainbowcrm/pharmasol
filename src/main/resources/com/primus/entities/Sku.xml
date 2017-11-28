@@ -1,6 +1,6 @@
 <CodeGenEntity>
     <entityName>Sku</entityName>
-    <rootpackage>com.primus.merchandise.sku</rootpackage>
+    <rootpackage>com.primus.merchandise.item</rootpackage>
     <tableName>SKUS</tableName>
     <controllerType>AbstractTransactionController</controllerType>
     <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\item</fileLocation>

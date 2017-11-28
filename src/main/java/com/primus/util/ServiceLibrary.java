@@ -29,6 +29,10 @@ import com.primus.admin.division.service.DivisionService;
 import com.primus.admin.division.validator.DivisionValidator;
 import com.primus.merchandise.category.service.CategoryService;
 import com.primus.merchandise.category.validator.CategoryValidator;
+import com.primus.merchandise.item.service.ItemService;
+import com.primus.merchandise.item.service.SkuService;
+import com.primus.merchandise.item.service.UOMService;
+import com.primus.merchandise.item.validator.ItemValidator;
 import com.primus.merchandise.product.service.ProductService;
 import com.primus.merchandise.product.validator.ProductValidator;
 import org.springframework.beans.BeansException;
@@ -134,6 +138,18 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     ProductValidator productValidator;
 
+    @Autowired
+    ItemService itemService;
+
+    @Autowired
+    ItemValidator itemValidator ;
+
+    @Autowired
+    SkuService skuService ;
+
+    @Autowired
+    UOMService uomService ;
+
 
 
 
@@ -169,6 +185,9 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "ZoneService": return zoneService ;
             case "CategoryService" : return categoryService;
             case "ProductService"  : return  productService ;
+            case "ItemService" : return itemService ;
+            case "SkuService"  : return skuService ;
+            case "UOMService" : return uomService ;
 
         }
         return null;
@@ -191,6 +210,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "ZoneValidator" : return zoneValidator;
            case "CategoryValidator" : return categoryValidator;
            case "ProductValidator" : return productValidator ;
+           case "ItemValidator" : return itemValidator;
 
        }
 

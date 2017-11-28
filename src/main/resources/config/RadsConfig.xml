@@ -60,6 +60,10 @@
         <Page id = "doctorAssociation" definition ="/resources/pages/doctor/doctorAssociation.xml" modelclass = "com.primus.externals.doctor.model.DoctorAssociation" >
         </Page>
 
+        <Page id = "items" definition ="/resources/pages/item/itemList.xml" modelclass = "com.primus.merchandise.item.model.Item" >
+        </Page>
+        <Page id = "newitem" definition ="/resources/pages/item/newitem.xml" modelclass = "com.primus.merchandise.item.model.Item" >
+        </Page>
         <Page id = "departments" definition ="/resources/pages/department/departmentList.xml" modelclass = "com.primus.admin.department.model.Department" >
         </Page>
         <Page id = "newdepartment" definition ="/resources/pages/department/newdepartment.xml" modelclass = "com.primus.admin.department.model.Department" >
@@ -184,7 +188,7 @@
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP001"  >
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-sitemap"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-flag"  />
-                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
+                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-lock"  />
 
             </Element>
 

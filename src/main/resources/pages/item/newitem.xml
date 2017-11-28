@@ -21,18 +21,59 @@
                                         <Element label = "Product"  type = "UILookupDataList"  listId="lstproduct" Id = "txtproduct"    isMandatory="false" property ="product.name"> 
  <lookupType>product</lookupType>
  </Element>
-                                        <Element label = "Medicine_UOM" type = "UIList" isMandatory="true" Id = "lstmedicineUOM" property ="medicineUOM.code" >
-<options  populator = "getFiniteValues" populatorParam = "MEDSPECUT">  
- </options>
+                                        <Element label = "Measure_UOM" type = "UIList" isMandatory="false" Id = "lstmeasureUOM" property ="measureUOM.id" >
+<options  populator = "getMeasureUOMs"   
+  ></options>
 </Element>
                                         <Element label = "Tax_Rate" type = "UIText" isMandatory="false" Id = "txttaxRate" property ="taxRate" />
                                         <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
                                         <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtingrediants" property ="ingrediants" ><rows>5</rows> <cols>30</cols></Element>
                                         <Element label = "Usage" type = "UITextArea" isMandatory="false" Id = "txtusage" property ="usage" ><rows>5</rows> <cols>30</cols></Element>
                                         <Element label = "Composition" type = "UITextArea" isMandatory="false" Id = "txtstorage" property ="storage" ><rows>5</rows> <cols>30</cols></Element>
+                                        
                                     </Section>
 
             <Section type ="detailForSale">
+                        <Element type = "UITable" rows = "1" cols = "10" style = "grid" applyStyleonChildren ="true" Id  ="tblTrans" property ="skus  []" >
+            <Element type = "UITableHead" style ="listPageTitle">
+             <Element type = "UITableRow">
+                                      <Element type ="UITableCol" width = "15%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="code" /></Element>
+                                      <Element type ="UITableCol" width = "15%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="barcode" /></Element>
+                                      <Element type ="UITableCol" width = "25%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Name" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="null" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Medicine_Unit_Value" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="UOM" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Unit_PerPack" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="WholeSaleRate" /></Element>
+                                      <Element type ="UITableCol" width = "0%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="WholeSaleRate" /></Element>
+                                      <Element type ="UITableCol" width = "35%" > <Element label = ""  type = "UILabel" Id = "lblCode" value ="Description" /></Element>
+                               </Element>
+             </Element>
+
+             <Element type = "UITableRow"  dataType = "Sku" rendered = "!Object.isDeleted">
+                                                     <Element type ="UITableCol" width = "15%" > <Element label = "code" type = "UIText" isMandatory="true" Id = "txtcode" property ="code" /></Element>
+                                                     <Element type ="UITableCol" width = "15%" > <Element label = "barcode" type = "UIText" isMandatory="true" Id = "txtbarcode" property ="barcode" /></Element>
+                                                     <Element type ="UITableCol" width = "25%" > <Element label = "Name" type = "UIText" isMandatory="true" Id = "txtname" property ="name" /></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "null" type = "UIText" isMandatory="false" Id = "txtitem" property ="item" /></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "Medicine_Unit_Value" type = "UIText" isMandatory="false" Id = "txtmedUnitValue" property ="medUnitValue" /></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "UOM" type = "UIList" isMandatory="false" Id = "lstuom" property ="uom.id" >
+<options  populator = "getSaleUOMs"   
+  ></options>
+</Element></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "Unit_PerPack" type = "UIText" isMandatory="false" Id = "txtunitPerPack" property ="unitPerPack" /></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "WholeSaleRate" type = "UIText" isMandatory="false" Id = "txtwholeSaleRate" property ="wholeSaleRate" /></Element>
+                                                     <Element type ="UITableCol" width = "0%" > <Element label = "WholeSaleRate" type = "UIText" isMandatory="false" Id = "txtretailRate" property ="retailRate" /></Element>
+                                                     <Element type ="UITableCol" width = "35%" > <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" /></Element>
+                                  <Element type ="UITableCol" width = "10%">
+                    <Element label="" type ="UIHidden" Id = "hdnsplitlineNo"  property="id" />
+                    <Element label="" type ="UIHidden" Id = "hdnsplitlineversion"  property="version" />
+                 	<Element caption = "" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"  type = "UIButton" Id = "btnAddRow"    fixedAction ="FixedAction.ACTION_ADDTABLEROW"  fixedActionParam =  "this"/>
+                 	<Element caption = "" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"  type = "UIButton" Id = "btnDelRow"    fixedAction ="FixedAction.ACTION_DELETETABLEROW"  fixedActionParam =  "this"/>
+                 </Element>
+             </Element>
+
+
+            </Element>
                          </Section>
              </CoreSection>
             <Section type ="summary">

@@ -50,19 +50,18 @@
         </CodeGenField>
 
         <CodeGenField>
-            <fieldName>medicineUOM</fieldName>
-            <dbFieldName>MEDUNIT</dbFieldName>
-            <dataType>FiniteValue</dataType>
-            <finiteValueCategory>MEDSPECUT</finiteValueCategory>
+            <fieldName>measureUOM</fieldName>
+            <dbFieldName>UOM_ID</dbFieldName>
+            <dataType>UOM</dataType>
+            <optionsPopulator>getMeasureUOMs</optionsPopulator>
             <uiRepresentation>
-                <uiLabel>Medicine_UOM</uiLabel>
+                <uiLabel>Measure_UOM</uiLabel>
                 <uiControl>UIList</uiControl>
                 <showInFilter> false </showInFilter>
-                <showInList> true </showInList>
-                <listFieldWidth>20</listFieldWidth>
+                <showInList> false </showInList>
             </uiRepresentation>
-            <Mandatory>true</Mandatory>
         </CodeGenField>
+
 
         <CodeGenField>
             <fieldName>taxRate</fieldName>
@@ -135,7 +134,7 @@
             <fieldName>skus</fieldName>
             <dbFieldName></dbFieldName>
             <dataType>Collection</dataType>
-            <entityDefXML>Location</entityDefXML>
+            <entityDefXML>Sku</entityDefXML>
             <ImportPackage>java.util.Collection</ImportPackage>
             <ChildObject>
                 <dataType>Sku</dataType>

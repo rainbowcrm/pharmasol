@@ -1,0 +1,75 @@
+<CodeGenEntity>
+    <entityName>UOM</entityName>
+    <rootpackage>com.primus.merchandise.item</rootpackage>
+    <tableName>UOMS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\merchandise\\item</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\item</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>code</fieldName>
+            <dbFieldName>CODE</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>false</Bk>
+            <uiRepresentation>
+                <uiLabel>code</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>15</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>ITEM_NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>saleSpecificUOM</fieldName>
+            <dbFieldName>IS_SALE_SPECIFIC</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiLabel>Sale_Specific</uiLabel>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>volumeSpecific</fieldName>
+            <dbFieldName>IS_VOLUME_SPECIFIC</dbFieldName>
+            <dataType>Boolean</dataType>
+            <uiRepresentation>
+                <uiLabel>Is_Basic</uiLabel>
+                <uiControl>UIBooleanCheckBox</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+            </uiRepresentation>
+        </CodeGenField>
+
+    </codeGenFields>
+</CodeGenEntity>
