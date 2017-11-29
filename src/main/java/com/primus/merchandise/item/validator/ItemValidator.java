@@ -63,13 +63,21 @@ public class ItemValidator extends AbstractValidator {
            item.setProduct(product);
 
        }
+
        if (!Utils.isNullCollection(item.getSkus())) {
            item.getSkus().forEach( sku ->  {
                sku.setCompany(item.getCompany());
                sku.setItem(item);
            });
-
        }
+
+        if (!Utils.isNullCollection(item.getItemCompositions())) {
+            item.getItemCompositions().forEach( composition ->  {
+                composition.setCompany(item.getCompany());
+                composition.setItem(item);
+            });
+        }
+
        return ans;
     }
 }

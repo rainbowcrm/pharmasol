@@ -179,7 +179,14 @@ public class Item extends PrimusBusinessModel {
 		skus  = val;
 	}
 
+	Collection<ItemComposition> itemCompositions ;
 
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "item")
+	public Collection<ItemComposition> getItemCompositions() {
+		return itemCompositions;
+	}
 
-
+	public void setItemCompositions(Collection<ItemComposition> itemCompositions) {
+		this.itemCompositions = itemCompositions;
+	}
 }

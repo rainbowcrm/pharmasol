@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.model.ItemComposition;
 import com.primus.merchandise.item.model.Sku;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,10 @@ public class ItemService extends AbstractService {
          Item oldObj = (Item) oldObject;
          TransactionUpdateDelta delta = formDelta(oldObj.getSkus(), newObj.getSkus());
           newObj.getSkus().addAll((List<Sku>)delta.getDeletedRecords()) ;
+
+          TransactionUpdateDelta deltaComps = formDelta(oldObj.getItemCompositions(), newObj.getItemCompositions());
+          newObj.getItemCompositions().addAll((List<ItemComposition>)delta.getDeletedRecords()) ;
+
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
