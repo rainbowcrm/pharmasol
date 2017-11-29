@@ -41,6 +41,19 @@ public class User extends PrimusModel{
     Role role ;
     Division division;
 
+    User managerUser;
+
+    @ManyToOne(cascade=CascadeType.DETACH)
+    @JoinColumn(name  ="MANAGER_USER_ID"  )
+    @RadsPropertySet(useBKForJSON =  true, useBKForMap = true, useBKForXML = true)
+    public User getManagerUser() {
+        return managerUser;
+    }
+
+    public void setManagerUser(User managerUser) {
+        this.managerUser = managerUser;
+    }
+
     @Column(name  ="USER_ID")
     @Id
     @RadsPropertySet(isBK =  true , isPK = true)

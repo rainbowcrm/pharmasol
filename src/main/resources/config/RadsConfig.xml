@@ -225,7 +225,7 @@
                     <Element type="UITableCol" width="5%" align="center">
                         <Element label="" type="UIImage" height="30" width="30" src="./images/users.png"
                                  title="Users" style="threedimage"
-                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=users')"/>
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=appusers')"/>
                     </Element>
                     <Element type="UITableCol" width="5%" align="center">
                         <Element label="" type="UIImage" height="30" width="30" src="./images/stockists.png"
