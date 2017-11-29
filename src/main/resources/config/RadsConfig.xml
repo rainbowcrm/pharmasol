@@ -185,8 +185,7 @@
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  >
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-folder"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-file"  />
-                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-television"  />
-
+                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-magic"  />
             </Element>
 
 
@@ -243,9 +242,19 @@
                                  title="Doctors" style="threedimage"
                                  onClickJS="refreshIFrameSrc('frmFameId','./controller?page=doctors')"/>
                     </Element>
+                    <Element type="UITableCol" width="5%" align="center">
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/products.png"
+                                 title="Products" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=products')"/>
+                    </Element>
+                    <Element type="UITableCol" width="5%" align="center">
+                        <Element label="" type="UIImage" height="30" width="30" src="./images/items.png"
+                                 title="Items" style="threedimage"
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=items')"/>
+                    </Element>
 
 
-                    <Element type="UITableCol" width="65%">
+                    <Element type="UITableCol" width="55%">
                         <Element label="" type="UIDiv" style="input-group col-md-12">
                             <Element label="" type="UIText" width="50%" Id="txtGlobalSearch" style="searchstyle"
                                      placeholder="Global Search..."/>
