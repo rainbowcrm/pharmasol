@@ -2,6 +2,7 @@ package com.primus.externals.doctor.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.admin.region.model.Location;
+import com.primus.common.FiniteValue;
 import com.techtrade.rads.framework.annotations.RadsPropertySet;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class DoctorAssociation extends PrimusBusinessModel {
     String description ;
     Boolean associated;
     Location location ;
+
+    FiniteValue docClass;
 
 
     @ManyToOne(cascade=CascadeType.DETACH  )
@@ -67,5 +70,14 @@ public class DoctorAssociation extends PrimusBusinessModel {
         this.location = location;
     }
 
+    @RadsPropertySet(useBKForXML = true,useBKForJSON = true, useBKForMap = true)
+    @ManyToOne(cascade=CascadeType.DETACH)
+    @JoinColumn(name  ="DOC_CLASS")
+    public FiniteValue getDocClass() {
+        return docClass;
+    }
 
+    public void setDocClass(FiniteValue docClass) {
+        this.docClass = docClass;
+    }
 }

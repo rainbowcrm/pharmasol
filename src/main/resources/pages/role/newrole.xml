@@ -17,6 +17,11 @@
                     <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
                     <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
                     <Element label = "Role" type = "UIText" isMandatory="true" Id = "txtrole" property ="role" />
+                    <Element label="Role_Level" type="UIList" isMandatory="true" Id="lstRoleLevel"
+                             property="roleLevel.code">
+                        <options populator="getFiniteValues" populatorParam="ROLELEVEL">
+                        </options>
+                    </Element>
                     <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
                     <Element label = ""  type = "UILabel" Id = "lblCode1"  />
                     <Element label = ""  type = "UILabel" Id = "lblCode2"  />

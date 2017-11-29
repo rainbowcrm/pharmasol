@@ -69,6 +69,20 @@ public class Role extends PrimusBusinessModel {
         roleModules.add(roleModule);
     }
 
+    FiniteValue roleLevel;
+
+    @ManyToOne(cascade=CascadeType.DETACH)
+    @JoinColumn(name  ="ROLE_LEVEL")
+    @RadsPropertySet(useBKForMap = true,useBKForJSON = true,useBKForXML = true)
+    public FiniteValue getRoleLevel() {
+        return roleLevel;
+    }
+
+    @RadsPropertySet(useBKForMap = true,useBKForJSON = true,useBKForXML = true)
+    public void setRoleLevel(FiniteValue roleLevel) {
+        this.roleLevel = roleLevel;
+    }
+
     boolean adminAccess;
     boolean stockistAccess;
     boolean agentAccess;

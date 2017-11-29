@@ -40,6 +40,10 @@ public class RoleValidator extends AbstractValidator {
             results.add( getErrorforCode(context, CommonErrorCodes.ATLEAST_ONE_REQUIRED,"Module"));
         }
 
+        if(Utils.isNull(role.getRoleLevel())) {
+            results.add( getErrorforCode(context, CommonErrorCodes.ATLEAST_ONE_REQUIRED,"Role_Level"));
+        }
+
         
         return results;
 

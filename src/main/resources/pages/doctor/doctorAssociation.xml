@@ -28,6 +28,14 @@
                 <Section type="detail">
                     <Element label="" type="UIHidden"  Id="hdnId"  property="doctor.id"/>
                     <Element label="Name" type="UIText"  Id="txtname" readonly="true" property="doctor.name"/>
+                    <Element label="City" type="UIText"  Id="txCity" readonly="true" property="doctor.address.city"/>
+                    <Element label="Specialization" type="UIText"  Id="txtname" readonly="true" property="doctor.specialization.description"/>
+                    <Element label="Doctor_Class" type="UIList" isMandatory="false" Id="lstdocClassType"
+                             property="docClass.code">
+                        <options populator="getFiniteValues" populatorParam="DOCCLASS">
+                        </options>
+                    </Element>
+
                     <Element label="Region" type="UIList"  Id="LstRegion"   property="location.region.id">
                         <options populator="getAllRegions" >
                         </options>
