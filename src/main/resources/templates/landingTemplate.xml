@@ -37,8 +37,8 @@
         <Section Id ="operationsshortCutBar"  style ="shortcutbar"  >
             <Panel key ="operationsShortcutbar"  Id ="scutBR" > </Panel>
         </Section>
-        <Section Id ="hrshortCutBar"  style ="shortcutbar"  >
-            <Panel key ="hrShortcutbar"  Id ="hrBR" > </Panel>
+        <Section Id ="managershortCutBar"  style ="shortcutbar"  >
+            <Panel key ="mgrShortcutbar"  Id ="hrBR" > </Panel>
         </Section>
         <Section Id ="leftsideBar"  style ="leftnav"  >
             <Panel key ="menuPanel"  Id ="leftnav" > </Panel>
@@ -49,8 +49,8 @@
         <Section Id ="operationsleftsideBar"  style ="leftnav"  >
             <Panel key ="operationsMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="hrleftsideBar"  style ="leftnav"  >
-            <Panel key ="hrMenuPanel"  Id ="leftnav" > </Panel>
+        <Section Id ="managerleftsidebar"  style ="leftnav"  >
+            <Panel key ="managermenuPanel"  Id ="leftnav" > </Panel>
         </Section>
         <Section Id ="leftsideBarApp"  style ="leftnav"  >
             <Panel key ="appMenuPanel"  Id ="leftnav" > </Panel>

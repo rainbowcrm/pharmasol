@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "AppointmentTemplates" showinFrame ="true" title ="AppointmentTemplate | Primus WFM | Primus WFM" Object = "com.primus.crm.appointment.model.AppointmentTemplate"
+      Controller = "com.primus.crm.appointment.controller.AppointmentTemplateListController">
+
+<Template type= "List"  name = "ListTemplate"></Template>
+    <Forwards>
+        <Forward key ="NEW">controller?page=newappointmenttemplate</Forward>
+        <Forward key ="EDIT">controller?page=newappointmenttemplate</Forward>
+    </Forwards>
+    <AjaxGroups>
+        <AjaxGroup service ="filterSearch">
+            <requestElements>
+                <requestElement key = "filterId">lstSavedFilters</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key = "FilterName" >txtFilterName</responseElement>
+                                    <responseElement key = "templateNo" >txttemplateNo</responseElement>
+                                    <responseElement key = "manager" >txtmanager</responseElement>
+                                    <responseElement key = "agent" >txtagent</responseElement>
+                                    <responseElement key = "location" >txtlocation</responseElement>
+                            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
+
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <CoreSection>
+            <ErrorSection>
+            </ErrorSection>
+            <FilterSection>
+            <FilterNode>
+                <Element label = "Saved_Filters"  type = "UIList" Id = "lstSavedFilters"   property ="" >
+                    <options populator =  "getSavedFiters">
+                    </options>
+                </Element>
+            </FilterNode>
+                              <FilterNode> 
+ <Element label = "Template_No"   type = "UIText" Id = "txttemplateNo "  property ="templateNo"  /> 
+  </FilterNode> 
+                              <FilterNode> 
+ <Element label = "Manager"   type = "UILookupDataList" Id = "txtmanager "  property ="manager"  /> 
+  </FilterNode> 
+                              <FilterNode> 
+ <Element label = "Agent"   type = "UILookupDataList" Id = "txtagent "  property ="agent"  /> 
+  </FilterNode> 
+                              <FilterNode> 
+ <Element label = "Location"   type = "UIList" Id = "txtlocation "  property ="location"  /> 
+  </FilterNode> 
+                        </FilterSection>
+             <ListSection >
+                <Columns allowrowselection ="Multiple" uniqueproperty = "Id">
+                <SelectionColumn   >
+                    <Element label = ""  type = "UICheckBox" Id = "idChkSel"  rendered="!Object.isDeleted"  property ="Id" />
+                    <Element label = ""  type = "UIImage" Id = "idChkSel"  rendered="Object.isDeleted" height = "21" weight ="21" src= "./images/deletedRow.jpg" />
+                </SelectionColumn>
+                                      <Column title ="Template_No"   sortField="TEMPLATE_NO" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="templateNo" />   </Column> 
+                                      <Column title ="Manager"   sortField="MANAGER_USER_ID" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="manager" />   </Column> 
+                                      <Column title ="Agent"   sortField="AGENT_USER_ID" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="agent" />   </Column> 
+                                      <Column title ="Party"   sortField="APPT_PARTY_TYPE" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="partyType" />   </Column> 
+                                      <Column title ="Location"   sortField="LOCATION_ID" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="location" />   </Column> 
+                                      <Column title ="Pattern"   sortField="PATTERN" width="20%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="pattern" />   </Column> 
+                                      <Column title ="Description"   sortField="DESCRIPTION" width="35%"   >    <Element label = ""  type = "UINote" Id = "idIdNote"  property ="description" />   </Column> 
+                                 </Columns>
+             </ListSection>
+        </CoreSection>
+         <Section type ="summary">
+             <Element caption = "Add"  type = "UIButton"    Id = "btnAdd"  style="btn btn-primary" iconStyle="glyphicon glyphicon-plus" fixedAction ="FixedAction.ACTION_PAGEFORWARD" fixedActionParam =  "NEW" />
+             <Element caption = "Edit"  type = "UIButton"    Id = "btnEdit"  style="btn btn-warning" iconStyle="glyphicon glyphicon-pencil" fixedAction ="FixedAction.ACTION_GOEDITMODE"  fixedActionParam =  "EDIT"  />
+             <Element caption = "Delete"  type = "UIButton" Id = "btnDel"  style="btn btn-danger" iconStyle="glyphicon glyphicon-trash"  fixedAction ="FixedAction.ACTION_DELETE"  fixedActionParam =  "DELETE"
+                      fixedActionvalidateFunc ="deleteFromList()"/>
+             <Element type= "Panel" key= "NavPanel"  style = "sameline" ></Element>
+         </Section>
+         <Section type ="copyRightSection"/>
+    </Elements>
+ </Page>

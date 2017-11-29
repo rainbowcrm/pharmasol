@@ -64,7 +64,7 @@
                             <Element type = "UILabel" value = "Manager_Portal" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChmanager"  height = "120" width ="100" src= "./images/manager.png" />
+                            <Element label = ""  type = "UIImage" Id = "idChmanager"  onClickJS = "openmodule('managerlanding');"  height = "120" width ="100" src= "./images/manager.png" />
                         </Detail>
                     </Element>
 

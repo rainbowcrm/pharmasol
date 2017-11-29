@@ -82,7 +82,7 @@
         </Page>
         <Page id = "operationslanding" definition ="/resources/pages/landing/operationslanding.xml" modelclass = "com.primus.common.landing.model.LandingModel" >
         </Page>
-        <Page id = "hrlanding" definition ="/resources/pages/landing/hrlanding.xml" modelclass = "com.primus.common.landing.model.LandingModel" >
+        <Page id = "managerlanding" definition ="/resources/pages/landing/managerlanding.xml" modelclass = "com.primus.common.landing.model.LandingModel" >
         </Page>
         <Page id = "lookup" definition ="/resources/pages/lookup/lookup.xml"  modelclass = "com.techtrade.rads.framework.model.simple.LookupObject" > </Page>
 
@@ -199,6 +199,18 @@
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Inventory"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Shipping"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Audit"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+            </Element>
+
+        </Panel>
+
+        <Panel key = "managermenuPanel"   showInDiv = "false">
+
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
+                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates" iconStyle="fa fa-fw fa-tags"  />
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Open_Appointments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Past_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+
             </Element>
 
         </Panel>
@@ -356,7 +368,7 @@
         </Panel>
 
 
-        <Panel key ="hrShortcutbar" showInDiv = "false" >
+        <Panel key ="mgrShortcutbar" showInDiv = "false" >
             <Element type="UITable" style="topbartable" rows="1" cols="6" align="left">
                 <Element type="UITableRow" align="left">
                     <Element type="UITableCol" width="5%" align="center">

@@ -13,8 +13,8 @@
     <Elements>
         <UIForm Id ="cust" method = "POST" >
             <Section type ="topBar"></Section>
-            <Section type ="hrleftsideBar"></Section>
-            <Section type ="hrshortCutBar"></Section>
+            <Section type ="managerleftsidebar"></Section>
+            <Section type ="managershortCutBar"></Section>
 
             <CoreSection>
                 <Section type = "fullPage" >
