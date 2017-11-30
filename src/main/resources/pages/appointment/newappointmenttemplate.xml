@@ -1,58 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id = "newAppointmentTemplate" showinFrame ="true" title ="AppointmentTemplate | Primus WFM | Primus WFM" Object = "com.primus.crm.appointment.model.AppointmentTemplate"
-      Controller = "com.primus.crm.appointment.controller.AppointmentTemplateController">
-    <Template type= "CRUD"  name = "CRUDTemplate"></Template>
+<Page id="newAppointmentTemplate" showinFrame="true" title="AppointmentTemplate | Primus WFM | Primus WFM"
+      Object="com.primus.crm.appointment.model.AppointmentTemplate"
+      Controller="com.primus.crm.appointment.controller.AppointmentTemplateController">
+    <Template type="CRUD" name="CRUDTemplate"></Template>
     <Forwards>
-        <Forward key ="CANCEL">controller?page=appointmenttemplates</Forward>
-        <Forward key ="SAVE">appointmenttemplates</Forward>
+        <Forward key="CANCEL">controller?page=appointmenttemplates</Forward>
+        <Forward key="SAVE">appointmenttemplates</Forward>
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service ="regionLocationSearch">
+            <requestElements>
+                <requestElement key = "region">LstRegion</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key = "location" >LstLocations</responseElement>
+            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
     <Elements>
-        <UIForm Id ="cust" method = "POST" >
+        <UIForm Id="cust" method="POST">
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type ="detail">
-                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
-                    <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
-                                        <Element label = "Template_No" type = "UIText" isMandatory="true" Id = "txttemplateNo" property ="templateNo" />
-                                        <Element label = "Manager"  type = "UILookupDataList"  listId="lstmanager" Id = "txtmanager"    isMandatory="true" property ="manager.name"> 
- <lookupType>user</lookupType>
- </Element>
-                                        <Element label = "Agent"  type = "UILookupDataList"  listId="lstagent" Id = "txtagent"    isMandatory="true" property ="agent.name"> 
- <lookupType>user</lookupType>
- </Element>
-                                        <Element label = "Party" type = "UIList" isMandatory="true" Id = "lstpartyType" property ="partyType.code" >
-<options  populator = "getFiniteValues" populatorParam = "EXPTYTYPE">  
- </options>
-</Element>
-                                        <Element label = "Location" type = "UIList" isMandatory="true" Id = "lstlocation" property ="location.id" >
-<options  populator = "null"   
-  ></options>
-</Element>
-                                        <Element label = "Stockist"  type = "UILookupDataList"  listId="lststockist" Id = "txtstockist"    isMandatory="false" property ="stockist.name"> 
- <lookupType>stockist</lookupType>
- </Element>
-                                        <Element label = "Store"  type = "UILookupDataList"  listId="lststore" Id = "txtstore"    isMandatory="false" property ="store.name"> 
- <lookupType>store</lookupType>
- </Element>
-                                        <Element label = "Doctor"  type = "UILookupDataList"  listId="lstdoctor" Id = "txtdoctor"    isMandatory="false" property ="doctor.name"> 
- <lookupType>doctor</lookupType>
- </Element>
-                                        <Element label = "Start_From" type = "UIDate" isMandatory="true" Id = "txtstartFrom" property ="startFrom" />
-                                        <Element label = "End_At" type = "UIDate" isMandatory="true" Id = "txtendAt" property ="endAt" />
-                                        <Element label = "Appointment_Time" type = "UIDate" isMandatory="true" Id = "txtappointmentTime" property ="appointmentTime" />
-                                        <Element label = "Duration" type = "UIText" isMandatory="false" Id = "txtduration" property ="duration" />
-                                        <Element label = "Pattern" type = "UIList" isMandatory="true" Id = "lstpattern" property ="pattern.code" >
-<options  populator = "getFiniteValues" populatorParam = "DTPTTN">  
- </options>
-</Element>
-                                        
-                                        <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
-                                    </Section>
+                <Section type="detail">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="Template_No" type="UIText" isMandatory="true" Id="txttemplateNo"
+                             property="templateNo"/>
+                    <Element label="Manager" type="UILookupDataList" listId="lstmanager" Id="txtmanager"
+                             isMandatory="true" property="manager.name">
+                        <lookupType>user</lookupType>
+                    </Element>
+                    <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
+                             property="agent.name">
+                        <lookupType>user</lookupType>
+                    </Element>
+                    <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType" property="partyType.code">
+                        <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
+                        </options>
+                    </Element>
+                    <Element label="Region" type="UIList"  Id="LstRegion"   property="location.region.id">
+                        <options populator="getAllRegions" >
+                        </options>
+                    </Element>
+                    <Element label="Location" type="UIList"  Id="LstLocations"   property="location.id">
+                        <options populator="getAllLocations" >
+                        </options>
+                    </Element>
+                    <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
+                             isMandatory="false" property="stockist.name">
+                        <lookupType>stockist</lookupType>
+                    </Element>
+                    <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore" isMandatory="false"
+                             property="store.name">
+                        <lookupType>store</lookupType>
+                    </Element>
+                    <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
+                             isMandatory="false" property="doctor.name">
+                        <lookupType>doctor</lookupType>
+                    </Element>
+                    <Element label="Start_From" type="UIDate" isMandatory="true" Id="txtstartFrom"
+                             property="startFrom"/>
+                    <Element label="End_At" type="UIDate" isMandatory="true" Id="txtendAt" property="endAt"/>
+                    <Element label="Appointment_Time" type="UIDate" isMandatory="true" Id="txtappointmentTime"
+                             property="appointmentTime"/>
+                    <Element label="Duration" type="UIText" isMandatory="false" Id="txtduration" property="duration"/>
+                    <Element label="Pattern" type="UIList" isMandatory="true" Id="lstpattern" property="pattern.code">
+                        <options populator="getFiniteValues" populatorParam="DTPTTN">
+                        </options>
+                    </Element>
+
+                    <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                             property="description"/>
+                </Section>
             </CoreSection>
-            <Section type ="summary">
+            <Section type="summary">
             </Section>
 
         </UIForm>

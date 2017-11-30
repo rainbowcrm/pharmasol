@@ -68,6 +68,10 @@
         </Page>
         <Page id = "newdepartment" definition ="/resources/pages/department/newdepartment.xml" modelclass = "com.primus.admin.department.model.Department" >
         </Page>
+        <Page id = "appointmenttemplates" definition ="/resources/pages/appointment/appointmenttemplateList.xml" modelclass = "com.primus.crm.appointment.model.AppointmentTemplate" >
+        </Page>
+        <Page id = "newappointmenttemplate" definition ="/resources/pages/appointment/newappointmenttemplate.xml" modelclass = "com.primus.crm.appointment.model.AppointmentTemplate" >
+        </Page>
         <Page id = "roles" definition ="/resources/pages/role/roleList.xml" modelclass = "com.primus.admin.role.model.Role" >
         </Page>
         <Page id = "newrole" definition ="/resources/pages/role/newrole.xml" modelclass = "com.primus.admin.role.model.Role" >
@@ -479,9 +483,21 @@
         <Lookup type ="department" lookupservice="com.primus.common.lookups.LookupDepartments"
                 lookuppage= "lookup">
         </Lookup>
-
+        <Lookup type ="stockist" lookupservice="com.primus.common.lookups.LookupStockists"
+                lookuppage= "lookup">
+        </Lookup>
+        <Lookup type ="store" lookupservice="com.primus.common.lookups.LookupStores"
+                lookuppage= "lookup">
+        </Lookup>
+        <Lookup type ="doctor" lookupservice="com.primus.common.lookups.LookupDoctors"
+                lookuppage= "lookup">
+        </Lookup>
 
         <Lookup type ="user" lookupservice="com.primus.common.lookups.LookupUsers"
+                lookuppage= "lookup">
+        </Lookup>
+
+        <Lookup type ="externalParty" lookupservice="com.primus.common.lookups.LookupExternalParties"
                 lookuppage= "lookup">
         </Lookup>
     </Lookups>

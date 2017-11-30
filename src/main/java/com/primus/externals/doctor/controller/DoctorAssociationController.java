@@ -43,27 +43,5 @@ public class DoctorAssociationController extends AbstractCRUDController {
         return result;
     }
 
-    public Map<String,String> getAllRegions()
-    {
-        Map ans = new LinkedHashMap() ;
-        RegionService service = ServiceFactory.getRegionService() ;
-        List<Region> regions =(List<Region> ) service.fetchAllActive(null,"name", getProductContext()) ;
-        regions.forEach( region ->  {
-            ans.put(String.valueOf(region.getId()),region.getName());
-        });
-        return ans;
 
-    }
-
-    public Map<String,String> getAllLocations()
-    {
-        Map ans = new LinkedHashMap() ;
-        RegionService service = ServiceFactory.getRegionService() ;
-        List<Location> locations =(List<Location> ) service.fetchAllActive("com.primus.admin.region.model.Location",null,"name", getProductContext()) ;
-        locations.forEach( location ->  {
-            ans.put(String.valueOf(location.getId()),location.getName());
-        });
-        return ans;
-
-    }
 }
