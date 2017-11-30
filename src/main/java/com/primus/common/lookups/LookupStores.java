@@ -5,6 +5,7 @@ import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.store.model.Store;
+import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -25,12 +26,12 @@ public class LookupStores implements ILookupService {
         String condition = null;
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where name like  '" + searchString + "'" ;
+            condition =  " where store.name like  '" + searchString + "'" ;
         }
         StoreService service = ServiceFactory.getStoreService();
-        List<? extends PrimusModel> results = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> results = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
         for (ModelObject obj :  results) {
-            ans.put(((Store)obj).getName(),((Store)obj).getName());
+            ans.put(((StoreAssociation)obj).getStore().getName(),((StoreAssociation)obj).getStore().getName());
         }
 
         return ans;

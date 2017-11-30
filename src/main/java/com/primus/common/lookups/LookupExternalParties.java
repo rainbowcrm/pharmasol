@@ -6,9 +6,11 @@ import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.doctor.model.Doctor;
+import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.Stockist;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.Store;
+import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.ui.abstracts.ILookupService;
@@ -26,27 +28,36 @@ public class LookupExternalParties implements ILookupService {
     public Map<String, String> lookupData(IRadsContext iRadsContext, String searchString, int i, int i1, String lookupParam, List<String> list) {
         Map<String,String> ans = new LinkedHashMap<String,String>();
         String condition = null;
-        if (!Utils.isNull(searchString)) {
-            searchString = searchString.replace("*", "%");
-            condition =  " where name like  '" + searchString + "'" ;
-        }
-        AbstractService service =null ;
+
+
 
         if("PTSTCK".equalsIgnoreCase(lookupParam)) {
-            service = ServiceFactory.getStockistService();
-            List<? extends PrimusModel> companies = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+            if (!Utils.isNull(searchString)) {
+                searchString = searchString.replace("*", "%");
+                condition =  " where stockist.name like  '" + searchString + "'" ;
+            }
+            StockistService service = ServiceFactory.getStockistService();
+            List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
             for (ModelObject obj :  companies) {
                 ans.put(((Stockist)obj).getName(),((Stockist)obj).getName());
             }
         }else if ("PTSTRE".equalsIgnoreCase(lookupParam)) {
-            service = ServiceFactory.getStoreService();
-            List<? extends PrimusModel> companies = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+            if (!Utils.isNull(searchString)) {
+                searchString = searchString.replace("*", "%");
+                condition =  " where store.name like  '" + searchString + "'" ;
+            }
+            StoreService service = ServiceFactory.getStoreService();
+            List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
             for (ModelObject obj :  companies) {
                 ans.put(((Store)obj).getName(),((Store)obj).getName());
             }
         }else if ("PTDCT".equalsIgnoreCase(lookupParam)) {
-            service = ServiceFactory.getDoctorService();
-            List<? extends PrimusModel> companies = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+            if (!Utils.isNull(searchString)) {
+                searchString = searchString.replace("*", "%");
+                condition =  " where doctor.name like  '" + searchString + "'" ;
+            }
+            DoctorService service = ServiceFactory.getDoctorService();
+            List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
             for (ModelObject obj :  companies) {
                 ans.put(((Doctor)obj).getName(),((Doctor)obj).getName());
             }

@@ -155,5 +155,16 @@ public class StockistService extends AbstractService {
 
     }
 
+    public List<? extends PrimusModel> fetchAllLinked(String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where deleted = false and associated = true and company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and associated = true and company.id= " + context.getLoggedinCompany());
+        }
+        return getDAO().fetchAllActive("StockistAssociation", additionalCondition.toString(), orderBy);
+
+    }
 
 }

@@ -7,6 +7,7 @@ import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.model.StockistAssociation;
 import com.primus.externals.stockist.service.StockistService;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -28,12 +29,12 @@ public class LookupStockists  implements ILookupService {
         String condition = null;
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where name like  '" + searchString + "'" ;
+            condition =  " where stockist.name like  '" + searchString + "'" ;
         }
         StockistService service = ServiceFactory.getStockistService() ;
-        List<? extends PrimusModel> companies = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
         for (ModelObject obj :  companies) {
-            ans.put(((Stockist)obj).getName(),((Stockist)obj).getName());
+            ans.put(((StockistAssociation)obj).getStockist().getName(),((StockistAssociation)obj).getStockist().getName());
         }
 
         return ans;

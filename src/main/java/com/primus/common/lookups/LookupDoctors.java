@@ -5,6 +5,7 @@ import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.doctor.model.Doctor;
+import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -25,12 +26,12 @@ public class LookupDoctors implements ILookupService {
         String condition = null;
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where name like  '" + searchString + "'" ;
+            condition =  " where doctor.name like  '" + searchString + "'" ;
         }
         DoctorService service = ServiceFactory.getDoctorService() ;
-        List<? extends PrimusModel> results = service.fetchAllActive(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> results = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
         for (ModelObject obj :  results) {
-            ans.put(((Doctor)obj).getName(),((Doctor)obj).getName());
+            ans.put(((DoctorAssociation)obj).getDoctor().getName(),((DoctorAssociation)obj).getDoctor().getName());
         }
 
         return ans;

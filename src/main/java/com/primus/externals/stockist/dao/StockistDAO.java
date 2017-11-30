@@ -75,6 +75,7 @@ public class StockistDAO extends AbstractDAO{
 
     }
 
+
    /* public List<PrimusModel> listData(String table, int from , int to , String whereCondition, String orderby, int companyId ) {
 // left outer join  Stockist.address address  &&  address.city,address.phone ,
         Query query =  em.createQuery(" select Stockist.id, Stockist.code , Stockist.name,Stockist.contactPerson,   association.associated ,association.company.id " +
