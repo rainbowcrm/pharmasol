@@ -51,6 +51,13 @@ body, div.topBar {
 height: 28px !important;
   padding: 3px !important; }
 
+.custom30width {
+ width : 30% !important;
+ }
+.custom5width {
+width : 5% !important;
+min-width: 10px;
+}
 input[type=checkbox].form-control, input[type=radio].form-control {
   width: 15px; }
 

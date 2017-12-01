@@ -188,6 +188,28 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 		endAt  = val;
 	}
 
+
+	int hh;
+	int mm;
+
+	@Transient
+	public int getHh() {
+		return hh;
+	}
+
+	public void setHh(int hh) {
+		this.hh = hh;
+	}
+
+	@Transient
+	public int getMm() {
+		return mm;
+	}
+
+	public void setMm(int mm) {
+		this.mm = mm;
+	}
+
 	Date appointmentTime ;
 
 	

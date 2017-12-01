@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractValidator;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.doctor.model.Doctor;
@@ -19,6 +20,8 @@ import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,7 +123,12 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         if(template.isSaturdayFlag()) weekDays *= 17;
 
           template.setWeekDays(weekDays);
-
+          try {
+              String selectedtime = String.valueOf(template.getHh()) + ":" + String.valueOf(template.getMm());
+              template.setAppointmentTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
+          }catch (ParseException ex) {
+              Logger.logException(  "Error in parsing",this.getClass(),ex);
+          }
 
         return null;
     }
@@ -136,6 +144,13 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         if(weekProduct % 11 == 0) template.setThursFlag(true);
         if(weekProduct % 13 == 0) template.setFriFlag(true);
         if(weekProduct % 17 == 0) template.setSaturdayFlag(true);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String timeString = sdf.format(template.getAppointmentTime()) ;
+        String hhPart = timeString.substring(0,2);
+        String mmPart = timeString.substring(3,5);
+        template.setHh(Integer.parseInt(hhPart));
+        template.setMm(Integer.parseInt(mmPart));
 
         return super.adaptToUI(model, context);
 

@@ -1,7 +1,11 @@
 package com.primus.abstracts;
 
+import com.primus.admin.region.model.Location;
+import com.primus.admin.region.model.Region;
+import com.primus.admin.region.service.RegionService;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.primus.common.application.Product;
 import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.context.IRadsContext;
@@ -15,6 +19,7 @@ import com.techtrade.rads.framework.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -133,5 +138,29 @@ public  abstract  class AbstractTransactionController extends TransactionControl
     @Override
     public PageResult print() {
         return null;
+    }
+
+    public Map<String,String> getAllRegions()
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Region> regions =(List<Region> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        regions.forEach( region ->  {
+            ans.put(String.valueOf(region.getId()),region.getName());
+        });
+        return ans;
+
+    }
+
+    public Map<String,String> getAllLocations()
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Location> locations =(List<Location> ) service.fetchAllActive("com.primus.admin.region.model.Location",null,"name", getProductContext()) ;
+        locations.forEach( location ->  {
+            ans.put(String.valueOf(location.getId()),location.getName());
+        });
+        return ans;
+
     }
 }
