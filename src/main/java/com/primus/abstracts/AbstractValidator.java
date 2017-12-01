@@ -10,10 +10,7 @@ import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Component
 public abstract class AbstractValidator {
@@ -61,6 +58,11 @@ public abstract class AbstractValidator {
         return error;
     }
 
+    public  List<RadsError> businessValidations(PrimusModel model, ProductContext context, AbstractService service){
+
+        return Arrays.asList();
+    }
+
     public  List<RadsError> validateForCreate(PrimusModel model, ProductContext context, AbstractService service){
         List<RadsError> results = new ArrayList<RadsError>();
         String businessKey = getBusinessKeyField();
@@ -75,6 +77,7 @@ public abstract class AbstractValidator {
         if(!Utils.isNullList(valueErrors)) {
             results.addAll(valueErrors);
         }
+        results.addAll(businessValidations(model,context,service));
         return results;
     }
 
@@ -96,6 +99,7 @@ public abstract class AbstractValidator {
         if(!Utils.isNullList(valueErrors)) {
             results.addAll(valueErrors);
         }
+        results.addAll(businessValidations(model,context,service));
         return results;
     }
 

@@ -1,9 +1,6 @@
 package com.primus.crm.appointment.validator;
 
-import com.primus.abstracts.AbstractValidator;
-import com.primus.abstracts.CommonErrorCodes;
-import com.primus.abstracts.PrimusBusinessModel;
-import com.primus.abstracts.PrimusModel;
+import com.primus.abstracts.*;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
@@ -23,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.primus.crm.appointment.model.AppointmentTemplate;
@@ -37,6 +35,28 @@ public class AppointmentTemplateValidator extends AbstractValidator {
     @Override
     public String getBusinessKeyField() {
         return "Template_No";
+    }
+
+    @Override
+    public List<RadsError> businessValidations(PrimusModel model, ProductContext context, AbstractService service) {
+        List<RadsError> ans = new ArrayList<>();
+        AppointmentTemplate appointmentTemplate = (AppointmentTemplate) model;
+        List<RadsError> results = new ArrayList<RadsError>();
+        if("PTSTCK".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getStockist() == null   ) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Stockist"));
+        }
+        if("PTSTRE".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getStore() == null) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Store"));
+        }
+        if("PTDCT".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getDoctor() == null) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Doctor"));
+        }
+
+        if(appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.END_BEFORE_START));
+        }
+
+        return results;
     }
 
     @Override
@@ -92,24 +112,32 @@ public class AppointmentTemplateValidator extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
         super.adaptFromUI(model, context);
+        List<RadsError> results = new ArrayList<RadsError>();
         AppointmentTemplate template = (AppointmentTemplate) model;
         if (template.getStockist() != null) {
             StockistService service = ServiceFactory.getStockistService();
             List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + template.getStockist().getName() + "'", null, context);
             if (!Utils.isNullList(stockists))
                 template.setStockist(stockists.get(0).getStockist());
+            else
+                results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+
         }
         if (template.getStore() != null) {
             StoreService service = ServiceFactory.getStoreService();
             List<StoreAssociation> datas = ( List<StoreAssociation> ) service.fetchAllLinked(" where store.name ='" + template.getStore().getName() +"'",null, context) ;
             if(!Utils.isNullList(datas))
                 template.setStore(datas.get(0).getStore());
+            else
+                results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
         }
         if (template.getDoctor()!= null) {
             DoctorService service = ServiceFactory.getDoctorService();
             List<DoctorAssociation> datas = ( List<DoctorAssociation> ) service.fetchAllLinked(" where doctor.name ='" + template.getDoctor().getName() +"'",null, context) ;
             if(!Utils.isNullList(datas))
                 template.setDoctor(datas.get(0).getDoctor());
+            else
+                results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
         }
 
         int weekDays = 1 ;
@@ -130,7 +158,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
               Logger.logException(  "Error in parsing",this.getClass(),ex);
           }
 
-        return null;
+        return results;
     }
 
     @Override
