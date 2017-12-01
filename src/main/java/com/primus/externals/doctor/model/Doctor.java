@@ -134,6 +134,29 @@ public class Doctor extends PrimusBusinessModel {
 		this.email = email;
 	}
 
+
+	String faceBookId;
+	String gmailId;
+
+
+	@Column(name  ="FACEBOOK_ID")
+	public String getFaceBookId() {
+		return faceBookId;
+	}
+
+	public void setFaceBookId(String faceBookId) {
+		this.faceBookId = faceBookId;
+	}
+
+	@Column(name  ="GMAIL_ID")
+	public String getGmailId() {
+		return gmailId;
+	}
+
+	public void setGmailId(String gmailId) {
+		this.gmailId = gmailId;
+	}
+
 	Collection<DoctorAssociation> doctorAssociations ;
 
 

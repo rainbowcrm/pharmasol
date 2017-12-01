@@ -134,9 +134,9 @@ public class DoctorService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where deleted = false ");
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false ");
         }
         return getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
 
@@ -147,9 +147,9 @@ public class DoctorService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where deleted = false ");
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false ");
         }
         return getDAO().fetchAllActive(className, additionalCondition.toString(), orderBy);
 

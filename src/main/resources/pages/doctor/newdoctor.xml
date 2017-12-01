@@ -45,6 +45,10 @@
                     <Element label="Alternate_Phone" type="UIText" isMandatory="false" Id="txotconactPersonPhone" property="alternatePhone"/>
                     <Element label="Email" type="UIText" isMandatory="false" Id="txtcontactEmail"
                              property="email"/>
+                    <Element label="Gmail_Id" type="UIText" isMandatory="false" Id="txtgmailId"
+                             property="gmailId"/>
+                    <Element label="Facebook_Id" type="UIText" isMandatory="false" Id="txtfacebookId"
+                             property="faceBookId"/>
                 </Section>
             </CoreSection>
             <Section type="summary">
