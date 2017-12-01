@@ -60,13 +60,13 @@
                         <Element label="" type="UINote" Id="idIdNote" property="templateNo"/>
                     </Column>
                     <Column title="Manager" sortField="MANAGER_USER_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="manager"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="manager.userId"/>
                     </Column>
                     <Column title="Agent" sortField="AGENT_USER_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="agent"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="agent.userId"/>
                     </Column>
                     <Column title="Party" sortField="APPT_PARTY_TYPE" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="partyType"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
                     </Column>
                     <Column title="Pattern" sortField="APPT_PARTY_TYPE" width="20%">
                         <Element label="" type="UINote" Id="idIdNote" property="pattern.description"/>

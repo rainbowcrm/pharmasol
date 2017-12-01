@@ -30,11 +30,11 @@
                     <Element label="Template_No" type="UIText" isMandatory="true" Id="txttemplateNo"
                              property="templateNo"/>
                     <Element label="Manager" type="UILookupDataList" listId="lstmanager" Id="txtmanager"
-                             isMandatory="true" property="manager.name">
+                             isMandatory="true" property="manager.userId">
                         <lookupType>user</lookupType>
                     </Element>
                     <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
-                             property="agent.name">
+                             property="agent.userId">
                         <lookupType>user</lookupType>
                     </Element>
                     <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType" property="partyType.code">
@@ -71,9 +71,29 @@
                         <options populator="getFiniteValues" populatorParam="DTPTTN">
                         </options>
                     </Element>
+                    <Element label="" type="UILabel" isMandatory="false" Id="lblHide" />
 
+                    <Element label="Sunday" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtlinksunday" property="sundayFlag"/>
+                    <Element label="Monday" type="UIBooleanCheckBox" hiddenControlId="hdnlnkmonday"
+                             Id="txtlinkmonday" property="mondayFlag"/>
+                    <Element label="Tuesday" type="UIBooleanCheckBox" hiddenControlId="hdnlnktuesday"
+                             Id="txtlinktuesday" property="tuesdayFlag"/>
+                    <Element label="Wednesday" type="UIBooleanCheckBox" hiddenControlId="hdnlnkwednesday"
+                             Id="txtlinkwedneday" property="wednesdayFlag"/>
+                    <Element label="Thursday" type="UIBooleanCheckBox" hiddenControlId="hdnlnkthursday"
+                             Id="txtlinkthursday" property="thursFlag"/>
+                    <Element label="Friday" type="UIBooleanCheckBox" hiddenControlId="hdnlnkfriday"
+                             Id="txtlinkfriday" property="friFlag"/>
+                    <Element label="Saturday" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtlinksaturday" property="saturdayFlag"/>
+
+                    <Element label="" type="UILabel" isMandatory="false" Id="lblHide" />
+                    <Element label="" type="UILabel" isMandatory="false" Id="lblHide" />
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
                              property="description"/>
+
+
                 </Section>
             </CoreSection>
             <Section type="summary">

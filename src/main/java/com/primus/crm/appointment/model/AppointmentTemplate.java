@@ -265,6 +265,74 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 	}
 
 
+	boolean sundayFlag;
+	boolean mondayFlag;
+	boolean tuesdayFlag;
+	boolean wednesdayFlag;
+	boolean thursFlag;
+	boolean friFlag;
+	boolean saturdayFlag;
 
+	@Transient
+	public boolean isSundayFlag() {
+		return sundayFlag;
+	}
 
+	public void setSundayFlag(boolean sundayFlag) {
+		this.sundayFlag = sundayFlag;
+	}
+
+	@Transient
+	public boolean isMondayFlag() {
+		return mondayFlag;
+	}
+
+	public void setMondayFlag(boolean mondayFlag) {
+		this.mondayFlag = mondayFlag;
+	}
+
+	@Transient
+	public boolean isTuesdayFlag() {
+		return tuesdayFlag;
+	}
+
+	public void setTuesdayFlag(boolean tuesdayFlag) {
+		this.tuesdayFlag = tuesdayFlag;
+	}
+
+	@Transient
+	public boolean isWednesdayFlag() {
+		return wednesdayFlag;
+	}
+
+	public void setWednesdayFlag(boolean wednesdayFlag) {
+		this.wednesdayFlag = wednesdayFlag;
+	}
+
+	@Transient
+	public boolean isThursFlag() {
+		return thursFlag;
+	}
+
+	public void setThursFlag(boolean thursFlag) {
+		this.thursFlag = thursFlag;
+	}
+
+	@Transient
+	public boolean isFriFlag() {
+		return friFlag;
+	}
+
+	public void setFriFlag(boolean friFlag) {
+		this.friFlag = friFlag;
+	}
+
+	@Transient
+	public boolean isSaturdayFlag() {
+		return saturdayFlag;
+	}
+
+	public void setSaturdayFlag(boolean saturdayFlag) {
+		this.saturdayFlag = saturdayFlag;
+	}
 }
