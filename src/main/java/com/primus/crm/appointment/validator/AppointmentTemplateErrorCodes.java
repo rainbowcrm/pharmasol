@@ -5,5 +5,7 @@ import com.primus.abstracts.CommonErrorCodes;
 public class AppointmentTemplateErrorCodes extends CommonErrorCodes {
     public static  final int PARTY_WRONGWITH_TYPE= 1000101;
     public static  final int END_BEFORE_START= 1000102;
+    public static  final int NOT_LINKED_FOR_BUSINESS= 1000103;
+    public static  final int NOT_LINKED_WITH_LOCATION= 1000104;
 
 }

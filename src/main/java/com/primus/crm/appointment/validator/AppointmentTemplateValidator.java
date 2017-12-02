@@ -15,12 +15,14 @@ import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
+
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.primus.crm.appointment.model.AppointmentTemplate;
@@ -37,22 +39,80 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         return "Template_No";
     }
 
+    private StockistAssociation getStockistAssociation (Collection<StockistAssociation> assocationList , int company)
+    {
+        if (Utils.isNullCollection(assocationList)) return null;
+        return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
+
+    }
+
+    private StoreAssociation getStoreAssociation (Collection<StoreAssociation> assocationList , int company)
+    {
+        if (Utils.isNullCollection(assocationList)) return null;
+        return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
+
+    }
+
+    private DoctorAssociation getDoctorAssociation (Collection<DoctorAssociation> assocationList , int company)
+    {
+        if (Utils.isNullCollection(assocationList)) return null;
+        return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
+
+    }
+
     @Override
     public List<RadsError> businessValidations(PrimusModel model, ProductContext context, AbstractService service) {
         List<RadsError> ans = new ArrayList<>();
         AppointmentTemplate appointmentTemplate = (AppointmentTemplate) model;
         List<RadsError> results = new ArrayList<RadsError>();
-        if("PTSTCK".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getStockist() == null   ) {
-            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Stockist"));
+        if ("PTSTCK".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+            if (appointmentTemplate.getStockist() == null)
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Stockist"));
+            else {
+                StockistAssociation association = getStockistAssociation(appointmentTemplate.getStockist().getStockistAssociations(), context.getLoggedinCompany());
+                if (association == null) {
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Stockist", appointmentTemplate.getStockist().getName()));
+
+                }
+                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Stockist", appointmentTemplate.getStockist().getName(),
+                            association.getLocation().getName()));
+
+            }
+
         }
-        if("PTSTRE".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getStore() == null) {
-            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Store"));
+        if ("PTSTRE".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+            if (appointmentTemplate.getStore() == null)
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Store"));
+            else {
+                StoreAssociation association = getStoreAssociation(appointmentTemplate.getStore().getStoreAssociations(), context.getLoggedinCompany());
+                if (association == null) {
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Store", appointmentTemplate.getStore().getName()));
+
+                }
+                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Store",
+                            appointmentTemplate.getStore().getName(), association.getLocation().getName()));
+
+            }
+
         }
-        if("PTDCT".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode()) && appointmentTemplate.getDoctor() == null) {
-            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Doctor"));
+        if ("PTDCT".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+            if (appointmentTemplate.getDoctor() == null)
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Doctor"));
+            else {
+                DoctorAssociation association = getDoctorAssociation(appointmentTemplate.getDoctor().getDoctorAssociations(), context.getLoggedinCompany());
+                if (association == null) {
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Doctor", appointmentTemplate.getDoctor().getName()));
+                }
+                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                    results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Doctor",
+                            appointmentTemplate.getDoctor().getName(), association.getLocation().getName()));
+
+            }
         }
 
-        if(appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
+        if (appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.END_BEFORE_START));
         }
 
@@ -97,6 +157,10 @@ public class AppointmentTemplateValidator extends AbstractValidator {
 
         if (Utils.isNull(appointmentTemplate.getPattern())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Pattern"));
+        }
+
+        if (Utils.isNull(appointmentTemplate.getDuration())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Duration"));
         }
 
 
