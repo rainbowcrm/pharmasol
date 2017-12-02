@@ -65,16 +65,17 @@
                     <Column title="Agent" sortField="AGENT_USER_ID" width="20%">
                         <Element label="" type="UINote" Id="idIdNote" property="agent.userId"/>
                     </Column>
-                    <Column title="Party" sortField="APPT_PARTY_TYPE" width="20%">
+                    <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
                     </Column>
-                    <Column title="Pattern" sortField="APPT_PARTY_TYPE" width="20%">
+                    <Column title="Party" sortField="" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="PartyName"/>
+                    </Column>
+                    <Column title="Pattern" sortField="APPT_PARTY_TYPE" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="pattern.description"/>
                     </Column>
 
-                    <Column title="Description" sortField="DESCRIPTION" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="description"/>
-                    </Column>
+
                 </Columns>
             </ListSection>
         </CoreSection>

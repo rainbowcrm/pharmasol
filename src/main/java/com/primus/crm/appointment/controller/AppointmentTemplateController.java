@@ -1,7 +1,8 @@
 package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
-import com.primus.abstracts.AbstractTransactionController;;
+import com.primus.abstracts.AbstractTransactionController;
+import com.primus.crm.appointment.model.AppointmentTemplate;;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,7 +25,6 @@ public class AppointmentTemplateController extends AbstractTransactionController
     }
 
 
-
     private String prefixZero( int value )
     {
         return (value<10)?"0"+value:String.valueOf(value);
@@ -36,6 +36,8 @@ public class AppointmentTemplateController extends AbstractTransactionController
         }
         return ans;
     }
+
+
 
     public Map<String, String> getMinutes() {
         Map<String, String> ans = new LinkedHashMap<String, String>() ;

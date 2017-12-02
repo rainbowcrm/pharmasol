@@ -234,7 +234,26 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 		return duration;
 	}
 
-	
+	@Transient
+	public String getPartyName()
+	{
+		AppointmentTemplate appointmentTemplate = this;
+			if ("PTSTCK".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+			return appointmentTemplate.getStockist().getName();
+
+		}
+		if ("PTSTRE".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+			return appointmentTemplate.getStore().getName();
+
+		}
+		if ("PTDCT".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+			return appointmentTemplate.getDoctor().getName();
+
+		}
+		return "";
+	}
+
+
 	public void setDuration ( Double   val )
 	{
 		duration  = val;
