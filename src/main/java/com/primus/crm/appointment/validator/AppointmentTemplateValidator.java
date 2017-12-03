@@ -1,6 +1,7 @@
 package com.primus.crm.appointment.validator;
 
 import com.primus.abstracts.*;
+import com.primus.common.FVConstants;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
@@ -13,6 +14,7 @@ import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.Store;
 import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
+import com.primus.framework.nextup.NextUpGenerator;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 
@@ -73,8 +75,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Stockist", appointmentTemplate.getStockist().getName()));
 
-                }
-                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                } else  if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Stockist", appointmentTemplate.getStockist().getName(),
                             association.getLocation().getName()));
 
@@ -89,8 +90,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Store", appointmentTemplate.getStore().getName()));
 
-                }
-                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                }else  if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Store",
                             appointmentTemplate.getStore().getName(), association.getLocation().getName()));
 
@@ -104,8 +104,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
                 DoctorAssociation association = getDoctorAssociation(appointmentTemplate.getDoctor().getDoctorAssociations(), context.getLoggedinCompany());
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Doctor", appointmentTemplate.getDoctor().getName()));
-                }
-                if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
+                } else    if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Doctor",
                             appointmentTemplate.getDoctor().getName(), association.getLocation().getName()));
 
@@ -178,6 +177,11 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         super.adaptFromUI(model, context);
         List<RadsError> results = new ArrayList<RadsError>();
         AppointmentTemplate template = (AppointmentTemplate) model;
+        if(Utils.isNull(template.getTemplateNo() )){
+            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPTTEMPLATE,context,null,null,template.getStartFrom());
+            template.setTemplateNo(no);
+        }
+
         if (template.getStockist() != null) {
             StockistService service = ServiceFactory.getStockistService();
             List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + template.getStockist().getName() + "'", null, context);

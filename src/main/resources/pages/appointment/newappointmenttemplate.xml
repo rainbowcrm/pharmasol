@@ -27,7 +27,7 @@
                 <Section type="header">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="Template_No" type="UIText" isMandatory="true" Id="txttemplateNo"
+                    <Element label="Template_No" type="UIText" isMandatory="true" Id="txttemplateNo" readonly = "true"
                              property="templateNo"/>
                     <Element label="Manager" type="UILookupDataList" listId="lstmanager" Id="txtmanager"
                              isMandatory="true" property="manager.userId">

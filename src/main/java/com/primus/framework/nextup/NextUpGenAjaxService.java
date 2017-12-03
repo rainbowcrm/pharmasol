@@ -13,7 +13,7 @@ public class NextUpGenAjaxService implements IAjaxLookupService {
     @Override
     public String lookupValues(Map<String, String> map, IRadsContext iRadsContext) {
         String program = map.get("program") ;
-        String nextNumber = NextUpGenerator.getNextNumber(program,(ProductContext)iRadsContext,null);
+        String nextNumber = NextUpGenerator.getNextNumber(program,(ProductContext)iRadsContext,null,null,new java.util.Date());
         return nextNumber ;
 
     }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "newAppointment" showinFrame ="true" title ="Appointment | Primus WFM | Primus WFM" Object = "com.primus.crm.appointment.model.Appointment"
+      Controller = "com.primus.crm.appointment.controller.AppointmentController">
+    <Template type= "CRUD"  name = "CRUDTemplate"></Template>
+    <Forwards>
+        <Forward key ="CANCEL">controller?page=appointments</Forward>
+        <Forward key ="SAVE">appointments</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id ="cust" method = "POST" >
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type ="detail">
+                    <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
+                    <Element label = ""  type = "UIHidden" Id = "hdnUserID"  property ="Id" />
+                                        <Element label = "Doc_No" type = "UIText" isMandatory="true" Id = "txtdocNo" property ="docNo" />
+                                        <Element label = "Template"  type = "UILookupDataList"  listId="lsttemplate" Id = "txttemplate"    isMandatory="true" property ="template.appointmenttemplate"> 
+ <lookupType>appointmentTemplate</lookupType>
+ </Element>
+                                        <Element label = "Party" type = "UIList" isMandatory="true" Id = "lstpartyType" property ="partyType.code" >
+<options  populator = "getFiniteValues" populatorParam = "EXPTYTYPE">  
+ </options>
+</Element>
+                                        <Element label = "Location" type = "UIList" isMandatory="true" Id = "lstlocation" property ="location.id" >
+<options  populator = "null"   
+  ></options>
+</Element>
+                                        <Element label = "Stockist"  type = "UILookupDataList"  listId="lststockist" Id = "txtstockist"    isMandatory="false" property ="stockist.name"> 
+ <lookupType>stockist</lookupType>
+ </Element>
+                                        <Element label = "Store"  type = "UILookupDataList"  listId="lststore" Id = "txtstore"    isMandatory="false" property ="store.name"> 
+ <lookupType>store</lookupType>
+ </Element>
+                                        <Element label = "Doctor"  type = "UILookupDataList"  listId="lstdoctor" Id = "txtdoctor"    isMandatory="false" property ="doctor.name"> 
+ <lookupType>doctor</lookupType>
+ </Element>
+                                        <Element label = "Agent"  type = "UILookupDataList"  listId="lstagent" Id = "txtagent"    isMandatory="true" property ="agent.name"> 
+ <lookupType>user</lookupType>
+ </Element>
+                                        <Element label = "Appt_Date" type = "UIDate" isMandatory="true" Id = "txtapptDate" property ="apptDate" />
+                                        <Element label = "Appt_Time" type = "UIText" isMandatory="true" Id = "txtapptTime" property ="apptTime" />
+                                        <Element label = "Status" type = "UIText" isMandatory="true" Id = "txtstatus" property ="status" />
+                                        <Element label = "Discussion" type = "UIText" isMandatory="false" Id = "txtdiscussion" property ="discussion" />
+                                        <Element label = "Description" type = "UIText" isMandatory="false" Id = "txtdescription" property ="description" />
+                                    </Section>
+            </CoreSection>
+            <Section type ="summary">
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

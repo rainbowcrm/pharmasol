@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id = "hrcompList" showinFrame ="true" title ="Manager Portal | Primus Pharma Solutions" Object = "com.primus.common.landing.model.LandingModel"
+<Page id = "agentsList" showinFrame ="true" title ="Agents Portal | Primus Pharma Solutions" Object = "com.primus.common.landing.model.LandingModel"
       Controller = "com.primus.common.landing.controller.LandingController">
     <Template type= "General"  name = "landingTemplate"></Template>
     <Forwards>
@@ -13,12 +13,12 @@
     <Elements>
         <UIForm Id ="cust" method = "POST" >
             <Section type ="topBar"></Section>
-            <Section type ="managerleftsidebar"></Section>
+            <Section type ="agentsleftsidebar"></Section>
             <Section type ="managershortCutBar"></Section>
 
             <CoreSection>
                 <Section type = "fullPage" >
-                    <Element type = "UIIFrame" src ="./controller?page=appointmenttemplates" Id="frmFameId" style ="coresectionstyle" >
+                    <Element type = "UIIFrame" src ="./controller?page=appointments" Id="frmFameId" style ="coresectionstyle" >
                     </Element>
 
                 </Section>

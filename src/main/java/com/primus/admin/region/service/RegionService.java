@@ -5,6 +5,7 @@ import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.admin.region.model.Region;
+import com.primus.common.ProductContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +39,15 @@ public class RegionService extends AbstractService {
          TransactionUpdateDelta delta = formDelta(oldObj.getLocations(),  newObj.getLocations()) ;
           newObj.getLocations().addAll((List<Location>)delta.getDeletedRecords());
      }
+
+     public Location getLocationById(int locId, ProductContext context) {
+        return (Location) regionDAO.getById(Location.class);
+
+     }
+
+    public Location getLocationByName(String locName, ProductContext context) {
+        return (Location) regionDAO.fetchAllActive("Location" , " where name = '" + locName  +"'", "" );
+
+    }
 
 }

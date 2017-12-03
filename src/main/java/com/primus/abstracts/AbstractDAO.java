@@ -27,6 +27,9 @@ public abstract class AbstractDAO {
         return (PrimusModel)em.find(className,PK);
         }
 
+    public PrimusModel getById( Class className, Object PK) {
+          return (PrimusModel)em.find(className,PK);
+    }
 
 
     @Transactional

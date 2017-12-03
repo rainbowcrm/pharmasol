@@ -47,6 +47,7 @@ public class $validatorClass extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
        super.adaptFromUI(model,context) ;
+
        return null;
     }
 }

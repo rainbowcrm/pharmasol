@@ -5,6 +5,7 @@ import com.techtrade.rads.framework.utils.Utils;
 
 public class NextUpConfig {
 
+	String  dateFormat;
 	class NextUpComponent  {
 		String fieldType;
 		int fieldWidth;
@@ -73,5 +74,13 @@ public class NextUpConfig {
 	}
 	public void setComponent4(NextUpComponent component4) {
 		this.component4 = component4;
+	}
+
+	public String getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
 	}
 }

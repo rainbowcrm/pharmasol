@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="Appointments" showinFrame="true" title="Appointment | Primus WFM | Primus WFM"
+      Object="com.primus.crm.appointment.model.Appointment"
+      Controller="com.primus.crm.appointment.controller.AppointmentListController">
+
+    <Template type="List" name="ListTemplate"></Template>
+    <Forwards>
+        <Forward key="NEW">controller?page=newappointment</Forward>
+        <Forward key="EDIT">controller?page=newappointment</Forward>
+    </Forwards>
+    <AjaxGroups>
+        <AjaxGroup service="filterSearch">
+            <requestElements>
+                <requestElement key="filterId">lstSavedFilters</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key="FilterName">txtFilterName</responseElement>
+                <responseElement key="docNo">txtdocNo</responseElement>
+                <responseElement key="template">txttemplate</responseElement>
+                <responseElement key="location">txtlocation</responseElement>
+                <responseElement key="agent">txtagent</responseElement>
+            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
+
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <CoreSection>
+            <ErrorSection>
+            </ErrorSection>
+            <FilterSection>
+                <FilterNode>
+                    <Element label="Saved_Filters" type="UIList" Id="lstSavedFilters" property="">
+                        <options populator="getSavedFiters">
+                        </options>
+                    </Element>
+                </FilterNode>
+                <FilterNode>
+                    <Element label="Doc_No" type="UIText" Id="txtdocNo " property="docNo"/>
+                </FilterNode>
+                <FilterNode>
+                    <Element label="Template" type="UILookupDataList" Id="txttemplate " property="template"/>
+                </FilterNode>
+                <FilterNode>
+                    <Element label="Location" type="UIList" Id="txtlocation " property="location"/>
+                </FilterNode>
+                <FilterNode>
+                    <Element label="Agent" type="UILookupDataList" Id="txtagent " property="agent"/>
+                </FilterNode>
+            </FilterSection>
+            <ListSection>
+                <Columns allowrowselection="Multiple" uniqueproperty="Id">
+                    <SelectionColumn>
+                        <Element label="" type="UICheckBox" Id="idChkSel" rendered="!Object.isDeleted" property="Id"/>
+                        <Element label="" type="UIImage" Id="idChkSel" rendered="Object.isDeleted" height="21"
+                                 weight="21" src="./images/deletedRow.jpg"/>
+                    </SelectionColumn>
+                    <Column title="Doc_No" sortField="DOC_NO" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="docNo"/>
+                    </Column>
+                    <Column title="Template" sortField="TEMPLATE_ID" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="template"/>
+                    </Column>
+                    <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
+                        <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
+                    </Column>
+                    <Column title="Party" sortField="" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="PartyName"/>
+                    </Column>
+
+
+                    <Column title="Status" sortField="APPT_STATUS" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="status"/>
+                    </Column>
+
+                </Columns>
+            </ListSection>
+        </CoreSection>
+        <Section type="summary">
+
+            <Element caption="Process" type="UIButton" Id="btnEdit" style="btn btn-warning"
+                     iconStyle="glyphicon glyphicon-pencil" fixedAction="FixedAction.ACTION_GOEDITMODE"
+                     fixedActionParam="EDIT"/>
+            <Element type="Panel" key="NavPanel" style="sameline"></Element>
+        </Section>
+        <Section type="copyRightSection"/>
+    </Elements>
+</Page>

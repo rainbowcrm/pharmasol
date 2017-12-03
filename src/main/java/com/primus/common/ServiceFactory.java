@@ -4,6 +4,7 @@ import com.primus.admin.department.model.Department;
 import com.primus.admin.department.service.DepartmentService;
 import com.primus.admin.division.model.Division;
 import com.primus.admin.division.service.DivisionService;
+import com.primus.admin.region.model.Location;
 import com.primus.admin.region.service.RegionService;
 import com.primus.admin.role.service.RoleService;
 import com.primus.admin.zone.service.ZoneService;
@@ -20,6 +21,7 @@ import com.primus.merchandise.item.service.SkuService;
 import com.primus.merchandise.item.service.UOMService;
 import com.primus.merchandise.product.service.ProductService;
 import com.primus.util.ServiceLibrary;
+import com.techtrade.rads.framework.utils.Utils;
 
 
 public class ServiceFactory {
@@ -138,6 +140,15 @@ public class ServiceFactory {
         return service ;
     }
 
+    public static Location getLocation (Location location, ProductContext context) {
+        RegionService service = getRegionService() ;
+        if(location != null && location.getId() > 0 )  {
+            return (Location) service.getLocationById(location.getId(),context) ;
+        }else if (location != null && !Utils.isNull(location.getName()) ) {
+            return (Location) service.getLocationByName(location.getName(),context);
+        }
+        return null;
+    }
 
     public static Department getDepartment (Department department, ProductContext context) {
         DepartmentService service = getDepartmentService() ;

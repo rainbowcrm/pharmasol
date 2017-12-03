@@ -1,0 +1,201 @@
+<CodeGenEntity>
+    <entityName>Appointment</entityName>
+    <rootpackage>com.primus.crm.appointment</rootpackage>
+    <tableName>APPOINTMENTS</tableName>
+    <controllerType>AbstractCRUDController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\crm\\Appointment</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\appointment</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>docNo</fieldName>
+            <dbFieldName>DOC_NO</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Doc_No</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>template</fieldName>
+            <dbFieldName>TEMPLATE_ID</dbFieldName>
+            <dataType>AppointmentTemplate</dataType>
+            <uiRepresentation>
+                <uiLabel>Template</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>appointmenttemplate</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>partyType</fieldName>
+            <dbFieldName>APPT_PARTY_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>EXPTYTYPE</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Party</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>location</fieldName>
+            <dbFieldName>LOCATION_ID</dbFieldName>
+            <dataType>Location</dataType>
+            <uiRepresentation>
+                <uiLabel>Location</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>stockist</fieldName>
+            <dbFieldName>STOCKIST_ID</dbFieldName>
+            <dataType>Stockist</dataType>
+            <uiRepresentation>
+                <uiLabel>Stockist</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>store</fieldName>
+            <dbFieldName>STORE_ID</dbFieldName>
+            <dataType>Store</dataType>
+            <uiRepresentation>
+                <uiLabel>Store</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>doctor</fieldName>
+            <dbFieldName>DOCTOR_ID</dbFieldName>
+            <dataType>Doctor</dataType>
+            <uiRepresentation>
+                <uiLabel>Doctor</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>agent</fieldName>
+            <dbFieldName>AGENT_USER_ID</dbFieldName>
+            <dataType>User</dataType>
+            <uiRepresentation>
+                <uiLabel>Agent</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>apptDate</fieldName>
+            <dbFieldName>APPT_DATE</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>Appt_Date</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIDate</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>apptTime</fieldName>
+            <dbFieldName>APPT_TIME</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>Appt_Time</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIText</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>status</fieldName>
+            <dbFieldName>APPT_STATUS</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>APPTSTATUS</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Status</uiLabel>
+                <uiControl>UIText</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>discussion</fieldName>
+            <dbFieldName>DISCUSSION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Discussion</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>

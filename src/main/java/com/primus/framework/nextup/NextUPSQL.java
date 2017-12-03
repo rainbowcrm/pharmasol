@@ -107,6 +107,7 @@ public class NextUPSQL {
                 nextUpConfig.setComponent2(comp2);
                 nextUpConfig.setComponent3(comp3);
                 nextUpConfig.setComponent4(comp4);
+                nextUpConfig.setDateFormat(rs.getString("DATEFORMAT1"));
             }
         } catch (SQLException ex) {
 

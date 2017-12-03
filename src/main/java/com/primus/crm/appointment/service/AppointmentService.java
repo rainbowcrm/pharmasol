@@ -1,12 +1,13 @@
-package $rootpackageservice;
+package com.primus.crm.appointment.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.crm.appointment.model.Appointment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
-import $daopackage;
+import com.primus.crm.appointment.dao.AppointmentDAO;
 
 
 
@@ -15,22 +16,22 @@ import $daopackage;
 **/
 @Component
 @Transactional
-public class $serviceClass extends AbstractService {
+public class AppointmentService extends AbstractService {
 
 
  @Autowired
- $daoClass $daoObject ;
+ AppointmentDAO appointmentDAO ;
 
   @Override
      public AbstractDAO getDAO() {
-         return $daoObject;
+         return appointmentDAO;
      }
 
 
       @Override
      protected void collateBeforUpdate(PrimusModel newObject, PrimusModel oldObject) {
-         $entityName newObj = ($entityName) newObject;
-         $entityName oldObj = ($entityName) oldObject;
+         Appointment newObj = (Appointment) newObject;
+         Appointment oldObj = (Appointment) oldObject;
 
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
