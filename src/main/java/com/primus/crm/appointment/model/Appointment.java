@@ -2,6 +2,7 @@ package com.primus.crm.appointment.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.admin.region.model.Location;
+import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.user.model.User;
 import com.primus.externals.doctor.model.Doctor;
@@ -234,6 +235,25 @@ public class Appointment extends PrimusBusinessModel {
 		description  = val;
 	}
 
+
+	@Transient
+	public String getPartyName()
+	{
+		Appointment appointment = this;
+		if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+			return appointment.getStockist().getName();
+
+		}
+		if (FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+			return appointment.getStore().getName();
+
+		}
+		if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+			return appointment.getDoctor().getName();
+
+		}
+		return "";
+	}
 
 
 

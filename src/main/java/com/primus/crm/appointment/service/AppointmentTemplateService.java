@@ -2,7 +2,10 @@ package com.primus.crm.appointment.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,4 +39,12 @@ public class AppointmentTemplateService extends AbstractService {
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
 
+    @Override
+    public TransactionResult create(PrimusModel object, ProductContext productContext) {
+         TransactionResult result = super.create(object, productContext);
+         AppointmentTemplate savedwithPK = (AppointmentTemplate)getByBusinessKey(object,productContext);
+         AppointmentService service = ServiceFactory.getAppointmentService();
+         service.createBulkAppointments(savedwithPK,productContext);
+         return result;
+    }
 }

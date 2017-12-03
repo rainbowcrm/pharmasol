@@ -2,13 +2,21 @@ package com.primus.crm.appointment.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.common.FVConstants;
+import com.primus.common.FiniteValue;
+import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
+import com.primus.crm.appointment.model.AppointmentTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -36,7 +44,80 @@ public class AppointmentService extends AbstractService {
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
 
+     }
 
+    private Appointment formSkeltonFromTemplate(AppointmentTemplate template, ProductContext context) {
+      Appointment appointment = new Appointment();
+      appointment.setLocation(template.getLocation());
+      appointment.setDoctor(template.getDoctor());
+      appointment.setStockist(template.getStockist());
+      appointment.setStore(template.getStore());
+      appointment.setPartyType(template.getPartyType());
+      appointment.setApptTime(template.getAppointmentTime());
+      appointment.setAgent(template.getAgent());
+      appointment.setTemplate(template);
+      appointment.setCompany(template.getCompany());
+      appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
+      return appointment ;
+
+    }
+    private void generateMonthlyAppointments(AppointmentTemplate template, ProductContext context) {
+        Date endDate = template.getEndAt();
+        Date startDate = template.getStartFrom();
+
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(startDate);
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(endDate);
+
+        int endYear = endCalendar.get(Calendar.YEAR);
+        int startYear = startCalendar.get(Calendar.YEAR);
+
+        int endMonth = endCalendar.get(Calendar.MONTH);
+        int startMonth = startCalendar.get(Calendar.MONTH);
+
+        int apptDate = template.getApptDayForMonth();
+
+        int curYear = startYear;
+        int curMonth = startMonth;
+        while ((curMonth <= endMonth) || (curYear < endYear)) {
+            Calendar apptCalendar = Calendar.getInstance();
+            apptCalendar.set(Calendar.YEAR, curYear);
+            apptCalendar.set(Calendar.MONTH, curMonth);
+            apptCalendar.set(Calendar.DAY_OF_MONTH, apptDate);
+            Appointment appointment = formSkeltonFromTemplate(template, context);
+            appointment.setApptDate(apptCalendar.getTime());
+            create(appointment, context);
+            curMonth++;
+            if (curMonth > 12) {
+                curMonth = 1;
+                curYear++;
+            }
+
+        }
+
+
+    }
+
+    private void generateWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
+
+
+    }
+
+    private void generateDailyAppointments(AppointmentTemplate template, ProductContext context) {
+
+    }
+
+    private void generateBiWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
+
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void createBulkAppointments(AppointmentTemplate template, ProductContext context)
+     {
+        if(template.getPattern().equals(FVConstants.DATE_PATTERN.MONTHLY)) {
+            generateMonthlyAppointments(template,context);
+        }
 
      }
 

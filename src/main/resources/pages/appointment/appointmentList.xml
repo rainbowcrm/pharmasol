@@ -60,7 +60,7 @@
                         <Element label="" type="UINote" Id="idIdNote" property="docNo"/>
                     </Column>
                     <Column title="Template" sortField="TEMPLATE_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="template"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="template.templateNo"/>
                     </Column>
                     <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
@@ -71,7 +71,7 @@
 
 
                     <Column title="Status" sortField="APPT_STATUS" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="status"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="status.description"/>
                     </Column>
 
                 </Columns>

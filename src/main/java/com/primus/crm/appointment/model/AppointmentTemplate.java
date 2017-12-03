@@ -2,6 +2,7 @@ package com.primus.crm.appointment.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.admin.region.model.Location;
+import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.user.model.User;
 import com.primus.externals.doctor.model.Doctor;
@@ -238,15 +239,15 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 	public String getPartyName()
 	{
 		AppointmentTemplate appointmentTemplate = this;
-			if ("PTSTCK".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+			if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
 			return appointmentTemplate.getStockist().getName();
 
 		}
-		if ("PTSTRE".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+		if (FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
 			return appointmentTemplate.getStore().getName();
 
 		}
-		if ("PTDCT".equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
+		if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointmentTemplate.getPartyType().getCode())) {
 			return appointmentTemplate.getDoctor().getName();
 
 		}
@@ -375,5 +376,16 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 
 	public void setSaturdayFlag(boolean saturdayFlag) {
 		this.saturdayFlag = saturdayFlag;
+	}
+
+	int apptDayForMonth ;
+
+	@Transient
+	public int getApptDayForMonth() {
+		return 12;
+	}
+
+	public void setApptDayForMonth(int apptDayForMonth) {
+		this.apptDayForMonth = apptDayForMonth;
 	}
 }
