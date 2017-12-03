@@ -6,6 +6,7 @@ import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
 import com.primus.admin.region.model.Location;
 import com.primus.common.FVConstants;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.AppointmentTemplate;
@@ -20,6 +21,8 @@ import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -82,6 +85,19 @@ public class AppointmentValidator extends AbstractValidator {
     }
 
     @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+        Appointment appointment = (Appointment) model;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String timeString = sdf.format(appointment.getApptTime()) ;
+        String hhPart = timeString.substring(0,2);
+        String mmPart = timeString.substring(3,5);
+        appointment.setHh(Integer.parseInt(hhPart));
+        appointment.setMm(Integer.parseInt(mmPart));
+
+        return super.adaptToUI(model, context);
+    }
+
+    @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
         super.adaptFromUI(model, context);
         List<RadsError> results = new ArrayList<RadsError>();
@@ -119,8 +135,15 @@ public class AppointmentValidator extends AbstractValidator {
             else
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
         }
-
+        try {
+            String selectedtime = String.valueOf(appointment.getHh()) + ":" + String.valueOf(appointment.getMm());
+            appointment.setApptTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
+        }catch (ParseException ex) {
+            Logger.logException(  "Error in parsing",this.getClass(),ex);
+        }
 
         return null;
     }
+
+
 }

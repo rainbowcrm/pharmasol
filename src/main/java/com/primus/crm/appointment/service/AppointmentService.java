@@ -68,12 +68,11 @@ public class AppointmentService extends AbstractService {
         Date endDate = template.getEndAt();
         Date startDate = template.getStartFrom();
         
-        Calendar startCalendar = Calendar.getInstance();
-        startCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
         startCalendar.setTime(startDate);
-        Calendar endCalendar = Calendar.getInstance();
-        startCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
         endCalendar.setTime(endDate);
+
 
         int endYear = endCalendar.get(Calendar.YEAR);
         int startYear = startCalendar.get(Calendar.YEAR);

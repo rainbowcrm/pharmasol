@@ -56,11 +56,14 @@
                         <Element label="" type="UIImage" Id="idChkSel" rendered="Object.isDeleted" height="21"
                                  weight="21" src="./images/deletedRow.jpg"/>
                     </SelectionColumn>
-                    <Column title="Doc_No" sortField="DOC_NO" width="20%">
+                    <Column title="Doc_No" sortField="DOC_NO" width="15%">
                         <Element label="" type="UINote" Id="idIdNote" property="docNo"/>
                     </Column>
-                    <Column title="Template" sortField="TEMPLATE_ID" width="20%">
+                    <Column title="Template" sortField="TEMPLATE_ID" width="15%">
                         <Element label="" type="UINote" Id="idIdNote" property="template.templateNo"/>
+                    </Column>
+                    <Column title="Date" sortField="APPT_DATE" width="15%">
+                        <Element label="" type="UINote" Id="idIdNote" property="dateString"/>
                     </Column>
                     <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>

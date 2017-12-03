@@ -21,6 +21,30 @@ public class AppointmentController extends AbstractCRUDController{
         return "AppointmentValidator";
     }
 
-     
+    private String prefixZero( int value )
+    {
+        return (value<10)?"0"+value:String.valueOf(value);
+    }
+    public Map<String, String> getHours() {
+        Map<String, String> ans = new LinkedHashMap<String, String>() ;
+        for (int i =0 ;  i< 24 ; i ++) {
+            ans.put(String.valueOf(i),prefixZero(i));
+        }
+        return ans;
+    }
+
+
+
+    public Map<String, String> getMinutes() {
+        Map<String, String> ans = new LinkedHashMap<String, String>() ;
+        ans.put("00","00");
+        ans.put("15","15");
+        ans.put("30","30");
+        ans.put("45","45");
+        return ans;
+
+    }
+
+
 
 }
