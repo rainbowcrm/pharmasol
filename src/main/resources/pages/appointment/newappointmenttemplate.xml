@@ -136,6 +136,9 @@
                 </Section>
             </CoreSection>
             <Section type="summary">
+                <Element caption="Create_Instances" type="UIButton" Id="btnAlink" style="btn btn-success" rendered = "Controller.isUpdateMode"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="CREATEINSTANCE"/>
             </Section>
 
         </UIForm>

@@ -13,6 +13,7 @@ import com.primus.common.filter.service.FilterService;
 import com.primus.common.login.service.LoginService;
 import com.primus.common.user.service.UserService;
 import com.primus.crm.appointment.service.AppointmentService;
+import com.primus.crm.appointment.service.AppointmentTemplateService;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.service.StoreService;
@@ -138,6 +139,12 @@ public class ServiceFactory {
     public static SkuService getSKUService()
     {
         SkuService service = (SkuService)ServiceLibrary.services().getService("SkuService")  ;
+        return service ;
+    }
+
+    public static AppointmentTemplateService getAppointmentTemplateService()
+    {
+        AppointmentTemplateService service = (AppointmentTemplateService)ServiceLibrary.services().getService("AppointmentTemplateService")  ;
         return service ;
     }
 

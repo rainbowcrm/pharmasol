@@ -18,6 +18,7 @@ import com.primus.crm.appointment.dao.AppointmentDAO;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
 /**
@@ -59,18 +60,19 @@ public class AppointmentService extends AbstractService {
       appointment.setTemplate(template);
       appointment.setCompany(template.getCompany());
       appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
-        String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
-        appointment.setDocNo(no);
+
       return appointment ;
 
     }
     private void generateMonthlyAppointments(AppointmentTemplate template, ProductContext context) {
         Date endDate = template.getEndAt();
         Date startDate = template.getStartFrom();
-
+        
         Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
         startCalendar.setTime(startDate);
         Calendar endCalendar = Calendar.getInstance();
+        startCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
         endCalendar.setTime(endDate);
 
         int endYear = endCalendar.get(Calendar.YEAR);
@@ -85,11 +87,14 @@ public class AppointmentService extends AbstractService {
         int curMonth = startMonth;
         while ((curMonth <= endMonth) || (curYear < endYear)) {
             Calendar apptCalendar = Calendar.getInstance();
+            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
             apptCalendar.set(Calendar.YEAR, curYear);
             apptCalendar.set(Calendar.MONTH, curMonth);
             apptCalendar.set(Calendar.DAY_OF_MONTH, apptDate);
             Appointment appointment = formSkeltonFromTemplate(template, context);
             appointment.setApptDate(apptCalendar.getTime());
+            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+            appointment.setDocNo(no);
             create(appointment, context);
             curMonth++;
             if (curMonth > 12) {

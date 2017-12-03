@@ -10,6 +10,7 @@ import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentTemplateDAO;
@@ -43,14 +44,18 @@ public class AppointmentTemplateService extends AbstractService {
 
 
 
-    private TransactionResult createInstances (AppointmentTemplate template,ProductContext productContext) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    public TransactionResult createInstances (AppointmentTemplate template,ProductContext productContext) {
         TransactionResult result = new TransactionResult();
         AppointmentTemplate savedwithPK = (AppointmentTemplate)getById(template.getId());
-        if (savedwithPK != null && savedwithPK.getInstanceCreated() == false   ) {
+        if (savedwithPK != null && (savedwithPK.getInstanceCreated() == null || savedwithPK.getInstanceCreated() == false )  ) {
             AppointmentService service = ServiceFactory.getAppointmentService();
             service.createBulkAppointments(savedwithPK, productContext);
             savedwithPK.setInstanceCreated(true);
             update(savedwithPK,productContext);
+            savedwithPK = (AppointmentTemplate)getById(template.getId());
+            result.setObject(savedwithPK);
+
         } else {
             result.addError(AppointmentTemplateValidator.getErrorforCode(productContext, AppointmentTemplateErrorCodes.INSTANCEES_ALREADY_CREATED));
             result.setResult(TransactionResult.Result.FAILURE);

@@ -2,7 +2,12 @@ package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
 import com.primus.abstracts.AbstractTransactionController;
-import com.primus.crm.appointment.model.AppointmentTemplate;;
+import com.primus.common.ServiceFactory;
+import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.service.AppointmentTemplateService;
+import com.techtrade.rads.framework.model.abstracts.ModelObject;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;;
+import javax.xml.ws.Service;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -47,5 +52,15 @@ public class AppointmentTemplateController extends AbstractTransactionController
         ans.put("45","45");
         return ans;
 
+    }
+
+    @Override
+    public PageResult submit(ModelObject object, String actionParam) {
+        if ("CREATEINSTANCE".equalsIgnoreCase(actionParam)) {
+            AppointmentTemplateService service = ServiceFactory.getAppointmentTemplateService();
+             PageResult result  =  new PageResult(service.createInstances((AppointmentTemplate) object,getProductContext())) ;
+             return  result;
+            }
+            return new PageResult();
     }
 }

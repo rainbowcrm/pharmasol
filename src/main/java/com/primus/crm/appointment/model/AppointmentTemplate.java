@@ -382,7 +382,7 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 
 	@Transient
 	public int getApptDayForMonth() {
-		return 12;
+		return apptDayForMonth;
 	}
 
 	public void setApptDayForMonth(int apptDayForMonth) {
