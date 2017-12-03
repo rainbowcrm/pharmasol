@@ -12,6 +12,7 @@ public class AppointmentTemplateErrorCodes extends CommonErrorCodes {
     public static  final int ONE_DAYSELECFOR_WEEKBIWEEK= 1000106;
     public static  final int DAYS_SHOULDBESELECTED_DAILYAPPT= 1000107;
     public static  final int START_DATE_NOTFROMPAST= 1000108;
+    public static  final int INSTANCEES_ALREADY_CREATED= 1000109;
 
 
 

@@ -41,6 +41,9 @@
                     <Element label="Start_From" type="UIDate" isMandatory="true" Id="txtstartFrom"
                              property="startFrom"/>
                     <Element label="End_At" type="UIDate" isMandatory="true" Id="txtendAt" property="endAt"/>
+
+                    <Element label="Appointments_Created" type="UIText" readonly="true" isMandatory="false" Id="txtmonthlyAppt"
+                             property="instanceCreated"/>
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
                              property="description"/>
                 </Section>
@@ -80,6 +83,12 @@
 
                         <Element type="UITab" Id="idPatternDetails" title="Schedules" showinTable="true" cols="3">
 
+                            <Element label="Pattern" type="UIList" isMandatory="true" Id="lstpattern"
+                                     property="pattern.code">
+                                <options populator="getFiniteValues" populatorParam="DTPTTN">
+                                </options>
+                            </Element>
+
                             <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime" value="Appointment_Time"
                                       />
                             <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
@@ -99,12 +108,9 @@
 
                             <Element label="Duration" type="UIText" isMandatory="false" Id="txtduration"
                                      property="duration"/>
-                            <Element label="Pattern" type="UIList" isMandatory="true" Id="lstpattern"
-                                     property="pattern.code">
-                                <options populator="getFiniteValues" populatorParam="DTPTTN">
-                                </options>
-                            </Element>
 
+
+                            <Element label="Day_forMonth" type="UIText"  Id="txtdayMonth"  style ="custom30width" property="dayforMonth"/>
 
                             <Element label="Sunday" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
                                      Id="txtlinksunday" property="sundayFlag"/>

@@ -7,6 +7,7 @@ import com.primus.common.FiniteValue;
 import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.framework.nextup.NextUpGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -58,6 +59,8 @@ public class AppointmentService extends AbstractService {
       appointment.setTemplate(template);
       appointment.setCompany(template.getCompany());
       appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
+        String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+        appointment.setDocNo(no);
       return appointment ;
 
     }

@@ -5,6 +5,8 @@ import com.primus.abstracts.AbstractService;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
+import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,12 +41,20 @@ public class AppointmentTemplateService extends AbstractService {
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
      }
 
-    @Override
-    public TransactionResult create(PrimusModel object, ProductContext productContext) {
-         TransactionResult result = super.create(object, productContext);
-         AppointmentTemplate savedwithPK = (AppointmentTemplate)getByBusinessKey(object,productContext);
-         AppointmentService service = ServiceFactory.getAppointmentService();
-         service.createBulkAppointments(savedwithPK,productContext);
-         return result;
+
+
+    private TransactionResult createInstances (AppointmentTemplate template,ProductContext productContext) {
+        TransactionResult result = new TransactionResult();
+        AppointmentTemplate savedwithPK = (AppointmentTemplate)getById(template.getId());
+        if (savedwithPK != null && savedwithPK.getInstanceCreated() == false   ) {
+            AppointmentService service = ServiceFactory.getAppointmentService();
+            service.createBulkAppointments(savedwithPK, productContext);
+            savedwithPK.setInstanceCreated(true);
+            update(savedwithPK,productContext);
+        } else {
+            result.addError(AppointmentTemplateValidator.getErrorforCode(productContext, AppointmentTemplateErrorCodes.INSTANCEES_ALREADY_CREATED));
+            result.setResult(TransactionResult.Result.FAILURE);
+        }
+        return result;
     }
 }

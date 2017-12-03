@@ -388,4 +388,25 @@ public class AppointmentTemplate extends PrimusBusinessModel {
 	public void setApptDayForMonth(int apptDayForMonth) {
 		this.apptDayForMonth = apptDayForMonth;
 	}
+
+	Integer dayforMonth;
+	Boolean  instanceCreated;
+
+	@Column(name  ="DAY_FOR_MONTH")
+	public Integer getDayforMonth() {
+		return dayforMonth;
+	}
+
+	public void setDayforMonth(Integer dayforMonth) {
+		this.dayforMonth = dayforMonth;
+	}
+
+	@Column(name  ="INSTANCE_CREATED")
+	public Boolean getInstanceCreated() {
+		return instanceCreated;
+	}
+
+	public void setInstanceCreated(Boolean instanceCreated) {
+		this.instanceCreated = instanceCreated;
+	}
 }
