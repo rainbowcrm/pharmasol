@@ -64,6 +64,9 @@ public class AppointmentService extends AbstractService {
       return appointment ;
 
     }
+
+
+
     private void generateMonthlyAppointments(AppointmentTemplate template, ProductContext context) {
         Date endDate = template.getEndAt();
         Date startDate = template.getStartFrom();
@@ -106,9 +109,86 @@ public class AppointmentService extends AbstractService {
 
     }
 
+    private boolean  isStartLesser (int startYear, int startMon , int startWeek, int endYear,int endMonth, int endWeek)
+    {
+        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        startCalendar.set(Calendar.YEAR, startYear);
+        startCalendar.set(Calendar.MONTH, startMon);
+        startCalendar.set(Calendar.WEEK_OF_MONTH, startWeek);
+
+        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        endCalendar.set(Calendar.YEAR, endYear);
+        endCalendar.set(Calendar.MONTH, endMonth);
+        endCalendar.set(Calendar.WEEK_OF_MONTH, endWeek);
+
+        if(endCalendar.after(startCalendar)) return true;
+        else return  false ;
+    }
+
+    private int getWeekofDay( int weekProduct ){
+
+        if(weekProduct % 2 == 0) return 1;
+        if(weekProduct % 3 == 0) return 2;
+        if(weekProduct % 5 == 0) return 3;
+        if(weekProduct % 7 == 0) return 4;
+        if(weekProduct % 11 == 0) return 5;
+        if(weekProduct % 13 == 0) return 6;
+        if(weekProduct % 17 == 0) return 7;
+        return  0;
+
+    }
+
     private void generateWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
 
+        Date endDate = template.getEndAt();
+        Date startDate = template.getStartFrom();
 
+        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        startCalendar.setTime(startDate);
+        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        endCalendar.setTime(endDate);
+
+
+        int endYear = endCalendar.get(Calendar.YEAR);
+        int startYear = startCalendar.get(Calendar.YEAR);
+
+        int startWeek = startCalendar.get(Calendar.WEEK_OF_MONTH);
+        int endWeek = endCalendar.get(Calendar.WEEK_OF_MONTH);
+
+        int endMonth = endCalendar.get(Calendar.MONTH);
+        int startMonth = startCalendar.get(Calendar.MONTH);
+
+        int apptDate = getWeekofDay(template.getWeekDays());
+
+        int curYear = startYear;
+        int curMonth = startMonth;
+        int curWeek = startWeek;
+
+        while (isStartLesser(curYear,curMonth,curWeek,endYear,endMonth,endWeek))  {
+            Calendar apptCalendar = Calendar.getInstance();
+            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+            apptCalendar.set(Calendar.YEAR, curYear);
+            apptCalendar.set(Calendar.MONTH, curMonth);
+            apptCalendar.set(Calendar.WEEK_OF_MONTH,curWeek);
+            apptCalendar.set(Calendar.DAY_OF_WEEK, apptDate);
+
+            Appointment appointment = formSkeltonFromTemplate(template, context);
+            appointment.setApptDate(apptCalendar.getTime());
+            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+            appointment.setDocNo(no);
+            create(appointment, context);
+            curWeek ++ ;
+            if (curMonth > 12) {
+                curMonth = 1;
+                curYear++;
+                curWeek =1 ;
+            } else if (curWeek > 4) {
+                curWeek =1;
+                curMonth ++;
+            }
+
+
+        }
     }
 
     private void generateDailyAppointments(AppointmentTemplate template, ProductContext context) {
@@ -124,6 +204,8 @@ public class AppointmentService extends AbstractService {
      {
         if(template.getPattern().equals(FVConstants.DATE_PATTERN.MONTHLY)) {
             generateMonthlyAppointments(template,context);
+        } else if(template.getPattern().equals(FVConstants.DATE_PATTERN.WEEKLY)) {
+            generateWeeklyAppointments(template,context);
         }
 
      }
