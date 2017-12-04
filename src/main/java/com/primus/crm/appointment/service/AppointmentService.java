@@ -197,6 +197,58 @@ public class AppointmentService extends AbstractService {
 
     private void generateBiWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
 
+        Date endDate = template.getEndAt();
+        Date startDate = template.getStartFrom();
+
+        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        startCalendar.setTime(startDate);
+        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        endCalendar.setTime(endDate);
+
+
+        int endYear = endCalendar.get(Calendar.YEAR);
+        int startYear = startCalendar.get(Calendar.YEAR);
+
+        int startWeek = startCalendar.get(Calendar.WEEK_OF_MONTH);
+        int endWeek = endCalendar.get(Calendar.WEEK_OF_MONTH);
+
+        int endMonth = endCalendar.get(Calendar.MONTH);
+        int startMonth = startCalendar.get(Calendar.MONTH);
+
+        int apptDate = getWeekofDay(template.getWeekDays());
+
+        int curYear = startYear;
+        int curMonth = startMonth;
+        int curWeek = startWeek;
+
+        while (isStartLesser(curYear,curMonth,curWeek,endYear,endMonth,endWeek))  {
+            Calendar apptCalendar = Calendar.getInstance();
+            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+            apptCalendar.set(Calendar.YEAR, curYear);
+            apptCalendar.set(Calendar.MONTH, curMonth);
+            apptCalendar.set(Calendar.WEEK_OF_MONTH,curWeek);
+            apptCalendar.set(Calendar.DAY_OF_WEEK, apptDate);
+
+            Appointment appointment = formSkeltonFromTemplate(template, context);
+            appointment.setApptDate(apptCalendar.getTime());
+            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+            appointment.setDocNo(no);
+            create(appointment, context);
+            curWeek +=2 ;
+            if (curMonth > 12) {
+                curMonth = 1;
+                curYear++;
+                curWeek =1 ;
+            } else if (curWeek > 5) {
+                curWeek =2;
+                curMonth ++;
+            }else if (curWeek > 4) {
+                curWeek =1;
+                curMonth ++;
+            }
+
+
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -206,6 +258,8 @@ public class AppointmentService extends AbstractService {
             generateMonthlyAppointments(template,context);
         } else if(template.getPattern().equals(FVConstants.DATE_PATTERN.WEEKLY)) {
             generateWeeklyAppointments(template,context);
+        }else if(template.getPattern().equals(FVConstants.DATE_PATTERN.BIWEEKLY)) {
+            generateBiWeeklyAppointments(template,context);
         }
 
      }

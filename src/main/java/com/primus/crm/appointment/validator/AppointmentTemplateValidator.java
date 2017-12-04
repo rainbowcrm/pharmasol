@@ -114,6 +114,41 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         if (appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.END_BEFORE_START));
         }
+        if (appointmentTemplate.getStartFrom().after(new java.util.Date())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.START_DATE_NOTFROMPAST));
+        }
+
+        if(FVConstants.DATE_PATTERN.DAILY.equalsIgnoreCase(appointmentTemplate.getPattern().getCode())) {
+            int weekDays=  appointmentTemplate.getWeekDays() ;
+            if(weekDays == 1 ) {
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.DAYS_SHOULDBESELECTED_DAILYAPPT));
+            }
+        }
+
+        if(FVConstants.DATE_PATTERN.MONTHLY.equalsIgnoreCase(appointmentTemplate.getPattern().getCode())) {
+            int weekDays=  appointmentTemplate.getWeekDays() ;
+            if(weekDays != 1 ) {
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.DAYS_CANNOT_SELECTEDFORMONTHAPPTS));
+            }
+        }
+        if(FVConstants.DATE_PATTERN.WEEKLY.equalsIgnoreCase(appointmentTemplate.getPattern().getCode()) ||
+                FVConstants.DATE_PATTERN.BIWEEKLY.equalsIgnoreCase(appointmentTemplate.getPattern().getCode()) ) {
+
+            int ctSelected = 0 ;
+            if (appointmentTemplate.isSundayFlag())ctSelected ++ ;
+            if(appointmentTemplate.isMondayFlag()) ctSelected ++ ;
+            if (appointmentTemplate.isTuesdayFlag()) ctSelected ++ ;
+            if(appointmentTemplate.isWednesdayFlag()) ctSelected ++ ;
+            if (appointmentTemplate.isThursFlag()) ctSelected ++ ;
+            if(appointmentTemplate.isFriFlag()) ctSelected ++ ;
+            if(appointmentTemplate.isSaturdayFlag()) ctSelected ++ ;
+
+            if(ctSelected != 1)  {
+                results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.ONE_DAYSELECFOR_WEEKBIWEEK));
+            }
+
+
+        }
 
         return results;
     }
