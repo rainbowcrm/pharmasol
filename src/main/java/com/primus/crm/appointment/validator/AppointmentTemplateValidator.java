@@ -114,7 +114,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         if (appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.END_BEFORE_START));
         }
-        if (appointmentTemplate.getStartFrom().after(new java.util.Date())) {
+        if (appointmentTemplate.getStartFrom().before(new java.util.Date())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.START_DATE_NOTFROMPAST));
         }
 

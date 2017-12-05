@@ -191,7 +191,72 @@ public class AppointmentService extends AbstractService {
         }
     }
 
+    private int getMonthEndDay(int year, int month)
+    {
+        if( (year % 4  == 0) && month == 2 )
+            return 29;
+        else if (month == 2)
+            return 28;
+        else if (month == 1 || month == 3  || month == 5 || month == 7 ||   month == 8  || month == 10 || month == 12  )
+            return 31 ;
+        else
+            return 30;
+    }
+
     private void generateDailyAppointments(AppointmentTemplate template, ProductContext context) {
+
+        Date endDate = template.getEndAt();
+        Date startDate = template.getStartFrom();
+
+        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        startCalendar.setTime(startDate);
+        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
+        endCalendar.setTime(endDate);
+
+
+        int endYear = endCalendar.get(Calendar.YEAR);
+        int startYear = startCalendar.get(Calendar.YEAR);
+
+
+        int startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
+        int endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
+
+        int endMonth = endCalendar.get(Calendar.MONTH);
+        int startMonth = startCalendar.get(Calendar.MONTH);
+
+        int curYear = startYear;
+        int curMonth = startMonth;
+        int curDay = startDay;
+
+        while (isStartLesser(curYear,curMonth,startDay,endYear,endMonth,endDay))  {
+            Calendar apptCalendar = Calendar.getInstance();
+            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+            apptCalendar.set(Calendar.YEAR, curYear);
+            apptCalendar.set(Calendar.MONTH, curMonth);
+            apptCalendar.set(Calendar.DAY_OF_MONTH, curDay);
+            int dayOfWeek =  apptCalendar.get(Calendar.DAY_OF_WEEK) ;
+            int weekDays = template.getWeekDays() ;
+            if ((weekDays % dayOfWeek) == 0) {
+                Appointment appointment = formSkeltonFromTemplate(template, context);
+                appointment.setApptDate(apptCalendar.getTime());
+                String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+                appointment.setDocNo(no);
+                create(appointment, context);
+            }
+            int monthEndDay = getMonthEndDay(curYear, curMonth) ;
+            curDay  ++ ;
+            if (curMonth > 12) {
+                curMonth = 1;
+                curYear++;
+                curDay ++ ;
+            } else if (curDay > monthEndDay) {
+                curDay =1;
+                curMonth ++;
+            }
+
+
+        }
+
 
     }
 
@@ -260,6 +325,8 @@ public class AppointmentService extends AbstractService {
             generateWeeklyAppointments(template,context);
         }else if(template.getPattern().equals(FVConstants.DATE_PATTERN.BIWEEKLY)) {
             generateBiWeeklyAppointments(template,context);
+        }else if(template.getPattern().equals(FVConstants.DATE_PATTERN.DAILY)) {
+            generateDailyAppointments(template,context);
         }
 
      }
