@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -68,33 +69,26 @@ public class AppointmentService extends AbstractService {
 
 
     private void generateMonthlyAppointments(AppointmentTemplate template, ProductContext context) {
-        Date endDate = template.getEndAt();
-        Date startDate = template.getStartFrom();
-        
-        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.setTime(startDate);
-        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.setTime(endDate);
+        LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+        LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
 
+        int endYear = endDate.getYear();
+        int startYear = startDate.getYear();
 
-        int endYear = endCalendar.get(Calendar.YEAR);
-        int startYear = startCalendar.get(Calendar.YEAR);
+        int endMonth = endDate.getMonth().getValue();
+        int startMonth = startDate.getMonth().getValue();
 
-        int endMonth = endCalendar.get(Calendar.MONTH);
-        int startMonth = startCalendar.get(Calendar.MONTH);
-
-        int apptDate = template.getApptDayForMonth();
+        int apptDay = template.getDayforMonth();
 
         int curYear = startYear;
         int curMonth = startMonth;
         while ((curMonth <= endMonth) || (curYear < endYear)) {
-            Calendar apptCalendar = Calendar.getInstance();
-            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-            apptCalendar.set(Calendar.YEAR, curYear);
-            apptCalendar.set(Calendar.MONTH, curMonth);
-            apptCalendar.set(Calendar.DAY_OF_MONTH, apptDate);
+
+            LocalDate apptLocalDate =LocalDate.of(curYear,curMonth,apptDay);
+
             Appointment appointment = formSkeltonFromTemplate(template, context);
-            appointment.setApptDate(apptCalendar.getTime());
+            Date apptDate = Date.from(apptLocalDate.atStartOfDay(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toInstant());
+            appointment.setApptDate(apptDate);
             String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
             appointment.setDocNo(no);
             create(appointment, context);
@@ -125,6 +119,8 @@ public class AppointmentService extends AbstractService {
         else return  false ;
     }
 
+
+
     private int getWeekofDay( int weekProduct ){
 
         if(weekProduct % 2 == 0) return 1;
@@ -140,13 +136,18 @@ public class AppointmentService extends AbstractService {
 
     private void generateWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
 
-        Date endDate = template.getEndAt();
-        Date startDate = template.getStartFrom();
+        LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+        LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+
 
         Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.setTime(startDate);
+        startCalendar.set(Calendar.YEAR, startDate.getYear());
+        startCalendar.set(Calendar.MONTH, startDate.getMonth().getValue());
+        startCalendar.set(Calendar.DAY_OF_MONTH, startDate.getDayOfMonth());
         Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.setTime(endDate);
+        endCalendar.set(Calendar.YEAR, endDate.getYear());
+        endCalendar.set(Calendar.MONTH, endDate.getMonth().getValue());
+        endCalendar.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
 
 
         int endYear = endCalendar.get(Calendar.YEAR);
@@ -203,55 +204,62 @@ public class AppointmentService extends AbstractService {
             return 30;
     }
 
+    private boolean isDaySelected(int product, int dayOfWeek) {
+        switch (dayOfWeek) {
+            case 1 : return ((product % 2)== 0 );
+            case 2 : return ((product % 3)== 0 );
+            case 3 : return ((product % 5)== 0 );
+            case 4 : return ((product % 7)== 0 );
+            case 5 : return ((product % 11)== 0 );
+            case 6 : return ((product % 13)== 0 );
+            case 7 : return ((product % 17)== 0 );
+
+        }
+        return false;
+    }
+
     private void generateDailyAppointments(AppointmentTemplate template, ProductContext context) {
 
-        Date endDate = template.getEndAt();
-        Date startDate = template.getStartFrom();
+        LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+        LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
 
-        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.setTime(startDate);
-        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.setTime(endDate);
+        int endYear = endDate.getYear();
+        int startYear = startDate.getYear();
+
+        int endMonth = endDate.getMonth().getValue();
+        int startMonth = startDate.getMonth().getValue();
+
+        int startDay =startDate.getDayOfMonth() ;
+        int endDay = endDate.getDayOfMonth();
 
 
-        int endYear = endCalendar.get(Calendar.YEAR);
-        int startYear = startCalendar.get(Calendar.YEAR);
-
-
-        int startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
-        int endDay = endCalendar.get(Calendar.DAY_OF_MONTH);
-
-        int endMonth = endCalendar.get(Calendar.MONTH);
-        int startMonth = startCalendar.get(Calendar.MONTH);
 
         int curYear = startYear;
         int curMonth = startMonth;
         int curDay = startDay;
 
         while (isStartLesser(curYear,curMonth,startDay,endYear,endMonth,endDay))  {
-            Calendar apptCalendar = Calendar.getInstance();
-            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-            apptCalendar.set(Calendar.YEAR, curYear);
-            apptCalendar.set(Calendar.MONTH, curMonth);
-            apptCalendar.set(Calendar.DAY_OF_MONTH, curDay);
-            int dayOfWeek =  apptCalendar.get(Calendar.DAY_OF_WEEK) ;
+            LocalDate apptLocalDate =LocalDate.of(curYear,curMonth,curDay);
             int weekDays = template.getWeekDays() ;
-            if ((weekDays % dayOfWeek) == 0) {
+            int dayOfWeek =  apptLocalDate.getDayOfWeek().getValue() ;
+            if (isDaySelected(weekDays,dayOfWeek)) {
                 Appointment appointment = formSkeltonFromTemplate(template, context);
-                appointment.setApptDate(apptCalendar.getTime());
+                Date apptDate = Date.from(apptLocalDate.atStartOfDay(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toInstant());
+                appointment.setApptDate(apptDate);
                 String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
                 appointment.setDocNo(no);
                 create(appointment, context);
             }
             int monthEndDay = getMonthEndDay(curYear, curMonth) ;
             curDay  ++ ;
+            if (curDay > monthEndDay) {
+                curDay =1;
+                curMonth ++;
+            }
             if (curMonth > 12) {
                 curMonth = 1;
                 curYear++;
-                curDay ++ ;
-            } else if (curDay > monthEndDay) {
-                curDay =1;
-                curMonth ++;
+                curDay = 1 ;
             }
 
 
@@ -262,13 +270,18 @@ public class AppointmentService extends AbstractService {
 
     private void generateBiWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
 
-        Date endDate = template.getEndAt();
-        Date startDate = template.getStartFrom();
+        LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+        LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
+
 
         Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.setTime(startDate);
+        startCalendar.set(Calendar.YEAR, startDate.getYear());
+        startCalendar.set(Calendar.MONTH, startDate.getMonth().getValue());
+        startCalendar.set(Calendar.DAY_OF_MONTH, startDate.getDayOfMonth());
         Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.setTime(endDate);
+        endCalendar.set(Calendar.YEAR, endDate.getYear());
+        endCalendar.set(Calendar.MONTH, endDate.getMonth().getValue());
+        endCalendar.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
 
 
         int endYear = endCalendar.get(Calendar.YEAR);
