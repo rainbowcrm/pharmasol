@@ -103,20 +103,15 @@ public class AppointmentService extends AbstractService {
 
     }
 
-    private boolean  isStartLesser (int startYear, int startMon , int startWeek, int endYear,int endMonth, int endWeek)
+    private boolean  isStartLesser (int startYear, int startMon , int startdayOfMonth, int endYear,int endMonth, int endDayofMonth)
     {
-        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.set(Calendar.YEAR, startYear);
-        startCalendar.set(Calendar.MONTH, startMon);
-        startCalendar.set(Calendar.WEEK_OF_MONTH, startWeek);
+        if(startYear < endYear ) return true;
+        else if (endYear < startYear) return false;
+        else if(startMon < endMonth) return true ;
+        else if (endMonth < startMon) return false;
+        else if (startdayOfMonth <=endDayofMonth) return true;
+        else return false;
 
-        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.set(Calendar.YEAR, endYear);
-        endCalendar.set(Calendar.MONTH, endMonth);
-        endCalendar.set(Calendar.WEEK_OF_MONTH, endWeek);
-
-        if(endCalendar.after(startCalendar)) return true;
-        else return  false ;
     }
 
 
@@ -135,61 +130,7 @@ public class AppointmentService extends AbstractService {
     }
 
     private void generateWeeklyAppointments(AppointmentTemplate template, ProductContext context) {
-
-        LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
-        LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
-
-
-        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.set(Calendar.YEAR, startDate.getYear());
-        startCalendar.set(Calendar.MONTH, startDate.getMonth().getValue());
-        startCalendar.set(Calendar.DAY_OF_MONTH, startDate.getDayOfMonth());
-        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.set(Calendar.YEAR, endDate.getYear());
-        endCalendar.set(Calendar.MONTH, endDate.getMonth().getValue());
-        endCalendar.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
-
-
-        int endYear = endCalendar.get(Calendar.YEAR);
-        int startYear = startCalendar.get(Calendar.YEAR);
-
-        int startWeek = startCalendar.get(Calendar.WEEK_OF_MONTH);
-        int endWeek = endCalendar.get(Calendar.WEEK_OF_MONTH);
-
-        int endMonth = endCalendar.get(Calendar.MONTH);
-        int startMonth = startCalendar.get(Calendar.MONTH);
-
-        int apptDate = getWeekofDay(template.getWeekDays());
-
-        int curYear = startYear;
-        int curMonth = startMonth;
-        int curWeek = startWeek;
-
-        while (isStartLesser(curYear,curMonth,curWeek,endYear,endMonth,endWeek))  {
-            Calendar apptCalendar = Calendar.getInstance();
-            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-            apptCalendar.set(Calendar.YEAR, curYear);
-            apptCalendar.set(Calendar.MONTH, curMonth);
-            apptCalendar.set(Calendar.WEEK_OF_MONTH,curWeek);
-            apptCalendar.set(Calendar.DAY_OF_WEEK, apptDate);
-
-            Appointment appointment = formSkeltonFromTemplate(template, context);
-            appointment.setApptDate(apptCalendar.getTime());
-            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
-            appointment.setDocNo(no);
-            create(appointment, context);
-            curWeek ++ ;
-            if (curMonth > 12) {
-                curMonth = 1;
-                curYear++;
-                curWeek =1 ;
-            } else if (curWeek > 4) {
-                curWeek =1;
-                curMonth ++;
-            }
-
-
-        }
+        generateDailyAppointments(template,context) ;
     }
 
     private int getMonthEndDay(int year, int month)
@@ -273,60 +214,50 @@ public class AppointmentService extends AbstractService {
         LocalDate endDate = template.getEndAt().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
         LocalDate startDate = template.getStartFrom().toInstant().atZone(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toLocalDate();
 
+        int endYear = endDate.getYear();
+        int startYear = startDate.getYear();
 
-        Calendar startCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        startCalendar.set(Calendar.YEAR, startDate.getYear());
-        startCalendar.set(Calendar.MONTH, startDate.getMonth().getValue());
-        startCalendar.set(Calendar.DAY_OF_MONTH, startDate.getDayOfMonth());
-        Calendar endCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Calcutta"));
-        endCalendar.set(Calendar.YEAR, endDate.getYear());
-        endCalendar.set(Calendar.MONTH, endDate.getMonth().getValue());
-        endCalendar.set(Calendar.DAY_OF_MONTH, endDate.getDayOfMonth());
+        int endMonth = endDate.getMonth().getValue();
+        int startMonth = startDate.getMonth().getValue();
+
+        int startDay =startDate.getDayOfMonth() ;
+        int endDay = endDate.getDayOfMonth();
 
 
-        int endYear = endCalendar.get(Calendar.YEAR);
-        int startYear = startCalendar.get(Calendar.YEAR);
-
-        int startWeek = startCalendar.get(Calendar.WEEK_OF_MONTH);
-        int endWeek = endCalendar.get(Calendar.WEEK_OF_MONTH);
-
-        int endMonth = endCalendar.get(Calendar.MONTH);
-        int startMonth = startCalendar.get(Calendar.MONTH);
-
-        int apptDate = getWeekofDay(template.getWeekDays());
 
         int curYear = startYear;
         int curMonth = startMonth;
-        int curWeek = startWeek;
+        int curDay = startDay;
 
-        while (isStartLesser(curYear,curMonth,curWeek,endYear,endMonth,endWeek))  {
-            Calendar apptCalendar = Calendar.getInstance();
-            apptCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
-            apptCalendar.set(Calendar.YEAR, curYear);
-            apptCalendar.set(Calendar.MONTH, curMonth);
-            apptCalendar.set(Calendar.WEEK_OF_MONTH,curWeek);
-            apptCalendar.set(Calendar.DAY_OF_WEEK, apptDate);
-
-            Appointment appointment = formSkeltonFromTemplate(template, context);
-            appointment.setApptDate(apptCalendar.getTime());
-            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
-            appointment.setDocNo(no);
-            create(appointment, context);
-            curWeek +=2 ;
+        while (isStartLesser(curYear,curMonth,startDay,endYear,endMonth,endDay))  {
+            LocalDate apptLocalDate =LocalDate.of(curYear,curMonth,curDay);
+            int weekDays = template.getWeekDays() ;
+            int dayOfWeek =  apptLocalDate.getDayOfWeek().getValue() ;
+            if (isDaySelected(weekDays,dayOfWeek)) {
+                Appointment appointment = formSkeltonFromTemplate(template, context);
+                Date apptDate = Date.from(apptLocalDate.atStartOfDay(TimeZone.getTimeZone("Asia/Calcutta").toZoneId()).toInstant());
+                appointment.setApptDate(apptDate);
+                String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, template.getLocation().getRegion(), appointment.getApptDate());
+                appointment.setDocNo(no);
+                create(appointment, context);
+                curDay +=13;
+            }
+            int monthEndDay = getMonthEndDay(curYear, curMonth) ;
+            curDay  ++ ;
+            if (curDay > monthEndDay) {
+                curDay =1;
+                curMonth ++;
+            }
             if (curMonth > 12) {
                 curMonth = 1;
                 curYear++;
-                curWeek =1 ;
-            } else if (curWeek > 5) {
-                curWeek =2;
-                curMonth ++;
-            }else if (curWeek > 4) {
-                curWeek =1;
-                curMonth ++;
+                curDay = 1 ;
             }
 
 
         }
+
+
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

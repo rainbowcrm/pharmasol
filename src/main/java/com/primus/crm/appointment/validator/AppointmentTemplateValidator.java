@@ -114,9 +114,9 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         if (appointmentTemplate.getStartFrom().after(appointmentTemplate.getEndAt())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.END_BEFORE_START));
         }
-        if (appointmentTemplate.getStartFrom().before(new java.util.Date())) {
+        /*if (appointmentTemplate.getStartFrom().before(new java.util.Date())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.START_DATE_NOTFROMPAST));
-        }
+        }*/
 
         if(FVConstants.DATE_PATTERN.DAILY.equalsIgnoreCase(appointmentTemplate.getPattern().getCode())) {
             int weekDays=  appointmentTemplate.getWeekDays() ;
@@ -245,13 +245,14 @@ public class AppointmentTemplateValidator extends AbstractValidator {
 
         int weekDays = 1 ;
 
-        if (template.isSundayFlag()) weekDays *= 2;
-        if(template.isMondayFlag()) weekDays *= 3 ;
-        if (template.isTuesdayFlag()) weekDays *= 5;
-        if(template.isWednesdayFlag()) weekDays *= 7;
-        if (template.isThursFlag()) weekDays *= 11;
-        if(template.isFriFlag()) weekDays *= 13;
-        if(template.isSaturdayFlag()) weekDays *= 17;
+
+        if(template.isMondayFlag()) weekDays *= 2 ;
+        if (template.isTuesdayFlag()) weekDays *= 3;
+        if(template.isWednesdayFlag()) weekDays *= 5;
+        if (template.isThursFlag()) weekDays *= 7;
+        if(template.isFriFlag()) weekDays *= 11;
+        if(template.isSaturdayFlag()) weekDays *= 13;
+        if (template.isSundayFlag()) weekDays *= 17;
 
           template.setWeekDays(weekDays);
           try {
@@ -268,13 +269,14 @@ public class AppointmentTemplateValidator extends AbstractValidator {
     public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
         AppointmentTemplate template = (AppointmentTemplate) model;
         int weekProduct = (template.getWeekDays() !=null)?template.getWeekDays():1 ;
-        if(weekProduct % 2 == 0) template.setSundayFlag(true);
-        if(weekProduct % 3 == 0) template.setMondayFlag(true);
-        if(weekProduct % 5 == 0) template.setTuesdayFlag(true);
-        if(weekProduct % 7 == 0) template.setWednesdayFlag(true);
-        if(weekProduct % 11 == 0) template.setThursFlag(true);
-        if(weekProduct % 13 == 0) template.setFriFlag(true);
-        if(weekProduct % 17 == 0) template.setSaturdayFlag(true);
+
+        if(weekProduct % 2 == 0) template.setMondayFlag(true);
+        if(weekProduct % 3 == 0) template.setTuesdayFlag(true);
+        if(weekProduct % 5 == 0) template.setWednesdayFlag(true);
+        if(weekProduct % 7 == 0) template.setThursFlag(true);
+        if(weekProduct % 11 == 0) template.setFriFlag(true);
+        if(weekProduct % 13 == 0) template.setSaturdayFlag(true);
+        if(weekProduct % 17 == 0) template.setSundayFlag(true);
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String timeString = sdf.format(template.getAppointmentTime()) ;
