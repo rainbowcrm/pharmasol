@@ -8,6 +8,8 @@ import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
 import com.primus.framework.nextup.NextUpGenerator;
+import com.techtrade.rads.framework.ui.components.SortCriteria;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -274,5 +276,15 @@ public class AppointmentService extends AbstractService {
         }
 
      }
+
+    public String getOrderByCondition (SortCriteria sortCriteria)
+    {
+        StringBuffer buffer = new StringBuffer();
+        if(sortCriteria == null || Utils.isNullString(sortCriteria.getFieldName()) )
+            return " ORDER BY APPT_DATE ASC ";
+        else
+            return  " ORDER BY " +  sortCriteria.getFieldName() + " " + ( (sortCriteria.getDirection().equals(SortCriteria.DIRECTION.ASCENDING))?"ASC":"DESC");
+
+    }
 
 }

@@ -28,7 +28,8 @@ public class ApplicationStart {
             for (String beanName : beanNames) {
                 System.out.println(beanName);
             }
-
+            Thread subscriber = new Thread(ctx.getBean(SchedulerThread.class));
+            subscriber.start();
         };
     }
 

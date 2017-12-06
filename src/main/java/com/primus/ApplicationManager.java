@@ -30,6 +30,17 @@ public class ApplicationManager {
     @Value("${doc_server_port}")
     private String docServerPort;
 
+    @Value("${Thread_Interval}")
+    private String threadInterval;
+
+
+    public String getThreadInterval() {
+        return threadInterval;
+    }
+
+    public void setThreadInterval(String threadInterval) {
+        this.threadInterval = threadInterval;
+    }
 
     public String getRadsResourcePath() {
         return radsResourcePath;

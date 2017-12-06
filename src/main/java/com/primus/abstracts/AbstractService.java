@@ -133,9 +133,22 @@ public abstract class AbstractService {
         } else {
             additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
         }
-        return getDAO().listData(className, from, to, additionalCondition.toString(), orderBy);
+        additionalCondition.append(getOrderByCondition(sortCriteria));
+
+        return getDAO().listData(className, from, to, additionalCondition.toString(), null);
 
     }
+
+    public String getOrderByCondition (SortCriteria sortCriteria)
+    {
+        StringBuffer buffer = new StringBuffer();
+        if(sortCriteria == null || Utils.isNullString(sortCriteria.getFieldName()) )
+            return " ";
+        else
+            return  " ORDER BY " +  sortCriteria.getFieldName() + " " + ( (sortCriteria.getDirection().equals(SortCriteria.DIRECTION.ASCENDING))?"ASC":"DESC");
+
+    }
+
 
     public List<? extends PrimusModel> fetchAllActive(String whereCondition, String orderBy, ProductContext context) {
         StringBuffer additionalCondition = new StringBuffer();
