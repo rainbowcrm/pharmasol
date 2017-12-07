@@ -72,11 +72,12 @@
         </Page>
         <Page id = "newappointmenttemplate" definition ="/resources/pages/appointment/newappointmenttemplate.xml" modelclass = "com.primus.crm.appointment.model.AppointmentTemplate" >
         </Page>
-        <Page id = "appointments" definition ="/resources/pages/appointment/appointmentList.xml" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        <Page id = "appointments" definition ="/resources/pages/appointment/appointmentList.xml"  accessCode ="AGENT::APPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
-        <Page id = "newappointment" definition ="/resources/pages/appointment/newappointment.xml" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        <Page id = "newappointment" definition ="/resources/pages/appointment/newappointment.xml"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
-
+        <Page id = "mgrappointments" definition ="/resources/pages/appointment/mgrappointmentList.xml"  accessCode ="MGR::APPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        </Page>
 
         <Page id = "roles" definition ="/resources/pages/role/roleList.xml" modelclass = "com.primus.admin.role.model.Role" >
         </Page>
@@ -234,7 +235,7 @@
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates" iconStyle="fa fa-fw fa-tags"  />
-                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Open_Appointments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Open_Appointments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrappointments" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Past_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 

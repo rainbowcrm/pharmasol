@@ -67,6 +67,7 @@ public class CommonUtil  extends  ServiceFactory {
         ctx = service.generateContext(authToken);
         CompanyService companyService = getCompanyService();
         ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
+        ctx.setPageAccessCode(page.getAccessCode());
         return ctx;
 
     }
@@ -77,6 +78,7 @@ public class CommonUtil  extends  ServiceFactory {
         ctx = service.generateContext(authToken);
         CompanyService companyService = getCompanyService();
         ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
+        ctx.setPageAccessCode(page.getAccessCode());
         return ctx;
 
     }

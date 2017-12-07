@@ -45,7 +45,9 @@
                 <FilterNode>
                     <Element label="Location" type="UIList" Id="txtlocation " property="location"/>
                 </FilterNode>
-
+                <FilterNode>
+                    <Element label="Agent" type="UILookupDataList" Id="txtagent " property="agent"/>
+                </FilterNode>
             </FilterSection>
             <ListSection>
                 <Columns allowrowselection="Multiple" uniqueproperty="Id">
@@ -66,12 +68,14 @@
                     <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
                     </Column>
-                    <Column title="Party" sortField="" width="20%">
+                    <Column title="Party" sortField="" width="15%">
                         <Element label="" type="UINote" Id="idIdNote" property="PartyName"/>
                     </Column>
+                    <Column title="Agent" sortField="" width="15%">
+                        <Element label="" type="UINote" Id="idIdNote" property="agent.userId"/>
+                    </Column>
 
-
-                    <Column title="Status" sortField="APPT_STATUS" width="20%">
+                    <Column title="Status" sortField="APPT_STATUS" width="10%">
                         <Element label="" type="UINote" Id="idIdNote" property="status.description"/>
                     </Column>
 

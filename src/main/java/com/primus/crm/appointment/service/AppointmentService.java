@@ -293,11 +293,14 @@ public class AppointmentService extends AbstractService {
                                                 String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
+        String accessCondition = " agent.userId = '"+ context.getUser()+ "'" ;
+        if ( context.getPageAccessCode() != null && context.getPageAccessCode().contains("MGR"))
+            accessCondition = " template is not null and  template.manager.userId = '"+ context.getUser()+ "'" ;
 
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where agent.userId = '"+ context.getUser()+ "'  and company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where  "+  accessCondition +"  and company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " agent.userId = '"+ context.getUser()+ "'  and  and company.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition +  accessCondition + "  and company.id= " + context.getLoggedinCompany());
         }
         additionalCondition.append(getOrderByCondition(sortCriteria));
 
