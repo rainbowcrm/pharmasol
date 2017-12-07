@@ -18,10 +18,7 @@ import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import java.util.*;
 
 
 /**
@@ -284,6 +281,27 @@ public class AppointmentService extends AbstractService {
             return " ORDER BY APPT_DATE ASC ";
         else
             return  " ORDER BY " +  sortCriteria.getFieldName() + " " + ( (sortCriteria.getDirection().equals(SortCriteria.DIRECTION.ASCENDING))?"ASC":"DESC");
+
+    }
+
+    public List<? extends PrimusModel> listData(int from, int to,
+                                                String whereCondition, ProductContext context, SortCriteria sortCriteria) {
+        return listData(getDAO().getEntityClassName(), from, to, whereCondition, null, context, sortCriteria);
+    }
+
+    public List<? extends PrimusModel> listData(String className, int from, int to,
+                                                String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where agent.userId = '"+ context.getUser()+ "'  and company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " agent.userId = '"+ context.getUser()+ "'  and  and company.id= " + context.getLoggedinCompany());
+        }
+        additionalCondition.append(getOrderByCondition(sortCriteria));
+
+        return getDAO().listData(className, from, to, additionalCondition.toString(), null);
 
     }
 
