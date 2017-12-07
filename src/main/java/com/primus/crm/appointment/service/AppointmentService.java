@@ -284,6 +284,28 @@ public class AppointmentService extends AbstractService {
 
     }
 
+    public long getTotalRecordCount(ProductContext context, String whereCondition) {
+        StringBuffer additionalCondition = new StringBuffer();
+   /*     boolean allowAllDiv = CommonUtil.allowAllDivisionAccess(context);
+        Metadata metadata = CommonUtil.getMetaDataforClass(getTableName());
+        if (Utils.isNullString(whereCondition) ){
+            additionalCondition = additionalCondition.append(" where company.id = " +  context.getLoggedinCompany()) ;
+        }else {
+            additionalCondition = additionalCondition.append(whereCondition +  " and company.id= " +  context.getLoggedinCompany()) ;
+        }
+        if (!allowAllDiv && metadata != null && metadata.isDivisionSpecific()) {
+            additionalCondition = additionalCondition.append(" and division.id = "  +  context.getLoggedInUser().getDivision().getId());
+        }*/
+
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
+        }
+
+        return getDAO().getTotalRecordCount(getDAO().getEntityClassName(), context, additionalCondition.toString());
+    }
+
     public List<? extends PrimusModel> listData(int from, int to,
                                                 String whereCondition, ProductContext context, SortCriteria sortCriteria) {
         return listData(getDAO().getEntityClassName(), from, to, whereCondition, null, context, sortCriteria);

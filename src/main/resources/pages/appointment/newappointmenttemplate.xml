@@ -29,10 +29,10 @@
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="Template_No" type="UIText" isMandatory="true" Id="txttemplateNo" readonly = "true"
                              property="templateNo"/>
-                    <Element label="Manager" type="UILookupDataList" listId="lstmanager" Id="txtmanager"
+                    <Element label="Manager" type="UIText"   Id="txtmanager" readonly="true"
                              isMandatory="true" property="manager.userId">
-                        <lookupType>user</lookupType>
                     </Element>
+
                     <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
                              property="agent.userId">
                         <lookupType>user</lookupType>

@@ -5,6 +5,7 @@ import com.primus.common.FVConstants;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.common.user.model.User;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
@@ -216,6 +217,9 @@ public class AppointmentTemplateValidator extends AbstractValidator {
             String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPTTEMPLATE,context,null,null,template.getStartFrom());
             template.setTemplateNo(no);
         }
+        User user = new User();
+        user.setUserId(context.getUser());
+        template.setManager(user);
 
         if (template.getStockist() != null) {
             StockistService service = ServiceFactory.getStockistService();

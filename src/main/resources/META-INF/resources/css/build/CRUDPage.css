@@ -63,7 +63,9 @@ width :80%  ;
 
 }
 
-
+textarea.textareastyle {
+height: auto !important;
+}
 
 input[type=checkbox].form-control, input[type=radio].form-control {
   width: 15px; }
@@ -415,8 +417,8 @@ span.crudlabel {
   color: #373a3c;
   font-size: 15px;
   font-weight: bold;
-  min-width: 150px;
-  display: inline-block; }
+  min-width: 100px;
+ }
 
 span.fullpage {
   color: #373a3c;

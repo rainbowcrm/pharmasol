@@ -8,6 +8,8 @@ import com.primus.crm.appointment.model.AppointmentTemplate;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
+import com.techtrade.rads.framework.ui.components.SortCriteria;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentTemplateDAO;
 
+import java.util.List;
 
 
 /**
@@ -61,5 +64,49 @@ public class AppointmentTemplateService extends AbstractService {
             result.setResult(TransactionResult.Result.FAILURE);
         }
         return result;
+    }
+
+    public long getTotalRecordCount(ProductContext context, String whereCondition) {
+        StringBuffer additionalCondition = new StringBuffer();
+   /*     boolean allowAllDiv = CommonUtil.allowAllDivisionAccess(context);
+        Metadata metadata = CommonUtil.getMetaDataforClass(getTableName());
+        if (Utils.isNullString(whereCondition) ){
+            additionalCondition = additionalCondition.append(" where company.id = " +  context.getLoggedinCompany()) ;
+        }else {
+            additionalCondition = additionalCondition.append(whereCondition +  " and company.id= " +  context.getLoggedinCompany()) ;
+        }
+        if (!allowAllDiv && metadata != null && metadata.isDivisionSpecific()) {
+            additionalCondition = additionalCondition.append(" and division.id = "  +  context.getLoggedInUser().getDivision().getId());
+        }*/
+
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
+        }
+
+        return getDAO().getTotalRecordCount(getDAO().getEntityClassName(), context, additionalCondition.toString());
+    }
+
+    public List<? extends PrimusModel> listData(int from, int to,
+                                                String whereCondition, ProductContext context, SortCriteria sortCriteria) {
+        return listData(getDAO().getEntityClassName(), from, to, whereCondition, null, context, sortCriteria);
+    }
+
+    public List<? extends PrimusModel> listData(String className, int from, int to,
+                                                String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        String   accessCondition = " manager.userId = '"+ context.getUser()+ "'" ;
+
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where  "+  accessCondition +"  and company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition +  accessCondition + "  and company.id= " + context.getLoggedinCompany());
+        }
+        additionalCondition.append(getOrderByCondition(sortCriteria));
+
+        return getDAO().listData(className, from, to, additionalCondition.toString(), null);
+
     }
 }

@@ -58,6 +58,11 @@ height: 28px !important;
 width : 5% !important;
 min-width: 10px;
 }
+
+textarea.textareastyle {
+height: auto !important;
+}
+
 input[type=checkbox].form-control, input[type=radio].form-control {
   width: 15px; }
 
@@ -124,6 +129,8 @@ div.topBar {
     border: none; }
   div.topBar .table-bordered {
     border: none; }
+
+
 
 span.topBar {
   font-size: 20px;
@@ -383,7 +390,9 @@ span {
   color: #373a3c;
   font-size: 13px;
   min-width: 150px;
-  display: inline-block; }
+  display: inline-block;
+
+   }
 
   span.glyphicon-span
    {
@@ -395,7 +404,7 @@ span.crudlabel {
   font-size: 15px;
   font-weight: bold;
   min-width: 150px;
-  display: inline-block; }
+   }
 
 span.bigTitle {
   color: #f4f4f4;
