@@ -14,7 +14,7 @@
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type="detail">
+                <Section type="header">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="Doc_No" type="UILabel"  style="CRUDLabel" Id="txtdocNo" property="docNo"/>
@@ -40,11 +40,17 @@
                     <Element label="Doctor" type="UILabel"  style="CRUDLabel" Id="txtdoctor"
                              isMandatory="false" property="doctor.name">
                     </Element>
+                    <Element label="Manager" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
+                             property="template.manager.userId">
+                    </Element>
                     <Element label="Agent" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
                              property="agent.userId">
                     </Element>
                     <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
                     <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+
+                </Section>
+                <Section type="detail">
                     <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                              value="Appointment_Time"/>
                     <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
@@ -75,13 +81,13 @@
                 </Section>
             </CoreSection>
             <Section type="optionalSummary">
-                <Element caption="Complete" type="UIButton" Id="btnAlink" style="btn btn-success"
+                <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="COMPLETE"/>
                 <Element caption="Cancel_Appointment" type="UIButton" Id="btnAlink" style="btn btn-warning"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
-                         fixedActionParam="CANCEL"/>
-                <Element caption="Cancel" type="UIButton" Id="btCancel" style="btn btn-warning"
+                         fixedActionParam="CANCEL_APPOINTMENT"/>
+                <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
                          iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
                          fixedActionParam="CANCEL"/>
 

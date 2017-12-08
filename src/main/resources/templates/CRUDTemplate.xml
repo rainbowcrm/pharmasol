@@ -53,6 +53,10 @@
   <noRows>-1</noRows>
   <noCols>3</noCols>
  </Section>
+  <Section Id ="detailNoTable"   style= "detailCRUDStyle"  tabStyle ="CRUDtableContainer">
+   <noRows>-1</noRows>
+   <noCols>3</noCols>
+  </Section>
  </CoreSection>
  <Section Id ="summary" showinTable = "true"  style= "summaryStyle" >
  <noRows>1</noRows>

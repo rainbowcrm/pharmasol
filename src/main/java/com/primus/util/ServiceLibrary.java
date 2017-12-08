@@ -2,6 +2,8 @@ package com.primus.util;
 
 import com.primus.ApplicationManager;
 import com.primus.abstracts.AbstractValidator;
+import com.primus.admin.reasoncode.service.ReasonCodeService;
+import com.primus.admin.reasoncode.validator.ReasonCodeValidator;
 import com.primus.admin.region.service.RegionService;
 import com.primus.admin.region.validator.RegionValidator;
 import com.primus.admin.zone.service.ZoneService;
@@ -167,6 +169,11 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     AppointmentValidator appointmentValidator;
 
+    @Autowired
+    ReasonCodeService reasonCodeService ;
+
+    @Autowired
+    ReasonCodeValidator reasonCodeValidator ;
 
     public  ApplicationManager getApplicationManager()
    {
@@ -205,6 +212,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "UOMService" : return uomService ;
             case "AppointmentTemplateService"  : return  appointmentTemplateService;
             case "AppointmentService"  : return  appointmentService;
+            case "ReasonCodeService" : return reasonCodeService ;
 
         }
         return null;
@@ -230,6 +238,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "ItemValidator" : return itemValidator;
            case "AppointmentTemplateValidator" : return  appointmentTemplateValidator;
            case "AppointmentValidator" : return appointmentValidator ;
+           case "ReasonCodeValidator" : return reasonCodeValidator ;
 
        }
 

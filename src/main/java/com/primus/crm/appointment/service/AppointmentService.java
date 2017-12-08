@@ -330,4 +330,11 @@ public class AppointmentService extends AbstractService {
 
     }
 
+
+    public void cancelAppointment(Appointment appointment, ProductContext context)
+    {
+     //   getById()
+    }
+
+
 }

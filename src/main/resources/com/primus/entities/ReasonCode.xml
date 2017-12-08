@@ -1,0 +1,83 @@
+<CodeGenEntity>
+    <entityName>ReasonCode</entityName>
+    <rootpackage>com.primus.admin.reasoncode</rootpackage>
+    <tableName>REASON_CODES</tableName>
+    <controllerType>AbstractDataSheetController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\admin\\reasoncode</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\reasoncode</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>reason</fieldName>
+            <dbFieldName>REASON</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Reason</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>reasonType</fieldName>
+            <dbFieldName>REASON_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>REASTYPE</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Type</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>factorType</fieldName>
+            <dbFieldName>FACTOR_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>FACTTYPE</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Factor_Type</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>Orientation</fieldName>
+            <dbFieldName>ORIENTATION</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>BUSORIEN</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Orientation</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>

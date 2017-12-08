@@ -35,6 +35,8 @@
         </Page>
         <Page id = "categories" definition ="/resources/pages/category/category.xml" modelclass = "com.primus.merchandise.category.model.Category" >
         </Page>
+        <Page id = "reasoncodes" definition ="/resources/pages/reasoncode/reasoncode.xml" modelclass = "com.primus.admin.reasoncode.model.ReasonCode" >
+        </Page>
         <Page id = "products" definition ="/resources/pages/product/product.xml" modelclass = "com.primus.merchandise.product.model.Product" >
         </Page>
         <Page id = "regions" definition ="/resources/pages/region/regionList.xml" modelclass = "com.primus.admin.region.model.Region" >
@@ -187,6 +189,8 @@
                 <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-university"  />
                 <!--<Element label = "" type = "UIMenu" Id = "menu03" style="menustyle" title="Deparments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=departments" iconStyle="fa fa-fw fa-tags"  />-->
                 <Element label = "" type = "UIMenu" Id = "menu05" style="menustyle" title="Users" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appusers" iconStyle="fa fa-fw fa-camera" />
+                <Element label = "" type = "UIMenu" Id = "menu06" style="menustyle" title="Reason_Codes" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=reasoncodes" />
+
             </Element>
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="External_Parties" groupId= "menuGRP002"  >
