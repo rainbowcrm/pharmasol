@@ -1,6 +1,7 @@
 package com.primus.crm.appointment.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
+import com.primus.admin.reasoncode.model.ReasonCode;
 import com.primus.admin.region.model.Location;
 import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
@@ -258,5 +259,29 @@ public class Appointment extends PrimusBusinessModel {
         this.mm = mm;
     }
 
+    ReasonCode cancelReasonAgent;
 
+    ReasonCode cancelReasonManager;
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "CANCEL_REASON_AGENT")
+    public ReasonCode getCancelReasonAgent() {
+        return cancelReasonAgent;
+    }
+
+    public void setCancelReasonAgent(ReasonCode cancelReasonAgent) {
+        this.cancelReasonAgent = cancelReasonAgent;
+    }
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "CANCEL_REASON_MGR")
+    public ReasonCode getCancelReasonManager() {
+        return cancelReasonManager;
+    }
+
+    public void setCancelReasonManager(ReasonCode cancelReasonManager) {
+        this.cancelReasonManager = cancelReasonManager;
+    }
 }

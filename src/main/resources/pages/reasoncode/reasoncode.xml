@@ -51,13 +51,13 @@
                         <Element label="" type="UINote" Id="idIdNote" property="description"/>
                     </Column>
                     <Column title="Type" sortField="REASON_TYPE" width="15%">
-                        <Element label="" type="UINote" Id="idIdNote" property="reasonType"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="reasonType.description"/>
                     </Column>
                     <Column title="Factor" sortField="FACTOR_TYPE" width="15%">
-                        <Element label="" type="UINote" Id="idIdNote" property="factorType"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="factorType.description"/>
                     </Column>
                     <Column title="Orientation" sortField="ORIENTATION" width="15%">
-                        <Element label="" type="UINote" Id="idIdNote" property="Orientation"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="Orientation.description"/>
                     </Column>
                     <Column title="" width="10%">
                         <Element label="" type="UINote" Id="idAdEd"/>

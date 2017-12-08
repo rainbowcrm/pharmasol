@@ -4,6 +4,7 @@ import com.primus.admin.department.model.Department;
 import com.primus.admin.department.service.DepartmentService;
 import com.primus.admin.division.model.Division;
 import com.primus.admin.division.service.DivisionService;
+import com.primus.admin.reasoncode.service.ReasonCodeService;
 import com.primus.admin.region.model.Location;
 import com.primus.admin.region.service.RegionService;
 import com.primus.admin.role.service.RoleService;
@@ -147,10 +148,15 @@ public class ServiceFactory {
         AppointmentTemplateService service = (AppointmentTemplateService)ServiceLibrary.services().getService("AppointmentTemplateService")  ;
         return service ;
     }
-
     public static AppointmentService getAppointmentService()
     {
         AppointmentService service = (AppointmentService)ServiceLibrary.services().getService("AppointmentService")  ;
+        return service ;
+    }
+
+    public static ReasonCodeService getReasonCodeService()
+    {
+        ReasonCodeService service  =(ReasonCodeService)ServiceLibrary.services().getService("ReasonCodeService")  ;
         return service ;
     }
 

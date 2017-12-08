@@ -69,6 +69,11 @@
                         </Element>
                     </Element>
 
+                    <Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons"
+                             property="cancelReasonAgent.id">
+                        <options populator="getReasonCodes" populatorParam="APPCNCL">
+                        </options>
+                    </Element>
 
                     <Element label="Discussion" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
                              property="discussion">

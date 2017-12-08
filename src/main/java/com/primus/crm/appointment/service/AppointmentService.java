@@ -8,6 +8,8 @@ import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
 import com.primus.framework.nextup.NextUpGenerator;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -331,9 +333,21 @@ public class AppointmentService extends AbstractService {
     }
 
 
-    public void cancelAppointment(Appointment appointment, ProductContext context)
+    public PageResult cancelAppointment(Appointment appointment, ProductContext context)
     {
-     //   getById()
+        Appointment app = (Appointment)getById(appointment.getId()) ;
+        PageResult result = new PageResult() ;
+        if(FVConstants.APPT_STATUS.PENDING.equalsIgnoreCase(app.getStatus().getCode()) ||
+        FVConstants.APPT_STATUS.SCHEDULED.equalsIgnoreCase(app.getStatus().getCode()) ) {
+                app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.CANCELLED));
+                app.setCancelReasonAgent(appointment.getCancelReasonAgent());
+                update(app,context) ;
+        }else {
+            result.setResult(TransactionResult.Result.FAILURE);
+
+        }
+        return result;
+
     }
 
 

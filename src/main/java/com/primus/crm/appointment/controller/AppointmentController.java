@@ -1,6 +1,8 @@
 package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
+import com.primus.crm.appointment.model.Appointment;
+import com.primus.crm.appointment.service.AppointmentService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;;
 import java.util.LinkedHashMap;
@@ -50,7 +52,8 @@ public class AppointmentController extends AbstractCRUDController{
     @Override
     public PageResult submit(ModelObject object, String actionParam) {
         if ("CANCEL_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-
+            AppointmentService service = (AppointmentService) getService();
+            service.cancelAppointment((Appointment)object,getProductContext());
         }
         return super.submit(object, actionParam);
     }
