@@ -1,5 +1,7 @@
 package com.primus.abstracts;
 
+import com.primus.admin.reasoncode.model.ReasonCode;
+import com.primus.admin.reasoncode.service.ReasonCodeService;
 import com.primus.admin.region.model.Location;
 import com.primus.admin.region.model.Region;
 import com.primus.admin.region.service.RegionService;
@@ -38,7 +40,7 @@ public  abstract  class AbstractTransactionController extends TransactionControl
         return (ProductContext) getContext() ;
     }
 
-    private AbstractService getService ()
+    protected AbstractService getService ()
     {
         String serviceName = getServiceName() ;
         AbstractService service = ServiceLibrary.services().getService(serviceName) ;
@@ -138,6 +140,20 @@ public  abstract  class AbstractTransactionController extends TransactionControl
     @Override
     public PageResult print() {
         return null;
+    }
+
+
+    public Map<String,String> getReasonCodes(String groupCode)
+    {
+        Map<String,String> ans = new LinkedHashMap<>();
+        ReasonCodeService service =ServiceFactory.getReasonCodeService();
+        List<ReasonCode> reasonCodes = (List<ReasonCode>)service.fetchAllActive(" where reasonType.code ='" + groupCode  + "'","",getProductContext());
+        if(!Utils.isNullList(reasonCodes)) {
+            reasonCodes.forEach( reasonCode ->  {
+                ans.put(String.valueOf(reasonCode.getId()),reasonCode.getReason());
+            });
+        }
+        return ans ;
     }
 
     public Map<String,String> getAllRegions()

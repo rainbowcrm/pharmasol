@@ -13,6 +13,8 @@ public class AppointmentTemplateErrorCodes extends CommonErrorCodes {
     public static  final int DAYS_SHOULDBESELECTED_DAILYAPPT= 1000107;
     public static  final int START_DATE_NOTFROMPAST= 1000108;
     public static  final int INSTANCEES_ALREADY_CREATED= 1000109;
+    public static  final int APPOINTMENT_NOTINCANCELATONSTATUS= 1000110;
+    public static  final int REASON_CODE_MANDATORYFORCANCEL= 1000111;
 
 
 

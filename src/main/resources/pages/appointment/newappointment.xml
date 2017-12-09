@@ -2,7 +2,7 @@
 <Page id="newAppointment" showinFrame="true" title="Appointment | Primus WFM | Primus WFM"
       Object="com.primus.crm.appointment.model.Appointment"
       Controller="com.primus.crm.appointment.controller.AppointmentController">
-    <Template type="CRUD" name="CRUDTemplate"></Template>
+    <Template type="Transaction" name="TransactionTemplate"></Template>
     <Forwards>
         <Forward key="CANCEL">controller?page=appointments</Forward>
         <Forward key="SAVE">appointments</Forward>
@@ -75,7 +75,7 @@
                         </options>
                     </Element>
 
-                    <Element label="Discussion" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
+                    <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
                              property="discussion">
                         <rows>4</rows> <cols>25</cols>
                     </Element>

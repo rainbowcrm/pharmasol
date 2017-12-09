@@ -7,6 +7,8 @@ import com.primus.common.FiniteValue;
 import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
+import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.framework.nextup.NextUpGenerator;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
@@ -340,9 +342,18 @@ public class AppointmentService extends AbstractService {
         if(FVConstants.APPT_STATUS.PENDING.equalsIgnoreCase(app.getStatus().getCode()) ||
         FVConstants.APPT_STATUS.SCHEDULED.equalsIgnoreCase(app.getStatus().getCode()) ) {
                 app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.CANCELLED));
+                if (appointment.getCancelReasonAgent() == null   || appointment.getCancelReasonAgent().getId() < 0 ) {
+                    result.addError(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.REASON_CODE_MANDATORYFORCANCEL));
+                    result.setResult(TransactionResult.Result.FAILURE);
+                    result.setObject(appointment);
+                }
+
                 app.setCancelReasonAgent(appointment.getCancelReasonAgent());
                 update(app,context) ;
+                result.setResult(TransactionResult.Result.SUCCESS);
         }else {
+            result.addError(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.APPOINTMENT_NOTINCANCELATONSTATUS));
+            result.setObject(app);
             result.setResult(TransactionResult.Result.FAILURE);
 
         }
