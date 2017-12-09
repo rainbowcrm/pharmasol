@@ -2,14 +2,20 @@ package com.primus.crm.appointment.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.model.PromotedItem;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
+import com.primus.crm.appointment.validator.AppointmentValidator;
 import com.primus.framework.nextup.NextUpGenerator;
+import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.service.ItemService;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
@@ -36,6 +42,9 @@ public class AppointmentService extends AbstractService {
  @Autowired
  AppointmentDAO appointmentDAO ;
 
+ @Autowired
+ AppointmentValidator appointmentValidator ;
+
   @Override
      public AbstractDAO getDAO() {
          return appointmentDAO;
@@ -47,6 +56,10 @@ public class AppointmentService extends AbstractService {
          Appointment newObj = (Appointment) newObject;
          Appointment oldObj = (Appointment) oldObject;
 
+          if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getPromotedItems())) {
+              TransactionUpdateDelta delta = formDelta(oldObj.getPromotedItems(), ((Appointment) newObj).getPromotedItems());
+              newObj.getPromotedItems().addAll((List<PromotedItem>) delta.getDeletedRecords());
+          }
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
 
@@ -334,6 +347,38 @@ public class AppointmentService extends AbstractService {
 
     }
 
+
+    public PageResult completeAppointment(Appointment appointment, ProductContext context)
+    {
+        Appointment app = (Appointment)getById(appointment.getId()) ;
+        PageResult result = new PageResult() ;
+        if(FVConstants.APPT_STATUS.PENDING.equalsIgnoreCase(app.getStatus().getCode()) ||
+                FVConstants.APPT_STATUS.SCHEDULED.equalsIgnoreCase(app.getStatus().getCode()) ) {
+            app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
+            app.setPromotedItems(appointment.getPromotedItems());
+            app.setDiscussion(appointment.getDiscussion());
+            app.setDescription(appointment.getDescription());
+            if(Utils.isNullCollection(appointment.getPromotedItems())) {
+                appointment.getPromotedItems().forEach( promotedItem ->  {
+                    ItemService itemService = ServiceFactory.getItemService() ;
+                    Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
+                    promotedItem.setItem(item);
+                    promotedItem.setCompany(appointment.getCompany());
+                    promotedItem.setAppointment(appointment);
+                });
+
+            }
+            collateBeforUpdate(appointment,app);
+            app.setPromotedItems(appointment.getPromotedItems());
+            update(app,context) ;
+            result.setResult(TransactionResult.Result.SUCCESS);
+        }else {
+            result.addError(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.APPOINTMENT_NOTINCOMPLETESTATUS));
+            result.setObject(app);
+            result.setResult(TransactionResult.Result.FAILURE);
+        }
+        return result;
+    }
 
     public PageResult cancelAppointment(Appointment appointment, ProductContext context)
     {

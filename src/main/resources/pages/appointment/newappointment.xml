@@ -9,12 +9,26 @@
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
+<AjaxGroups>
+    <AjaxGroup service ="itemSearch">
+        <requestElements event = "">
+            <requestElement key = "Code">txtItemCode</requestElement>
+        </requestElements>
+        <responseElements>
+
+            <responseElement key = "Code">txtItemCode</responseElement>
+            <responseElement key = "Name">txtItemName</responseElement>
+
+        </responseElements>
+    </AjaxGroup>
+
+</AjaxGroups>
     <Elements>
         <UIForm Id="cust" method="POST">
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type="header">
+                <Section type="header3col">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="Doc_No" type="UILabel"  style="CRUDLabel" Id="txtdocNo" property="docNo"/>
@@ -25,21 +39,21 @@
                     <Element label="Location" type="UILabel"  style="CRUDLabel" Id="lstlocation" property="location.name">
 
                     </Element>
-                    <Element label="Party" type="UILabel"  style="CRUDLabel" property="partyType.description">
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
 
                     </Element>
-                    <Element label = ""  type = "UILabel" Id = "lblfree" />
-                    <Element label = ""  type = "UILabel" Id = "lblfree" />
+                    <!--<Element label = ""  type = "UILabel" Id = "lblfree" />
+                    <Element label = ""  type = "UILabel" Id = "lblfree" />-->
 
-                    <Element label="Stockist" type="UILabel"  style="CRUDLabel" Id="txtstockist"
-                             isMandatory="false" property="stockist.name">
+                    <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
+                             isMandatory="false" property="partyNameWithType">
                     </Element>
-                    <Element label="Store" type="UILabel"  style="CRUDLabel" Id="txtstore" isMandatory="false"
+                    <!--<Element label="Store" type="UILabel"  style="CRUDLabel" Id="txtstore" isMandatory="false"
                              property="store.name">
                     </Element>
                     <Element label="Doctor" type="UILabel"  style="CRUDLabel" Id="txtdoctor"
                              isMandatory="false" property="doctor.name">
-                    </Element>
+                    </Element>-->
                     <Element label="Manager" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
                              property="template.manager.userId">
                     </Element>
@@ -50,7 +64,12 @@
                     <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
 
                 </Section>
-                <Section type="detail">
+                <Section type="detailForSale">
+                    <Element type="UITabset" Id="impeppdetails" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                    <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+
                     <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                              value="Appointment_Time"/>
                     <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
@@ -69,7 +88,7 @@
                         </Element>
                     </Element>
 
-                    <Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons"
+                    <Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
                              property="cancelReasonAgent.id">
                         <options populator="getReasonCodes" populatorParam="APPCNCL">
                         </options>
@@ -83,12 +102,84 @@
                              property="description">
                         <rows>4</rows> <cols>25</cols>
                     </Element>
+                    </Element>
+
+                    <Element type="UITab" Id="idpromoItem" title="Promoted_Items" showinTable="false">
+
+                        <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                 Id="tblTransComposition"
+                                 property="promotedItems[]">
+                            <Element type="UITableHead" style="listPageTitle">
+                                <Element type="UITableRow">
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Promtion_Details"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Description"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                    </Element>
+                                </Element>
+                            </Element>
+                            <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PromotedItem"
+                                     rendered="!Object.isDeleted">
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UIText"  Id="txtItemCode"
+                                             property="item.code"/>
+                                </Element>
+                                <Element type="UITableCol" width="20%">
+                                    <Element label="" type="UILookupDataList" isMandatory="true" Id="txtItemName" listId="kstitem"
+                                             property="item.name">
+                                        <lookupType>item</lookupType>
+                                        <SupplementaryFields>
+                                            <Field>
+                                                <property>code</property>
+                                                <control>txtItemCode</control>
+                                            </Field>
+                                        </SupplementaryFields>
+                                    </Element>
+
+                                </Element>
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UIText"  Id="txtPromoDetails"
+                                             property="promoDetails"/>
+                                </Element>
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UIText"  Id="txtDescriptio"
+                                             property="description"/>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIHidden" Id="hdncomposLineId" property="id"/>
+                                    <Element label="" type="UIHidden" Id="hdncomposelineVer" property="version"/>
+                                    <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                             type="UIButton" Id="btnAddRowLn"
+                                             fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                             fixedActionParam="this"/>
+                                    <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                             type="UIButton" Id="btnDelRowLn"
+                                             fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                             fixedActionParam="this"/>
+                                </Element>
+                            </Element>
+
+                        </Element>
+
+
+                    </Element>
+                    </Element>
                 </Section>
             </CoreSection>
-            <Section type="optionalSummary">
+            <Section type="optionalsummary">
                 <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
-                         fixedActionParam="COMPLETE"/>
+                         fixedActionParam="COMPLETE_APPOINTMENT"/>
                 <Element caption="Cancel_Appointment" type="UIButton" Id="btnAlink" style="btn btn-warning"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="CANCEL_APPOINTMENT"/>

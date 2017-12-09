@@ -43,7 +43,7 @@ public class Appointment extends PrimusBusinessModel {
 
     String previousFeedBack;
 
-    Collection<PromotedItem> promotedItem ;
+    Collection<PromotedItem> promotedItems ;
 
     String docNo;
 
@@ -235,21 +235,38 @@ public class Appointment extends PrimusBusinessModel {
     public String getPartyName() {
         Appointment appointment = this;
         if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointment.getPartyType().getCode())) {
-            return appointment.getStockist().getName();
+            return appointment.getStockist().getName() ;
 
         }
         if (FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(appointment.getPartyType().getCode())) {
-            return appointment.getStore().getName();
+            return appointment.getStore().getName() ;
 
         }
         if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointment.getPartyType().getCode())) {
-            return appointment.getDoctor().getName();
+            return appointment.getDoctor().getName() ;
 
         }
         return "";
     }
 
 
+    @Transient
+    public String getPartyNameWithType() {
+        Appointment appointment = this;
+        if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+            return appointment.getStockist().getName()  + " [Stockist]";
+
+        }
+        if (FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+            return appointment.getStore().getName() + " [Chemist]";
+
+        }
+        if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointment.getPartyType().getCode())) {
+            return appointment.getDoctor().getName() + " [Doctor]";
+
+        }
+        return "";
+    }
 
     @Transient
     public int getHh() {
@@ -303,11 +320,11 @@ public class Appointment extends PrimusBusinessModel {
     }
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
-    public Collection<PromotedItem> getPromotedItem() {
-        return promotedItem;
+    public Collection<PromotedItem> getPromotedItems() {
+        return promotedItems;
     }
 
-    public void setPromotedItem(Collection<PromotedItem> promotedItem) {
-        this.promotedItem = promotedItem;
+    public void setPromotedItems(Collection<PromotedItem> promotedItems) {
+        this.promotedItems = promotedItems;
     }
 }

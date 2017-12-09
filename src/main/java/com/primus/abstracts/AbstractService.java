@@ -71,7 +71,8 @@ public abstract class AbstractService {
     @Transactional(propagation = Propagation.REQUIRED)
     public TransactionResult update(PrimusModel object, ProductContext productContext) {
         AbstractDAO dao = getDAO();
-        collateBeforUpdate(object, productContext.getOldObject());
+        if (productContext.getOldObject() != null )
+            collateBeforUpdate(object, productContext.getOldObject());
         object.setLastUpdatedBy(productContext.getUser());
         object.setLastUpdateDate(new java.util.Date());
         dao.update(object);
@@ -147,6 +148,20 @@ public abstract class AbstractService {
         else
             return  " ORDER BY " +  sortCriteria.getFieldName() + " " + ( (sortCriteria.getDirection().equals(SortCriteria.DIRECTION.ASCENDING))?"ASC":"DESC");
 
+    }
+
+    public PrimusModel fetchOneActive(String whereCondition, String orderBy, ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+        additionalCondition = additionalCondition.append(" ");
+        if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and company.id= " + context.getLoggedinCompany());
+        }
+        Collection<PrimusModel> models =  getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
+        if (! Utils.isNullCollection(models))
+             return models.stream().findFirst().orElse(null);
+        return null;
     }
 
 

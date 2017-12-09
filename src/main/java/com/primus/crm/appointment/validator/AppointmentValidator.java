@@ -17,6 +17,8 @@ import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.primus.framework.nextup.NextUpGenerator;
+import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.service.ItemService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -140,6 +142,17 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.setApptTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
         }catch (ParseException ex) {
             Logger.logException(  "Error in parsing",this.getClass(),ex);
+        }
+
+        if(Utils.isNullCollection(appointment.getPromotedItems())) {
+            appointment.getPromotedItems().forEach( promotedItem ->  {
+                ItemService itemService = ServiceFactory.getItemService() ;
+                Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
+                promotedItem.setItem(item);
+                promotedItem.setCompany(appointment.getCompany());
+                promotedItem.setAppointment(appointment);
+            });
+
         }
 
         return null;

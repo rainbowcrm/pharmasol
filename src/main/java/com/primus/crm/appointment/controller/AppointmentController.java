@@ -61,6 +61,14 @@ public class AppointmentController extends AbstractTransactionController{
                 return result ;
             }else
                 return result ;
+        }else if ("COMPLETE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
+            AppointmentService service = (AppointmentService) getService();
+            PageResult result = service.completeAppointment((Appointment)object,getProductContext());
+            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                result.setNextPageKey("appointments");
+                return result ;
+            }else
+                return result ;
         }
         return super.submit(object, actionParam);
     }
