@@ -150,6 +150,7 @@ public abstract class AbstractService {
 
     }
 
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public PrimusModel fetchOneActive(String whereCondition, String orderBy, ProductContext context) {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");

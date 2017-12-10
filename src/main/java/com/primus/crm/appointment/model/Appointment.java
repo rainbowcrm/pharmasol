@@ -47,6 +47,8 @@ public class Appointment extends PrimusBusinessModel {
 
     String docNo;
 
+    User manager;
+
     @RadsPropertySet(isBK = true)
     @Column(name = "DOC_NO")
     public String getDocNo() {
@@ -326,5 +328,17 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setPromotedItems(Collection<PromotedItem> promotedItems) {
         this.promotedItems = promotedItems;
+    }
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "MANAGER_USER_ID")
+    public User getManager() {
+        return manager;
+    }
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 }

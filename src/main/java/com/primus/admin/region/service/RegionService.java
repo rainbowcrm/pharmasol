@@ -41,7 +41,7 @@ public class RegionService extends AbstractService {
      }
 
      public Location getLocationById(int locId, ProductContext context) {
-        return (Location) regionDAO.getById(Location.class);
+        return (Location) regionDAO.getLocationById(locId);
 
      }
 

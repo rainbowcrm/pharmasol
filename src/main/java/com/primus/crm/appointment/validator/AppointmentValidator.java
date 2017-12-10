@@ -9,6 +9,7 @@ import com.primus.common.FVConstants;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.common.user.model.User;
 import com.primus.crm.appointment.model.AppointmentTemplate;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
@@ -104,6 +105,19 @@ public class AppointmentValidator extends AbstractValidator {
         super.adaptFromUI(model, context);
         List<RadsError> results = new ArrayList<RadsError>();
         Appointment appointment = (Appointment) model;
+
+        if(appointment.getAgent() == null && context.getPageAccessCode().contains("AGENT") ) {
+            User agent = new User();
+            agent.setUserId(context.getUser());
+            appointment.setAgent(agent);
+        }
+
+        if(appointment.getManager() == null &&  context.getPageAccessCode().contains("MGR")) {
+            User manager = new User();
+            manager.setUserId(context.getUser());
+            appointment.setManager(manager);
+        }
+
         if(appointment.getLocation().getId() >0 ) {
             Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
             if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null) {
@@ -144,7 +158,7 @@ public class AppointmentValidator extends AbstractValidator {
             Logger.logException(  "Error in parsing",this.getClass(),ex);
         }
 
-        if(Utils.isNullCollection(appointment.getPromotedItems())) {
+        if(!Utils.isNullCollection(appointment.getPromotedItems())) {
             appointment.getPromotedItems().forEach( promotedItem ->  {
                 ItemService itemService = ServiceFactory.getItemService() ;
                 Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);

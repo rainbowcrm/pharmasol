@@ -55,7 +55,7 @@
                              isMandatory="false" property="doctor.name">
                     </Element>-->
                     <Element label="Manager" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
-                             property="template.manager.userId">
+                             property="manager.userId">
                     </Element>
                     <Element label="Agent" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
                              property="agent.userId">

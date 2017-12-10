@@ -2,6 +2,8 @@ package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
 import com.primus.abstracts.AbstractTransactionController;
+import com.primus.common.CommonUtil;
+import com.primus.common.FVConstants;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -39,7 +41,16 @@ public class AppointmentController extends AbstractTransactionController{
         return ans;
     }
 
-
+    public Map<String, String> getCreateStatuses() {
+        Map<String, String> ans = new LinkedHashMap<String, String>() ;
+        Map<String, String> mp = CommonUtil.getFiniteValues(FVConstants.FV_APPOINTMENTSTATUS);
+        mp.keySet().forEach( key -> {
+            if (key.equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) || key.equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) ||
+                    key.equalsIgnoreCase(FVConstants.APPT_STATUS.COMPLETED))
+                ans.put(key,mp.get(key));
+        });
+        return ans;
+    }
 
     public Map<String, String> getMinutes() {
         Map<String, String> ans = new LinkedHashMap<String, String>() ;

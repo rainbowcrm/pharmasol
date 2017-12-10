@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newMAdhogrcAppointment" showinFrame="true" title="Adhoc Visit- Manager  | Primus WFM"
+      Object="com.primus.crm.appointment.model.Appointment"
+      Controller="com.primus.crm.appointment.controller.AppointmentController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=mgrappointments</Forward>
+        <Forward key="SAVE">mgrappointments</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service="regionLocationSearch">
+            <requestElements>
+                <requestElement key="region">LstRegion</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key="location">LstLocations</responseElement>
+            </responseElements>
+        </AjaxGroup>
+        <AjaxGroup service ="itemSearch">
+            <requestElements event = "">
+                <requestElement key = "Code">txtItemCode</requestElement>
+            </requestElements>
+            <responseElements>
+
+                <responseElement key = "Code">txtItemCode</responseElement>
+                <responseElement key = "Name">txtItemName</responseElement>
+
+            </responseElements>
+        </AjaxGroup>
+
+    </AjaxGroups>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="header3col">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="Doc_No" type="UIText"  readonly="true" Id="txtdocNo" property="docNo"/>
+                    <!-- <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
+                              property="template.templateNo">
+
+                     </Element>-->
+                    <Element label="Region" type="UIList" Id="LstRegion" property="location.region.id">
+                        <options populator="getAllRegions">
+                        </options>
+                    </Element>
+                    <Element label="Location" type="UIList" Id="LstLocations" property="location.id">
+                        <options populator="getAllLocations">
+                        </options>
+                    </Element>
+                    <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType"
+                             property="partyType.code">
+                        <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
+                        </options>
+                    </Element>
+                    <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
+                             isMandatory="false" property="stockist.name">
+                        <lookupType>stockist</lookupType>
+                    </Element>
+                    <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore"
+                             isMandatory="false"
+                             property="store.name">
+                        <lookupType>store</lookupType>
+                    </Element>
+                    <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
+                             isMandatory="false" property="doctor.name">
+                        <lookupType>doctor</lookupType>
+                    </Element>
+                    <!--<Element label="Manager" type="UIText"   Id="txtmanager" readonly="true"
+                             isMandatory="true" property="manager.userId">
+                    </Element>-->
+
+                    <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
+                             property="agent.userId">
+                        <lookupType>user</lookupType>
+                    </Element>
+
+                    <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
+                        <options populator="getCreateStatuses" >
+                        </options>
+                    </Element>
+
+                    <Element label  ="Appointment_Date" type="UIDate"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+
+                </Section>
+                <Section type="detailForSale">
+                    <Element type="UITabset" Id="impeppdetails" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                        <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+
+                            <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
+                                     value="Appointment_Time"/>
+                            <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
+                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom30width"
+                                         property="hh">
+                                    <options populator="getHours">
+                                    </options>
+                                </Element>
+                                <Element label="" type="UILabel" isMandatory="true" Id="txtcol"
+                                         style="form-control custom5width" value=":"
+                                />
+                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom30width"
+                                         property="mm">
+                                    <options populator="getMinutes">
+                                    </options>
+                                </Element>
+                            </Element>
+
+                            <!--<Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
+                                     property="cancelReasonAgent.id">
+                                <options populator="getReasonCodes" populatorParam="APPCNCL">
+                                </options>
+                            </Element>-->
+                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/>
+
+                            <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
+                                     property="discussion">
+                                <rows>4</rows> <cols>25</cols>
+                            </Element>
+                            <Element label="Description" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
+                                     property="description">
+                                <rows>4</rows> <cols>25</cols>
+                            </Element>
+                        </Element>
+
+                        <Element type="UITab" Id="idpromoItem" title="Promoted_Items" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransComposition"
+                                     property="promotedItems[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Promtion_Details"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Description"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PromotedItem"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtItemCode"
+                                                 property="item.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILookupDataList" isMandatory="true" Id="txtItemName" listId="kstitem"
+                                                 property="item.name">
+                                            <lookupType>item</lookupType>
+                                            <SupplementaryFields>
+                                                <Field>
+                                                    <property>code</property>
+                                                    <control>txtItemCode</control>
+                                                </Field>
+                                            </SupplementaryFields>
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtPromoDetails"
+                                                 property="promoDetails"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtDescriptio"
+                                                 property="description"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdncomposLineId" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdncomposelineVer" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRowLn"
+                                                 fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRowLn"
+                                                 fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                    </Element>
+                </Section>
+            </CoreSection>
+            <Section type="summary">
+
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

@@ -2,6 +2,7 @@ package com.primus.admin.region.dao;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.PrimusModel;
+import com.primus.admin.region.model.Location;
 import org.springframework.stereotype.Component;
 import com.primus.admin.region.model.Region;
 
@@ -20,6 +21,11 @@ public class RegionDAO extends AbstractDAO{
     public Class getEntityClass() {
         return  Region.class;
     }
+
+    public Location getLocationById(int id ) {
+        return (Location) em.find(Location.class,id);
+    }
+
 
 }
 

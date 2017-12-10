@@ -74,6 +74,8 @@ public class AppointmentService extends AbstractService {
       appointment.setPartyType(template.getPartyType());
       appointment.setApptTime(template.getAppointmentTime());
       appointment.setAgent(template.getAgent());
+      appointment.setManager(template.getManager());
+      
       appointment.setTemplate(template);
       appointment.setCompany(template.getCompany());
       appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
@@ -358,16 +360,17 @@ public class AppointmentService extends AbstractService {
             app.setPromotedItems(appointment.getPromotedItems());
             app.setDiscussion(appointment.getDiscussion());
             app.setDescription(appointment.getDescription());
-            if(Utils.isNullCollection(appointment.getPromotedItems())) {
+            if(!Utils.isNullCollection(appointment.getPromotedItems())) {
                 appointment.getPromotedItems().forEach( promotedItem ->  {
                     ItemService itemService = ServiceFactory.getItemService() ;
                     Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
                     promotedItem.setItem(item);
-                    promotedItem.setCompany(appointment.getCompany());
-                    promotedItem.setAppointment(appointment);
+                    promotedItem.setCompany(app.getCompany());
+                    promotedItem.setAppointment(app);
                 });
 
             }
+
             collateBeforUpdate(appointment,app);
             app.setPromotedItems(appointment.getPromotedItems());
             update(app,context) ;
