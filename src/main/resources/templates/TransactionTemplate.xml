@@ -72,6 +72,10 @@
    <noRows>-1</noRows>
   <noCols>4</noCols> 
   </Section>
+  <Section Id ="onefooter" style ="footerStyle"  showinTable = "true" >
+   <noRows>-1</noRows>
+   <noCols>1</noCols>
+  </Section>
   <Section Id ="brk3"  showinTable = "false" >
     <Panel key ="breakPanel"  Id ="smallbreakPanel" > </Panel>
  </Section>

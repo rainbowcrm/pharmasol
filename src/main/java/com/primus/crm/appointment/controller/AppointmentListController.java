@@ -28,4 +28,6 @@ public class AppointmentListController extends AbstractListController{
         return "AppointmentValidator";
     }
 
+
+
 }

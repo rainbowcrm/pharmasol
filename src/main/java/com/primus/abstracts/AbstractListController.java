@@ -63,7 +63,7 @@ public abstract class AbstractListController extends ListController {
 
     }
 
-    private AbstractService getService ()
+    protected AbstractService getService ()
     {
         String serviceName = getServiceName() ;
         AbstractService service = ServiceLibrary.services().getService(serviceName) ;

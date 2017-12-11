@@ -7,6 +7,7 @@ import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.crm.appointment.jdbc.AppointmentSQL;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
 import com.primus.crm.appointment.model.PromotedItem;
@@ -44,6 +45,9 @@ public class AppointmentService extends AbstractService {
  AppointmentDAO appointmentDAO ;
 
  @Autowired
+ AppointmentSQL appointmentSQL;
+
+ @Autowired
  AppointmentValidator appointmentValidator ;
 
   @Override
@@ -65,6 +69,29 @@ public class AppointmentService extends AbstractService {
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
 
      }
+
+    public PrimusModel getById(Object PK) {
+        PrimusModel model = getDAO().getById(PK);
+        if (model != null) {
+            getPreviousFeedBack((Appointment)model );
+        }
+        return model ;
+    }
+
+    public  void getPreviousFeedBack(Appointment appointment)
+    {
+        String partyType = appointment.getPartyType().getCode();
+        String lastFeedBack  = "";
+        if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType)) {
+            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getDoctor().getId());
+        } else if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType)) {
+            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getStockist().getId());
+        }else if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType)) {
+            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getStore().getId());
+        }
+        appointment.setPreviousFeedBack(lastFeedBack);
+    }
+
 
     private Appointment formSkeltonFromTemplate(AppointmentTemplate template, ProductContext context) {
       Appointment appointment = new Appointment();

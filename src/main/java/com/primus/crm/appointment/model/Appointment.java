@@ -49,6 +49,8 @@ public class Appointment extends PrimusBusinessModel {
 
     User manager;
 
+
+
     @RadsPropertySet(isBK = true)
     @Column(name = "DOC_NO")
     public String getDocNo() {
@@ -312,7 +314,7 @@ public class Appointment extends PrimusBusinessModel {
         this.cancelReasonManager = cancelReasonManager;
     }
 
-    @Column(name = "PREVIOUS_FEEDBACK")
+    @Transient
     public String getPreviousFeedBack() {
         return previousFeedBack;
     }

@@ -1,8 +1,10 @@
 package com.primus.crm.appointment.jdbc;
 
 import com.primus.common.FVConstants;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -27,5 +29,24 @@ public class AppointmentSQL {
         }catch(Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String getLastFeedBack(int currentId, String partyType, int partyId) {
+
+        String sql = "";
+        String result = "";
+        if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType)) {
+            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND DOCTOR_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+        } else if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType)) {
+            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STOCKIST_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+        }else if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType)) {
+            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STORE_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+        }
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{currentId, partyId});
+        if (rs.next()) {
+            result  = rs.getString(1);
+        }
+            return Utils.isNull(result)?"":result;
+
     }
 }

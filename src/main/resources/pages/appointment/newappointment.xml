@@ -175,6 +175,12 @@
                     </Element>
                     </Element>
                 </Section>
+                <Section type="onefooter">
+                <Element label="Last_FeedBack" type="UITextArea" isMandatory="false" Id="txtprediscussion" style = "textareastyle" readonly="true"
+                         property="previousFeedBack">
+                    <rows>4</rows> <cols>25</cols>
+                </Element>
+                </Section>
             </CoreSection>
             <Section type="optionalsummary">
                 <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
