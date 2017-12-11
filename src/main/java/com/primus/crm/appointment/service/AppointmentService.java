@@ -16,6 +16,7 @@ import com.primus.crm.appointment.validator.AppointmentValidator;
 import com.primus.framework.nextup.NextUpGenerator;
 import com.primus.merchandise.item.model.Item;
 import com.primus.merchandise.item.service.ItemService;
+import com.primus.merchandise.product.model.Product;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
@@ -75,7 +76,7 @@ public class AppointmentService extends AbstractService {
       appointment.setApptTime(template.getAppointmentTime());
       appointment.setAgent(template.getAgent());
       appointment.setManager(template.getManager());
-      
+
       appointment.setTemplate(template);
       appointment.setCompany(template.getCompany());
       appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
@@ -330,13 +331,26 @@ public class AppointmentService extends AbstractService {
         return listData(getDAO().getEntityClassName(), from, to, whereCondition, null, context, sortCriteria);
     }
 
+
+    private String getAccessCondition (ProductContext context)
+    {
+        StringBuffer accessCondition =  new StringBuffer(" agent.userId = '"+ context.getUser()+ "'" );
+        if ( context.getPageAccessCode() != null && context.getPageAccessCode().contains("MGR"))
+            accessCondition =  new StringBuffer("  manager.userId ='"+ context.getUser()+ "'  ") ;
+        if (context.getPageAccessCode() != null &&  ( context.getPageAccessCode().equalsIgnoreCase("AGENT::APPT")  ||
+                context.getPageAccessCode().equalsIgnoreCase("MGR::APPT") ) ){
+            accessCondition.append( " and status.code in ('PNDG','PLND','SCHD')");
+        }
+
+
+        return accessCondition.toString() ;
+    }
     public List<? extends PrimusModel> listData(String className, int from, int to,
                                                 String whereCondition, String orderBy, ProductContext context, SortCriteria sortCriteria) {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
-        String accessCondition = " agent.userId = '"+ context.getUser()+ "'" ;
-        if ( context.getPageAccessCode() != null && context.getPageAccessCode().contains("MGR"))
-            accessCondition = " template is not null and  template.manager.userId = '"+ context.getUser()+ "'" ;
+        String accessCondition = getAccessCondition(context) ;
+
 
         if (Utils.isNullString(whereCondition)) {
             additionalCondition = additionalCondition.append(" where  "+  accessCondition +"  and company.id = " + context.getLoggedinCompany());
