@@ -80,6 +80,15 @@ public class AppointmentController extends AbstractTransactionController{
                 return result ;
             }else
                 return result ;
+        }else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
+            PageResult result = new PageResult();
+            AppointmentService service = (AppointmentService) getService();
+            service.initateAppointment((Appointment)object,getProductContext());
+            result.setResult(TransactionResult.Result.SUCCESS);
+            result.setObject(object);
+            result.setNextPageKey("newadhocvisit");
+            return result;
+
         }
         return super.submit(object, actionParam);
     }

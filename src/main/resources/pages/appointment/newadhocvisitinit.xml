@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newAdhowAppointment" showinFrame="true" title="Adhoc Visit  | Primus WFM"
+      Object="com.primus.crm.appointment.model.Appointment"
+      Controller="com.primus.crm.appointment.controller.AppointmentController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+    <AjaxGroup service="regionLocationSearch">
+        <requestElements>
+            <requestElement key="region">LstRegion</requestElement>
+        </requestElements>
+        <responseElements>
+            <responseElement key="location">LstLocations</responseElement>
+        </responseElements>
+    </AjaxGroup>
+    </AjaxGroups>
+    <Elements>
+    <UIForm Id="cust" method="POST">
+    <CoreSection>
+        <ErrorSection>
+        </ErrorSection>
+        <Section type="header3col">
+            <Element label="Region" type="UIList" Id="LstRegion" property="location.region.id">
+                <options populator="getAllRegions">
+                </options>
+            </Element>
+            <Element label="Location" type="UIList" Id="LstLocations" property="location.id">
+                <options populator="getAllLocations">
+                </options>
+            </Element>
+            <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType"
+                     property="partyType.code">
+                <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
+                </options>
+            </Element>
+            <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
+                     isMandatory="false" property="stockist.name">
+                <lookupType>stockist</lookupType>
+            </Element>
+            <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore"
+                     isMandatory="false"
+                     property="store.name">
+                <lookupType>store</lookupType>
+            </Element>
+            <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
+                     isMandatory="false" property="doctor.name">
+                <lookupType>doctor</lookupType>
+            </Element>
+           <!-- <Element label="" type="UILabel"  Id="lblblank1" value ="" />
+            <Element label="" type="UILabel"  Id="lblblank2" value ="" />-->
+            <Element caption="Proceed" type="UIButton" Id="btnAlink" style="btn btn-success"
+                     iconStyle="glyphicon glyphicon-forward" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                     fixedActionParam="INITIATEVISIT"/>
+        </Section>
+        <Section type="optionalsummary">
+            <!--<Element caption="Proceed" type="UIButton" Id="btnAlink" style="btn btn-success"
+                     iconStyle="glyphicon glyphicon-forward" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                     fixedActionParam="INITIATEVISIT"/>-->
+        </Section>
+
+    </CoreSection>
+    </UIForm>
+    </Elements>
+
+</Page>

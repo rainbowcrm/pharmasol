@@ -49,7 +49,13 @@ public class Appointment extends PrimusBusinessModel {
 
     User manager;
 
+    String feedBack;
 
+    String agentRemarks;
+
+    String managerRemarks;
+
+    Date visitCompletion;
 
     @RadsPropertySet(isBK = true)
     @Column(name = "DOC_NO")
@@ -208,17 +214,43 @@ public class Appointment extends PrimusBusinessModel {
         status = val;
     }
 
-    String discussion;
 
 
-    @Column(name = "DISCUSSION")
-    public String getDiscussion() {
-        return discussion;
+    @Column(name = "FEEDBACK")
+    public String getFeedBack() {
+        return feedBack;
+    }
+
+    public void setFeedBack(String feedBack) {
+        this.feedBack = feedBack;
     }
 
 
-    public void setDiscussion(String val) {
-        discussion = val;
+    @Column(name = "AGENT_REMARKS")
+    public String getAgentRemarks() {
+        return agentRemarks;
+    }
+
+    public void setAgentRemarks(String agentRemarks) {
+        this.agentRemarks = agentRemarks;
+    }
+
+    @Column(name = "MANAGER_REMARKS")
+    public String getManagerRemarks() {
+        return managerRemarks;
+    }
+
+    public void setManagerRemarks(String managerRemarks) {
+        this.managerRemarks = managerRemarks;
+    }
+
+    @Column(name = "VISIT_COMPLETION")
+    public Date getVisitCompletion() {
+        return visitCompletion;
+    }
+
+    public void setVisitCompletion(Date visitCompletion) {
+        this.visitCompletion = visitCompletion;
     }
 
     String description;

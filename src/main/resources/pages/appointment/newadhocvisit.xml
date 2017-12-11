@@ -39,52 +39,47 @@
                 <Section type="header3col">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="Doc_No" type="UIText"  readonly="true" Id="txtdocNo" property="docNo"/>
-                   <!-- <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
-                             property="template.templateNo">
+                    <!--  <Element label="Doc_No" type="UIText"  readonly="true" Id="txtdocNo" property="docNo"/>
+                    <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
+                              property="template.templateNo">
 
-                    </Element>-->
-                    <Element label="Region" type="UIList" Id="LstRegion" property="location.region.id">
-                        <options populator="getAllRegions">
-                        </options>
+                     </Element>-->
+                    <Element label="Region" type="UILabel" Id="LstRegion" style="CRUDLabel" property="location.region.name"/>
+                    <Element label="" type="UIHidden" Id="HdnRegion" style="CRUDLabel" property="location.region.id"/>
+
+                    <Element label="Location" type="UILabel" Id="LstLocations" style="CRUDLabel" property="location.name"/>
+                    <Element label="" type="UIHidden" Id="hdnLocation" property="location.id"/>
+
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+
                     </Element>
-                    <Element label="Location" type="UIList" Id="LstLocations" property="location.id">
-                        <options populator="getAllLocations">
-                        </options>
-                    </Element>
-                    <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType"
-                             property="partyType.code">
-                        <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
-                        </options>
-                    </Element>
-                    <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
-                             isMandatory="false" property="stockist.name">
-                        <lookupType>stockist</lookupType>
-                    </Element>
-                    <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore"
-                             isMandatory="false"
-                             property="store.name">
-                        <lookupType>store</lookupType>
-                    </Element>
-                    <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
-                             isMandatory="false" property="doctor.name">
-                        <lookupType>doctor</lookupType>
-                    </Element>
-                    <!--<Element label="Manager" type="UIText"   Id="txtmanager" readonly="true"
-                             isMandatory="true" property="manager.userId">
+                    <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
+                             isMandatory="false" property="partyNameWithType">
                     </Element>
 
-                    <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
-                             property="agent.userId">
-                        <lookupType>user</lookupType>
-                    </Element> -->
+                    <Element label="" type="UIHidden"  Id="hdnPartyType" property="partyType.code"/>
 
-                    <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
-                        <options populator="getCreateStatuses" >
-                        </options>
+                    <Element label="" type="UIHidden"  Id="txtstockist" property="stockist.name" />
+
+                    <Element label="" type="UIHidden"  Id="txtstore" property="store.name"/>
+
+                    <Element label="" type="UIHidden"  Id="txtdoctor" property="doctor.name"/>
+
+                    <Element label="Manager" type="UILabel"   Id="txtmanager" style="CRUDLabel" property="manager.userId">
+                    </Element>
+                    <Element label="" type="UIHidden"   Id="hdnManager"  property="manager.userId">
                     </Element>
 
-                    <Element label  ="Appointment_Date" type="UIDate"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                    <Element label="Agent" type="UILabel"  Id="txtagent"  style="CRUDLabel"    property="agent.userId">
+                    </Element>
+                    <Element label="" type="UIHidden"   Id="hdnagent"  property="agent.userId">
+                    </Element>
+
+
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="previousFeedBack">
+
+                    </Element>
 
                 </Section>
                 <Section type="detailForSale">
@@ -92,6 +87,9 @@
                              selectedTabStyle="titleStyleSelected active nav-link"
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
                         <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+
+
+                            <Element label  ="Appointment_Date" type="UIDate"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
 
                             <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                                      value="Appointment_Time"/>
@@ -109,6 +107,11 @@
                                     <options populator="getMinutes">
                                     </options>
                                 </Element>
+                            </Element>
+
+                            <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
+                                <options populator="getCreateStatuses" >
+                                </options>
                             </Element>
 
                             <!--<Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"

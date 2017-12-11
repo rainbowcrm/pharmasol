@@ -29,5 +29,22 @@ public class GeneralSQL {
         return finiteValues;
     }
 
+    public  FiniteValue getFiniteValue(String code) {
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select CODE,DESCRIPTION,TYPE_CODE from FINITE_VALUES where CODE = ? ", new Object[]{code});
+
+        if (rowSet.next()) {
+            FiniteValue finiteValue = new FiniteValue();
+            String desc = rowSet.getString(2);
+            String typeCode = rowSet.getString(2);
+            finiteValue.setCode(code);
+            finiteValue.setType(typeCode);
+            finiteValue.setDescription(desc);
+            return finiteValue ;
+        }
+
+        return null;
+    }
+
 
 }

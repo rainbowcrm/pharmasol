@@ -62,6 +62,10 @@
                     </Element>
                     <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
                     <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="previousFeedBack">
+
+                    </Element>
 
                 </Section>
                 <Section type="detailForSale">
@@ -175,12 +179,9 @@
                     </Element>
                     </Element>
                 </Section>
-                <Section type="onefooter">
-                <Element label="Last_FeedBack" type="UITextArea" isMandatory="false" Id="txtprediscussion" style = "textareastyle" readonly="true"
-                         property="previousFeedBack">
-                    <rows>4</rows> <cols>25</cols>
-                </Element>
-                </Section>
+                <!--<Section type="onefooter">
+
+                </Section>-->
             </CoreSection>
             <Section type="optionalsummary">
                 <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"

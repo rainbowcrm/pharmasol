@@ -34,19 +34,19 @@ public class AppointmentSQL {
     public String getLastFeedBack(int currentId, String partyType, int partyId) {
 
         String sql = "";
-        String result = "";
+        Object result = null;
         if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType)) {
-            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND DOCTOR_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND DOCTOR_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
         } else if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType)) {
-            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STOCKIST_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STOCKIST_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
         }else if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType)) {
-            sql = " SELECT DISCUSSION FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STORE_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STORE_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
         }
         SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{currentId, partyId});
         if (rs.next()) {
-            result  = rs.getString(1);
+            result  = rs.getObject(1);
         }
-            return Utils.isNull(result)?"":result;
+            return Utils.isNull(result)?"":new String((byte[]) result);
 
     }
 }

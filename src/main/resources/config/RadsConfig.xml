@@ -80,6 +80,8 @@
         </Page>
         <Page id = "newadhocvisit" definition ="/resources/pages/appointment/newadhocvisit.xml"  accessCode ="AGENT::ADHOCAPPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
+        <Page id = "newadhocvisitinit" definition ="/resources/pages/appointment/newadhocvisitinit.xml"  accessCode ="AGENT::ADHOCAPPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        </Page>
         <Page id = "newmgradhocvisit" definition ="/resources/pages/appointment/newmgradhocvisit.xml" accessCode ="MGR::ADHOCAPPT"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
         <Page id = "mgrappointments" definition ="/resources/pages/appointment/mgrappointmentList.xml"  accessCode ="MGR::APPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
@@ -232,8 +234,8 @@
         <Panel key = "agentmenuPanel"   showInDiv = "false">
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Appointment" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newadhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Open_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointments" iconStyle="fa fa-fw fa-tags"  />
-                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Appointment" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newadhocvisit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Past_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 

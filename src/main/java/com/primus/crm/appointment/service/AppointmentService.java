@@ -1,12 +1,9 @@
 package com.primus.crm.appointment.service;
 
-import com.primus.abstracts.AbstractDAO;
-import com.primus.abstracts.AbstractService;
-import com.primus.abstracts.TransactionUpdateDelta;
-import com.primus.common.FVConstants;
-import com.primus.common.FiniteValue;
-import com.primus.common.ProductContext;
-import com.primus.common.ServiceFactory;
+import com.primus.abstracts.*;
+import com.primus.admin.region.model.Location;
+import com.primus.common.*;
+import com.primus.common.user.model.User;
 import com.primus.crm.appointment.jdbc.AppointmentSQL;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
@@ -14,10 +11,17 @@ import com.primus.crm.appointment.model.PromotedItem;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.externals.doctor.model.DoctorAssociation;
+import com.primus.externals.doctor.service.DoctorService;
+import com.primus.externals.stockist.model.StockistAssociation;
+import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.store.model.StoreAssociation;
+import com.primus.externals.store.service.StoreService;
 import com.primus.framework.nextup.NextUpGenerator;
 import com.primus.merchandise.item.model.Item;
 import com.primus.merchandise.item.service.ItemService;
 import com.primus.merchandise.product.model.Product;
+import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
@@ -26,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.primus.abstracts.PrimusModel;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
 import java.time.LocalDate;
@@ -40,6 +43,9 @@ import java.util.*;
 @Transactional
 public class AppointmentService extends AbstractService {
 
+
+ @Autowired
+ GeneralSQL generalSQL ;
 
  @Autowired
  AppointmentDAO appointmentDAO ;
@@ -390,6 +396,53 @@ public class AppointmentService extends AbstractService {
 
     }
 
+    public List<RadsError> initateAppointment(Appointment appointment, ProductContext context)
+    {
+        List<RadsError> results = new ArrayList<RadsError>();
+        if(appointment.getLocation().getId() >0 ) {
+            Location location = ServiceFactory.getLocation(appointment.getLocation(), context);
+            appointment.setLocation(location);
+        }
+        User agent = CommonUtil.getUser(context.getUser());
+        appointment.setAgent(agent);
+        appointment.setManager(agent.getManagerUser());
+
+
+        FiniteValue partyType = generalSQL.getFiniteValue(appointment.getPartyType().getCode()) ;
+        appointment.setPartyType(partyType);
+
+        if (appointment.getStockist() != null) {
+            StockistService service = ServiceFactory.getStockistService();
+            List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
+            if (!Utils.isNullList(stockists)){
+                appointment.setStockist(stockists.get(0).getStockist());
+            }else
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+
+        }
+        if (appointment.getStore() != null) {
+            StoreService service = ServiceFactory.getStoreService();
+            List<StoreAssociation> datas = ( List<StoreAssociation> ) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() +"'",null, context) ;
+            if(!Utils.isNullList(datas)) {
+                appointment.setStore(datas.get(0).getStore());
+            }else
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
+        }
+        if (appointment.getDoctor()!= null) {
+            DoctorService service = ServiceFactory.getDoctorService();
+            List<DoctorAssociation> datas = ( List<DoctorAssociation> ) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() +"'",null, context) ;
+            if(!Utils.isNullList(datas)) {
+                appointment.setDoctor(datas.get(0).getDoctor());
+            }else
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+        }
+
+        getPreviousFeedBack(appointment);
+
+
+
+        return  results;
+    }
 
     public PageResult completeAppointment(Appointment appointment, ProductContext context)
     {
@@ -399,7 +452,8 @@ public class AppointmentService extends AbstractService {
                 FVConstants.APPT_STATUS.SCHEDULED.equalsIgnoreCase(app.getStatus().getCode()) ) {
             app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
             app.setPromotedItems(appointment.getPromotedItems());
-            app.setDiscussion(appointment.getDiscussion());
+            app.setFeedBack(appointment.getFeedBack());
+            app.setVisitCompletion(appointment.getApptDate());
             app.setDescription(appointment.getDescription());
             if(!Utils.isNullCollection(appointment.getPromotedItems())) {
                 appointment.getPromotedItems().forEach( promotedItem ->  {
