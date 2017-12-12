@@ -1,10 +1,20 @@
 package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractListController;
+import com.primus.abstracts.CommonErrorCodes;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
+import com.primus.crm.appointment.model.Appointment;
+import com.primus.crm.appointment.service.AppointmentService;
+import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
+import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.util.ServiceLibrary;
+import com.techtrade.rads.framework.model.abstracts.ModelObject;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,5 +39,25 @@ public class AppointmentListController extends AbstractListController{
     }
 
 
+    @Override
+    public PageResult submit(List<ModelObject> list, String action) {
+         if ("MOVETOCLOSE".equalsIgnoreCase(action)) {
+             PageResult result = new PageResult();
+             if (list.size() ==1) {
+                AppointmentService service = (AppointmentService)getService();
+                AppointmentValidator validator = (AppointmentValidator)getValidator();
+                Appointment appt =  (Appointment) service.getById(((Appointment)list.get(0)).getId());
+                validator.adaptToUI(appt,getProductContext());
+                result.setObject(appt);
+                result.setNextPageKey("mgrapptclose");
+                result.setResult(TransactionResult.Result.SUCCESS);
+                return result;
 
+             } else {
+                 result.addError(AppointmentTemplateValidator.getErrorforCode(getProductContext(), CommonErrorCodes.ATLEAST_ONE_REQUIRED));
+
+             }
+         }
+        return super.submit(list, action);
+    }
 }

@@ -374,6 +374,10 @@ public class AppointmentService extends AbstractService {
                 context.getPageAccessCode().equalsIgnoreCase("MGR::APPT") ) ){
             accessCondition.append( " and status.code in ('PNDG','PLND','SCHD')");
         }
+        if (context.getPageAccessCode() != null &&
+                context.getPageAccessCode().equalsIgnoreCase("MGR::CMPAPPT")  ){
+            accessCondition.append( " and status.code in ('CMPLTD','CNCLD')");
+        }
 
 
         return accessCondition.toString() ;

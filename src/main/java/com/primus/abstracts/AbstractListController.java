@@ -55,7 +55,7 @@ public abstract class AbstractListController extends ListController {
             return item.getPK();
     }
 
-    private AbstractValidator getValidator()
+    protected AbstractValidator getValidator()
     {
         String validatorName =  getValidatorName() ;
         AbstractValidator validator =  ServiceLibrary.services().getValidator(validatorName);

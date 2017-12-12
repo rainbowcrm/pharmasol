@@ -99,11 +99,11 @@
                     </Element>
 
                     <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
-                             property="discussion">
+                             property="feedBack">
                         <rows>4</rows> <cols>25</cols>
                     </Element>
                     <Element label="Description" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
-                             property="description">
+                             property="agentRemarks">
                         <rows>4</rows> <cols>25</cols>
                     </Element>
                     </Element>

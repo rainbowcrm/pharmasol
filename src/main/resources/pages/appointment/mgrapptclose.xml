@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newAppointment" showinFrame="true" title="Appointment | Primus WFM | Primus WFM"
+      Object="com.primus.crm.appointment.model.Appointment"
+      Controller="com.primus.crm.appointment.controller.AppointmentController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=appointments</Forward>
+        <Forward key="SAVE">appointments</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service ="itemSearch">
+            <requestElements event = "">
+                <requestElement key = "Code">txtItemCode</requestElement>
+            </requestElements>
+            <responseElements>
+
+                <responseElement key = "Code">txtItemCode</responseElement>
+                <responseElement key = "Name">txtItemName</responseElement>
+
+            </responseElements>
+        </AjaxGroup>
+
+    </AjaxGroups>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="header3col">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="Doc_No" type="UILabel"  style="CRUDLabel" Id="txtdocNo" property="docNo"/>
+                    <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
+                             property="template.templateNo">
+
+                    </Element>
+                    <Element label="Location" type="UILabel"  style="CRUDLabel" Id="lstlocation" property="location.name">
+
+                    </Element>
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+
+                    </Element>
+
+
+                    <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
+                             isMandatory="false" property="partyNameWithType">
+                    </Element>
+
+                    <Element label="Manager" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
+                             property="manager.userId">
+                    </Element>
+                    <Element label="Agent" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
+                             property="agent.userId">
+                    </Element>
+                    <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
+                    <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="previousFeedBack">
+
+                    </Element>
+
+                </Section>
+                <Section type="detailForSale">
+                    <Element type="UITabset" Id="impeppdetails" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                        <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+
+                            <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
+                                     value="Appointment_Time"/>
+                            <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
+                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom10width"
+                                         property="hh">
+                                    <options populator="getHours">
+                                    </options>
+                                </Element>
+                                <Element label="" type="UILabel" isMandatory="true" Id="txtcol"
+                                         style="form-control custom5width" value=":"
+                                />
+                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom10width"
+                                         property="mm">
+                                    <options populator="getMinutes">
+                                    </options>
+                                </Element>
+                            </Element>
+
+                            <Element label="Cancel_Reason" type="UILabel"  Id="txtagentCnclReasons" style="CRUDLabel"
+                                     property="cancelReasonAgent.reason">
+
+                            </Element>
+
+                            <Element label="Feedback" type="UILabel" isMandatory="false" Id="txtdiscussion" style="CRUDLabel"
+                                     property="feedBack">
+
+                            </Element>
+                            <Element label="Agent_Remarks" type="UILabel" style="CRUDLabel" isMandatory="false" Id="txtdescription"
+                                     property="agentRemarks">
+
+                            </Element>
+                        </Element>
+
+                        <Element type="UITab" Id="idpromoItem" title="Promoted_Items" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransComposition"
+                                     property="promotedItems[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Promtion_Details"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Description"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PromotedItem"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtItemCode" style="CRUDLabel"
+                                                 property="item.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" isMandatory="true" Id="txtItemName"  style="CRUDLabel"
+                                                 property="item.name"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtPromoDetails" style="CRUDLabel"
+                                                 property="promoDetails"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtDescriptio" style="CRUDLabel"
+                                                 property="description"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                    </Element>
+                </Section>
+                <!--<Section type="onefooter">
+
+                </Section>-->
+            </CoreSection>
+            <Section type="optionalsummary">
+                <Element caption="Close_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="CLOSE_APPOINTMENT"/>
+
+
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>
