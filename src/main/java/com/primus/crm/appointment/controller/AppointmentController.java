@@ -7,9 +7,12 @@ import com.primus.common.FVConstants;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
+import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
-import com.techtrade.rads.framework.ui.abstracts.PageResult;;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;
+import com.techtrade.rads.framework.utils.Utils;;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -64,8 +67,8 @@ public class AppointmentController extends AbstractTransactionController{
 
     @Override
     public PageResult submit(ModelObject object, String actionParam) {
+        AppointmentService service = (AppointmentService) getService();
         if ("CANCEL_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-            AppointmentService service = (AppointmentService) getService();
             PageResult result = service.cancelAppointment((Appointment)object,getProductContext());
             if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
@@ -73,8 +76,21 @@ public class AppointmentController extends AbstractTransactionController{
             }else
                 return result ;
         }else if ("COMPLETE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-            AppointmentService service = (AppointmentService) getService();
             PageResult result = service.completeAppointment((Appointment)object,getProductContext());
+            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                result.setNextPageKey("appointments");
+                return result ;
+            }else
+                return result ;
+        }else if ("COMPLETE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.completeAdhocAppointment((Appointment)object,getProductContext());
+            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                result.setNextPageKey("appointments");
+                return result ;
+            }else
+                return result ;
+        }else if ("SCHEDULE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.scheduleAdhocAppointment((Appointment)object,getProductContext());
             if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
                 return result ;
@@ -82,11 +98,15 @@ public class AppointmentController extends AbstractTransactionController{
                 return result ;
         }else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
             PageResult result = new PageResult();
-            AppointmentService service = (AppointmentService) getService();
-            service.initateAppointment((Appointment)object,getProductContext());
-            result.setResult(TransactionResult.Result.SUCCESS);
-            result.setObject(object);
-            result.setNextPageKey("newadhocvisit");
+            List<RadsError> errors = service.initateAppointment((Appointment)object,getProductContext());
+            if(Utils.isNullList(errors)) {
+                result.setResult(TransactionResult.Result.SUCCESS);
+                result.setObject(object);
+                result.setNextPageKey("newadhocvisit");
+            }else   {
+                result.setResult(TransactionResult.Result.FAILURE);
+                result.setErrors(errors);
+            }
             return result;
 
         }

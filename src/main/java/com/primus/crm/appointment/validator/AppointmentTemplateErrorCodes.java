@@ -16,6 +16,7 @@ public class AppointmentTemplateErrorCodes extends CommonErrorCodes {
     public static  final int APPOINTMENT_NOTINCANCELATONSTATUS= 1000110;
     public static  final int REASON_CODE_MANDATORYFORCANCEL= 1000111;
     public static  final int APPOINTMENT_NOTINCOMPLETESTATUS= 1000112;
+    public static  final int PARTY_MANDATORY_TYPEIS= 1000113;
 
 
 

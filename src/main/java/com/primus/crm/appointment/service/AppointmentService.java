@@ -411,37 +411,78 @@ public class AppointmentService extends AbstractService {
         FiniteValue partyType = generalSQL.getFiniteValue(appointment.getPartyType().getCode()) ;
         appointment.setPartyType(partyType);
 
-        if (appointment.getStockist() != null) {
-            StockistService service = ServiceFactory.getStockistService();
-            List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
-            if (!Utils.isNullList(stockists)){
-                appointment.setStockist(stockists.get(0).getStockist());
-            }else
-                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+        if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType.getCode())) {
+            if (appointment.getStockist() != null) {
+                StockistService service = ServiceFactory.getStockistService();
+                List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
+                if (!Utils.isNullList(stockists)) {
+                    appointment.setStockist(stockists.get(0).getStockist());
+                } else
+                    results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
 
-        }
-        if (appointment.getStore() != null) {
-            StoreService service = ServiceFactory.getStoreService();
-            List<StoreAssociation> datas = ( List<StoreAssociation> ) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() +"'",null, context) ;
-            if(!Utils.isNullList(datas)) {
-                appointment.setStore(datas.get(0).getStore());
-            }else
-                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
-        }
-        if (appointment.getDoctor()!= null) {
-            DoctorService service = ServiceFactory.getDoctorService();
-            List<DoctorAssociation> datas = ( List<DoctorAssociation> ) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() +"'",null, context) ;
-            if(!Utils.isNullList(datas)) {
-                appointment.setDoctor(datas.get(0).getDoctor());
-            }else
-                results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+            }else {
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_MANDATORY_TYPEIS, "Stockist"));
+            }
         }
 
-        getPreviousFeedBack(appointment);
+        if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType.getCode())) {
+            if (appointment.getStore() != null) {
+                StoreService service = ServiceFactory.getStoreService();
+                List<StoreAssociation> datas = (List<StoreAssociation>) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() + "'", null, context);
+                if (!Utils.isNullList(datas)) {
+                    appointment.setStore(datas.get(0).getStore());
+                } else
+                    results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
+            }else {
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_MANDATORY_TYPEIS, "Store"));
+            }
+
+        }
+        if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType.getCode())) {
+            if (appointment.getDoctor() != null) {
+                DoctorService service = ServiceFactory.getDoctorService();
+                List<DoctorAssociation> datas = (List<DoctorAssociation>) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() + "'", null, context);
+                if (!Utils.isNullList(datas)) {
+                    appointment.setDoctor(datas.get(0).getDoctor());
+                } else
+                    results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+            }else {
+                results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_MANDATORY_TYPEIS, "Doctor"));
+            }
+        }
+        if(Utils.isNullList(results))
+            getPreviousFeedBack(appointment);
 
 
 
         return  results;
+    }
+
+
+    public PageResult completeAdhocAppointment(Appointment appointment, ProductContext context)
+    {
+        PageResult result = new PageResult();
+        appointmentValidator.adaptFromUI(appointment,context) ;
+        appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
+        appointment.setVisitCompletion(appointment.getApptDate());
+        appointmentValidator.validateForCreate(appointment,context,this);
+        create(appointment,context) ;
+        result.setResult(TransactionResult.Result.SUCCESS);
+
+        return result;
+    }
+
+    public PageResult scheduleAdhocAppointment(Appointment appointment, ProductContext context)
+    {
+        PageResult result = new PageResult();
+        appointmentValidator.adaptFromUI(appointment,context) ;
+        appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.SCHEDULED));
+        //appointment.setVisitCompletion(appointment.getApptDate());
+        appointmentValidator.validateForCreate(appointment,context,this);
+        create(appointment,context) ;
+        result.setResult(TransactionResult.Result.SUCCESS);
+
+        return result;
     }
 
     public PageResult completeAppointment(Appointment appointment, ProductContext context)

@@ -51,6 +51,14 @@ body, div.topBar {
 height: 28px !important;
   padding: 3px !important; }
 
+.custom20width {
+width : 20% !important;
+}
+
+.custom10width {
+width : 10% !important;
+}
+
 .custom30width {
 width : 30% !important;
 }
@@ -58,6 +66,7 @@ width : 30% !important;
 width : 5% !important;
 min-width: 10px;
 }
+
 input.searchstyle {
 width :80%  ;
 

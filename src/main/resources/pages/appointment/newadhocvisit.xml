@@ -89,12 +89,12 @@
                         <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
 
 
-                            <Element label  ="Appointment_Date" type="UIDate"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                            <Element label  ="Appointment_Date" type="UIDate"  style="custom30width"  Id="txtapptDate" property="apptDate"/>
 
                             <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                                      value="Appointment_Time"/>
                             <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
-                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom30width"
+                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom20width"
                                          property="hh">
                                     <options populator="getHours">
                                     </options>
@@ -102,31 +102,31 @@
                                 <Element label="" type="UILabel" isMandatory="true" Id="txtcol"
                                          style="form-control custom5width" value=":"
                                 />
-                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom30width"
+                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom20width"
                                          property="mm">
                                     <options populator="getMinutes">
                                     </options>
                                 </Element>
                             </Element>
 
-                            <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
+                            <!-- <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
                                 <options populator="getCreateStatuses" >
                                 </options>
                             </Element>
 
-                            <!--<Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
+                           <Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
                                      property="cancelReasonAgent.id">
                                 <options populator="getReasonCodes" populatorParam="APPCNCL">
                                 </options>
-                            </Element>-->
-                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/>
+                            </Element>
+                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/> -->
 
                             <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
-                                     property="discussion">
+                                     property="feedBack">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
-                            <Element label="Description" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
-                                     property="description">
+                            <Element label="Agent_Remarks" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
+                                     property="agentRemarks">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
                         </Element>
@@ -203,8 +203,16 @@
                     </Element>
                 </Section>
             </CoreSection>
-            <Section type="summary">
-
+            <Section type="optionalsummary">
+                <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="COMPLETE_ADHAPPOINTMENT"/>
+                <Element caption="Schedule_Appointment" type="UIButton" Id="btnAlink" style="btn btn-primary"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>
+                <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
+                         iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
+                         fixedActionParam="CANCEL"/>
             </Section>
 
         </UIForm>
