@@ -4,7 +4,7 @@
       Controller="com.primus.crm.appointment.controller.AppointmentController">
     <Template type="Transaction" name="TransactionTemplate"></Template>
     <Forwards>
-        <Forward key="CANCEL">controller?page=appointments</Forward>
+        <Forward key="CANCEL">controller?page=mgrclsappointments</Forward>
         <Forward key="SAVE">appointments</Forward>
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
@@ -99,9 +99,9 @@
                                      property="agentRemarks">
 
                             </Element>
-                            <Element label="Manager_Remarks" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtmgrRemarsk"
+                            <Element label="Manager_Remarks" type="UILabel" style = "CRUDLabel" isMandatory="false" Id="txtmgrRemarsk"
                                      property="managerRemarks">
-                                <rows>4</rows> <cols>25</cols>
+
                             </Element>
                         </Element>
 
@@ -160,9 +160,9 @@
                 </Section>-->
             </CoreSection>
             <Section type="optionalsummary">
-                <Element caption="Close_Visit" type="UIButton" Id="btnAlink" style="btn btn-success"
-                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
-                         fixedActionParam="CLOSE_APPOINTMENT"/>
+                <Element caption="Back" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PAGEFORWARD"
+                         fixedActionParam="CANCEL"/>
             </Section>
 
         </UIForm>

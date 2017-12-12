@@ -379,6 +379,11 @@ public class AppointmentService extends AbstractService {
             accessCondition.append( " and status.code in ('CMPLTD','CNCLD')");
         }
 
+        if (context.getPageAccessCode() != null &&
+                context.getPageAccessCode().equalsIgnoreCase("MGR::CLSDAPPT")  ){
+            accessCondition.append( " and status.code in ('CLSD','CLSCNCLD')");
+        }
+
 
         return accessCondition.toString() ;
     }
@@ -489,6 +494,23 @@ public class AppointmentService extends AbstractService {
         return result;
     }
 
+    public PageResult closeAppointment(Appointment appointment, ProductContext context)
+    {
+        Appointment app = (Appointment)getById(appointment.getId()) ;
+        PageResult result = new PageResult() ;
+        app.setManagerRemarks(appointment.getManagerRemarks());
+        if(FVConstants.APPT_STATUS.CANCELLED.equalsIgnoreCase(app.getStatus().getCode()) ) {
+            app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.CLOSEDCANCELED));
+            app.setCancelReasonManager(appointment.getCancelReasonManager()) ;
+        } else if(FVConstants.APPT_STATUS.COMPLETED.equalsIgnoreCase(app.getStatus().getCode()) ){
+            app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.CLOSED));
+        }
+        update(app,context) ;
+        result.setResult(TransactionResult.Result.SUCCESS);
+        result.setNextPageKey("mgrcmpappointments");
+        return  result;
+
+    }
     public PageResult completeAppointment(Appointment appointment, ProductContext context)
     {
         Appointment app = (Appointment)getById(appointment.getId()) ;

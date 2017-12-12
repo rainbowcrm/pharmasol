@@ -108,7 +108,9 @@ public class AppointmentController extends AbstractTransactionController{
                 result.setErrors(errors);
             }
             return result;
-
+        }else if ("CLOSE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.closeAppointment((Appointment)object,getProductContext());
+            return result;
         }
         return super.submit(object, actionParam);
     }

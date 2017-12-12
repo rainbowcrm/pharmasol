@@ -41,7 +41,7 @@ public class AppointmentListController extends AbstractListController{
 
     @Override
     public PageResult submit(List<ModelObject> list, String action) {
-         if ("MOVETOCLOSE".equalsIgnoreCase(action)) {
+         if ("MOVETOCLOSE".equalsIgnoreCase(action) || "VIEW".equalsIgnoreCase(action)) {
              PageResult result = new PageResult();
              if (list.size() ==1) {
                 AppointmentService service = (AppointmentService)getService();
@@ -49,7 +49,10 @@ public class AppointmentListController extends AbstractListController{
                 Appointment appt =  (Appointment) service.getById(((Appointment)list.get(0)).getId());
                 validator.adaptToUI(appt,getProductContext());
                 result.setObject(appt);
-                result.setNextPageKey("mgrapptclose");
+                if ("MOVETOCLOSE".equalsIgnoreCase(action) )
+                     result.setNextPageKey("mgrapptclose");
+                else
+                    result.setNextPageKey("mgrapptview");
                 result.setResult(TransactionResult.Result.SUCCESS);
                 return result;
 

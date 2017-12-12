@@ -37,6 +37,8 @@ public class FVConstants {
         public final static String COMPLETED ="CMPLTD";
         public final static String PENDING ="PNDG";
         public final static String MISSED ="MSSD";
+        public final static String CLOSED ="CLSD";
+        public final static String CLOSEDCANCELED ="CLSCNCLD";
     }
 
 
