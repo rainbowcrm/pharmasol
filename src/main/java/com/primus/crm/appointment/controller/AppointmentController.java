@@ -102,7 +102,10 @@ public class AppointmentController extends AbstractTransactionController{
             if(Utils.isNullList(errors)) {
                 result.setResult(TransactionResult.Result.SUCCESS);
                 result.setObject(object);
-                result.setNextPageKey("newadhocvisit");
+                if(getProductContext().getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT"))
+                    result.setNextPageKey("newmgradhocvisit");
+                else
+                    result.setNextPageKey("newadhocvisit");
             }else   {
                 result.setResult(TransactionResult.Result.FAILURE);
                 result.setErrors(errors);

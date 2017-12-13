@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id="newMAdhogrcAppointment" showinFrame="true" title="Adhoc Visit- Manager  | Primus WFM"
+<Page id="newAdhowAppointment" showinFrame="true" title="Adhoc Visit  | Primus WFM"
       Object="com.primus.crm.appointment.model.Appointment"
       Controller="com.primus.crm.appointment.controller.AppointmentController">
     <Template type="Transaction" name="TransactionTemplate"></Template>
     <Forwards>
-        <Forward key="CANCEL">controller?page=mgrappointments</Forward>
-        <Forward key="SAVE">mgrappointments</Forward>
+        <Forward key="CANCEL">controller?page=appointments</Forward>
+        <Forward key="SAVE">appointments</Forward>
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
@@ -39,52 +39,48 @@
                 <Section type="header3col">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="Doc_No" type="UIText"  readonly="true" Id="txtdocNo" property="docNo"/>
-                    <!-- <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
+                    <!--  <Element label="Doc_No" type="UIText"  readonly="true" Id="txtdocNo" property="docNo"/>
+                    <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
                               property="template.templateNo">
 
                      </Element>-->
-                    <Element label="Region" type="UIList" Id="LstRegion" property="location.region.id">
-                        <options populator="getAllRegions">
-                        </options>
-                    </Element>
-                    <Element label="Location" type="UIList" Id="LstLocations" property="location.id">
-                        <options populator="getAllLocations">
-                        </options>
-                    </Element>
-                    <Element label="Party" type="UIList" isMandatory="true" Id="lstpartyType"
-                             property="partyType.code">
-                        <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
-                        </options>
-                    </Element>
-                    <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
-                             isMandatory="false" property="stockist.name">
-                        <lookupType>stockist</lookupType>
-                    </Element>
-                    <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore"
-                             isMandatory="false"
-                             property="store.name">
-                        <lookupType>store</lookupType>
-                    </Element>
-                    <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
-                             isMandatory="false" property="doctor.name">
-                        <lookupType>doctor</lookupType>
-                    </Element>
-                    <!--<Element label="Manager" type="UIText"   Id="txtmanager" readonly="true"
-                             isMandatory="true" property="manager.userId">
-                    </Element>-->
+                    <Element label="Region" type="UILabel" Id="LstRegion" style="CRUDLabel" property="location.region.name"/>
+                    <Element label="" type="UIHidden" Id="HdnRegion" style="CRUDLabel" property="location.region.id"/>
 
-                    <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
-                             property="agent.userId">
+                    <Element label="Location" type="UILabel" Id="LstLocations" style="CRUDLabel" property="location.name"/>
+                    <Element label="" type="UIHidden" Id="hdnLocation" property="location.id"/>
+
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+
+                    </Element>
+                    <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
+                             isMandatory="false" property="partyNameWithType">
+                    </Element>
+
+                    <Element label="" type="UIHidden"  Id="hdnPartyType" property="partyType.code"/>
+
+                    <Element label="" type="UIHidden"  Id="txtstockist" property="stockist.name" />
+
+                    <Element label="" type="UIHidden"  Id="txtstore" property="store.name"/>
+
+                    <Element label="" type="UIHidden"  Id="txtdoctor" property="doctor.name"/>
+
+                    <Element label="Manager" type="UILabel"   Id="txtmanager" style="CRUDLabel" property="manager.userId">
+                    </Element>
+                    <Element label="" type="UIHidden"   Id="hdnManager"  property="manager.userId">
+                    </Element>
+
+                    <Element label="Agent" type="UILookupDataList"  listId="lstReportteed" Id="txtagent"  style="CRUDLabel"    property="agent.userId">
                         <lookupType>user</lookupType>
                     </Element>
-
-                    <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
-                        <options populator="getCreateStatuses" >
-                        </options>
+                    <Element label="" type="UIHidden"   Id="hdnagent"  property="agent.userId">
                     </Element>
 
-                    <Element label  ="Appointment_Date" type="UIDate"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="previousFeedBack">
+
+                    </Element>
 
                 </Section>
                 <Section type="detailForSale">
@@ -93,10 +89,13 @@
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
                         <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
 
+
+                            <Element label  ="Appointment_Date" type="UIDate"  style="custom30width"  Id="txtapptDate" property="apptDate"/>
+
                             <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                                      value="Appointment_Time"/>
                             <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
-                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom30width"
+                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom20width"
                                          property="hh">
                                     <options populator="getHours">
                                     </options>
@@ -104,26 +103,31 @@
                                 <Element label="" type="UILabel" isMandatory="true" Id="txtcol"
                                          style="form-control custom5width" value=":"
                                 />
-                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom30width"
+                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom20width"
                                          property="mm">
                                     <options populator="getMinutes">
                                     </options>
                                 </Element>
                             </Element>
 
-                            <!--<Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
+                            <!-- <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
+                                <options populator="getCreateStatuses" >
+                                </options>
+                            </Element>
+
+                           <Element label="Cancel_Reason" type="UIList"  Id="txtagentCnclReasons" style="custom30width"
                                      property="cancelReasonAgent.id">
                                 <options populator="getReasonCodes" populatorParam="APPCNCL">
                                 </options>
-                            </Element>-->
-                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/>
+                            </Element>
+                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/> -->
 
                             <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
-                                     property="discussion">
+                                     property="feedBack">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
-                            <Element label="Description" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
-                                     property="description">
+                            <Element label="Agent_Remarks" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
+                                     property="agentRemarks">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
                         </Element>
@@ -200,8 +204,14 @@
                     </Element>
                 </Section>
             </CoreSection>
-            <Section type="summary">
+            <Section type="optionalsummary">
 
+                <Element caption="Schedule_Appointment" type="UIButton" Id="btnAlink" style="btn btn-primary"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>
+                <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
+                         iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
+                         fixedActionParam="CANCEL"/>
             </Section>
 
         </UIForm>

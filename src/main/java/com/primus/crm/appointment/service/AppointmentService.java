@@ -414,8 +414,12 @@ public class AppointmentService extends AbstractService {
             appointment.setLocation(location);
         }
         User agent = CommonUtil.getUser(context.getUser());
-        appointment.setAgent(agent);
-        appointment.setManager(agent.getManagerUser());
+        if (context.getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT")) {
+            appointment.setManager(agent);
+        }else{
+            appointment.setAgent(agent);
+            appointment.setManager(agent.getManagerUser());
+        }
 
 
         FiniteValue partyType = generalSQL.getFiniteValue(appointment.getPartyType().getCode()) ;

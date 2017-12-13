@@ -61,7 +61,7 @@
                              property="agent.userId">
                     </Element>
                     <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
-                    <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                    <Element label="Appointment_Date" type="UIDate"    Id="txtapptDate" property="apptDate"/>
                     <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
                              property="previousFeedBack">
 
