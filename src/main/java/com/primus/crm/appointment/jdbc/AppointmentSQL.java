@@ -36,13 +36,13 @@ public class AppointmentSQL {
         String sql = "";
         Object result = null;
         if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType)) {
-            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND DOCTOR_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE VISIT_COMPLETION = ( SELECT MAX(VISIT_COMPLETION) FROM APPOINTMENTS WHERE  DOCTOR_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS IN ('CMPLTD','CLSD' ) ) ";
         } else if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType)) {
-            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STOCKIST_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE VISIT_COMPLETION = ( SELECT MAX(VISIT_COMPLETION) FROM APPOINTMENTS WHERE   STOCKIST_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS IN ('CMPLTD','CLSD' ) )  ";
         }else if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType)) {
-            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE ID = ( SELECT MAX(ID) FROM APPOINTMENTS WHERE ID < ? AND STORE_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS = 'CMPLTD' )  ";
+            sql = " SELECT FEEDBACK FROM APPOINTMENTS WHERE VISIT_COMPLETION = ( SELECT MAX(VISIT_COMPLETION) FROM APPOINTMENTS WHERE   STORE_ID = ? AND IS_DELETED = FALSE AND APPT_STATUS IN ('CMPLTD','CLSD' ) )  ";
         }
-        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{currentId, partyId});
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{ partyId});
         if (rs.next()) {
             result  = rs.getObject(1);
         }

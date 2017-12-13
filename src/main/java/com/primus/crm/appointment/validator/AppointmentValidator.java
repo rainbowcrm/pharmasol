@@ -44,6 +44,18 @@ public class AppointmentValidator extends AbstractValidator {
         return "Doc_No";
     }
 
+
+
+    public List<RadsError> completionValidation(Appointment appointment, ProductContext context) {
+
+        List<RadsError> results = new ArrayList<RadsError>();
+        if (Utils.isNull(appointment.getPartyType())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_REQD_FORCOMPLETION));
+        }
+        return results;
+    }
+
+
     @Override
     public List<RadsError> checkforMandatoryFields(PrimusModel model, ProductContext context) {
         Appointment appointment = (Appointment) model;

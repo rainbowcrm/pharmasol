@@ -21,15 +21,18 @@ import java.util.Map;
 public class LookupStores implements ILookupService {
 
     @Override
-    public Map<String, String> lookupData(IRadsContext iRadsContext, String searchString, int i, int i1, String s1, List<String> list) {
+    public Map<String, String> lookupData(IRadsContext iRadsContext, String searchString, int i, int i1, String lookupParam, List<String> list) {
         Map<String,String> ans = new LinkedHashMap<String,String>();
-        String condition = null;
+        StringBuffer condition = new StringBuffer();
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where store.name like  '" + searchString + "'" ;
+            condition.append(" where store.name like  '" + searchString + "'") ;
+            if (!Utils.isNullString(lookupParam)) {
+                condition.append(" and   location.id=" + lookupParam);
+            }
         }
         StoreService service = ServiceFactory.getStoreService();
-        List<? extends PrimusModel> results = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> results = service.fetchAllLinked(condition.toString(), "",(ProductContext) iRadsContext);
         for (ModelObject obj :  results) {
             ans.put(((StoreAssociation)obj).getStore().getName(),((StoreAssociation)obj).getStore().getName());
         }

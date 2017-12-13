@@ -23,13 +23,16 @@ public class LookupDoctors implements ILookupService {
     @Override
     public Map<String, String> lookupData(IRadsContext iRadsContext, String searchString, int i, int i1, String lookupParam, List<String> list) {
         Map<String,String> ans = new LinkedHashMap<String,String>();
-        String condition = null;
+        StringBuffer condition = new StringBuffer();
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where doctor.name like  '" + searchString + "'" ;
+            condition.append(" where doctor.name like  '" + searchString + "'") ;
+            if (!Utils.isNullString(lookupParam)) {
+                   condition.append(" and   location.id=" + lookupParam);
+            }
         }
         DoctorService service = ServiceFactory.getDoctorService() ;
-        List<? extends PrimusModel> results = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> results = service.fetchAllLinked(condition.toString(), "",(ProductContext) iRadsContext);
         for (ModelObject obj :  results) {
             ans.put(((DoctorAssociation)obj).getDoctor().getName(),((DoctorAssociation)obj).getDoctor().getName());
         }

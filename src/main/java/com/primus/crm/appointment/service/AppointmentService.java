@@ -21,6 +21,7 @@ import com.primus.framework.nextup.NextUpGenerator;
 import com.primus.merchandise.item.model.Item;
 import com.primus.merchandise.item.service.ItemService;
 import com.primus.merchandise.product.model.Product;
+import com.techtrade.rads.framework.exceptions.RadsAuthenticationException;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
@@ -425,7 +426,12 @@ public class AppointmentService extends AbstractService {
                 StockistService service = ServiceFactory.getStockistService();
                 List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
                 if (!Utils.isNullList(stockists)) {
-                    appointment.setStockist(stockists.get(0).getStockist());
+                    StockistAssociation association = (StockistAssociation)stockists.get(0);
+                    if (association.getLocation().getId() != appointment.getLocation().getId()) {
+                        results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Stockist", association.getStockist().getName(),
+                                association.getLocation().getName()));
+                    }else
+                                appointment.setStockist(stockists.get(0).getStockist());
                 } else
                     results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
 
@@ -434,12 +440,17 @@ public class AppointmentService extends AbstractService {
             }
         }
 
-        if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType.getCode())) {
+        if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType.getCode())) {
             if (appointment.getStore() != null) {
                 StoreService service = ServiceFactory.getStoreService();
                 List<StoreAssociation> datas = (List<StoreAssociation>) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() + "'", null, context);
                 if (!Utils.isNullList(datas)) {
-                    appointment.setStore(datas.get(0).getStore());
+                    StoreAssociation association = (StoreAssociation)datas.get(0);
+                    if (association.getLocation().getId() != appointment.getLocation().getId()) {
+                        results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Store", association.getStore().getName(),
+                                association.getLocation().getName()));
+                    }else
+                            appointment.setStore(datas.get(0).getStore());
                 } else
                     results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
             }else {
@@ -452,7 +463,12 @@ public class AppointmentService extends AbstractService {
                 DoctorService service = ServiceFactory.getDoctorService();
                 List<DoctorAssociation> datas = (List<DoctorAssociation>) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() + "'", null, context);
                 if (!Utils.isNullList(datas)) {
-                    appointment.setDoctor(datas.get(0).getDoctor());
+                    DoctorAssociation association = (DoctorAssociation)datas.get(0);
+                    if (association.getLocation().getId() != appointment.getLocation().getId()) {
+                        results.add(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_WITH_LOCATION, "Doctor", association.getDoctor().getName(),
+                                association.getLocation().getName()));
+                    }else
+                        appointment.setDoctor(datas.get(0).getDoctor());
                 } else
                     results.add(AppointmentTemplateValidator.getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
             }else {
@@ -474,9 +490,17 @@ public class AppointmentService extends AbstractService {
         appointmentValidator.adaptFromUI(appointment,context) ;
         appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
         appointment.setVisitCompletion(appointment.getApptDate());
-        appointmentValidator.validateForCreate(appointment,context,this);
-        create(appointment,context) ;
-        result.setResult(TransactionResult.Result.SUCCESS);
+        List <RadsError> errors =  appointmentValidator.validateForCreate(appointment,context,this);
+        errors.addAll(appointmentValidator.completionValidation(appointment,context));
+
+        if(Utils.isNullList(errors)) {
+            create(appointment, context);
+            result.setResult(TransactionResult.Result.SUCCESS);
+        }else {
+            result.setResult(TransactionResult.Result.FAILURE);
+            result.setErrors(errors);
+        }
+
 
         return result;
     }

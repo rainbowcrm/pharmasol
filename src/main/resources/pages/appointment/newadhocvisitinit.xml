@@ -34,17 +34,17 @@
                 <options populator="getFiniteValues" populatorParam="EXPTYTYPE">
                 </options>
             </Element>
-            <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist"
+            <Element label="Stockist" type="UILookupDataList" listId="lststockist" Id="txtstockist" additionalInputControl = "LstLocations"
                      isMandatory="false" property="stockist.name">
                 <lookupType>stockist</lookupType>
             </Element>
             <Element label="Store" type="UILookupDataList" listId="lststore" Id="txtstore"
-                     isMandatory="false"
+                     isMandatory="false" additionalInputControl = "LstLocations"
                      property="store.name">
                 <lookupType>store</lookupType>
             </Element>
             <Element label="Doctor" type="UILookupDataList" listId="lstdoctor" Id="txtdoctor"
-                     isMandatory="false" property="doctor.name">
+                     isMandatory="false" property="doctor.name"  additionalInputControl = "LstLocations" >
                 <lookupType>doctor</lookupType>
             </Element>
            <!-- <Element label="" type="UILabel"  Id="lblblank1" value ="" />

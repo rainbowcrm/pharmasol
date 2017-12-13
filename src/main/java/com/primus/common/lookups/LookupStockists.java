@@ -26,13 +26,16 @@ public class LookupStockists  implements ILookupService {
     @Override
     public Map<String, String> lookupData(IRadsContext iRadsContext, String searchString, int i, int i1, String lookupParam, List<String> list) {
         Map<String,String> ans = new LinkedHashMap<String,String>();
-        String condition = null;
+        StringBuffer condition = new StringBuffer();
         if (!Utils.isNull(searchString)) {
             searchString = searchString.replace("*", "%");
-            condition =  " where stockist.name like  '" + searchString + "'" ;
+            condition.append(" where stockist.name like  '" + searchString + "'") ;
+            if (!Utils.isNullString(lookupParam)) {
+                condition.append(" and   location.id=" + lookupParam);
+            }
         }
         StockistService service = ServiceFactory.getStockistService() ;
-        List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
+        List<? extends PrimusModel> companies = service.fetchAllLinked(condition.toString(), "",(ProductContext) iRadsContext);
         for (ModelObject obj :  companies) {
             ans.put(((StockistAssociation)obj).getStockist().getName(),((StockistAssociation)obj).getStockist().getName());
         }
