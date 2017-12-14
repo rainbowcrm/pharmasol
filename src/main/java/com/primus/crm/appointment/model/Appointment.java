@@ -57,6 +57,8 @@ public class Appointment extends PrimusBusinessModel {
 
     Date visitCompletion;
 
+    double duration ;
+
     @RadsPropertySet(isBK = true)
     @Column(name = "DOC_NO")
     public String getDocNo() {
@@ -374,5 +376,14 @@ public class Appointment extends PrimusBusinessModel {
     @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
     public void setManager(User manager) {
         this.manager = manager;
+    }
+
+    @Column(name = "DURATION")
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 }

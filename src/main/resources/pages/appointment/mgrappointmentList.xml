@@ -84,7 +84,7 @@
         </CoreSection>
         <Section type="summary">
 
-            <Element caption="Close" type="UIButton" Id="btnEdit" style="btn btn-primary"
+            <Element caption="Close" type="UIButton" Id="btnEdit" style="btn btn-primary" rendered="!Controller.isArchivePage"
                      iconStyle="glyphicon glyphicon-pencil" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                      fixedActionParam="MOVETOCLOSE"/>
             <Element caption="View" type="UIButton" Id="btnEdit" style="btn btn-success"

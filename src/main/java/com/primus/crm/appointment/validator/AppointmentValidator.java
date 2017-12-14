@@ -49,12 +49,40 @@ public class AppointmentValidator extends AbstractValidator {
     public List<RadsError> completionValidation(Appointment appointment, ProductContext context) {
 
         List<RadsError> results = new ArrayList<RadsError>();
-        if (Utils.isNull(appointment.getPartyType())) {
+        if (Utils.isNull(appointment.getFeedBack())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_REQD_FORCOMPLETION));
         }
         return results;
     }
 
+    public List<RadsError> scheduleValidation(Appointment appointment, ProductContext context) {
+
+        List<RadsError> results = new ArrayList<RadsError>();
+       /* if (Utils.isNull(appointment.getAgent()) || Utils.isNull(appointment.getAgent().getUserId()) ) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.CANNOT_BE_EMPTY, "Agent"));
+        }*/
+        if (!Utils.isNull(appointment.getFeedBack())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_ONLY_FORCOMPLETION));
+        }
+        return results;
+    }
+
+    public List<RadsError> doctorSpecificValidations(PrimusModel model, ProductContext context) {
+        List<RadsError> results = new ArrayList<RadsError>();
+        Appointment appointment = (Appointment) model ;
+        if(appointment.getPromotedItems().size() == 1 && appointment.getPromotedItems().stream().findFirst().orElse(null).isEmpty())
+        {
+            appointment.setPromotedItems(null);
+        }else {
+            appointment.getPromotedItems().forEach( promotedItem ->  {
+                if(promotedItem.isEmpty()) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Promoted_Item")) ;
+                }
+            });
+        }
+
+        return results ;
+    }
 
     @Override
     public List<RadsError> checkforMandatoryFields(PrimusModel model, ProductContext context) {
@@ -67,19 +95,30 @@ public class AppointmentValidator extends AbstractValidator {
 
         if (Utils.isNull(appointment.getPartyType())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Party_Type"));
+        } else  {
+            if(appointment.getPartyType().getCode().equalsIgnoreCase(FVConstants.EXTERNAL_PARTY.DOCTOR)) {
+                results.addAll(doctorSpecificValidations(model,context));
+
+            }
+
         }
 
         if (Utils.isNull(appointment.getLocation())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Location"));
         }
 
+        if (Utils.isNull(appointment.getApptDate())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Appt_Date"));
+        }
+
+
         if (Utils.isNull(appointment.getAgent())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Agent"));
         }
 
-        if (Utils.isNull(appointment.getApptDate())) {
+        /*if (Utils.isNull(appointment.getApptDate())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Appt_Date"));
-        }
+        }*/
 
         if (Utils.isNull(appointment.getApptTime())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Appt_Time"));
@@ -132,7 +171,7 @@ public class AppointmentValidator extends AbstractValidator {
 
         if(appointment.getLocation().getId() >0 ) {
             Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
-            if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null) {
+            if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
                 String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
                 appointment.setDocNo(no);
             }

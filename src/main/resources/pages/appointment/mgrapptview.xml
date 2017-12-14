@@ -86,6 +86,9 @@
                                 </Element>
                             </Element>
 
+                            <Element label = "Duration"  type = "UILabel"  style=  "CRUDLabel"
+                                     Id = "txtPrice"  property ="duration"  isNumeric= "true" size = "8" />
+
                             <Element label="Cancel_Reason" type="UILabel"  Id="txtagentCnclReasons" style="CRUDLabel"
                                      property="cancelReasonAgent.reason">
 

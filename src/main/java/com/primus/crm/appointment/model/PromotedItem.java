@@ -80,4 +80,11 @@ String promoDetails;
     public void setPromoDetails(String promoDetails) {
         this.promoDetails = promoDetails;
     }
+
+    @Transient
+    public boolean isEmpty ()
+    {
+        return  (item == null || ( item.getName() == null &&  item.getCode() == null) );
+    }
+
 }

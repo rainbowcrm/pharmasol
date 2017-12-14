@@ -104,6 +104,7 @@ public class AppointmentService extends AbstractService {
       Appointment appointment = new Appointment();
       appointment.setLocation(template.getLocation());
       appointment.setDoctor(template.getDoctor());
+      appointment.setDuration(template.getDuration());
       appointment.setStockist(template.getStockist());
       appointment.setStore(template.getStore());
       appointment.setPartyType(template.getPartyType());
@@ -515,9 +516,18 @@ public class AppointmentService extends AbstractService {
         appointmentValidator.adaptFromUI(appointment,context) ;
         appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.SCHEDULED));
         //appointment.setVisitCompletion(appointment.getApptDate());
-        appointmentValidator.validateForCreate(appointment,context,this);
-        create(appointment,context) ;
-        result.setResult(TransactionResult.Result.SUCCESS);
+       // appointmentValidator.validateForCreate(appointment,context,this);
+
+        List <RadsError> errors =  appointmentValidator.validateForCreate(appointment,context,this);
+        errors.addAll(appointmentValidator.scheduleValidation(appointment,context));
+
+        if(Utils.isNullList(errors)) {
+            create(appointment, context);
+            result.setResult(TransactionResult.Result.SUCCESS);
+        }else {
+            result.setResult(TransactionResult.Result.FAILURE);
+            result.setErrors(errors);
+        }
 
         return result;
     }

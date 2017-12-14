@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractListController;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
+import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
@@ -39,6 +40,14 @@ public class AppointmentListController extends AbstractListController{
     }
 
 
+    public  boolean isArchivePage ()
+    {
+        ProductContext context = getProductContext() ;
+        if  (context.getPageAccessCode().equalsIgnoreCase("MGR::CLSDAPPT"))
+                return true ;
+        else
+                return false ;
+    }
     @Override
     public PageResult submit(List<ModelObject> list, String action) {
          if ("MOVETOCLOSE".equalsIgnoreCase(action) || "VIEW".equalsIgnoreCase(action)) {

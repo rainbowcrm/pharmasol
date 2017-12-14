@@ -46,13 +46,16 @@
                      </Element>-->
                     <Element label="Region" type="UILabel" Id="LstRegion" style="CRUDLabel" property="location.region.name"/>
                     <Element label="" type="UIHidden" Id="HdnRegion" style="CRUDLabel" property="location.region.id"/>
+                    <Element label="" type="UIHidden" Id="HdnRegionName" style="CRUDLabel" property="location.region.name"/>
 
                     <Element label="Location" type="UILabel" Id="LstLocations" style="CRUDLabel" property="location.name"/>
                     <Element label="" type="UIHidden" Id="hdnLocation" property="location.id"/>
+                    <Element label="" type="UIHidden" Id="hdnLocationname" property="location.name"/>
 
-                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description"/>
+                    <Element label="" type="UIHidden" Id="hdnpartyTypeDesc" property="partyType.description"/>
 
-                    </Element>
+
                     <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
                              isMandatory="false" property="partyNameWithType">
                     </Element>
@@ -70,17 +73,17 @@
                     <Element label="" type="UIHidden"   Id="hdnManager"  property="manager.userId">
                     </Element>
 
-                    <Element label="Agent" type="UILookupDataList"  listId="lstReportteed" Id="txtagent"  style="CRUDLabel"    property="agent.userId">
-                        <lookupType>user</lookupType>
-                    </Element>
-                    <Element label="" type="UIHidden"   Id="hdnagent"  property="agent.userId">
+
+                    <Element label="" type="UILabel"   Id="lblblank2"  value="">
                     </Element>
 
 
                     <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
-                             property="previousFeedBack">
+                             property="previousFeedBack"/>
+                    <Element label="" type="UIHidden"  Id="HDNprediscussionH"
+                             property="previousFeedBack"/>
 
-                    </Element>
+
 
                 </Section>
                 <Section type="detailForSale">
@@ -89,6 +92,9 @@
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
                         <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
 
+                            <Element label="Agent" type="UILookupDataList"  listId="lstReportteed" Id="txtagent"  style="CRUDLabel"    property="agent.userId">
+                                <lookupType>user</lookupType>
+                            </Element>
 
                             <Element label  ="Appointment_Date" type="UIDate"  style="custom30width"  Id="txtapptDate" property="apptDate"/>
 
@@ -110,6 +116,8 @@
                                 </Element>
                             </Element>
 
+                            <Element label = "Duration"  type = "UIText" Id = "txtPrice" style="custom10width"  property ="duration"  isNumeric= "true" size = "8" />
+
                             <!-- <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
                                 <options populator="getCreateStatuses" >
                                 </options>
@@ -120,14 +128,14 @@
                                 <options populator="getReasonCodes" populatorParam="APPCNCL">
                                 </options>
                             </Element>
-                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/> -->
+                            <Element label="" type="UILabel" isMandatory="false" Id="txtblnk1" value =""/>
 
                             <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
                                      property="feedBack">
                                 <rows>4</rows> <cols>25</cols>
-                            </Element>
-                            <Element label="Agent_Remarks" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
-                                     property="agentRemarks">
+                            </Element> -->
+                            <Element label="Manager_Remarks" type="UITextArea" style = "textareastyle" isMandatory="false" Id="txtdescription"
+                                     property="managerRemarks">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
                         </Element>

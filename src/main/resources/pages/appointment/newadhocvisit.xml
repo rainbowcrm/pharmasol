@@ -46,16 +46,18 @@
                      </Element>-->
                     <Element label="Region" type="UILabel" Id="LstRegion" style="CRUDLabel" property="location.region.name"/>
                     <Element label="" type="UIHidden" Id="HdnRegion" style="CRUDLabel" property="location.region.id"/>
+                    <Element label="" type="UIHidden" Id="HdnRegionName" style="CRUDLabel" property="location.region.name"/>
 
                     <Element label="Location" type="UILabel" Id="LstLocations" style="CRUDLabel" property="location.name"/>
                     <Element label="" type="UIHidden" Id="hdnLocation" property="location.id"/>
+                    <Element label="" type="UIHidden" Id="hdnLocationname" property="location.name"/>
 
-                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description"/>
+                    <Element label="" type="UIHidden" Id="hdnpartyTypeDesc" property="partyType.description"/>
 
-                    </Element>
+
                     <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
-                             isMandatory="false" property="partyNameWithType">
-                    </Element>
+                             isMandatory="false" property="partyNameWithType"/>
 
                     <Element label="" type="UIHidden"  Id="hdnPartyType" property="partyType.code"/>
 
@@ -108,6 +110,8 @@
                                     </options>
                                 </Element>
                             </Element>
+
+                            <Element label = "Duration"  type = "UIText" Id = "txtPrice" style="custom10width" property ="duration"  isNumeric= "true" size = "8" />
 
                             <!-- <Element label="Status" type="UIList"  style="CRUDLabel"  Id="txtstatus" property="status.code">
                                 <options populator="getCreateStatuses" >
