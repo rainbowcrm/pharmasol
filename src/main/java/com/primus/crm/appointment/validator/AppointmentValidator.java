@@ -220,6 +220,8 @@ public class AppointmentValidator extends AbstractValidator {
 
         }
 
+        
+
         return null;
     }
 

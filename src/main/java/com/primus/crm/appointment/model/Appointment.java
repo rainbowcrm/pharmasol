@@ -45,6 +45,8 @@ public class Appointment extends PrimusBusinessModel {
 
     Collection<PromotedItem> promotedItems ;
 
+    Collection<PrescriptionSurvey> prescriptionSurveys ;
+
     String docNo;
 
     User manager;
@@ -364,6 +366,15 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setPromotedItems(Collection<PromotedItem> promotedItems) {
         this.promotedItems = promotedItems;
+    }
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
+    public Collection<PrescriptionSurvey> getPrescriptionSurveys() {
+        return prescriptionSurveys;
+    }
+
+    public void setPrescriptionSurveys(Collection<PrescriptionSurvey> prescriptionSurveys) {
+        this.prescriptionSurveys = prescriptionSurveys;
     }
 
     @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)

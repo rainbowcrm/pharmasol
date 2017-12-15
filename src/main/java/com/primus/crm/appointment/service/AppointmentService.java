@@ -7,6 +7,7 @@ import com.primus.common.user.model.User;
 import com.primus.crm.appointment.jdbc.AppointmentSQL;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.model.PrescriptionSurvey;
 import com.primus.crm.appointment.model.PromotedItem;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
@@ -71,6 +72,10 @@ public class AppointmentService extends AbstractService {
           if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getPromotedItems())) {
               TransactionUpdateDelta delta = formDelta(oldObj.getPromotedItems(), ((Appointment) newObj).getPromotedItems());
               newObj.getPromotedItems().addAll((List<PromotedItem>) delta.getDeletedRecords());
+
+              TransactionUpdateDelta delta1 = formDelta(oldObj.getPrescriptionSurveys(), ((Appointment) newObj).getPrescriptionSurveys());
+              newObj.getPrescriptionSurveys().addAll((List<PrescriptionSurvey>) delta.getDeletedRecords());
+
           }
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
