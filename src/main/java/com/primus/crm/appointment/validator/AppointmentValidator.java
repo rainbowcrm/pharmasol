@@ -87,6 +87,23 @@ public class AppointmentValidator extends AbstractValidator {
         return results ;
     }
 
+    public List<RadsError> storeSpecificValidations(PrimusModel model, ProductContext context) {
+        List<RadsError> results = new ArrayList<RadsError>();
+        Appointment appointment = (Appointment) model ;
+        if(appointment.getPrescriptionSurveys().size() == 1 && appointment.getPrescriptionSurveys().stream().findFirst().orElse(null).isEmpty())
+        {
+            appointment.setPrescriptionSurveys(null);
+        }else {
+            appointment.getPrescriptionSurveys().forEach( promotedItem ->  {
+                if(promotedItem.isEmpty()) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Prescription_Survey")) ;
+                }
+            });
+        }
+
+        return results ;
+    }
+
     @Override
     public List<RadsError> checkforMandatoryFields(PrimusModel model, ProductContext context) {
         Appointment appointment = (Appointment) model;
@@ -101,7 +118,9 @@ public class AppointmentValidator extends AbstractValidator {
         } else  {
             if(appointment.getPartyType().getCode().equalsIgnoreCase(FVConstants.EXTERNAL_PARTY.DOCTOR)) {
                 results.addAll(doctorSpecificValidations(model,context));
-
+            }
+            if(appointment.getPartyType().getCode().equalsIgnoreCase(FVConstants.EXTERNAL_PARTY.STORE)) {
+                results.addAll(storeSpecificValidations(model,context));
             }
 
         }

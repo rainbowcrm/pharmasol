@@ -32,35 +32,35 @@ public class AppointmentController extends AbstractTransactionController{
         return "AppointmentValidator";
     }
 
-    private String prefixZero( int value )
-    {
-        return (value<10)?"0"+value:String.valueOf(value);
+    private String prefixZero(int value) {
+        return (value < 10) ? "0" + value : String.valueOf(value);
     }
+
     public Map<String, String> getHours() {
-        Map<String, String> ans = new LinkedHashMap<String, String>() ;
-        for (int i =0 ;  i< 24 ; i ++) {
-            ans.put(String.valueOf(i),prefixZero(i));
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        for (int i = 0; i < 24; i++) {
+            ans.put(String.valueOf(i), prefixZero(i));
         }
         return ans;
     }
 
     public Map<String, String> getCreateStatuses() {
-        Map<String, String> ans = new LinkedHashMap<String, String>() ;
+        Map<String, String> ans = new LinkedHashMap<String, String>();
         Map<String, String> mp = CommonUtil.getFiniteValues(FVConstants.FV_APPOINTMENTSTATUS);
-        mp.keySet().forEach( key -> {
+        mp.keySet().forEach(key -> {
             if (key.equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) || key.equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) ||
                     key.equalsIgnoreCase(FVConstants.APPT_STATUS.COMPLETED))
-                ans.put(key,mp.get(key));
+                ans.put(key, mp.get(key));
         });
         return ans;
     }
 
     public Map<String, String> getMinutes() {
-        Map<String, String> ans = new LinkedHashMap<String, String>() ;
-        ans.put("00","00");
-        ans.put("15","15");
-        ans.put("30","30");
-        ans.put("45","45");
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        ans.put("00", "00");
+        ans.put("15", "15");
+        ans.put("30", "30");
+        ans.put("45", "45");
         return ans;
 
     }
@@ -69,67 +69,77 @@ public class AppointmentController extends AbstractTransactionController{
     public PageResult submit(ModelObject object, String actionParam) {
         AppointmentService service = (AppointmentService) getService();
         if ("CANCEL_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-            PageResult result = service.cancelAppointment((Appointment)object,getProductContext());
-            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+            PageResult result = service.cancelAppointment((Appointment) object, getProductContext());
+            if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
-                return result ;
-            }else
-                return result ;
-        }else if ("COMPLETE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-            PageResult result = service.completeAppointment((Appointment)object,getProductContext());
-            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                return result;
+            } else
+                return result;
+        } else if ("COMPLETE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.completeAppointment((Appointment) object, getProductContext());
+            if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
-                return result ;
-            }else
-                return result ;
-        }else if ("COMPLETE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
-            PageResult result = service.completeAdhocAppointment((Appointment)object,getProductContext());
-            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                return result;
+            } else
+                return result;
+        } else if ("COMPLETE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.completeAdhocAppointment((Appointment) object, getProductContext());
+            if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
-                return result ;
-            }else
-                return result ;
-        }else if ("SCHEDULE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
-            PageResult result = service.scheduleAdhocAppointment((Appointment)object,getProductContext());
-            if(result.getResult().equals(TransactionResult.Result.SUCCESS)) {
+                return result;
+            } else
+                return result;
+        } else if ("SCHEDULE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.scheduleAdhocAppointment((Appointment) object, getProductContext());
+            if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 result.setNextPageKey("appointments");
-                return result ;
-            }else
-                return result ;
-        }else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
+                return result;
+            } else
+                return result;
+        } else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
             PageResult result = new PageResult();
-            List<RadsError> errors = service.initateAppointment((Appointment)object,getProductContext());
-            if(Utils.isNullList(errors)) {
+            List<RadsError> errors = service.initateAppointment((Appointment) object, getProductContext());
+            if (Utils.isNullList(errors)) {
                 result.setResult(TransactionResult.Result.SUCCESS);
                 result.setObject(object);
-                if(getProductContext().getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT"))
+                if (getProductContext().getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT"))
                     result.setNextPageKey("newmgradhocvisit");
                 else
                     result.setNextPageKey("newadhocvisit");
-            }else   {
+            } else {
                 result.setResult(TransactionResult.Result.FAILURE);
                 result.setErrors(errors);
             }
             return result;
-        }else if ("CLOSE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
-            PageResult result = service.closeAppointment((Appointment)object,getProductContext());
+        } else if ("CLOSE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
+            PageResult result = service.closeAppointment((Appointment) object, getProductContext());
             return result;
         }
         return super.submit(object, actionParam);
     }
 
-    public boolean isDoctorAppointment(){
-        Appointment appointment = (Appointment) getObject() ;
-        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.DOCTOR)) ;
+    public boolean isDoctorAppointment() {
+        Appointment appointment = (Appointment) getObject();
+        if (appointment != null && appointment.getPartyType() != null )
+            return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.DOCTOR));
+        else
+            return true;
     }
 
-    public boolean isStoreAppointment(){
-        Appointment appointment = (Appointment) getObject() ;
-        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STORE)) ;
+    public boolean isStoreAppointment() {
+        Appointment appointment = (Appointment) getObject();
+        if (appointment != null && appointment.getPartyType() != null )
+            return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STORE));
+        else
+            return true;
+
     }
 
-    public boolean isStockistAppointment(){
-        Appointment appointment = (Appointment) getObject() ;
-        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STOCKIST)) ;
+    public boolean isStockistAppointment() {
+        Appointment appointment = (Appointment) getObject();
+        if (appointment != null && appointment.getPartyType() != null )
+            return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STOCKIST));
+        else
+            return true;
     }
 }

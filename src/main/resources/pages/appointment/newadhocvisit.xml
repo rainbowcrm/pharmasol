@@ -18,6 +18,17 @@
                 <responseElement key="location">LstLocations</responseElement>
             </responseElements>
         </AjaxGroup>
+        <AjaxGroup service ="skuSearch">
+            <requestElements event = "">
+                <requestElement key = "Code">txtSkuCode</requestElement>
+            </requestElements>
+            <responseElements>
+
+                <responseElement key = "Code">txtSkuCode</responseElement>
+                <responseElement key = "Name">txtSkuName</responseElement>
+
+            </responseElements>
+        </AjaxGroup>
         <AjaxGroup service ="itemSearch">
             <requestElements event = "">
                 <requestElement key = "Code">txtItemCode</requestElement>
@@ -29,6 +40,7 @@
 
             </responseElements>
         </AjaxGroup>
+
 
     </AjaxGroups>
     <Elements>
@@ -271,8 +283,8 @@
                                                  property="prescriptionDate"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UIHidden" Id="hdncomposLineId" property="id"/>
-                                        <Element label="" type="UIHidden" Id="hdncomposelineVer" property="version"/>
+                                        <Element label="" type="UIHidden" Id="hdncomsurvLineId" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdncomsurvlineVer" property="version"/>
                                         <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
                                                  type="UIButton" Id="btnAddRowLn"
                                                  fixedAction="FixedAction.ACTION_ADDTABLEROW"

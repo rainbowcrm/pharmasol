@@ -144,6 +144,9 @@
     <AjaxService service ="itemSearch" class = "com.primus.merchandise.item.service.ItemSearchAjaxService">
         <key>Code</key>
     </AjaxService>
+    <AjaxService service ="skuSearch" class = "com.primus.merchandise.item.service.SkuSearchAjaxService">
+        <key>Code</key>
+    </AjaxService>
     <AjaxService service ="generateNextUp" class = "com.primus.framework.nextup.NextUpGenAjaxService">
         <key>program</key>
         <key>division</key>
@@ -550,6 +553,10 @@
         </Lookup>
 
         <Lookup type ="item" lookupservice="com.primus.common.lookups.LookupItems"
+                lookuppage= "lookup">
+        </Lookup>
+
+        <Lookup type ="sku" lookupservice="com.primus.common.lookups.LookupSKUs"
                 lookuppage= "lookup">
         </Lookup>
 

@@ -103,4 +103,10 @@ public class PrescriptionSurvey extends PrimusBusinessModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Transient
+    public boolean isEmpty ()
+    {
+        return  (sku == null || ( sku.getName() == null &&  sku.getCode() == null) );
+    }
 }
