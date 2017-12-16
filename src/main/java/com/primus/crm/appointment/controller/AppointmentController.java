@@ -117,4 +117,19 @@ public class AppointmentController extends AbstractTransactionController{
         }
         return super.submit(object, actionParam);
     }
+
+    public boolean isDoctorAppointment(){
+        Appointment appointment = (Appointment) getObject() ;
+        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.DOCTOR)) ;
+    }
+
+    public boolean isStoreAppointment(){
+        Appointment appointment = (Appointment) getObject() ;
+        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STORE)) ;
+    }
+
+    public boolean isStockistAppointment(){
+        Appointment appointment = (Appointment) getObject() ;
+        return (appointment.getPartyType().equals(FVConstants.EXTERNAL_PARTY.STOCKIST)) ;
+    }
 }
