@@ -11,6 +11,7 @@ import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.user.model.User;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.StockistAssociation;
@@ -19,7 +20,9 @@ import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.primus.framework.nextup.NextUpGenerator;
 import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.model.Sku;
 import com.primus.merchandise.item.service.ItemService;
+import com.primus.merchandise.item.service.SkuService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -213,6 +216,9 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.getPromotedItems().forEach( promotedItem ->  {
                 ItemService itemService = ServiceFactory.getItemService() ;
                 Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
+                if (item == null) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Item",promotedItem.getItem().getName()));
+                }
                 promotedItem.setItem(item);
                 promotedItem.setCompany(appointment.getCompany());
                 promotedItem.setAppointment(appointment);
@@ -220,7 +226,28 @@ public class AppointmentValidator extends AbstractValidator {
 
         }
 
-        
+        if(!Utils.isNullCollection(appointment.getPrescriptionSurveys())) {
+            appointment.getPrescriptionSurveys().forEach( survey ->  {
+                SkuService skuService = ServiceFactory.getSKUService();
+                Sku sku = (Sku)skuService.fetchOneActive(" where name ='" + survey.getSku().getName() + "'", "" , context);
+                if (sku == null) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku",survey.getSku().getName()));
+                }
+                survey.setSku(sku);
+                survey.setCompany(appointment.getCompany());
+                survey.setAppointment(appointment);
+
+                DoctorService doctorService = ServiceFactory.getDoctorService() ;
+                Doctor doctor = (Doctor) doctorService.fetchOneActive(" where name ='" + survey.getDoctor().getName() + "'", "" , context);
+                if (doctor == null) {
+                    survey.setDoctorName(survey.getDoctor().getName());
+                }
+                 survey.setDoctor(doctor);
+            });
+
+        }
+
+
 
         return null;
     }

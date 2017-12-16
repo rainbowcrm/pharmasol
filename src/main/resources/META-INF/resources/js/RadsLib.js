@@ -216,18 +216,19 @@ function populatesupplimentary (looupType,currentCtrl,dataListCtrlName,additiona
 function getLookupWithAjax(lookupType, currentCtrl,dataListCtrlName,additionalFields,additionalInputControl)
 {
 	var srValue = currentCtrl.value ;
+	//console.log('srValue.indexOf(*)=' + srValue.indexOf('*'));
 	
-	
-	if(srValue.length  > 2) {
+	if(srValue.length  > 2 || srValue.indexOf('*') !=  -1 ) {
 	var additionalInputVal = '';
 	if (additionalInputControl != 'null' &&  additionalInputControl != '') {
 		additionalInputVal = document.getElementById(additionalInputControl).value;
 		console.log('additionalInputVal=' + additionalInputVal);
 	}
 	currentCtrl.autocomplete ="on";
-		
+	var searchString = 	"*"+srValue+"*";
+
 	var requestStr = appURL + "controller?page=Lookup&returnAsJSON=true&lookupType=" + lookupType
-	+ "&additionalFields=" + additionalFields +  "&additionalParam=" + additionalInputVal   + "&searchString=*"+srValue+"*" ;
+	+ "&additionalFields=" + additionalFields +  "&additionalParam=" + additionalInputVal   + "&searchString=" + searchString ;
 	var index  = getCurrentObjectIndex(currentCtrl);
 	console.log( "index" + index) ;
 	
