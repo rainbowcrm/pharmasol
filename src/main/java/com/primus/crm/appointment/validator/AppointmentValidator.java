@@ -101,6 +101,19 @@ public class AppointmentValidator extends AbstractValidator {
             });
         }
 
+
+        if(appointment.getOrderLines().size() == 1 && appointment.getOrderLines().stream().findFirst().orElse(null).isEmpty())
+        {
+            appointment.setOrderLines(null);
+        }else {
+            appointment.getOrderLines().forEach( line ->  {
+                if(line.isEmpty()) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Order_Line")) ;
+                }
+            });
+        }
+
+
         return results ;
     }
 
@@ -191,7 +204,7 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.setManager(manager);
         }
 
-        if(appointment.getLocation().getId() >0 ) {
+        if(appointment.getLocation().getId() >0 && Utils.isNull(appointment.getDocNo()) ) {
             Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
             if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
                 String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
@@ -199,7 +212,7 @@ public class AppointmentValidator extends AbstractValidator {
             }
         }
 
-        if (appointment.getStockist() != null) {
+        if (appointment.getStockist() != null && appointment.getStockist().getId() <=0  ) {
             StockistService service = ServiceFactory.getStockistService();
             List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
             if (!Utils.isNullList(stockists))
@@ -208,7 +221,7 @@ public class AppointmentValidator extends AbstractValidator {
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
 
         }
-        if (appointment.getStore() != null) {
+        if (appointment.getStore() != null && appointment.getStore().getId() <=0  ) {
             StoreService service = ServiceFactory.getStoreService();
             List<StoreAssociation> datas = ( List<StoreAssociation> ) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() +"'",null, context) ;
             if(!Utils.isNullList(datas))
@@ -216,7 +229,7 @@ public class AppointmentValidator extends AbstractValidator {
             else
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
         }
-        if (appointment.getDoctor()!= null) {
+        if (appointment.getDoctor()!= null && appointment.getDoctor().getId() <=0  ) {
             DoctorService service = ServiceFactory.getDoctorService();
             List<DoctorAssociation> datas = ( List<DoctorAssociation> ) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() +"'",null, context) ;
             if(!Utils.isNullList(datas))
@@ -265,6 +278,24 @@ public class AppointmentValidator extends AbstractValidator {
             });
 
         }
+
+        if(!Utils.isNullCollection(appointment.getOrderLines())) {
+            appointment.getOrderLines().forEach( line ->  {
+                SkuService skuService = ServiceFactory.getSKUService();
+                Sku sku = (Sku)skuService.fetchOneActive(" where name ='" + line.getSku().getName() + "'", "" , context);
+                if (sku == null) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku",line.getSku().getName()));
+                }
+                line.setSku(sku);
+                line.setUom(sku.getUom());
+                line.setCompany(appointment.getCompany());
+                line.setAppointment(appointment);
+
+            });
+
+        }
+
+
 
 
 

@@ -5,10 +5,7 @@ import com.primus.admin.region.model.Location;
 import com.primus.common.*;
 import com.primus.common.user.model.User;
 import com.primus.crm.appointment.jdbc.AppointmentSQL;
-import com.primus.crm.appointment.model.Appointment;
-import com.primus.crm.appointment.model.AppointmentTemplate;
-import com.primus.crm.appointment.model.PrescriptionSurvey;
-import com.primus.crm.appointment.model.PromotedItem;
+import com.primus.crm.appointment.model.*;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
@@ -74,7 +71,11 @@ public class AppointmentService extends AbstractService {
               newObj.getPromotedItems().addAll((List<PromotedItem>) delta.getDeletedRecords());
 
               TransactionUpdateDelta delta1 = formDelta(oldObj.getPrescriptionSurveys(), ((Appointment) newObj).getPrescriptionSurveys());
-              newObj.getPrescriptionSurveys().addAll((List<PrescriptionSurvey>) delta.getDeletedRecords());
+              newObj.getPrescriptionSurveys().addAll((List<PrescriptionSurvey>) delta1.getDeletedRecords());
+
+              TransactionUpdateDelta delta2 = formDelta(oldObj.getOrderLines(), ((Appointment) newObj).getOrderLines());
+              newObj.getOrderLines().addAll((List<StoreVisitOrderLine>) delta2.getDeletedRecords());
+
 
           }
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
@@ -565,7 +566,9 @@ public class AppointmentService extends AbstractService {
             app.setFeedBack(appointment.getFeedBack());
             app.setVisitCompletion(appointment.getApptDate());
             app.setDescription(appointment.getDescription());
-            if(!Utils.isNullCollection(appointment.getPromotedItems())) {
+            List<RadsError> errors = appointmentValidator.adaptFromUI(appointment,context);
+
+            /*if(!Utils.isNullCollection(appointment.getPromotedItems())) {
                 appointment.getPromotedItems().forEach( promotedItem ->  {
                     ItemService itemService = ServiceFactory.getItemService() ;
                     Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
@@ -576,10 +579,29 @@ public class AppointmentService extends AbstractService {
 
             }
 
-            collateBeforUpdate(appointment,app);
-            app.setPromotedItems(appointment.getPromotedItems());
-            update(app,context) ;
-            result.setResult(TransactionResult.Result.SUCCESS);
+            if(!Utils.isNullCollection(appointment.getPrescriptionSurveys())) {
+                appointment.getPrescriptionSurveys().forEach( promotedItem ->  {
+                    ItemService itemService = ServiceFactory.getItemService() ;
+                    Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
+                    promotedItem.setItem(item);
+                    promotedItem.setCompany(app.getCompany());
+                    promotedItem.setAppointment(app);
+                });
+
+            }
+*/
+            if(Utils.isNullList(errors)) {
+                collateBeforUpdate(appointment, app);
+                app.setPromotedItems(appointment.getPromotedItems());
+                app.setPrescriptionSurveys(appointment.getPrescriptionSurveys());
+                app.setOrderLines(appointment.getOrderLines());
+                app.setApptTime(app.getApptTime());
+                update(app, context);
+                result.setResult(TransactionResult.Result.SUCCESS);
+            } else {
+                result.setErrors(errors);
+                result.setResult(TransactionResult.Result.FAILURE);
+            }
         }else {
             result.addError(AppointmentTemplateValidator.getErrorforCode(context, AppointmentTemplateErrorCodes.APPOINTMENT_NOTINCOMPLETESTATUS));
             result.setObject(app);

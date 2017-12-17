@@ -35,6 +35,10 @@ public class LookupSKUs  implements ILookupService {
             StringBuffer key = new StringBuffer(((Sku)obj).getName());
             if(additionalFields != null && additionalFields.contains("code") )
                 key.append("|" + ((Sku)obj).getCode());
+            if(additionalFields != null && additionalFields.contains("UOM.Code") )
+                key.append("|" + ((Sku)obj).getUom().getCode());
+            if(additionalFields != null && additionalFields.contains("RetailRate") )
+                key.append("|" + ((Sku)obj).getRetailRate());
             ans.put(key.toString(),((Sku)obj).getName() );
         }
 

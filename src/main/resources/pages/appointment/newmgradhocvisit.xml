@@ -140,6 +140,7 @@
                             </Element>
                         </Element>
 
+                        <!-- Promo item begins -->
                         <Element type="UITab" Id="idpromoItem" title="Promoted_Items" showinTable="false">
 
                             <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
@@ -155,7 +156,7 @@
                                         </Element>
 
                                         <Element type="UITableCol" width="25%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Promtion_Details"/>
+                                            <Element label="" type="UILabel" Id="lblCode" value="Promotion_Details"/>
                                         </Element>
                                         <Element type="UITableCol" width="25%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Description"/>
@@ -209,6 +210,90 @@
 
 
                         </Element>
+                        <!-- Promo item ends -->
+
+
+                        <!-- Prescription Survery start-->
+                        <Element type="UITab" Id="idprescSurvey" title="Prescription_Survey" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransSurvey"
+                                     property="prescriptionSurveys[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Doctor"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PrescriptionSurvey"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILookupDataList" isMandatory="true" Id="txtSkuName" listId="lstsku"
+                                                 property="sku.name">
+                                            <lookupType>sku</lookupType>
+                                            <SupplementaryFields>
+                                                <Field>
+                                                    <property>code</property>
+                                                    <control>txtSkuCode</control>
+                                                </Field>
+                                            </SupplementaryFields>
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILookupDataList" listId="lstSurveydoctor" Id="txtSurveydoctor"
+                                                 isMandatory="false" property="doctor.name"   >
+                                            <lookupType>doctor</lookupType>
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UIText"  Id="txtSurveyQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIDate"  Id="txtSurveyDate"
+                                                 property="prescriptionDate"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdncomsurvLineId" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdncomsurvlineVer" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRowLn"
+                                                 fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRowLn"
+                                                 fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Prescription Survey End -->
+
                     </Element>
                 </Section>
             </CoreSection>

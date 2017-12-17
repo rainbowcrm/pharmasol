@@ -147,6 +147,9 @@
     <AjaxService service ="skuSearch" class = "com.primus.merchandise.item.service.SkuSearchAjaxService">
         <key>Code</key>
     </AjaxService>
+    <AjaxService service ="skuSecondSearch" class = "com.primus.merchandise.item.service.SkuSearchAjaxService">
+        <key>Code</key>
+    </AjaxService>
     <AjaxService service ="generateNextUp" class = "com.primus.framework.nextup.NextUpGenAjaxService">
         <key>program</key>
         <key>division</key>

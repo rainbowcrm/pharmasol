@@ -29,6 +29,9 @@ public class SkuSearchAjaxService implements IAjaxLookupService {
             if (sku != null) {
                 json.put("Code", sku.getCode());
                 json.put("Name", sku.getName());
+                json.put("UOM.Id", sku.getUom().getId());
+                json.put("UOM.Code", sku.getUom().getCode());
+                json.put("RetailRate", sku.getRetailRate());
             }
         }catch(Exception ex) {
             ex.printStackTrace();
