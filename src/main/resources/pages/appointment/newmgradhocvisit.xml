@@ -294,6 +294,102 @@
                         </Element>
                         <!--Prescription Survey End -->
 
+
+                        <!-- Order Lines start-->
+                        <Element type="UITab" Id="idOrderLines" title="Order_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblChemOrderLine"
+                                     property="orderLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="UOM"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Rate"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StoreVisitOrderLine"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtOrdLineSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILookupDataList" isMandatory="true" Id="txtOrdLineSkuName" listId="lstOrdLinesku"
+                                                 property="sku.name">
+                                            <lookupType>sku</lookupType>
+                                            <SupplementaryFields>
+                                                <Field>
+                                                    <property>code</property>
+                                                    <control>txtOrdLineSkuCode</control>
+                                                </Field>
+                                                <Field>
+                                                    <property>UOM.Code</property>
+                                                    <control>txtOrdLineUOMCode</control>
+                                                </Field>
+                                                <Field>
+                                                    <property>RetailRate</property>
+                                                    <control>txtOrdLineRate</control>
+                                                </Field>
+                                            </SupplementaryFields>
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UIText"  Id="txtOrdLineUOMCode" readonly="true"
+                                                 isMandatory="false" property="uom.code"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText"  Id="txtOrdLineRate"
+                                                 isMandatory="false" property="rate"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UIText"  Id="txtOrdLineQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIDate"  Id="txtOrdLineDate"
+                                                 property="requiredDate"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdnordLineLineId" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdnordLinelineVer" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRowLn"
+                                                 fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRowLn"
+                                                 fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Order Lines End -->
                     </Element>
                 </Section>
             </CoreSection>
