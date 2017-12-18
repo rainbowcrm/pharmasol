@@ -45,7 +45,7 @@ import com.techtrade.rads.framework.ui.config.PageConfig;
 import com.techtrade.rads.framework.ui.constants.FixedAction;
 import com.techtrade.rads.framework.ui.readers.HTMLAlternativeReader;
 import com.techtrade.rads.framework.ui.readers.HTMLReader;
-import com.techtrade.rads.framework.ui.servlets.JSONProcessor;
+
 import com.techtrade.rads.framework.ui.servlets.PageGenerator;
 import com.techtrade.rads.framework.ui.writers.BootstrapWriter;
 import com.techtrade.rads.framework.ui.writers.HTMLWriter;
@@ -336,7 +336,7 @@ public class RadsServlet extends HttpServlet {
         if("Lookup".equals(pageID)) {
             String contentType = req.getContentType();
             if (!Utils.isNullString(contentType) && "application/json".equalsIgnoreCase(contentType)) {
-                JSONProcessor.processLookupRequest(req, getServletContext(), resp);
+                JSONProcessor.processLookupRequest(req, getServletContext(), resp,getServletRootPath());
                 return;
             }else {
                 writeLookupPage(req, resp);
@@ -356,7 +356,7 @@ public class RadsServlet extends HttpServlet {
         try {
             String contentType = req.getContentType();
             if (!Utils.isNullString(contentType) && "application/json".equalsIgnoreCase(contentType)) {
-                JSONProcessor.processRequest(req, resp,getServletContext());
+                JSONProcessor.processRequest(req, resp,getServletContext(),getServletRootPath());
                 return;
             } else {
                 PageConfig config = AppConfig.APPCONFIG.getPageConfig(getServletRootPath(), pageID);

@@ -55,6 +55,7 @@ public class LoginController extends AbstractGeneralController {
                 res.setNextPageKey("landing");
             else
                 res.setNextPageKey("applanding");
+            res.setObject(login);
             LogManager.getLogger(this.getClass()).debug("logging in ");
             return res;
         } else {
