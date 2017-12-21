@@ -65,22 +65,22 @@
                         <Element label="" type="UINote" Id="idIdNote" property="address.phone"/>
                     </Column>
 
-                    <Column title="Linked" sortField="" width="5%">
-                        <!--<Element label="" type="UINote" Id="idIdNote" property="associatedForCompany"/>-->
+                    <!--<Column title="Linked" sortField="" width="5%">
+                        &lt;!&ndash;<Element label="" type="UINote" Id="idIdNote" property="associatedForCompany"/>&ndash;&gt;
                         <Element label="" type="UIImage" Id="idChkSel" rendered="Object.getAssociatedForCompany" height="21"
                                  weight="21" src="./images/checkmark.png"/>
-                    </Column>
+                    </Column>-->
 
                 </Columns>
             </ListSection>
         </CoreSection>
         <Section type="summary">
-            <Element caption="Link" type="UIButton" Id="btnAddProf" style="btn btn-success"
+            <!--<Element caption="Link" type="UIButton" Id="btnAddProf" style="btn btn-success"
                      iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                      fixedActionParam="ASSOCIATE"/>
             <Element caption="DeLink" type="UIButton" Id="btnAddProf" style="btn btn-danger"
                      iconStyle="glyphicon glyphicon-scissors" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
-                     fixedActionParam="DEASSOCIATE"/>
+                     fixedActionParam="DEASSOCIATE"/>-->
             <Element caption="Add" type="UIButton" Id="btnAdd" style="btn btn-primary"
                      iconStyle="glyphicon glyphicon-plus" fixedAction="FixedAction.ACTION_PAGEFORWARD"
                      fixedActionParam="NEW"/>

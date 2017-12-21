@@ -120,16 +120,15 @@ public class Stockist extends PrimusBusinessModel {
 		this.email = email;
 	}
 
-	Collection<StockistAssociation> stockistAssociations ;
+	StockistAssociation stockistAssociation;
 
-
-	@OneToMany(cascade= CascadeType.ALL, mappedBy = "stockist",fetch = FetchType.LAZY)
-	public Collection<StockistAssociation> getStockistAssociations() {
-		return stockistAssociations;
+	@OneToOne(cascade= CascadeType.ALL, mappedBy = "stockist",fetch = FetchType.LAZY)
+	public StockistAssociation getStockistAssociation() {
+		return stockistAssociation;
 	}
 
-	public void setStockistAssociations(Collection<StockistAssociation> stockistAssociations) {
-		this.stockistAssociations = stockistAssociations;
+	public void setStockistAssociation(StockistAssociation storeAssociation) {
+		this.stockistAssociation = storeAssociation;
 	}
 
 	Boolean associatedForCompany;

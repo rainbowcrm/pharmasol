@@ -64,6 +64,11 @@ public class StockistValidator extends AbstractValidator {
         Stockist object = (Stockist) model ;
         if(object.getAddress() != null)
             object.getAddress().setCompany(object.getCompany());
+        if(object.getStockistAssociation() != null ) {
+            object.getStockistAssociation().setAssociated(true);
+            object.getStockistAssociation().setCompany(object.getCompany());
+            object.getStockistAssociation().setStockist(object);
+        }
        return null;
     }
 }

@@ -122,9 +122,9 @@ public class StockistService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" "  );
+            additionalCondition = additionalCondition.append(" where company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition );
+            additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
         }
         return stockistDAO.listData(className, from, to, additionalCondition.toString(), orderBy,context.getLoggedinCompany());
 

@@ -64,6 +64,11 @@ public class StoreValidator extends AbstractValidator {
         Store object = (Store) model ;
         if(object.getAddress() != null)
             object.getAddress().setCompany(object.getCompany());
+        if(object.getStoreAssociation() != null ) {
+            object.getStoreAssociation().setAssociated(true);
+            object.getStoreAssociation().setCompany(object.getCompany());
+            object.getStoreAssociation().setStore(object);
+        }
        return null;
     }
 }

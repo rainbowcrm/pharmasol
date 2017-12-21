@@ -42,19 +42,13 @@ public class AppointmentTemplateValidator extends AbstractValidator {
         return "Template_No";
     }
 
-    private StockistAssociation getStockistAssociation (Collection<StockistAssociation> assocationList , int company)
+   /* private StockistAssociation getStockistAssociation (Collection<StockistAssociation> assocationList , int company)
     {
         if (Utils.isNullCollection(assocationList)) return null;
         return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
 
-    }
+    }*/
 
-    private StoreAssociation getStoreAssociation (Collection<StoreAssociation> assocationList , int company)
-    {
-        if (Utils.isNullCollection(assocationList)) return null;
-        return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
-
-    }
 
     private DoctorAssociation getDoctorAssociation (Collection<DoctorAssociation> assocationList , int company)
     {
@@ -72,7 +66,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
             if (appointmentTemplate.getStockist() == null)
                 results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Stockist"));
             else {
-                StockistAssociation association = getStockistAssociation(appointmentTemplate.getStockist().getStockistAssociations(), context.getLoggedinCompany());
+                StockistAssociation association =appointmentTemplate.getStockist().getStockistAssociation(); // getStockistAssociation(appointmentTemplate.getStockist().getStockistAssociation(), context.getLoggedinCompany());
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Stockist", appointmentTemplate.getStockist().getName()));
 
@@ -87,7 +81,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
             if (appointmentTemplate.getStore() == null)
                 results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Store"));
             else {
-                StoreAssociation association = getStoreAssociation(appointmentTemplate.getStore().getStoreAssociations(), context.getLoggedinCompany());
+                StoreAssociation association = appointmentTemplate.getStore().getStoreAssociation();
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Store", appointmentTemplate.getStore().getName()));
 

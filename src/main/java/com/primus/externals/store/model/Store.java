@@ -120,7 +120,7 @@ public class Store extends PrimusBusinessModel {
 		this.email = email;
 	}
 
-	Collection<StoreAssociation> storeAssociations ;
+	/*Collection<StoreAssociation> storeAssociations ;
 
 
 	@OneToMany(cascade= CascadeType.ALL, mappedBy = "store",fetch = FetchType.LAZY)
@@ -130,6 +130,18 @@ public class Store extends PrimusBusinessModel {
 
 	public void setStoreAssociations(Collection<StoreAssociation> storeAssociations) {
 		this.storeAssociations = storeAssociations;
+	}*/
+
+
+	StoreAssociation storeAssociation;
+
+	@OneToOne(cascade= CascadeType.ALL, mappedBy = "store",fetch = FetchType.LAZY)
+	public StoreAssociation getStoreAssociation() {
+		return storeAssociation;
+	}
+
+	public void setStoreAssociation(StoreAssociation storeAssociation) {
+		this.storeAssociation = storeAssociation;
 	}
 
 	Boolean associatedForCompany;
@@ -146,7 +158,7 @@ public class Store extends PrimusBusinessModel {
 
 	String faceBookId;
 	String gmailId;
-
+	String photo ;
 
 	@Column(name  ="FACEBOOK_ID")
 	public String getFaceBookId() {
@@ -166,4 +178,13 @@ public class Store extends PrimusBusinessModel {
 		this.gmailId = gmailId;
 	}
 
+
+	@Column(name  ="PHOTO")
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 }

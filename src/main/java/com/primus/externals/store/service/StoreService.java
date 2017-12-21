@@ -122,9 +122,9 @@ public class StoreService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" "  );
+            additionalCondition = additionalCondition.append(" where company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition );
+            additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
         }
         return storeDAO.listData(className, from, to, additionalCondition.toString(), orderBy,context.getLoggedinCompany());
 
@@ -134,9 +134,9 @@ public class StoreService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and company.id= " + context.getLoggedinCompany());
         }
         return getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
 
@@ -147,9 +147,9 @@ public class StoreService extends AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where deleted = false and association.company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany());
         } else {
-            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and association.company.id= " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and company.id= " + context.getLoggedinCompany());
         }
         return getDAO().fetchAllActive(className, additionalCondition.toString(), orderBy);
 

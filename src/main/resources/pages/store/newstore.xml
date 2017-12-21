@@ -9,6 +9,16 @@
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service ="regionLocationSearch">
+            <requestElements>
+                <requestElement key = "region">LstRegion</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key = "location" >LstLocations</responseElement>
+            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
     <Elements>
         <UIForm Id="cust" method="POST">
             <CoreSection>
@@ -17,6 +27,14 @@
                 <Section type="detail">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                   <Element label="Region" type="UIList"  Id="LstRegion"   property="storeAssociation.location.region.id">
+                        <options populator="getAllRegions" >
+                        </options>
+                    </Element>
+                    <Element label="Location" type="UIList"  Id="LstLocations"   property="storeAssociation.location.id">
+                        <options populator="getAllLocations" >
+                        </options>
+                    </Element>
                     <Element label = ""  type = "UIHidden" Id = "hdnAddressId"  property ="address.Id" />
                     <Element label="Code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>

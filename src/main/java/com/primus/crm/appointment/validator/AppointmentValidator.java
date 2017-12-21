@@ -246,51 +246,56 @@ public class AppointmentValidator extends AbstractValidator {
 
         if(!Utils.isNullCollection(appointment.getPromotedItems())) {
             appointment.getPromotedItems().forEach( promotedItem ->  {
-                ItemService itemService = ServiceFactory.getItemService() ;
-                Item item = (Item)itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "" , context);
-                if (item == null) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Item",promotedItem.getItem().getName()));
+                if (!promotedItem.isEmpty()) {
+                    ItemService itemService = ServiceFactory.getItemService();
+                    Item item = (Item) itemService.fetchOneActive(" where name ='" + promotedItem.getItem().getName() + "'", "", context);
+                    if (item == null) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Item", promotedItem.getItem().getName()));
+                    }
+                    promotedItem.setItem(item);
+                    promotedItem.setCompany(appointment.getCompany());
+                    promotedItem.setAppointment(appointment);
                 }
-                promotedItem.setItem(item);
-                promotedItem.setCompany(appointment.getCompany());
-                promotedItem.setAppointment(appointment);
             });
 
         }
 
         if(!Utils.isNullCollection(appointment.getPrescriptionSurveys())) {
             appointment.getPrescriptionSurveys().forEach( survey ->  {
-                SkuService skuService = ServiceFactory.getSKUService();
-                Sku sku = (Sku)skuService.fetchOneActive(" where name ='" + survey.getSku().getName() + "'", "" , context);
-                if (sku == null) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku",survey.getSku().getName()));
-                }
-                survey.setSku(sku);
-                survey.setCompany(appointment.getCompany());
-                survey.setAppointment(appointment);
+                if(!survey.isEmpty()) {
+                    SkuService skuService = ServiceFactory.getSKUService();
+                    Sku sku = (Sku) skuService.fetchOneActive(" where name ='" + survey.getSku().getName() + "'", "", context);
+                    if (sku == null) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku", survey.getSku().getName()));
+                    }
+                    survey.setSku(sku);
+                    survey.setCompany(appointment.getCompany());
+                    survey.setAppointment(appointment);
 
-                DoctorService doctorService = ServiceFactory.getDoctorService() ;
-                Doctor doctor = (Doctor) doctorService.fetchOneActive(" where name ='" + survey.getDoctor().getName() + "'", "" , context);
-                if (doctor == null) {
-                    survey.setDoctorName(survey.getDoctor().getName());
+                    DoctorService doctorService = ServiceFactory.getDoctorService();
+                    Doctor doctor = (Doctor) doctorService.fetchOneActive(" where name ='" + survey.getDoctor().getName() + "'", "", context);
+                    if (doctor == null) {
+                        survey.setDoctorName(survey.getDoctor().getName());
+                    }
+                    survey.setDoctor(doctor);
                 }
-                 survey.setDoctor(doctor);
             });
 
         }
 
         if(!Utils.isNullCollection(appointment.getOrderLines())) {
             appointment.getOrderLines().forEach( line ->  {
-                SkuService skuService = ServiceFactory.getSKUService();
-                Sku sku = (Sku)skuService.fetchOneActive(" where name ='" + line.getSku().getName() + "'", "" , context);
-                if (sku == null) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku",line.getSku().getName()));
+                if(!line.isEmpty()) {
+                    SkuService skuService = ServiceFactory.getSKUService();
+                    Sku sku = (Sku) skuService.fetchOneActive(" where name ='" + line.getSku().getName() + "'", "", context);
+                    if (sku == null) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku", line.getSku().getName()));
+                    }
+                    line.setSku(sku);
+                    line.setUom(sku.getUom());
+                    line.setCompany(appointment.getCompany());
+                    line.setAppointment(appointment);
                 }
-                line.setSku(sku);
-                line.setUom(sku.getUom());
-                line.setCompany(appointment.getCompany());
-                line.setAppointment(appointment);
-
             });
 
         }
