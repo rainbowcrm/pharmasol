@@ -20,6 +20,8 @@ import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.appointment.service.AppointmentTemplateService;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.externals.competitor.service.CompetitorService;
+import com.primus.externals.competitor.validator.CompetitorValidator;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.doctor.validator.DoctorValidator;
 import com.primus.externals.stockist.service.StockistService;
@@ -175,6 +177,12 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     ReasonCodeValidator reasonCodeValidator ;
 
+    @Autowired
+    CompetitorService competitorService ;
+
+    @Autowired
+    CompetitorValidator competitorValidator ;
+
     public  ApplicationManager getApplicationManager()
    {
        return applicationManager ;
@@ -213,6 +221,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "AppointmentTemplateService"  : return  appointmentTemplateService;
             case "AppointmentService"  : return  appointmentService;
             case "ReasonCodeService" : return reasonCodeService ;
+            case "CompetitorService" : return competitorService ;
 
         }
         return null;
@@ -239,6 +248,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
            case "AppointmentTemplateValidator" : return  appointmentTemplateValidator;
            case "AppointmentValidator" : return appointmentValidator ;
            case "ReasonCodeValidator" : return reasonCodeValidator ;
+           case "CompetitorValidator" : return competitorValidator;
 
        }
 

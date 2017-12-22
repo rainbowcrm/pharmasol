@@ -1,0 +1,53 @@
+<CodeGenEntity>
+    <entityName>Competitor</entityName>
+    <rootpackage>com.primus.externals.competitor</rootpackage>
+    <tableName>COMPETITORS</tableName>
+    <controllerType>AbstractDataSheetController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\externals\\competitor</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\competitor</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>name</fieldName>
+            <dbFieldName>NAME</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Name</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>25</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>address</fieldName>
+            <dbFieldName>ADDRESS</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Address</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>30</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>30</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>
+

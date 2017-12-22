@@ -35,6 +35,9 @@
         </Page>
         <Page id = "categories" definition ="/resources/pages/category/category.xml" modelclass = "com.primus.merchandise.category.model.Category" >
         </Page>
+        <Page id = "competitors" definition ="/resources/pages/competitor/competitor.xml" modelclass = "com.primus.externals.competitor.model.Competitor" >
+        </Page>
+
         <Page id = "reasoncodes" definition ="/resources/pages/reasoncode/reasoncode.xml" modelclass = "com.primus.admin.reasoncode.model.ReasonCode" >
         </Page>
         <Page id = "products" definition ="/resources/pages/product/product.xml" modelclass = "com.primus.merchandise.product.model.Product" >
@@ -225,11 +228,12 @@
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Stockists"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stores" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Doctors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Competitors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=competitors"  />
 
             </Element>
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  >
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-folder"  />
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=catcegories" iconStyle="fa fa-fw fa-folder"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-file"  />
                 <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-magic"  />
             </Element>
