@@ -157,17 +157,25 @@ public class Doctor extends PrimusBusinessModel {
 		this.gmailId = gmailId;
 	}
 
-	Collection<DoctorAssociation> doctorAssociations ;
+	DoctorAssociation doctorAssociation ;
 
+	@OneToOne(cascade= CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.LAZY)
+	public DoctorAssociation getDoctorAssociation() {
+		return doctorAssociation;
+	}
 
-	@OneToMany(cascade= CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.LAZY)
+	public void setDoctorAssociation(DoctorAssociation doctorAssociation) {
+		this.doctorAssociation = doctorAssociation;
+	}
+
+	/*@OneToMany(cascade= CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.LAZY)
 	public Collection<DoctorAssociation> getDoctorAssociations() {
 		return doctorAssociations;
 	}
 
 	public void setDoctorAssociations(Collection<DoctorAssociation> doctorAssociations) {
 		this.doctorAssociations = doctorAssociations;
-	}
+	}*/
 
 	Boolean associatedForCompany;
 

@@ -50,12 +50,12 @@ public class AppointmentTemplateValidator extends AbstractValidator {
     }*/
 
 
-    private DoctorAssociation getDoctorAssociation (Collection<DoctorAssociation> assocationList , int company)
+    /*private DoctorAssociation getDoctorAssociation (Collection<DoctorAssociation> assocationList , int company)
     {
         if (Utils.isNullCollection(assocationList)) return null;
         return  assocationList.stream().filter( association -> association.getCompany().getId() == company ).findFirst().orElse(null);
 
-    }
+    }*/
 
     @Override
     public List<RadsError> businessValidations(PrimusModel model, ProductContext context, AbstractService service) {
@@ -96,7 +96,7 @@ public class AppointmentTemplateValidator extends AbstractValidator {
             if (appointmentTemplate.getDoctor() == null)
                 results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.PARTY_WRONGWITH_TYPE, "Doctor"));
             else {
-                DoctorAssociation association = getDoctorAssociation(appointmentTemplate.getDoctor().getDoctorAssociations(), context.getLoggedinCompany());
+                DoctorAssociation association = appointmentTemplate.getDoctor().getDoctorAssociation() ; //getDoctorAssociation(appointmentTemplate.getDoctor().getDoctorAssociations(), context.getLoggedinCompany());
                 if (association == null) {
                     results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.NOT_LINKED_FOR_BUSINESS, "Doctor", appointmentTemplate.getDoctor().getName()));
                 } else    if (association.getLocation().getId() != appointmentTemplate.getLocation().getId())

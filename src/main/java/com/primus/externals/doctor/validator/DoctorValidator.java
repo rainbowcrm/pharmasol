@@ -62,6 +62,11 @@ public class DoctorValidator extends AbstractValidator {
         Doctor object = (Doctor) model ;
         if(object.getAddress() != null)
             object.getAddress().setCompany(object.getCompany());
+        if(object.getDoctorAssociation() != null ) {
+            object.getDoctorAssociation().setAssociated(true);
+            object.getDoctorAssociation().setCompany(object.getCompany());
+            object.getDoctorAssociation().setDoctor(object);
+        }
        return null;
     }
 }
