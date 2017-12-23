@@ -4,13 +4,17 @@ import com.primus.abstracts.AbstractCRUDController;
 import com.primus.abstracts.AbstractTransactionController;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
+import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
+import com.primus.merchandise.category.model.Category;
+import com.primus.merchandise.category.service.CategoryService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.abstracts.PageResult;
 import com.techtrade.rads.framework.utils.Utils;;
+import javax.xml.ws.Service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +48,17 @@ public class AppointmentController extends AbstractTransactionController{
         return ans;
     }
 
+    public Map<String, String> getCategories() {
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        CategoryService service = ServiceFactory.getCategoryService();
+        List<Category> categories = (List<Category> ) service.fetchAllActive(null,null,getProductContext()) ;
+        if (!Utils.isNullList(categories))  {
+            categories.forEach( category ->   {
+                ans.put(String.valueOf(category.getId()),category.getName());
+            });
+        }
+        return ans;
+    }
     public Map<String, String> getCreateStatuses() {
         Map<String, String> ans = new LinkedHashMap<String, String>();
         Map<String, String> mp = CommonUtil.getFiniteValues(FVConstants.FV_APPOINTMENTSTATUS);

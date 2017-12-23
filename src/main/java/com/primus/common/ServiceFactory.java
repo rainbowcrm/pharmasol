@@ -15,6 +15,8 @@ import com.primus.common.login.service.LoginService;
 import com.primus.common.user.service.UserService;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.appointment.service.AppointmentTemplateService;
+import com.primus.externals.competitor.model.Competitor;
+import com.primus.externals.competitor.service.CompetitorService;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.service.StoreService;
@@ -140,6 +142,12 @@ public class ServiceFactory {
     public static SkuService getSKUService()
     {
         SkuService service = (SkuService)ServiceLibrary.services().getService("SkuService")  ;
+        return service ;
+    }
+
+    public static CompetitorService getCompetitorService()
+    {
+        CompetitorService service = (CompetitorService)ServiceLibrary.services().getService("CompetitorService")  ;
         return service ;
     }
 

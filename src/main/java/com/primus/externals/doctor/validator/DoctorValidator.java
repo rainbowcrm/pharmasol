@@ -5,6 +5,7 @@ import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
 import com.primus.common.ProductContext;
+import com.primus.externals.doctor.model.DoctorAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -62,6 +63,9 @@ public class DoctorValidator extends AbstractValidator {
         Doctor object = (Doctor) model ;
         if(object.getAddress() != null)
             object.getAddress().setCompany(object.getCompany());
+        if(object.getDoctorAssociation() == null ) {
+            object.setDoctorAssociation(new DoctorAssociation());
+        }
         if(object.getDoctorAssociation() != null ) {
             object.getDoctorAssociation().setAssociated(true);
             object.getDoctorAssociation().setCompany(object.getCompany());

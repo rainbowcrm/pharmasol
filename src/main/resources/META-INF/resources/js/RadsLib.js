@@ -218,26 +218,29 @@ function getLookupWithAjax(lookupType, currentCtrl,dataListCtrlName,additionalFi
 	var srValue = currentCtrl.value ;
 	//console.log('srValue.indexOf(*)=' + srValue.indexOf('*'));
 	
-	if(srValue.length  > 2 || srValue.indexOf('*') !=  -1 ) {
+	if(srValue.length  > 2 || srValue.indexOf('?') !=  -1 ) {
 	var additionalInputVal = '';
 	if (additionalInputControl != 'null' &&  additionalInputControl != '') {
 		additionalInputVal = document.getElementById(additionalInputControl).value;
 		console.log('additionalInputVal=' + additionalInputVal);
 	}
 	currentCtrl.autocomplete ="on";
-	var searchString = 	"*"+srValue+"*";
 
+	var searchString = 	"*"+srValue+"*";
+    if (srValue.indexOf('?') !=  -1 )
+        searchString = "*" ;
 	var requestStr = appURL + "controller?page=Lookup&returnAsJSON=true&lookupType=" + lookupType
 	+ "&additionalFields=" + additionalFields +  "&additionalParam=" + additionalInputVal   + "&searchString=" + searchString ;
 	var index  = getCurrentObjectIndex(currentCtrl);
 	console.log( "index" + index) ;
-	
+
 
 	var reqObject = new XMLHttpRequest();
 	reqObject.open("GET",requestStr,false);
 	reqObject.send();
 	console.log("Resp" + reqObject.responseText);
-	
+	if (srValue.indexOf('?') !=  -1 )
+	    currentCtrl.value = '';
 	var elem = document.getElementsByName(dataListCtrlName)[0];
 	console.log ('before' + elem.innerHTML) ;
  	elem.innerHTML='';

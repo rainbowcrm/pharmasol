@@ -542,6 +542,9 @@
         <Lookup type ="product" lookupservice="com.primus.common.lookups.LookupProducts"
                 lookuppage= "lookup">
         </Lookup>
+        <Lookup type ="competitor" lookupservice="com.primus.common.lookups.LookupCompetitors"
+                lookuppage= "lookup">
+        </Lookup>
         <Lookup type ="department" lookupservice="com.primus.common.lookups.LookupDepartments"
                 lookuppage= "lookup">
         </Lookup>

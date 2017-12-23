@@ -5,6 +5,7 @@ import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
 import com.primus.common.ProductContext;
+import com.primus.externals.stockist.model.StockistAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,9 @@ public class StockistValidator extends AbstractValidator {
         Stockist object = (Stockist) model ;
         if(object.getAddress() != null)
             object.getAddress().setCompany(object.getCompany());
+        if(object.getStockistAssociation() == null ) {
+            object.setStockistAssociation(new StockistAssociation());
+        }
         if(object.getStockistAssociation() != null ) {
             object.getStockistAssociation().setAssociated(true);
             object.getStockistAssociation().setCompany(object.getCompany());

@@ -414,6 +414,77 @@
                         <!--Order Lines End -->
 
 
+                        <!-- Competitor Sales Lines start-->
+                        <Element type="UITab" Id="idCompetitorLines" title="Competitor_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblCompeteLLine"
+                                     property="competitorSalesLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Category"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Competitor"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Medicine"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.CompetitorSalesLine"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIList"  Id="lstCompSalesCategory"
+                                                 property="category.id">
+                                            <options populator="getCategories">
+                                            </options>
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILookupDataList" isMandatory="true" Id="txtCompSalesCompetor" listId="lstCompSalesCompetor"
+                                                 property="competitor.name">
+                                            <lookupType>competitor</lookupType>
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UIText"  Id="txtCompetMedicine"
+                                                 isMandatory="false" property="medicine"   >
+                                        </Element>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UIText"  Id="txtCompSalesQTY"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdncompSalesLineId" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdncompSalesLinelineVer" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRowLn"
+                                                 fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRowLn"
+                                                 fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--competitor Sales line End -->
+
                     </Element>
                 </Section>
             </CoreSection>

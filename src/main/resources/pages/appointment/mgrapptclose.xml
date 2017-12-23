@@ -288,6 +288,61 @@
                         </Element>
                         <!--Order Lines End -->
 
+                        <!-- Competitor Sales Lines start-->
+                        <Element type="UITab" Id="idCompetitorLines" title="Competitor_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblCompeteLLine"
+                                     property="competitorSalesLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Category"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Competitor"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Medicine"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.CompetitorSalesLine"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="lstCompSalesCategory"
+                                                 property="category.name">
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" isMandatory="true" Id="txtCompSalesCompetor" listId="lstCompSalesCompetor"
+                                                 property="competitor.name">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtCompetMedicine"
+                                                 isMandatory="false" property="medicine"   >
+                                        </Element>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel" style="CRUDLabel"  Id="txtCompSalesQTY"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--competitor Sales line End -->
 
                     </Element>
                 </Section>

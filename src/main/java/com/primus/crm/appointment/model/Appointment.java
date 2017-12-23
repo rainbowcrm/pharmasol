@@ -6,6 +6,7 @@ import com.primus.admin.region.model.Location;
 import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.user.model.User;
+import com.primus.externals.competitor.model.Competitor;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.stockist.model.Stockist;
 import com.primus.externals.store.model.Store;
@@ -48,6 +49,8 @@ public class Appointment extends PrimusBusinessModel {
     Collection<PrescriptionSurvey> prescriptionSurveys ;
 
     Collection<StoreVisitOrderLine> orderLines ;
+
+    Collection<CompetitorSalesLine> competitorSalesLines ;
 
     String docNo;
 
@@ -386,6 +389,15 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setOrderLines(Collection<StoreVisitOrderLine> orderLines) {
         this.orderLines = orderLines;
+    }
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
+    public Collection<CompetitorSalesLine> getCompetitorSalesLines() {
+        return competitorSalesLines;
+    }
+
+    public void setCompetitorSalesLines(Collection<CompetitorSalesLine> competitorSalesLines) {
+        this.competitorSalesLines = competitorSalesLines;
     }
 
     @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)

@@ -11,6 +11,8 @@ import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.user.model.User;
 import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.externals.competitor.model.Competitor;
+import com.primus.externals.competitor.service.CompetitorService;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
@@ -67,6 +69,9 @@ public class AppointmentValidator extends AbstractValidator {
         if (!Utils.isNull(appointment.getFeedBack())) {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_ONLY_FORCOMPLETION));
         }
+        if (!Utils.isNullCollection(appointment.getOrderLines())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_ONLY_FORCOMPLETION));
+        }
         return results;
     }
 
@@ -109,6 +114,17 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.getOrderLines().forEach( line ->  {
                 if(line.isEmpty()) {
                     results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Order_Line")) ;
+                }
+            });
+        }
+
+        if(appointment.getCompetitorSalesLines().size() == 1 && appointment.getCompetitorSalesLines().stream().findFirst().orElse(null).isEmpty())
+        {
+            appointment.setCompetitorSalesLines(null);
+        }else {
+            appointment.getCompetitorSalesLines().forEach( line ->  {
+                if(line.isEmpty()) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Competitor_Line")) ;
                 }
             });
         }
@@ -298,8 +314,28 @@ public class AppointmentValidator extends AbstractValidator {
                 }
             });
 
+
+
         }
 
+        if(!Utils.isNullCollection(appointment.getCompetitorSalesLines())) {
+            appointment.getCompetitorSalesLines().forEach(line -> {
+                if (!line.isEmpty()) {
+                    CompetitorService service = ServiceFactory.getCompetitorService();
+                    Competitor competitor = (Competitor) service.fetchOneActive(" where name ='" + line.getCompetitor().getName() + "'", "", context);
+                    if (competitor == null) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Competitor", line.getCompetitor().getName()));
+                    }
+                    if(line.getCategory() == null || line.getCategory().getId() < 0 ) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Category"));
+                    }
+
+                    line.setCompetitor(competitor);
+                    line.setCompany(appointment.getCompany());
+                    line.setAppointment(appointment);
+                }
+            });
+        }
 
 
 
