@@ -95,14 +95,15 @@ public class AppointmentService extends AbstractService {
     {
         String partyType = appointment.getPartyType().getCode();
         String lastFeedBack  = "";
+        PastAppointment pastAppointment =null;
         if(FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(partyType)) {
-            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getDoctor().getId());
+            pastAppointment=appointmentSQL.getLastAppointment(appointment.getId(), partyType, appointment.getDoctor().getId());
         } else if(FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(partyType)) {
-            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getStockist().getId());
+            pastAppointment=appointmentSQL.getLastAppointment(appointment.getId(), partyType, appointment.getStockist().getId());
         }else if(FVConstants.EXTERNAL_PARTY.STORE.equalsIgnoreCase(partyType)) {
-            lastFeedBack=appointmentSQL.getLastFeedBack(appointment.getId(), partyType, appointment.getStore().getId());
+            pastAppointment=appointmentSQL.getLastAppointment(appointment.getId(), partyType, appointment.getStore().getId());
         }
-        appointment.setPreviousFeedBack(lastFeedBack);
+        appointment.setPastAppointment(pastAppointment);
     }
 
 

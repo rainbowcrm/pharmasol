@@ -104,10 +104,19 @@
                     </Element>
 
 
-                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
-                             property="previousFeedBack">
-
+                    <Element label="Last_Visited" type="UILabel"  Id="txtlastagRemark" style = "CRUDLabel"
+                             property="pastAppointment.date">
                     </Element>
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="pastAppointment.feedback">
+                    </Element>
+                    <Element label="Last_Agent_Remark" type="UILabel"  Id="txtlastagRemark" style = "CRUDLabel"
+                             property="pastAppointment.agentRemarks">
+                    </Element>
+                    <Element label="Last_Manager_Remark" type="UILabel"  Id="txtlastmgrRemark" style = "CRUDLabel"
+                             property="pastAppointment.managerRemarks">
+                    </Element>
+
 
                 </Section>
                 <Section type="detailForSale">

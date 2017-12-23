@@ -44,6 +44,8 @@ public class Appointment extends PrimusBusinessModel {
 
     String previousFeedBack;
 
+    PastAppointment pastAppointment;
+
     Collection<PromotedItem> promotedItems ;
 
     Collection<PrescriptionSurvey> prescriptionSurveys ;
@@ -362,6 +364,15 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setPreviousFeedBack(String previousFeedBack) {
         this.previousFeedBack = previousFeedBack;
+    }
+
+    @Transient
+    public PastAppointment getPastAppointment() {
+        return pastAppointment;
+    }
+
+    public void setPastAppointment(PastAppointment pastAppointment) {
+        this.pastAppointment = pastAppointment;
     }
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
