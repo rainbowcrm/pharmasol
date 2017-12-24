@@ -31,6 +31,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -506,8 +508,12 @@ public class AppointmentService extends AbstractService {
         errors.addAll(appointmentValidator.completionValidation(appointment,context));
 
         if(Utils.isNullList(errors)) {
+
             create(appointment, context);
             result.setResult(TransactionResult.Result.SUCCESS);
+            if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
+                createFollowupAppointment(appointment,context);
+            }
         }else {
             result.setResult(TransactionResult.Result.FAILURE);
             result.setErrors(errors);
@@ -556,6 +562,34 @@ public class AppointmentService extends AbstractService {
         return  result;
 
     }
+
+    public void createFollowupAppointment(Appointment currentAppointment, ProductContext context)
+    {
+        Appointment appointment = new Appointment();
+        appointment.setLocation(currentAppointment.getLocation());
+        appointment.setDoctor(currentAppointment.getDoctor());
+        appointment.setDuration(currentAppointment.getDuration());
+        appointment.setStockist(currentAppointment.getStockist());
+        appointment.setStore(currentAppointment.getStore());
+        appointment.setPartyType(currentAppointment.getPartyType());
+        appointment.setApptDate(currentAppointment.getNextAppointmentDate());
+        appointment.setAgent(currentAppointment.getAgent());
+        appointment.setManager(currentAppointment.getManager());
+
+        try {
+            String selectedtime = String.valueOf(currentAppointment.getNextAppointmentHH() + ":" + String.valueOf(currentAppointment.getNextAppointmentMM()));
+            appointment.setApptTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
+        }catch (ParseException ex) {
+            Logger.logException(  "Error in parsing",this.getClass(),ex);
+        }
+
+        appointment.setCompany(currentAppointment.getCompany());
+        appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
+        appointmentValidator.setBusinessKey(appointment,context);
+        create(appointment,context) ;
+
+    }
+
     public PageResult completeAppointment(Appointment appointment, ProductContext context)
     {
         Appointment app = (Appointment)getById(appointment.getId()) ;
@@ -598,7 +632,11 @@ public class AppointmentService extends AbstractService {
                 app.setOrderLines(appointment.getOrderLines());
                 app.setApptTime(app.getApptTime());
                 update(app, context);
+
                 result.setResult(TransactionResult.Result.SUCCESS);
+                if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
+                    createFollowupAppointment(appointment,context);
+                }
             } else {
                 result.setErrors(errors);
                 result.setResult(TransactionResult.Result.FAILURE);

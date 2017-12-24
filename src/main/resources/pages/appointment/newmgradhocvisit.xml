@@ -472,6 +472,32 @@
 
                     </Element>
                 </Section>
+
+              <!--  <Section type="footer">
+                    <Element label="Schedule_Next_Visit" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtschdNexttViisit" property="scheduleNextAppointment"/>
+                    <Element label="Next_Visit_Date" type="UIDate" isMandatory="false" Id="txtnextVisitDate"
+                             property="nextAppointmentDate"/>
+
+                    <Element label="" type="UILabel" isMandatory="true" Id="txtnextappptTime" value="Next_Visit_Time"
+                    />
+                    <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
+                        <Element label="" type="UIList" isMandatory="true" Id="txtnextapptHH" style ="custom30width"
+                                 property="nextAppointmentHH">
+                            <options populator="getHours">
+                            </options>
+                        </Element>
+                        <Element label="" type="UILabel" isMandatory="true" Id="txtNextApptcol" style="form-control custom5width" value=":"
+                        />
+                        <Element label="" type="UIList" isMandatory="true" Id="txtNextApptpMM" style ="custom30width"
+                                 property="nextAppointmentMM">
+                            <options populator="getMinutes">
+                            </options>
+                        </Element>
+                    </Element>
+
+                </Section>
+-->
             </CoreSection>
             <Section type="optionalsummary">
 

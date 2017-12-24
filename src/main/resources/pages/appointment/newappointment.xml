@@ -73,7 +73,7 @@
                              property="agent.userId">
                     </Element>
                     <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
-                    <Element label="Appointment_Date" type="UIDate"    Id="txtapptDate" property="apptDate"/>
+
                     <Element label="Last_Visited" type="UILabel"  Id="txtlastagRemark" style = "CRUDLabel"
                              property="pastAppointment.date">
                     </Element>
@@ -93,6 +93,7 @@
                              selectedTabStyle="titleStyleSelected active nav-link"
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
                     <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+                    <Element label="Appointment_Date" type="UIDate"    Id="txtapptDate" style="custom30width" property="apptDate"/>
 
                     <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
                              value="Appointment_Time"/>
@@ -117,6 +118,8 @@
                         <options populator="getReasonCodes" populatorParam="APPCNCL">
                         </options>
                     </Element>
+
+                    <Element label="" type="UILabel" Id ="txtblank1" value=""/>
 
                     <Element label="Feedback" type="UITextArea" isMandatory="false" Id="txtdiscussion" style = "textareastyle"
                              property="feedBack">
@@ -452,9 +455,32 @@
 
                     </Element>
                 </Section>
-                <!--<Section type="onefooter">
 
-                </Section>-->
+                <Section type="footer">
+                    <Element label="Schedule_Next_Visit" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtschdNexttViisit" property="scheduleNextAppointment"/>
+                    <Element label="Next_Visit_Date" type="UIDate"  style="custom30width" isMandatory="false" Id="txtnextVisitDate"
+                             property="nextAppointmentDate"/>
+
+                    <Element label="" type="UILabel" isMandatory="true"  Id="txtnextappptTime" value="Next_Visit_Time"
+                    />
+                    <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
+                        <Element label="" type="UIList" isMandatory="true" Id="txtnextapptHH" style ="custom30width"
+                                 property="nextAppointmentHH">
+                            <options populator="getHours">
+                            </options>
+                        </Element>
+                        <Element label="" type="UILabel" isMandatory="true" Id="txtNextApptcol" style="form-control custom5width" value=":"
+                        />
+                        <Element label="" type="UIList" isMandatory="true" Id="txtNextApptpMM" style ="custom30width"
+                                 property="nextAppointmentMM">
+                            <options populator="getMinutes">
+                            </options>
+                        </Element>
+                    </Element>
+
+                </Section>
+
             </CoreSection>
             <Section type="optionalsummary">
                 <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"

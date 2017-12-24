@@ -202,6 +202,16 @@ public class AppointmentValidator extends AbstractValidator {
         return super.adaptToUI(model, context);
     }
 
+    public void  setBusinessKey(Appointment appointment,ProductContext context)
+    {
+        if(appointment.getLocation().getId() >0 && Utils.isNull(appointment.getDocNo()) ) {
+            Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
+            if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
+                String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
+                appointment.setDocNo(no);
+            }
+        }
+    }
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
         super.adaptFromUI(model, context);
@@ -220,13 +230,7 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.setManager(manager);
         }
 
-        if(appointment.getLocation().getId() >0 && Utils.isNull(appointment.getDocNo()) ) {
-            Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
-            if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
-                String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
-                appointment.setDocNo(no);
-            }
-        }
+       setBusinessKey(appointment,context);
 
         if (appointment.getStockist() != null && appointment.getStockist().getId() <=0  ) {
             StockistService service = ServiceFactory.getStockistService();

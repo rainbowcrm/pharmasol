@@ -27,12 +27,13 @@
                 <Section type="detail">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="" type="UIHidden" Id="hdnAssocationID" property="doctorAssociation.Id"/>
                     <Element label = ""  type = "UIHidden" Id = "hdnAddressId"  property ="address.Id" />
-                    <Element label="Region" type="UIList"  Id="LstRegion"   property="stockistAssociation.location.region.id">
+                    <Element label="Region" type="UIList"  Id="LstRegion"   property="doctorAssociation.location.region.id">
                         <options populator="getAllRegions" >
                         </options>
                     </Element>
-                    <Element label="Location" type="UIList"  Id="LstLocations"   property="stockistAssociation.location.id">
+                    <Element label="Location" type="UIList"  Id="LstLocations"   property="doctorAssociation.location.id">
                         <options populator="getAllLocations" >
                         </options>
                     </Element>

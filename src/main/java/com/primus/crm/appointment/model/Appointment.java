@@ -44,6 +44,14 @@ public class Appointment extends PrimusBusinessModel {
 
     String previousFeedBack;
 
+    Boolean scheduleNextAppointment;
+
+    Date nextAppointmentDate;
+
+    int nextAppointmentHH;
+
+    int nextAppointmentMM;
+
     PastAppointment pastAppointment;
 
     Collection<PromotedItem> promotedItems ;
@@ -364,6 +372,42 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setPreviousFeedBack(String previousFeedBack) {
         this.previousFeedBack = previousFeedBack;
+    }
+
+    @Transient
+    public Boolean getScheduleNextAppointment() {
+        return scheduleNextAppointment;
+    }
+
+    public void setScheduleNextAppointment(Boolean scheduleNextAppointment) {
+        this.scheduleNextAppointment = scheduleNextAppointment;
+    }
+
+    @Transient
+    public Date getNextAppointmentDate() {
+        return nextAppointmentDate;
+    }
+
+    public void setNextAppointmentDate(Date nextAppointmentDate) {
+        this.nextAppointmentDate = nextAppointmentDate;
+    }
+
+    @Transient
+    public int getNextAppointmentHH() {
+        return nextAppointmentHH;
+    }
+
+    public void setNextAppointmentHH(int nextAppointmentHH) {
+        this.nextAppointmentHH = nextAppointmentHH;
+    }
+
+    @Transient
+    public int getNextAppointmentMM() {
+        return nextAppointmentMM;
+    }
+
+    public void setNextAppointmentMM(int nextAppointmentMM) {
+        this.nextAppointmentMM = nextAppointmentMM;
     }
 
     @Transient

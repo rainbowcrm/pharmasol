@@ -27,6 +27,7 @@
                 <Section type="detail">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="" type="UIHidden" Id="hdnAssocationID" property="stockistAssociation.Id"/>
                     <Element label = ""  type = "UIHidden" Id = "hdnAddressId"  property ="address.Id" />
                     <Element label="Region" type="UIList"  Id="LstRegion"   property="stockistAssociation.location.region.id">
                         <options populator="getAllRegions" >
