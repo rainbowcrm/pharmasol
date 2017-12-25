@@ -3,11 +3,14 @@ package com.primus.externals.doctor.service;
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.admin.region.model.Location;
+import com.primus.common.CommonUtil;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.ui.components.SortCriteria;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.externals.doctor.dao.DoctorDAO;
+import sun.misc.BASE64Decoder;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 
@@ -167,6 +172,51 @@ public class DoctorService extends AbstractService {
 
     }
 
+
+
+
+    private boolean uploadFile(Doctor object, ProductContext context)
+    {
+        if(Utils.isNullString(object.getFileName())) {
+            if(!Utils.isNullString(object.getFileWithoutLink()))
+                object.setPhoto(object.getFileWithoutLink());
+            return false;
+        }
+        String fileExtn = CommonUtil.getFileExtn(object.getFileName());
+        String fileName =  new String("dctr" + object.getName());
+        fileName.replace(" ", "_")    ;
+        //	doc.setDocName(fileName +  "."  + fileExtn);
+        object.setPhoto( "//" +  context.getLoggedinCompanyCode() +  "//dctr//" + fileName +  "."  + fileExtn );
+        //customer.setPhotoFile(fileName +  "."  + fileExtn );
+        if(object.getImage() != null)
+            CommonUtil.uploadFile(object.getImage(), fileName +  "."  + fileExtn  , context, "dctr");
+        else{
+            byte[] imageByte;
+            try  {
+                BASE64Decoder decoder = new BASE64Decoder();
+                imageByte = decoder.decodeBuffer(object.getBase64Image());
+                ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+                bis.close();
+                CommonUtil.uploadFile(imageByte, fileName +  "."  + fileExtn  , context, "dctr");
+            }catch(Exception ex) {
+                Logger.logException("Error in uploading",this.getClass(),ex);
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public TransactionResult create(PrimusModel object, ProductContext productContext) {
+        uploadFile((Doctor) object,productContext);
+        return super.create(object, productContext);
+    }
+
+    @Override
+    public TransactionResult update(PrimusModel object, ProductContext productContext) {
+        uploadFile((Doctor) object,productContext);
+        return super.update(object, productContext);
+    }
 
 
 }

@@ -20,7 +20,7 @@
         </AjaxGroup>
     </AjaxGroups>
     <Elements>
-        <UIForm Id="cust" method="POST">
+        <UIForm Id="cust" method="POST" enctype="multipart/form-data">
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
@@ -29,6 +29,10 @@
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="" type="UIHidden" Id="hdnAssocationID" property="stockistAssociation.Id"/>
                     <Element label = ""  type = "UIHidden" Id = "hdnAddressId"  property ="address.Id" />
+
+                    <Element label = ""  type = "UIHidden" Id = "hdnAddressVersionId"  property ="address.version" />
+                    <Element label = ""  type = "UIHidden" Id = "hdnAAssociationVersionId"  property ="stockistAssociation.version" />
+
                     <Element label="Region" type="UIList"  Id="LstRegion"   property="stockistAssociation.location.region.id">
                         <options populator="getAllRegions" >
                         </options>
@@ -39,6 +43,13 @@
                     </Element>
                     <Element label="Code" type="UIText" isMandatory="true" Id="txtcode" property="code"/>
                     <Element label="Name" type="UIText" isMandatory="true" Id="txtname" property="name"/>
+
+                    <Element label = "Photo" type = "UIFileUpload" Id = "txtPhoto3" property ="image" maxSize="30720"
+                             multiple ="false"  fileNameProperty="fileName"   onChangeJS ="readURL(this,'idIMG3')" accept= ".png, .jpg, .jpeg, .gif"  />
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "200" weight ="200" src= "#" property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithLink"   property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithoutLink"   property ="fileWithoutLink" />
+
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
                              property="description"/>
                     <Element label="Address1" type="UIText" isMandatory="true" Id="txtaddress1"

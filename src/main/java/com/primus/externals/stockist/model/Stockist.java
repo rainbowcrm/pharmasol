@@ -164,4 +164,70 @@ public class Stockist extends PrimusBusinessModel {
 		this.gmailId = gmailId;
 	}
 
+
+	String  photo;
+
+	@Column(name  ="PHOTO")
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+
+	byte[] image;
+	String fileName;
+	String fileWithLink;
+	String fileWithoutLink;
+
+	String base64Image;
+
+
+	@Transient
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	@Transient
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	@Transient
+	public String getFileWithLink() {
+		return fileWithLink;
+	}
+
+	public void setFileWithLink(String fileWithLink) {
+		this.fileWithLink = fileWithLink;
+	}
+
+	@Transient
+	public String getFileWithoutLink() {
+		return fileWithoutLink;
+	}
+
+	public void setFileWithoutLink(String fileWithoutLink) {
+		this.fileWithoutLink = fileWithoutLink;
+	}
+
+	@Transient
+	public String getBase64Image() {
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
+	}
+
 }

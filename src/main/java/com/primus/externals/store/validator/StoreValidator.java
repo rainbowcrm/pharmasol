@@ -6,6 +6,7 @@ import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
 import com.primus.common.ProductContext;
 import com.primus.externals.store.model.StoreAssociation;
+import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -57,6 +58,15 @@ public class StoreValidator extends AbstractValidator {
      @Override
     public List<RadsError> checkforValueRanges(PrimusModel model, ProductContext context) {
         return null;
+    }
+
+    @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+        Store object = (Store) model;
+        String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
+        object.setFileWithLink(serverURL + object.getPhoto());
+        object.setFileWithoutLink(object.getPhoto());
+        return  null ;
     }
 
     @Override
