@@ -70,7 +70,29 @@ public class AppointmentValidator extends AbstractValidator {
             results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_ONLY_FORCOMPLETION));
         }
         if (!Utils.isNullCollection(appointment.getOrderLines())) {
-            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.FEEDBACK_ONLY_FORCOMPLETION));
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.ORDERLINES_ONLY_FORCOMPLETION));
+        }
+        if (!Utils.isNullCollection(appointment.getCompetitorSalesLines())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.COMPSALES_ONLY_FORCOMPLETION));
+        }
+        if (!Utils.isNullCollection(appointment.getStockistVisitOrderLines())) {
+            results.add(getErrorforCode(context, AppointmentTemplateErrorCodes.STOCKISTORDERS_ONLY_FORCOMPLETION));
+        }
+        return results;
+    }
+
+    public List<RadsError> stockistSpecificValidations(PrimusModel model, ProductContext context) {
+        List<RadsError> results = new ArrayList<RadsError>();
+        Appointment appointment = (Appointment) model;
+        if(appointment.getStockistVisitOrderLines().size() == 1 && appointment.getStockistVisitOrderLines().stream().findFirst().orElse(null).isEmpty())
+        {
+            appointment.setStockistVisitOrderLines(null);
+        }else {
+            appointment.getStockistVisitOrderLines().forEach( line ->  {
+                if(line.isEmpty()) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Order_Line")) ;
+                }
+            });
         }
         return results;
     }
@@ -151,6 +173,10 @@ public class AppointmentValidator extends AbstractValidator {
             if(appointment.getPartyType().getCode().equalsIgnoreCase(FVConstants.EXTERNAL_PARTY.STORE)) {
                 results.addAll(storeSpecificValidations(model,context));
             }
+            if(appointment.getPartyType().getCode().equalsIgnoreCase(FVConstants.EXTERNAL_PARTY.STOCKIST)) {
+                results.addAll(stockistSpecificValidations(model,context));
+            }
+
 
         }
 
@@ -317,9 +343,22 @@ public class AppointmentValidator extends AbstractValidator {
                     line.setAppointment(appointment);
                 }
             });
+        }
 
-
-
+        if(!Utils.isNullCollection(appointment.getStockistVisitOrderLines())) {
+            appointment.getStockistVisitOrderLines().forEach( line ->  {
+                if(!line.isEmpty()) {
+                    SkuService skuService = ServiceFactory.getSKUService();
+                    Sku sku = (Sku) skuService.fetchOneActive(" where name ='" + line.getSku().getName() + "'", "", context);
+                    if (sku == null) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Sku", line.getSku().getName()));
+                    }
+                    line.setSku(sku);
+                    line.setUom(sku.getUom());
+                    line.setCompany(appointment.getCompany());
+                    line.setAppointment(appointment);
+                }
+            });
         }
 
         if(!Utils.isNullCollection(appointment.getCompetitorSalesLines())) {

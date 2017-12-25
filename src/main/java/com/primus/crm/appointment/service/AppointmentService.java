@@ -78,6 +78,9 @@ public class AppointmentService extends AbstractService {
               TransactionUpdateDelta delta2 = formDelta(oldObj.getOrderLines(), ((Appointment) newObj).getOrderLines());
               newObj.getOrderLines().addAll((List<StoreVisitOrderLine>) delta2.getDeletedRecords());
 
+              TransactionUpdateDelta delta3 = formDelta(oldObj.getStockistVisitOrderLines(), ((Appointment) newObj).getStockistVisitOrderLines());
+              newObj.getStockistVisitOrderLines().addAll((List<StockistVisitOrderLine>) delta3.getDeletedRecords());
+
 
           }
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
@@ -630,10 +633,11 @@ public class AppointmentService extends AbstractService {
                 app.setPromotedItems(appointment.getPromotedItems());
                 app.setPrescriptionSurveys(appointment.getPrescriptionSurveys());
                 app.setOrderLines(appointment.getOrderLines());
+                app.setStockistVisitOrderLines(appointment.getStockistVisitOrderLines());
+                app.setCompetitorSalesLines(appointment.getCompetitorSalesLines());
                 app.setApptTime(app.getApptTime());
                 update(app, context);
 
-                result.setResult(TransactionResult.Result.SUCCESS);
                 if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
                     createFollowupAppointment(appointment,context);
                 }

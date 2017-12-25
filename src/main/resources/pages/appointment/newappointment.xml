@@ -33,6 +33,32 @@
 
         </responseElements>
     </AjaxGroup>
+    <AjaxGroup service ="skuSearch">
+        <requestElements event = "">
+            <requestElement key = "Code">txtOrdLineSkuCode</requestElement>
+        </requestElements>
+        <responseElements>
+
+            <responseElement key = "Code">txtOrdLineSkuCode</responseElement>
+            <responseElement key = "Name">txtOrdLineSkuName</responseElement>
+            <responseElement key = "UOM.Code">txtOrdLineUOMCode</responseElement>
+            <responseElement key = "RetailRate">txtOrdLineRate</responseElement>
+
+        </responseElements>
+    </AjaxGroup>
+    <AjaxGroup service ="skuSearch">
+        <requestElements event = "">
+            <requestElement key = "Code">txtStkOrdLineSkuCode</requestElement>
+        </requestElements>
+        <responseElements>
+
+            <responseElement key = "Code">txtStkOrdLineSkuCode</responseElement>
+            <responseElement key = "Name">txtStkOrdLineSkuName</responseElement>
+            <responseElement key = "UOM.Code">txtStkOrdLineUOMCode</responseElement>
+            <responseElement key = "RetailRate">txtStkOrdLineRate</responseElement>
+
+        </responseElements>
+    </AjaxGroup>
 
 </AjaxGroups>
     <Elements>
@@ -284,7 +310,7 @@
                     </Element>
                     <!--Prescription Survey End -->
 
-                    <!-- Order Lines start-->
+                    <!-- Store Order Lines start-->
                     <Element type="UITab" Id="idOrderLines" title="Order_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
 
                         <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
@@ -378,8 +404,103 @@
 
 
                     </Element>
-                    <!--Order Lines End -->
+                    <!-- Store Order Lines End -->
 
+                    <!-- Stockist Order  Lines start-->
+                    <Element type="UITab" Id="idStockistOrderLines" title="Order_Lines" rendered="Controller.isStockistAppointment" showinTable="false">
+
+                        <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                 Id="tblSotkcistOrderLine"
+                                 property="stockistVisitOrderLines[]">
+                            <Element type="UITableHead" style="listPageTitle">
+                                <Element type="UITableRow">
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="UOM"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Rate"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                    </Element>
+                                </Element>
+                            </Element>
+                            <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StockistVisitOrderLine"
+                                     rendered="!Object.isDeleted">
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UIText"  Id="txtStockOrdLineSkuCode"
+                                             property="sku.code"/>
+                                </Element>
+                                <Element type="UITableCol" width="20%">
+                                    <Element label="" type="UILookupDataList" isMandatory="true" Id="txtStkOrdLineSkuName" listId="lstStkOrdLinesku"
+                                             property="sku.name">
+                                        <lookupType>sku</lookupType>
+                                        <SupplementaryFields>
+                                            <Field>
+                                                <property>code</property>
+                                                <control>txtStkOrdLineSkuCode</control>
+                                            </Field>
+                                            <Field>
+                                                <property>UOM.Code</property>
+                                                <control>txtStkOrdLineUOMCode</control>
+                                            </Field>
+                                            <Field>
+                                                <property>RetailRate</property>
+                                                <control>txtStkOrdLineRate</control>
+                                            </Field>
+                                        </SupplementaryFields>
+                                    </Element>
+
+                                </Element>
+                                <Element type="UITableCol" width="15%">
+                                    <Element label="" type="UIText"  Id="txtStkOrdLineUOMCode" readonly="true"
+                                             isMandatory="false" property="uom.code"   >
+                                    </Element>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIText"  Id="txtStkOrdLineRate"
+                                             isMandatory="false" property="rate"   >
+                                    </Element>
+                                </Element>
+                                <Element type="UITableCol" width="15%">
+                                    <Element label="" type="UIText"  Id="txtStkOrdLineQty"
+                                             property="qty" isNumeric="true"/>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIDate"  Id="txtStkOrdLineDate"
+                                             property="requiredDate"/>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIHidden" Id="hdnStkordLineLineId" property="id"/>
+                                    <Element label="" type="UIHidden" Id="hdnStkordLinelineVer" property="version"/>
+                                    <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                             type="UIButton" Id="btnAddRowLn"
+                                             fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                             fixedActionParam="this"/>
+                                    <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                             type="UIButton" Id="btnDelRowLn"
+                                             fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                             fixedActionParam="this"/>
+                                </Element>
+                            </Element>
+
+                        </Element>
+
+
+                    </Element>
+                    <!-- Stockist Order Lines End -->
 
                         <!-- Competitor Sales Lines start-->
                    <Element type="UITab" Id="idCompetitorLines" title="Competitor_Lines" rendered="Controller.isStoreAppointment" showinTable="false">

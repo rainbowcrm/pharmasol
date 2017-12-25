@@ -22,5 +22,6 @@ public class AppointmentTemplateErrorCodes extends CommonErrorCodes {
     public static  final int ORDERLINES_ONLY_FORCOMPLETION= 1000116;
     public static  final int COMPSALES_ONLY_FORCOMPLETION= 1000117;
     public static  final int NEXT_VISIT_ONLYONCOMPLETION= 1000118;
+    public static  final int STOCKISTORDERS_ONLY_FORCOMPLETION= 1000119;
 
 }

@@ -62,6 +62,8 @@ public class Appointment extends PrimusBusinessModel {
 
     Collection<CompetitorSalesLine> competitorSalesLines ;
 
+    Collection<StockistVisitOrderLine> stockistVisitOrderLines ;
+
     String docNo;
 
     User manager;
@@ -444,6 +446,16 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setOrderLines(Collection<StoreVisitOrderLine> orderLines) {
         this.orderLines = orderLines;
+    }
+
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
+    public Collection<StockistVisitOrderLine> getStockistVisitOrderLines() {
+        return stockistVisitOrderLines;
+    }
+
+    public void setStockistVisitOrderLines(Collection<StockistVisitOrderLine> stockistVisitOrderLines) {
+        this.stockistVisitOrderLines = stockistVisitOrderLines;
     }
 
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "appointment")
