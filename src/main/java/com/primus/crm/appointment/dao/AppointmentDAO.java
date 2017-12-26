@@ -2,6 +2,7 @@ package com.primus.crm.appointment.dao;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.PrimusModel;
+import com.primus.crm.appointment.model.PrescriptionSurvey;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 import com.primus.crm.appointment.model.Appointment;
@@ -26,6 +27,17 @@ public class AppointmentDAO extends AbstractDAO{
         return  Appointment.class;
     }
 
+    public List<PrescriptionSurvey> getAllDoctorSurveys( int doctorId, int companyId, Date fromDate  )
+    {
+        Query query = em.createQuery("from  PrescriptionSurvey surver where doctor.id = :doctor  and company.id = :company and " +
+                "  deleted =false and appointment.apptDate >= :fromDate ");
+        query.setParameter("doctor", doctorId);
+        query.setParameter("company", companyId);
+        query.setParameter("fromDate", fromDate);
+        List<PrescriptionSurvey> ans = query.getResultList();
+        return ans;
+
+    }
 
     public List<Appointment> getAllDoctorAppointments( int doctorId, int companyId, Date fromDate  )
     {

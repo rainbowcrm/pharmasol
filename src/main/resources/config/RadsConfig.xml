@@ -101,6 +101,10 @@
         <Page id = "mgrapptview" definition ="/resources/pages/appointment/mgrapptview.xml"  accessCode ="MGR::APPTVIEW"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
 
+        <Page id = "profiles" definition ="/resources/pages/profiles/profileinit.xml"  accessCode ="MGR::PROFILEVIEW"  modelclass = "com.primus.profiles.model.ProfileInit" >
+        </Page>
+
+
 
 
         <Page id = "roles" definition ="/resources/pages/role/roleList.xml" modelclass = "com.primus.admin.role.model.Role" >
@@ -278,6 +282,11 @@
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
+            <Element label = "" type = "UIMenu" Id = "menu10" style="menustyleParent" title="Summary" groupId= "menuGRP003"  >
+                <Element label = "" type = "UIMenu" Id = "menu301" style="menustyle" title="Profiles"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=profiles"   />
+
+            </Element>
+
 
         </Panel>
 

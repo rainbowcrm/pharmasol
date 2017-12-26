@@ -686,4 +686,8 @@ public class AppointmentService extends AbstractService {
         return appointmentDAO.getAllDoctorAppointments(doctor.getId(),context.getLoggedinCompany(),fromDate);
     }
 
+    public List<PrescriptionSurvey> getDoctorSurveys(Doctor doctor, Date fromDate, ProductContext context)
+    {
+        return appointmentDAO.getAllDoctorSurveys(doctor.getId(),context.getLoggedinCompany(),fromDate);
+    }
 }

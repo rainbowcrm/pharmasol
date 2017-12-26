@@ -43,6 +43,7 @@ import com.primus.merchandise.item.service.UOMService;
 import com.primus.merchandise.item.validator.ItemValidator;
 import com.primus.merchandise.product.service.ProductService;
 import com.primus.merchandise.product.validator.ProductValidator;
+import com.primus.profiles.service.ProfileService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -183,6 +184,10 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     CompetitorValidator competitorValidator ;
 
+    @Autowired
+    ProfileService profileService;
+
+
     public  ApplicationManager getApplicationManager()
    {
        return applicationManager ;
@@ -196,6 +201,10 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Override
     public NextUPSQL getNextUPSQL() {
         return nextUPSQL;
+    }
+
+    public ProfileService getProfileService() {
+        return  profileService ;
     }
 
     @Override

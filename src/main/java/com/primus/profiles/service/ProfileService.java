@@ -2,6 +2,7 @@ package com.primus.profiles.service;
 
 import com.primus.common.ProductContext;
 import com.primus.crm.appointment.model.Appointment;
+import com.primus.crm.appointment.model.PrescriptionSurvey;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.service.DoctorService;
@@ -34,7 +35,14 @@ public class ProfileService {
         appointments.forEach(appointment ->  {
            /* profile.getPromotedItems().addAll(appointment.getPromotedItems().stream().filter(
                     promotedItem -> {!promotedItem.isDeleted()}).collect(Collectors.toCollection()));*/
+            profile.getPromotedItems().addAll(
+            appointment.getPromotedItems().stream().filter(
+                    promotedItem -> !promotedItem.isDeleted()).collect(Collectors.toList())
+            );
         });
+
+        List<PrescriptionSurvey> surveys =   appointmentService.getDoctorSurveys(doctor,null,context);
+        profile.setPrescriptionSurveys(surveys);
 
         return profile ;
 
