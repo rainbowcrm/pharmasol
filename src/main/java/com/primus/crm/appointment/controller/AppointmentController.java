@@ -52,6 +52,7 @@ public class AppointmentController extends AbstractTransactionController{
         Map<String, String> ans = new LinkedHashMap<String, String>();
         CategoryService service = ServiceFactory.getCategoryService();
         List<Category> categories = (List<Category> ) service.fetchAllActive(null,null,getProductContext()) ;
+        ans.put("-1","--Select one--");
         if (!Utils.isNullList(categories))  {
             categories.forEach( category ->   {
                 ans.put(String.valueOf(category.getId()),category.getName());

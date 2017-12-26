@@ -187,7 +187,7 @@
                         </Element>
 
                         <!-- Promo item begins -->
-                        <Element type="UITab" Id="idpromoItem" title="Promoted_Items" showinTable="false">
+                        <Element type="UITab" Id="idpromoItem" title="Promoted_Items" rendered="Controller.isDoctorAppointment" showinTable="false">
 
                             <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
                                      Id="tblTransComposition"

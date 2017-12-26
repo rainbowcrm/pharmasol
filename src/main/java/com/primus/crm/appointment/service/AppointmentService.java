@@ -353,23 +353,24 @@ public class AppointmentService extends AbstractService {
 
     public long getTotalRecordCount(ProductContext context, String whereCondition) {
         StringBuffer additionalCondition = new StringBuffer();
-   /*     boolean allowAllDiv = CommonUtil.allowAllDivisionAccess(context);
-        Metadata metadata = CommonUtil.getMetaDataforClass(getTableName());
-        if (Utils.isNullString(whereCondition) ){
-            additionalCondition = additionalCondition.append(" where company.id = " +  context.getLoggedinCompany()) ;
-        }else {
-            additionalCondition = additionalCondition.append(whereCondition +  " and company.id= " +  context.getLoggedinCompany()) ;
-        }
-        if (!allowAllDiv && metadata != null && metadata.isDivisionSpecific()) {
-            additionalCondition = additionalCondition.append(" and division.id = "  +  context.getLoggedInUser().getDivision().getId());
-        }*/
+
+        additionalCondition = additionalCondition.append(" ");
+        String accessCondition = getAccessCondition(context) ;
+
 
         if (Utils.isNullString(whereCondition)) {
+            additionalCondition = additionalCondition.append(" where  "+  accessCondition +"  and company.id = " + context.getLoggedinCompany());
+        } else {
+            additionalCondition = additionalCondition.append(whereCondition +  accessCondition + "  and company.id= " + context.getLoggedinCompany());
+        }
+        //additionalCondition.append(getOrderByCondition(sortCriteria));
+
+ /*       if (Utils.isNullString(whereCondition)) {
             additionalCondition = additionalCondition.append(" where company.id = " + context.getLoggedinCompany());
         } else {
             additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
         }
-
+*/
         return getDAO().getTotalRecordCount(getDAO().getEntityClassName(), context, additionalCondition.toString());
     }
 
