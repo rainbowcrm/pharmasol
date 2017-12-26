@@ -9,6 +9,7 @@ import com.primus.crm.appointment.model.*;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.StockistAssociation;
@@ -680,5 +681,9 @@ public class AppointmentService extends AbstractService {
 
     }
 
+    public List<Appointment> getDoctorAppointments(Doctor doctor, Date fromDate, ProductContext context)
+    {
+        return appointmentDAO.getAllDoctorAppointments(doctor.getId(),context.getLoggedinCompany(),fromDate);
+    }
 
 }
