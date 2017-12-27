@@ -42,7 +42,7 @@ public class AppointmentDAO extends AbstractDAO{
     public List<Appointment> getAllDoctorAppointments( int doctorId, int companyId, Date fromDate  )
     {
         Query query = em.createQuery("from  Appointment appointment where doctor.id = :doctor  and company.id = :company and " +
-                "  deleted =false and apptDate >= :fromDate ");
+                "  deleted =false and apptDate >= :fromDate and status.code in ('CMPLTD','CLSD')");
         query.setParameter("doctor", doctorId);
         query.setParameter("company", companyId);
         query.setParameter("fromDate", fromDate);
