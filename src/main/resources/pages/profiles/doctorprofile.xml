@@ -82,8 +82,70 @@
                                  property="doctor.faceBookId"/>
 
                     </Element>
-                    </Element>
 
+
+                    <!-- Prescription Survery start-->
+                    <Element type="UITab" Id="idprescSurvey" title="Prescription_Survey"  showinTable="false">
+
+                        <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                 Id="tblTransSurvey"
+                                 property="prescriptionSurveys[]">
+                            <Element type="UITableHead" style="listPageTitle">
+                                <Element type="UITableRow">
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Appointment_No"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                    </Element>
+
+                                </Element>
+                            </Element>
+                            <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PrescriptionSurvey"
+                                     rendered="!Object.isDeleted">
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSkuCode"
+                                             property="sku.code"/>
+                                </Element>
+                                <Element type="UITableCol" width="20%">
+                                    <Element label="" type="UILabel" style="CRUDLabel" Id="txtSkuName" listId="lstsku"
+                                             property="sku.name">
+                                    </Element>
+
+                                </Element>
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UILabel"  style="CRUDLabel" Id="txtAppointment"
+                                             isMandatory="false" property="appointment.docNo"   >
+                                    </Element>
+                                </Element>
+                                <Element type="UITableCol" width="15%">
+                                    <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSurveyQty"
+                                             property="qty" isNumeric="true"/>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UILabel"  style="CRUDLabel" Id="txtSurveyDate"
+                                             property="prescriptionDate"/>
+                                </Element>
+
+                            </Element>
+
+                        </Element>
+
+
+                    </Element>
+                    <!--Prescription Survey End -->
+
+                    </Element>
 
                 </Section>
 

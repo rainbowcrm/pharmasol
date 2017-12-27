@@ -46,7 +46,7 @@ public class Doctor extends PrimusBusinessModel {
 	@Transient
 	public String getFullName()
 	{
-		return "DR " +  name  + " " + qualification ;
+		return "DR. " +  name  + " [" + qualification  + "]";
 	}
 
 	String qualification;
