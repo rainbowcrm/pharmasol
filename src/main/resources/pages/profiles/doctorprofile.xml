@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="doctorprofile" showinFrame="true" title="Doctor Profile | Primus CRM "
+      Object="com.primus.profiles.model.DoctorProfile"
+      Controller="com.primus.profiles.controller.ProfileController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=doctors</Forward>
+        <Forward key="SAVE">doctors</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+
+    <Elements>
+        <UIForm Id="cust" method="POST" enctype="multipart/form-data">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+
+                <Section type="header">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="doctor.fileWithLink" />
+
+                    <Element label="" type="UILabel"  Id="txtemployee" showInPrevCol="true" style="crudlabel"  size="10"
+                             property="doctor.FullName"/>
+
+                    <Element label="" type="UIHidden"  Id="hdnEmployeeId" showInPrevCol="true" style="crudlabel"  size="10"
+                             property="doctor.id"/>
+
+                </Section>
+                <Section type="detailForSale">
+
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                    <Element type="UITab" Id="idDoctor" title="Details" showinTable="true" cols="3">
+
+                        <Element label="Region" type="UILabel"  Id="txtfirstName" style="crudlabel"
+                                 property="doctor.doctorAssociation.location.region.name"/>
+
+                        <Element label="Location" type="UILabel"  Id="txtlocation" style="crudlabel"
+                                 property="doctor.doctorAssociation.location.name"/>
+
+                        <Element label="Specialization" type="UILabel"  Id="txtfirstName" style="crudlabel"
+                                 property="doctor.specialization.description"/>
+
+                        <Element label="Hospital" type="UILabel"   style="crudlabel" Id="txtfirstName"
+                                 property="doctor.hospital"/>
+
+                        <Element label="Qualification" type="UILabel"   style="crudlabel" Id="txtQual"
+                                 property="doctor.qualification" />
+
+                        <Element label="Description" type="UILabel"  style="crudlabel" Id="txtdescription"
+                                 property="doctor.description"/>
+
+                        <Element label="Address1" type="UILabel"  style="crudlabel" Id="txtaddress1"
+                                 property="adoctor.ddress.address1"/>
+
+                        <Element label="Address2" type="UILabel"  style="crudlabel" Id="txtaddress2"
+                                 property="doctor.address.address2"/>
+
+                        <Element label="Street_Name" type="UILabel"  style="crudlabel" Id="txtStr3"
+                                 property="doctor.address.streetName"/>
+
+                        <Element label="Zipcode" type="UILabel"   style="crudlabel" Id="txtzipcode"
+                                 property="doctor.address.zipCode"/>
+
+                        <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="doctor.address.city"/>
+
+                        <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="doctor.address.phone"/>
+
+                        <Element label="Alternate_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="doctor.alternatePhone"/>
+
+                        <Element label="Email" type="UILabel"   style="crudlabel" Id="txtcontactEmail"
+                                 property="doctor.email"/>
+
+                        <Element label="Gmail_Id" type="UILabel"   style="crudlabel" Id="txtgmailId"
+                                 property="doctor.gmailId"/>
+
+                        <Element label="Facebook_Id" type="UILabel"   style="crudlabel" Id="txtfacebookId"
+                                 property="doctor.faceBookId"/>
+
+                    </Element>
+                    </Element>
+
+
+                </Section>
+
+
+            </CoreSection>
+            <Section type="summary">
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

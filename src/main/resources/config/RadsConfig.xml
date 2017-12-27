@@ -104,6 +104,9 @@
         <Page id = "profiles" definition ="/resources/pages/profiles/profileinit.xml"  accessCode ="MGR::PROFILEVIEW"  modelclass = "com.primus.profiles.model.ProfileInit" >
         </Page>
 
+        <Page id = "doctorprofile" definition ="/resources/pages/profiles/doctorprofile.xml"  accessCode ="MGR::DOCTORPROFILE"  modelclass = "com.primus.profiles.model.DoctorProfile" >
+        </Page>
+
 
 
 

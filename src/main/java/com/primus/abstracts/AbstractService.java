@@ -196,6 +196,13 @@ public abstract class AbstractService {
         return getDAO().getById(PK);
     }
 
+    public PrimusModel getFullObject(PrimusBusinessModel object, ProductContext context) {
+        if (object.getId() > 0 )
+            return getDAO().getById(object.getId());
+        else
+            return  getByBusinessKey(object,context) ;
+
+    }
 
     public PrimusModel getByBusinessKey(PrimusModel object, ProductContext context) {
         Map<String, Object> keys = object.getBK();

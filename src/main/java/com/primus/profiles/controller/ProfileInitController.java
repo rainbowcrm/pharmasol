@@ -29,8 +29,9 @@ public class ProfileInitController extends AbstractTransactionController{
             ProfileService profileService = ServiceFactory.getProfileService() ;
             DoctorProfile profile = profileService.getDoctorProfile(profileInit.getDoctor() , getProductContext()) ;
             result.setObject(profile);
-            result.setNextPageKey("");
+            result.setNextPageKey("doctorprofile");
             result.setResult(TransactionResult.Result.SUCCESS);
+            return  result;
 
         }
         return super.submit(object, actionParam);

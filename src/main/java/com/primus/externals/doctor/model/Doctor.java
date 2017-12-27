@@ -43,6 +43,12 @@ public class Doctor extends PrimusBusinessModel {
 		name  = val;
 	}
 
+	@Transient
+	public String getFullName()
+	{
+		return "DR " +  name  + " " + qualification ;
+	}
+
 	String qualification;
 
 	@Column(name  ="QUALIFICATIONS")
