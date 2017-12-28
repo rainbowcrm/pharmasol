@@ -14,6 +14,7 @@ import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.StockistAssociation;
 import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.store.model.Store;
 import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.primus.framework.nextup.NextUpGenerator;
@@ -433,7 +434,10 @@ public class AppointmentService extends AbstractService {
             appointment.setManager(agent);
         }else{
             appointment.setAgent(agent);
-            appointment.setManager(agent.getManagerUser());
+            if (agent.getManagerUser() != null)
+                appointment.setManager(agent.getManagerUser());
+            else
+                appointment.setManager(agent);
         }
 
 
@@ -680,6 +684,12 @@ public class AppointmentService extends AbstractService {
         return result;
 
     }
+
+    public List<Appointment> getStoreAppointments(Store store, Date fromDate, ProductContext context)
+    {
+        return appointmentDAO.getAllStoreAppointments(store.getId(),context.getLoggedinCompany(),fromDate);
+    }
+
 
     public List<Appointment> getDoctorAppointments(Doctor doctor, Date fromDate, ProductContext context)
     {

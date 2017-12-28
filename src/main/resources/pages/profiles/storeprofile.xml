@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="storeprofile" showinFrame="true" title="Store Profile | Primus CRM "
+      Object="com.primus.profiles.model.StoreProfile"
+      Controller="com.primus.profiles.controller.ProfileController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=profiles</Forward>
+
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+
+    <Elements>
+        <UIForm Id="cust" method="POST" enctype="multipart/form-data">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+
+                <Section type="header">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="doctor.fileWithLink" />
+
+                    <Element label="" type="UILabel"  Id="txtemployee" showInPrevCol="true" style="crudlabel"  size="10"
+                             property="store.Name"/>
+
+                    <Element label="" type="UIHidden"  Id="hdnEmployeeId" showInPrevCol="true" style="crudlabel"  size="10"
+                             property="store.id"/>
+
+                </Section>
+                <Section type="detailForSale">
+
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                        <Element type="UITab" Id="idDoctor" title="Details" showinTable="true" cols="3">
+
+                            <Element label="Region" type="UILabel"  Id="txtfirstName" style="crudlabel"
+                                     property="store.storeAssociation.location.region.name"/>
+
+                            <Element label="Location" type="UILabel"  Id="txtlocation" style="crudlabel"
+                                     property="store.storeAssociation.location.name"/>
+
+                            <Element label="Specialization" type="UILabel"  Id="txtfirstName" style="crudlabel"
+                                     property="doctor.specialization.description"/>
+
+                            <Element label="Hospital" type="UILabel"   style="crudlabel" Id="txtfirstName"
+                                     property="doctor.hospital"/>
+
+                            <Element label="Qualification" type="UILabel"   style="crudlabel" Id="txtQual"
+                                     property="doctor.qualification" />
+
+                            <Element label="Description" type="UILabel"  style="crudlabel" Id="txtdescription"
+                                     property="doctor.description"/>
+
+                            <Element label="Address1" type="UILabel"  style="crudlabel" Id="txtaddress1"
+                                     property="doctor.address.address1"/>
+
+                            <Element label="Address2" type="UILabel"  style="crudlabel" Id="txtaddress2"
+                                     property="doctor.address.address2"/>
+
+                            <Element label="Street_Name" type="UILabel"  style="crudlabel" Id="txtStr3"
+                                     property="doctor.address.streetName"/>
+
+                            <Element label="Zipcode" type="UILabel"   style="crudlabel" Id="txtzipcode"
+                                     property="doctor.address.zipCode"/>
+
+                            <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="doctor.address.city"/>
+
+                            <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="doctor.address.phone"/>
+
+                            <Element label="Alternate_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="doctor.alternatePhone"/>
+
+                            <Element label="Email" type="UILabel"   style="crudlabel" Id="txtcontactEmail"
+                                     property="doctor.email"/>
+
+                            <Element label="Gmail_Id" type="UILabel"   style="crudlabel" Id="txtgmailId"
+                                     property="doctor.gmailId"/>
+
+                            <Element label="Facebook_Id" type="UILabel"   style="crudlabel" Id="txtfacebookId"
+                                     property="doctor.faceBookId"/>
+
+                        </Element>
+
+                        <!-- Doctor Visists start-->
+                        <Element type="UITab" Id="idVisits" title="Visits"  showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblViists"
+                                     property="appointments[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Visit_No"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Agent"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="35%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="FeedBack"/>
+                                        </Element>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.Appointment"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtApptDocNo"
+                                                 property="docNo"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtApptDate"
+                                                 property="apptDate">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="Agent"
+                                                 isMandatory="false" property="agent.userId"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="35%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtApptFeedBack"
+                                                 property="feedBack" />
+                                    </Element>
+
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Doctor Visit End -->
+
+                        <!-- Prescription Survery start-->
+                        <Element type="UITab" Id="idprescSurvey" title="Prescription_Survey"  showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransSurvey"
+                                     property="prescriptionSurveys[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Store"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PrescriptionSurvey"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtSkuName" listId="lstsku"
+                                                 property="sku.name">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtApptStore"
+                                                 isMandatory="false" property="appointment.store.name"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSurveyQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtSurveyDate"
+                                                 property="prescriptionDate"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Prescription Survey End -->
+
+                        <!-- Promoted Items start-->
+                        <Element type="UITab" Id="idPromtedItems" title="Promoted_Items"  showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblProtemsmoI"
+                                     property="promotedItems[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Visit_No"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="30%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Details"/>
+                                        </Element>
+
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PromotedItem"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtItemCode"
+                                                 property="item.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtItemName"
+                                                 property="item.name">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtVisit"
+                                                 property="appointment.docNo"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="30%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtProoDetails"
+                                                 property="promoDetails" />
+                                    </Element>
+
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Promoted Items End -->
+
+                    </Element>
+
+                </Section>
+
+
+            </CoreSection>
+            <Section type="optionalsummary">
+                <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
+                         iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
+                         fixedActionParam="CANCEL"/>
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>

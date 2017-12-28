@@ -54,7 +54,7 @@ public class AppointmentDAO extends AbstractDAO{
     public List<Appointment> getAllStoreAppointments( int store, int companyId, Date fromDate  )
     {
         Query query = em.createQuery("from  Appointment appointment where store.id = :store  and company.id = :company and " +
-                "  deleted =false and apptDate >= :fromDate ");
+                "  deleted =false and apptDate >= :fromDate and status.code in ('CMPLTD','CLSD') ");
         query.setParameter("store", store);
         query.setParameter("company", companyId);
         query.setParameter("fromDate", fromDate);
@@ -66,7 +66,7 @@ public class AppointmentDAO extends AbstractDAO{
     public List<Appointment> getAllStockistsAppointments( int stockist, int companyId, Date fromDate  )
     {
         Query query = em.createQuery("from  Appointment appointment where stockist.id = :stockist  and company.id = :company and " +
-                "  deleted =false and apptDate >= :fromDate ");
+                "  deleted =false and apptDate >= :fromDate and status.code in ('CMPLTD','CLSD') ");
         query.setParameter("stockist", stockist);
         query.setParameter("company", companyId);
         query.setParameter("fromDate", fromDate);

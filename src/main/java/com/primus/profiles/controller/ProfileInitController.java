@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractTransactionController;
 import com.primus.common.ServiceFactory;
 import com.primus.profiles.model.DoctorProfile;
 import com.primus.profiles.model.ProfileInit;
+import com.primus.profiles.model.StoreProfile;
 import com.primus.profiles.service.ProfileService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
@@ -25,13 +26,20 @@ public class ProfileInitController extends AbstractTransactionController{
     public PageResult submit(ModelObject object, String actionParam) {
         PageResult result = new PageResult() ;
         if("VIEWPROFILE".equalsIgnoreCase(actionParam)) {
+
             ProfileInit profileInit = (ProfileInit) object;
-            ProfileService profileService = ServiceFactory.getProfileService() ;
-            DoctorProfile profile = profileService.getDoctorProfile(profileInit.getDoctor() , getProductContext()) ;
-            result.setObject(profile);
-            result.setNextPageKey("doctorprofile");
+            ProfileService profileService = ServiceFactory.getProfileService();
+            if(profileInit.getDoctor() != null ) {
+                DoctorProfile profile = profileService.getDoctorProfile(profileInit.getDoctor(), getProductContext());
+                result.setObject(profile);
+                result.setNextPageKey("doctorprofile");
+            } else if (profileInit.getStore() != null ) {
+                StoreProfile profile = profileService.getStoreProfile(profileInit.getStore(), getProductContext());
+                result.setObject(profile);
+                result.setNextPageKey("storeprofile");
+            }
             result.setResult(TransactionResult.Result.SUCCESS);
-            return  result;
+            return result;
 
         }
         return super.submit(object, actionParam);

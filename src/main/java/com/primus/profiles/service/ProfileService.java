@@ -7,7 +7,11 @@ import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.doctor.validator.DoctorValidator;
+import com.primus.externals.store.model.Store;
+import com.primus.externals.store.service.StoreService;
+import com.primus.externals.store.validator.StoreValidator;
 import com.primus.profiles.model.DoctorProfile;
+import com.primus.profiles.model.StoreProfile;
 import org.hibernate.boot.jaxb.hbm.internal.CacheAccessTypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +35,51 @@ public class ProfileService {
     @Autowired
     AppointmentService appointmentService;
 
+    @Autowired
+    StoreService storeService ;
+
+    @Autowired
+    StoreValidator storeValidator ;
+
+    public StoreProfile getStoreProfile(Store store, ProductContext context)
+    {
+        StoreProfile profile = new StoreProfile();
+        store = (Store) storeService.getFullObject(store,context) ;
+        storeValidator.adaptToUI(store,context) ;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,1990);
+        calendar.set(Calendar.MONTH,1);
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+
+        List<Appointment> appointments = appointmentService.getStoreAppointments(store,calendar.getTime(),context) ;
+        profile.setStore(store);
+        profile.setAppointments(appointments);
+
+        profile.setPrescriptionSurveys( new ArrayList<>());
+        profile.setStoreVisitOrderLines( new ArrayList<>());
+        profile.setCompetitorSalesLines(new ArrayList<>());
+        appointments.forEach(appointment ->  {
+
+            profile.getPrescriptionSurveys().addAll(
+                    appointment.getPrescriptionSurveys().stream().filter(
+                            survey -> !survey.isDeleted()).collect(Collectors.toList())
+            );
+            profile.getStoreVisitOrderLines().addAll(
+                    appointment.getOrderLines().stream().filter(
+                            orderLine -> !orderLine.isDeleted()).collect(Collectors.toList())
+            );
+
+            profile.getCompetitorSalesLines().addAll(
+                    appointment.getCompetitorSalesLines().stream().filter(
+                            competitorSalesLine -> !competitorSalesLine.isDeleted()).collect(Collectors.toList())
+            );
+
+        });
+
+        return  profile ;
+
+    }
     public DoctorProfile getDoctorProfile(Doctor doctor, ProductContext context)
     {
         DoctorProfile profile = new DoctorProfile();
