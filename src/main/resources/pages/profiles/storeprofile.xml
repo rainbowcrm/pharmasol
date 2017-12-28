@@ -20,7 +20,7 @@
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
 
-                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="doctor.fileWithLink" />
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="store.fileWithLink" />
 
                     <Element label="" type="UILabel"  Id="txtemployee" showInPrevCol="true" style="crudlabel"  size="10"
                              property="store.Name"/>
@@ -42,44 +42,42 @@
                             <Element label="Location" type="UILabel"  Id="txtlocation" style="crudlabel"
                                      property="store.storeAssociation.location.name"/>
 
-                            <Element label="Specialization" type="UILabel"  Id="txtfirstName" style="crudlabel"
-                                     property="doctor.specialization.description"/>
+                            <Element label="code" type="UILabel"  Id="txtfirstName" style="crudlabel"
+                                     property="store.code"/>
 
-                            <Element label="Hospital" type="UILabel"   style="crudlabel" Id="txtfirstName"
-                                     property="doctor.hospital"/>
 
-                            <Element label="Qualification" type="UILabel"   style="crudlabel" Id="txtQual"
-                                     property="doctor.qualification" />
 
                             <Element label="Description" type="UILabel"  style="crudlabel" Id="txtdescription"
-                                     property="doctor.description"/>
+                                     property="store.description"/>
 
                             <Element label="Address1" type="UILabel"  style="crudlabel" Id="txtaddress1"
-                                     property="doctor.address.address1"/>
+                                     property="store.address.address1"/>
 
                             <Element label="Address2" type="UILabel"  style="crudlabel" Id="txtaddress2"
-                                     property="doctor.address.address2"/>
+                                     property="store.address.address2"/>
 
                             <Element label="Street_Name" type="UILabel"  style="crudlabel" Id="txtStr3"
-                                     property="doctor.address.streetName"/>
+                                     property="store.address.streetName"/>
 
                             <Element label="Zipcode" type="UILabel"   style="crudlabel" Id="txtzipcode"
-                                     property="doctor.address.zipCode"/>
+                                     property="store.address.zipCode"/>
 
-                            <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="doctor.address.city"/>
+                            <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="store.address.city"/>
 
-                            <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="doctor.address.phone"/>
+                            <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="store.address.phone"/>
 
-                            <Element label="Alternate_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="doctor.alternatePhone"/>
+                            <Element label="Contact_Person" type="UILabel" style="crudlabel" Id="txtconactPerson" property="contactPerson"/>
+
+                            <Element label="Contact_Person_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="store.alternatePhone"/>
 
                             <Element label="Email" type="UILabel"   style="crudlabel" Id="txtcontactEmail"
-                                     property="doctor.email"/>
+                                     property="store.email"/>
 
                             <Element label="Gmail_Id" type="UILabel"   style="crudlabel" Id="txtgmailId"
-                                     property="doctor.gmailId"/>
+                                     property="store.gmailId"/>
 
                             <Element label="Facebook_Id" type="UILabel"   style="crudlabel" Id="txtfacebookId"
-                                     property="doctor.faceBookId"/>
+                                     property="store.faceBookId"/>
 
                         </Element>
 
@@ -153,7 +151,7 @@
                                         </Element>
 
                                         <Element type="UITableCol" width="25%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Store"/>
+                                            <Element label="" type="UILabel" Id="lblCode" value="Doctor"/>
                                         </Element>
                                         <Element type="UITableCol" width="15%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
@@ -178,7 +176,7 @@
                                     </Element>
                                     <Element type="UITableCol" width="25%">
                                         <Element label="" type="UILabel"  style="CRUDLabel" Id="txtApptStore"
-                                                 isMandatory="false" property="appointment.store.name"   >
+                                                 isMandatory="false" property="doctor.name"   >
                                         </Element>
                                     </Element>
                                     <Element type="UITableCol" width="15%">
@@ -199,22 +197,25 @@
                         <!--Prescription Survey End -->
 
                         <!-- Promoted Items start-->
-                        <Element type="UITab" Id="idPromtedItems" title="Promoted_Items"  showinTable="false">
+                        <Element type="UITab" Id="idOrdLines" title="Order_Lines"  showinTable="false">
 
                             <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
-                                     Id="tblProtemsmoI"
-                                     property="promotedItems[]">
+                                     Id="tblOrdLines"
+                                     property="storeVisitOrderLines[]">
                                 <Element type="UITableHead" style="listPageTitle">
                                     <Element type="UITableRow">
                                         <Element type="UITableCol" width="10%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
                                         </Element>
                                         <Element type="UITableCol" width="20%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
                                         </Element>
 
                                         <Element type="UITableCol" width="25%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Visit_No"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
                                         </Element>
                                         <Element type="UITableCol" width="30%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Details"/>
@@ -227,11 +228,11 @@
                                          rendered="!Object.isDeleted">
                                     <Element type="UITableCol" width="25%">
                                         <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtItemCode"
-                                                 property="item.code"/>
+                                                 property="sku.code"/>
                                     </Element>
                                     <Element type="UITableCol" width="20%">
                                         <Element label="" type="UILabel" style="CRUDLabel" Id="txtItemName"
-                                                 property="item.name">
+                                                 property="sku.name">
                                         </Element>
 
                                     </Element>
@@ -240,9 +241,14 @@
                                                  property="appointment.docNo"   >
                                         </Element>
                                     </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtVisit"
+                                                 property="qty"   >
+                                        </Element>
+                                    </Element>
                                     <Element type="UITableCol" width="30%">
                                         <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtProoDetails"
-                                                 property="promoDetails" />
+                                                 property="details" />
                                     </Element>
 
 

@@ -107,6 +107,9 @@
         <Page id = "doctorprofile" definition ="/resources/pages/profiles/doctorprofile.xml"  accessCode ="MGR::DOCTORPROFILE"  modelclass = "com.primus.profiles.model.DoctorProfile" >
         </Page>
 
+        <Page id = "storeprofile" definition ="/resources/pages/profiles/storeprofile.xml"  accessCode ="MGR::STOREPROFILE"  modelclass = "com.primus.profiles.model.StoreProfile" >
+        </Page>
+
 
 
 
