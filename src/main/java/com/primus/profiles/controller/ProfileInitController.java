@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractTransactionController;
 import com.primus.common.ServiceFactory;
 import com.primus.profiles.model.DoctorProfile;
 import com.primus.profiles.model.ProfileInit;
+import com.primus.profiles.model.StockistProfile;
 import com.primus.profiles.model.StoreProfile;
 import com.primus.profiles.service.ProfileService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -37,6 +38,10 @@ public class ProfileInitController extends AbstractTransactionController{
                 StoreProfile profile = profileService.getStoreProfile(profileInit.getStore(), getProductContext());
                 result.setObject(profile);
                 result.setNextPageKey("storeprofile");
+            }else if (profileInit.getStockist() != null ) {
+                StockistProfile profile = profileService.getStockistProfile(profileInit.getStockist(), getProductContext());
+                result.setObject(profile);
+                result.setNextPageKey("stockistprofile");
             }
             result.setResult(TransactionResult.Result.SUCCESS);
             return result;

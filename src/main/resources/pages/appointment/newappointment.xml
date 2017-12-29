@@ -74,7 +74,11 @@
                               property="template.templateNo">
 
                     </Element>
+                    <Element label="" type="UIHidden" Id="HdnRegion" style="CRUDLabel" property="location.region.id"/>
+                    <Element label="" type="UIHidden" Id="HdnRegionName" style="CRUDLabel" property="location.region.name"/>
                     <Element label="Location" type="UILabel"  style="CRUDLabel" Id="lstlocation" property="location.name">
+                        <Element label="" type="UIHidden" Id="hdnLocation" property="location.id"/>
+                        <Element label="" type="UIHidden" Id="hdnLocationname" property="location.name"/>
 
                     </Element>
                     <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
@@ -440,7 +444,7 @@
                             <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StockistVisitOrderLine"
                                      rendered="!Object.isDeleted">
                                 <Element type="UITableCol" width="25%">
-                                    <Element label="" type="UIText"  Id="txtStockOrdLineSkuCode"
+                                    <Element label="" type="UIText"  Id="txtStkOrdLineSkuCode"
                                              property="sku.code"/>
                                 </Element>
                                 <Element type="UITableCol" width="20%">

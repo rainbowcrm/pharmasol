@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id="storeprofile" showinFrame="true" title="Store Profile | Primus CRM "
-      Object="com.primus.profiles.model.StoreProfile"
+<Page id="stockistprofile" showinFrame="true" title="Stockist Profile | Primus CRM "
+      Object="com.primus.profiles.model.StockistProfile"
       Controller="com.primus.profiles.controller.ProfileController">
     <Template type="Transaction" name="TransactionTemplate"></Template>
     <Forwards>
@@ -20,13 +20,13 @@
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
 
-                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="store.fileWithLink" />
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "75" width ="75" src= "#" style="roundedImage" property ="stockist.fileWithLink" />
 
                     <Element label="" type="UILabel"  Id="txtemployee" showInPrevCol="true" style="crudlabel"  size="10"
-                             property="store.Name"/>
+                             property="stockist.Name"/>
 
                     <Element label="" type="UIHidden"  Id="hdnEmployeeId" showInPrevCol="true" style="crudlabel"  size="10"
-                             property="store.id"/>
+                             property="stockist.id"/>
 
                 </Section>
                 <Section type="detailForSale">
@@ -37,47 +37,47 @@
                         <Element type="UITab" Id="idDoctor" title="Details" showinTable="true" cols="3">
 
                             <Element label="Region" type="UILabel"  Id="txtfirstName" style="crudlabel"
-                                     property="store.storeAssociation.location.region.name"/>
+                                     property="stockist.stockistAssociation.location.region.name"/>
 
                             <Element label="Location" type="UILabel"  Id="txtlocation" style="crudlabel"
-                                     property="store.storeAssociation.location.name"/>
+                                     property="stockist.stockistAssociation.location.name"/>
 
                             <Element label="code" type="UILabel"  Id="txtfirstName" style="crudlabel"
-                                     property="store.code"/>
+                                     property="stockist.code"/>
 
 
 
                             <Element label="Description" type="UILabel"  style="crudlabel" Id="txtdescription"
-                                     property="store.description"/>
+                                     property="stockist.description"/>
 
                             <Element label="Address1" type="UILabel"  style="crudlabel" Id="txtaddress1"
-                                     property="store.address.address1"/>
+                                     property="stockist.address.address1"/>
 
                             <Element label="Address2" type="UILabel"  style="crudlabel" Id="txtaddress2"
-                                     property="store.address.address2"/>
+                                     property="stockist.address.address2"/>
 
                             <Element label="Street_Name" type="UILabel"  style="crudlabel" Id="txtStr3"
-                                     property="store.address.streetName"/>
+                                     property="stockist.address.streetName"/>
 
                             <Element label="Zipcode" type="UILabel"   style="crudlabel" Id="txtzipcode"
-                                     property="store.address.zipCode"/>
+                                     property="stockist.address.zipCode"/>
 
-                            <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="store.address.city"/>
+                            <Element label="City" type="UILabel"   style="crudlabel" Id="txtcity" property="stockist.address.city"/>
 
-                            <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="store.address.phone"/>
+                            <Element label="Phone" type="UILabel"   style="crudlabel" Id="txtphone" property="stockist.address.phone"/>
 
-                            <Element label="Contact_Person" type="UILabel" style="crudlabel" Id="txtconactPerson" property="store.contactPerson"/>
+                            <Element label="Contact_Person" type="UILabel" style="crudlabel" Id="txtconactPerson" property="stockist.contactPerson"/>
 
-                            <Element label="Contact_Person_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="store.contactPersonPhone"/>
+                            <Element label="Contact_Person_Phone" type="UILabel"   style="crudlabel" Id="txotconactPersonPhone" property="stockist.contactPersonPhone"/>
 
                             <Element label="Email" type="UILabel"   style="crudlabel" Id="txtcontactEmail"
-                                     property="store.email"/>
+                                     property="stockist.email"/>
 
                             <Element label="Gmail_Id" type="UILabel"   style="crudlabel" Id="txtgmailId"
-                                     property="store.gmailId"/>
+                                     property="stockist.gmailId"/>
 
                             <Element label="Facebook_Id" type="UILabel"   style="crudlabel" Id="txtfacebookId"
-                                     property="store.faceBookId"/>
+                                     property="stockist.faceBookId"/>
 
                         </Element>
 
@@ -135,73 +135,12 @@
                         </Element>
                         <!--Doctor Visit End -->
 
-                        <!-- Prescription Survery start-->
-                        <Element type="UITab" Id="idprescSurvey" title="Prescription_Survey"  showinTable="false">
-
-                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
-                                     Id="tblTransSurvey"
-                                     property="prescriptionSurveys[]">
-                                <Element type="UITableHead" style="listPageTitle">
-                                    <Element type="UITableRow">
-                                        <Element type="UITableCol" width="10%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
-                                        </Element>
-                                        <Element type="UITableCol" width="20%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
-                                        </Element>
-
-                                        <Element type="UITableCol" width="25%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Doctor"/>
-                                        </Element>
-                                        <Element type="UITableCol" width="15%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
-                                        </Element>
-                                        <Element type="UITableCol" width="10%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
-                                        </Element>
-
-                                    </Element>
-                                </Element>
-                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PrescriptionSurvey"
-                                         rendered="!Object.isDeleted">
-                                    <Element type="UITableCol" width="25%">
-                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSkuCode"
-                                                 property="sku.code"/>
-                                    </Element>
-                                    <Element type="UITableCol" width="20%">
-                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtSkuName" listId="lstsku"
-                                                 property="sku.name">
-                                        </Element>
-
-                                    </Element>
-                                    <Element type="UITableCol" width="25%">
-                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtApptStore"
-                                                 isMandatory="false" property="doctor.name"   >
-                                        </Element>
-                                    </Element>
-                                    <Element type="UITableCol" width="15%">
-                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSurveyQty"
-                                                 property="qty" isNumeric="true"/>
-                                    </Element>
-                                    <Element type="UITableCol" width="10%">
-                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtSurveyDate"
-                                                 property="prescriptionDate"/>
-                                    </Element>
-
-                                </Element>
-
-                            </Element>
-
-
-                        </Element>
-                        <!--Prescription Survey End -->
-
                         <!-- Order Lines start-->
                         <Element type="UITab" Id="idOrdLines" title="Order_Lines"  showinTable="false">
 
                             <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
                                      Id="tblOrdLines"
-                                     property="storeVisitOrderLines[]">
+                                     property="stockistVisitOrderLines[]">
                                 <Element type="UITableHead" style="listPageTitle">
                                     <Element type="UITableRow">
                                         <Element type="UITableCol" width="10%">
@@ -224,7 +163,7 @@
 
                                     </Element>
                                 </Element>
-                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StoreVisitOrderLine"
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StockistVisitOrderLine"
                                          rendered="!Object.isDeleted">
                                     <Element type="UITableCol" width="25%">
                                         <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtItemCode"

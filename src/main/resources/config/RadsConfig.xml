@@ -110,6 +110,8 @@
         <Page id = "storeprofile" definition ="/resources/pages/profiles/storeprofile.xml"  accessCode ="MGR::STOREPROFILE"  modelclass = "com.primus.profiles.model.StoreProfile" >
         </Page>
 
+        <Page id = "stockistprofile" definition ="/resources/pages/profiles/stockistprofile.xml"  accessCode ="MGR::STOCKISTPROFILE"  modelclass = "com.primus.profiles.model.StockistProfile" >
+        </Page>
 
 
 
@@ -243,7 +245,7 @@
             </Element>
 
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  >
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=catcegories" iconStyle="fa fa-fw fa-folder"  />
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-folder"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-file"  />
                 <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-magic"  />
             </Element>

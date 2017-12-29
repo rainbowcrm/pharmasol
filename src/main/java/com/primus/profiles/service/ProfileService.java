@@ -7,10 +7,14 @@ import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.doctor.validator.DoctorValidator;
+import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.stockist.validator.StockistValidator;
 import com.primus.externals.store.model.Store;
 import com.primus.externals.store.service.StoreService;
 import com.primus.externals.store.validator.StoreValidator;
 import com.primus.profiles.model.DoctorProfile;
+import com.primus.profiles.model.StockistProfile;
 import com.primus.profiles.model.StoreProfile;
 import org.hibernate.boot.jaxb.hbm.internal.CacheAccessTypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,38 @@ public class ProfileService {
 
     @Autowired
     StoreValidator storeValidator ;
+
+    @Autowired
+    StockistService stockistService ;
+
+    @Autowired
+    StockistValidator stockistValidator ;
+
+     public StockistProfile getStockistProfile(Stockist stockist, ProductContext context)
+     {
+         StockistProfile profile = new StockistProfile();
+         stockist = (Stockist)  stockistService.getFullObject(stockist,context) ;
+         stockistValidator.adaptToUI(stockist,context) ;
+
+         Calendar calendar = Calendar.getInstance();
+         calendar.set(Calendar.YEAR,1990);
+         calendar.set(Calendar.MONTH,1);
+         calendar.set(Calendar.DAY_OF_MONTH,1);
+
+         List<Appointment> appointments = appointmentService.getStockistAppointments(stockist,calendar.getTime(),context) ;
+         profile.setStockist(stockist);
+         profile.setAppointments(appointments);
+
+         profile.setStockistVisitOrderLines(new ArrayList<>() );
+         appointments.forEach(appointment -> {
+             profile.getStockistVisitOrderLines().addAll(
+                     appointment.getStockistVisitOrderLines().stream().filter(
+                             orderLine -> !orderLine.isDeleted()).collect(Collectors.toList())
+             );
+
+         });
+         return  profile;
+     }
 
     public StoreProfile getStoreProfile(Store store, ProductContext context)
     {
