@@ -4,6 +4,7 @@ public class FVConstants {
 
     public final static String  PGM_APPTTEMPLATE = "AppointmentTemplate";
     public final static String  PGM_APPT = "Appointment";
+    public final static String  PGM_INBOUNDORDER= "InboundOrder";
 
     public final static String FV_INDUSTRY_TYPE = "INDUSTRY";
     public final static String FV_BUSINESS_TYPE = "BUSINESS";

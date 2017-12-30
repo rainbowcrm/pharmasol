@@ -1,6 +1,7 @@
 package com.primus.admin.division.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
+import com.primus.admin.region.model.Location;
 import com.primus.common.FiniteValue;
 import com.primus.common.address.Address;
 import com.techtrade.rads.framework.annotations.RadsPropertySet;
@@ -129,5 +130,20 @@ public class Division extends PrimusBusinessModel {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    Location location ;
+
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "LOCATION_ID")
+    public Location getLocation() {
+        return location;
+    }
+
+    @RadsPropertySet(useBKForJSON = true, useBKForMap = true, useBKForXML = true)
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
