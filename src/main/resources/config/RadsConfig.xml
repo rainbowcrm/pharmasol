@@ -148,6 +148,9 @@
     <AjaxService service ="regionLocationSearch" class = "com.primus.common.ajaxservices.RegionLocationAjaxService">
         <key>region</key>
     </AjaxService>
+        <AjaxService service ="allFiniteValues" class = "com.primus.common.ajaxservices.AllFiniteValues">
+
+        </AjaxService>
     <AjaxService service ="filterSearch" class = "com.primus.common.ajaxservices.FilterAjaxService">
         <key>filterId</key>
         <key>filterName</key>

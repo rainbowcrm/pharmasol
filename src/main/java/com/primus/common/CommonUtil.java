@@ -21,12 +21,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommonUtil  extends  ServiceFactory {
 
     public static  Map<String,String> getFiniteValues(String typeCode) {
         return ServiceLibrary.services().getGeneralSQL().getFiniteValues(typeCode) ;
+    }
+
+    public static List<FiniteValue> getAllFiniteValues() {
+        return ServiceLibrary.services().getGeneralSQL().getAllFiniteValues() ;
     }
 
 
@@ -61,6 +66,8 @@ public class CommonUtil  extends  ServiceFactory {
         String authToken  =  String.valueOf(request.getHeader("authToken"));
         if(Utils.isNullString(authToken))
             authToken  =  String.valueOf(request.getParameter("authToken"));
+        if(Utils.isNullString(authToken))
+            authToken  =  String.valueOf(request.getAttribute("authToken"));
         if(Utils.isNullString(authToken))
             authToken = getTokenfromSession(request.getSession().getId());
         LoginService service = getLoginService() ;

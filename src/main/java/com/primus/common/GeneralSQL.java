@@ -5,9 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class GeneralSQL {
@@ -24,6 +22,23 @@ public class GeneralSQL {
             String code = rowSet.getString(1);
             String desc = rowSet.getString(2);
             finiteValues.put(code, desc);
+        }
+
+        return finiteValues;
+    }
+
+    public  List<FiniteValue> getAllFiniteValues() {
+
+        List<FiniteValue> finiteValues = new LinkedList<>();
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select CODE,TYPE_CODE,DESCRIPTION,IS_DEFAULT from FINITE_VALUES");
+
+        while (rowSet.next()) {
+            String code = rowSet.getString(1);
+            String typeCode = rowSet.getString(2);
+            String desc = rowSet.getString(3);
+            boolean def = rowSet.getBoolean(4);
+            FiniteValue val = new FiniteValue(typeCode,code,desc,def);
+            finiteValues.add(val);
         }
 
         return finiteValues;
