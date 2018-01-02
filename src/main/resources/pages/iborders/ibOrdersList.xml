@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Page id="Appointments" showinFrame="true" title="Appointment | Primus WFM"
-      Object="com.primus.crm.appointment.model.Appointment"
-      Controller="com.primus.crm.appointment.controller.AppointmentListController">
+<Page id="iborders" showinFrame="true" title="Inbound Orders | Primus CRM"
+      Object="com.primus.operations.iborder.model.InboundOrder"
+      Controller="com.primus.operations.iborder.controller.InboundOrderListController">
 
     <Template type="List" name="ListTemplate"></Template>
     <Forwards>
-        <Forward key="NEW">controller?page=newappointment</Forward>
-        <Forward key="EDIT">controller?page=newappointment</Forward>
+        <Forward key="NEW">controller?page=newinboundorder</Forward>
+        <Forward key="EDIT">controller?page=newinboundorder</Forward>
     </Forwards>
     <AjaxGroups>
         <AjaxGroup service="filterSearch">
@@ -16,9 +16,9 @@
             <responseElements>
                 <responseElement key="FilterName">txtFilterName</responseElement>
                 <responseElement key="docNo">txtdocNo</responseElement>
-                <responseElement key="template">txttemplate</responseElement>
-                <responseElement key="location">txtlocation</responseElement>
-                <responseElement key="agent">txtagent</responseElement>
+                <responseElement key="division">lstDivision</responseElement>
+                <responseElement key="region">lstRegion</responseElement>
+                <responseElement key="status">lststatus</responseElement>
             </responseElements>
         </AjaxGroup>
     </AjaxGroups>
@@ -40,10 +40,22 @@
                     <Element label="Doc_No" type="UIText" Id="txtdocNo " property="docNo"/>
                 </FilterNode>
                 <FilterNode>
-                    <Element label="Template" type="UILookupDataList" Id="txttemplate " property="template"/>
+                    <Element label="Division" type="UIList" Id="lstDivision " property="division.id">
+                        <options populator="getAllDivisions" populatorParam="true">
+                        </options>
+                    </Element>
                 </FilterNode>
                 <FilterNode>
-                    <Element label="Location" type="UIList" Id="txtlocation " property="location"/>
+                    <Element label="Region" type="UIList" Id="lstRegion" property="region.id">
+                        <options populator="getAllRegions" populatorParam="true">
+                        </options>
+                    </Element>
+                </FilterNode>
+                <FilterNode>
+                    <Element label="Status" type="UIList" Id="lstStatus" property="lststatus.code">
+                        <options populator="getAllStatus" >
+                        </options>
+                    </Element>
                 </FilterNode>
 
             </FilterSection>
@@ -57,22 +69,17 @@
                     <Column title="Doc_No" sortField="DOC_NO" width="15%">
                         <Element label="" type="UINote" Id="idIdNote" property="docNo"/>
                     </Column>
-                    <Column title="Template" sortField="TEMPLATE_ID" width="15%">
-                        <Element label="" type="UINote" Id="idIdNote" property="template.templateNo"/>
+                    <Column title="Division" sortField="DIVISION.NAME" width="25%">
+                        <Element label="" type="UINote" Id="idIdNote" property="division.Name"/>
                     </Column>
-                    <Column title="Date" sortField="APPT_DATE" width="15%">
-                        <Element label="" type="UINote" Id="idIdNote" property="dateString"/>
+                    <Column title="Regions" sortField="REGION.NAME" width="25%">
+                        <Element label="" type="UINote" Id="idIdNote" property="region.Name"/>
                     </Column>
-                    <Column title="Party_Type" sortField="APPT_PARTY_TYPE" width="10%">
-                        <Element label="" type="UINote" Id="idIdNote" property="partyType.description"/>
+                    <Column title="Date" sortField="REQST_DATE" width="15%">
+                        <Element label="" type="UINote" Id="idIdNote" property="requestedDate"/>
                     </Column>
-                    <Column title="Party" sortField="" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="PartyName"/>
-                    </Column>
-
-
-                    <Column title="Status" sortField="APPT_STATUS" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="status.description"/>
+                       <Column title="Status" sortField="ORDER_STATUS" width="20%">
+                        <Element label="" type="UINote" Id="idIdNote" property="orderStatus.description"/>
                     </Column>
 
                 </Columns>

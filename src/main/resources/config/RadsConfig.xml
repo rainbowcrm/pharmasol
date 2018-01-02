@@ -114,6 +114,8 @@
         </Page>
 
 
+        <Page id = "inboundorders" definition ="/resources/pages/iborders/ibOrdersList.xml" modelclass = "com.primus.operations.iborder.model.InboundOrder" >
+        </Page>
 
         <Page id = "roles" definition ="/resources/pages/role/roleList.xml" modelclass = "com.primus.admin.role.model.Role" >
         </Page>
@@ -258,11 +260,11 @@
 
         <Panel key = "operationsMenuPanel"   showInDiv = "false">
 
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Operations" groupId= "menuGRP002"  >
-                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Receiving"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
-                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Orders" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
-                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Inventory"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
-                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Shipping"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Inbound" groupId= "menuGRP002"  >
+                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Store_Requests"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=inboundorders" iconStyle="fa fa-fw fa-tags"  />
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stockist_Requests" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Orders"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Receiving"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Audit"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
             </Element>
 

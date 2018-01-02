@@ -1,5 +1,7 @@
 package com.primus.abstracts;
 
+import com.primus.admin.division.model.Division;
+import com.primus.admin.division.service.DivisionService;
 import com.primus.admin.reasoncode.model.ReasonCode;
 import com.primus.admin.reasoncode.service.ReasonCodeService;
 import com.primus.admin.region.model.Location;
@@ -173,6 +175,20 @@ public  abstract  class AbstractTransactionController extends TransactionControl
         Map ans = new LinkedHashMap() ;
         RegionService service = ServiceFactory.getRegionService() ;
         List<Location> locations =(List<Location> ) service.fetchAllActive("com.primus.admin.region.model.Location",null,"name", getProductContext()) ;
+        locations.forEach( location ->  {
+            ans.put(String.valueOf(location.getId()),location.getName());
+        });
+        return ans;
+
+    }
+
+    public Map<String,String> getAllDivisions(String useSelect)
+    {
+        Map ans = new LinkedHashMap() ;
+        DivisionService service = ServiceFactory.getDivisionService();
+        if( "true".equalsIgnoreCase(useSelect) )
+            ans.put("-1","--Select one--");
+        List<Division> locations =(List<Division> ) service.fetchAllActive("com.primus.admin.region.model.Division",null,"name", getProductContext()) ;
         locations.forEach( location ->  {
             ans.put(String.valueOf(location.getId()),location.getName());
         });

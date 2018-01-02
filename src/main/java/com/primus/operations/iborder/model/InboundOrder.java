@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
-@Table(name = "APPOINTMENTS")
+@Table(name = "INBOUND_ORDERS")
 @AttributeOverrides({
         @AttributeOverride(name = "ID", column = @Column(name = "ID")),
         @AttributeOverride(name = "createdDate", column = @Column(name = "CREATED_DATE")),
@@ -29,14 +29,14 @@ public class InboundOrder extends PrimusBusinessModel {
     Date requestedDate  ;
     Date requiredDate ;
     FiniteValue orderStatus;
-    double headerDiscountPercent;
-    double headerDiscountAmount;
-    double lineDiscountTotal ;
-    double transportationCharges;
-    double totalTaxPercent;
-    double totalTaxAmount;
-    double grossTotal;
-    double netTotal;
+    Double headerDiscountPercent;
+    Double headerDiscountAmount;
+    Double lineDiscountTotal ;
+    Double transportationCharges;
+    Double totalTaxPercent;
+    Double totalTaxAmount;
+    Double grossTotal;
+    Double netTotal;
     String description ;
     Collection<InboundOrderLine> inboundOrderLines ;
 
@@ -105,75 +105,75 @@ public class InboundOrder extends PrimusBusinessModel {
     }
 
     @Column(name = "HEADER_DISCOUNT_PERCENT")
-    public double getHeaderDiscountPercent() {
+    public Double getHeaderDiscountPercent() {
         return headerDiscountPercent;
     }
 
-    public void setHeaderDiscountPercent(double headerDiscountPercent) {
+    public void setHeaderDiscountPercent(Double headerDiscountPercent) {
         this.headerDiscountPercent = headerDiscountPercent;
     }
 
     @Column(name = "HEADER_DISCOUNT_AMOUNT")
-    public double getHeaderDiscountAmount() {
+    public Double getHeaderDiscountAmount() {
         return headerDiscountAmount;
     }
 
-    public void setHeaderDiscountAmount(double headerDiscountAmount) {
+    public void setHeaderDiscountAmount(Double headerDiscountAmount) {
         this.headerDiscountAmount = headerDiscountAmount;
     }
 
     @Column(name = "LINE_DISCOUNT")
-    public double getLineDiscountTotal() {
+    public Double getLineDiscountTotal() {
         return lineDiscountTotal;
     }
 
-    public void setLineDiscountTotal(double lineDiscountTotal) {
+    public void setLineDiscountTotal(Double lineDiscountTotal) {
         this.lineDiscountTotal = lineDiscountTotal;
     }
 
     @Column(name = "TRANSPORTATION_CHARGES")
-    public double getTransportationCharges() {
+    public Double getTransportationCharges() {
         return transportationCharges;
     }
 
-    public void setTransportationCharges(double transportationCharges) {
+    public void setTransportationCharges(Double transportationCharges) {
         this.transportationCharges = transportationCharges;
     }
 
     @Column(name = "TOTAL_TAX_PERCENT")
-    public double getTotalTaxPercent() {
+    public Double getTotalTaxPercent() {
         return totalTaxPercent;
     }
 
-    public void setTotalTaxPercent(double totalTaxPercent) {
+    public void setTotalTaxPercent(Double totalTaxPercent) {
         this.totalTaxPercent = totalTaxPercent;
     }
 
     @Column(name = "TOTAL_TAX_AMOUNT")
-    public double getTotalTaxAmount() {
+    public Double getTotalTaxAmount() {
         return totalTaxAmount;
     }
 
-    public void setTotalTaxAmount(double totalTaxAmount) {
+    public void setTotalTaxAmount(Double totalTaxAmount) {
         this.totalTaxAmount = totalTaxAmount;
     }
 
     @Column(name = "GROSS_TOTAL")
-    public double getGrossTotal() {
+    public Double getGrossTotal() {
         return grossTotal;
     }
 
-    public void setGrossTotal(double grossTotal) {
+    public void setGrossTotal(Double grossTotal) {
         this.grossTotal = grossTotal;
     }
 
     @Column(name = "NET_TOTAL")
-    public double getNetTotal() {
+    public Double getNetTotal() {
         return netTotal;
 
     }
 
-    public void setNetTotal(double netTotal) {
+    public void setNetTotal(Double netTotal) {
         this.netTotal = netTotal;
     }
 
