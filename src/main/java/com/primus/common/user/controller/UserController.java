@@ -1,6 +1,7 @@
 package com.primus.common.user.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
+import com.primus.abstracts.AbstractTransactionController;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.user.model.User;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserController extends AbstractCRUDController{
+public class UserController extends AbstractTransactionController{
     @Override
     protected String getServiceName() {
         return "UserService";

@@ -1,7 +1,13 @@
 package com.primus.abstracts;
 
+import com.primus.admin.division.model.Division;
+import com.primus.admin.division.service.DivisionService;
+import com.primus.admin.region.model.Location;
+import com.primus.admin.region.model.Region;
+import com.primus.admin.region.service.RegionService;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.primus.common.filter.model.PRMFilter;
 import com.primus.common.filter.service.FilterService;
 import com.primus.util.ServiceLibrary;
@@ -250,6 +256,48 @@ public abstract class AbstractListController extends ListController {
     public Map<String,String> getFiniteValues(String groupCode)
     {
         return CommonUtil.getFiniteValues(groupCode);
+
+    }
+
+    public Map<String,String> getAllRegions(String useSelect)
+    {
+        Map ans = new LinkedHashMap() ;
+        if( "true".equalsIgnoreCase(useSelect) )
+            ans.put("-1","--Select one--");
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Region> regions =(List<Region> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        regions.forEach( region ->  {
+            ans.put(String.valueOf(region.getId()),region.getName());
+        });
+        return ans;
+
+    }
+
+    public Map<String,String> getAllLocations(String useSelect)
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        if( "true".equalsIgnoreCase(useSelect) )
+            ans.put("-1","--Select one--");
+        List<Location> locations =(List<Location> ) service.fetchAllActive("com.primus.admin.region.model.Location",null,"name", getProductContext()) ;
+        locations.forEach( location ->  {
+            ans.put(String.valueOf(location.getId()),location.getName());
+        });
+        return ans;
+
+    }
+
+    public Map<String,String> getAllDivisions(String useSelect)
+    {
+        Map ans = new LinkedHashMap() ;
+        DivisionService service = ServiceFactory.getDivisionService();
+        if( "true".equalsIgnoreCase(useSelect) )
+            ans.put("-1","--Select one--");
+        List<Division> locations =(List<Division> ) service.fetchAllActive("com.primus.admin.division.model.Division",null,"name", getProductContext()) ;
+        locations.forEach( location ->  {
+            ans.put(String.valueOf(location.getId()),location.getName());
+        });
+        return ans;
 
     }
 }

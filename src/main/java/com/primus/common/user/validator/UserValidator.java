@@ -4,11 +4,13 @@ import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.AbstractValidator;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusModel;
+import com.primus.admin.region.model.Region;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
 import com.primus.common.company.service.CompanyService;
 import com.primus.common.user.model.User;
+import com.primus.common.user.model.UserRegion;
 import com.primus.util.ServiceLibrary;
 import com.primus.admin.division.model.Division;
 import com.primus.admin.division.service.DivisionService;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class UserValidator extends AbstractValidator {
@@ -98,6 +101,19 @@ public class UserValidator extends AbstractValidator {
                 results.add( getErrorforCode(context, CommonErrorCodes.NOT_FOUND,"Company"));
             }
         }
+        if (user.getSelectedRegions() != null && user.getSelectedRegions().length >= 1 ) {
+            for (int i = 0 ; i  < user.getSelectedRegions().length ; i ++ ) {
+                UserRegion userRegion = new UserRegion() ;
+                userRegion.setCompany(user.getCompany());
+                Region region = new Region() ;
+                region.setId(Integer.parseInt(user.getSelectedRegions()[i]));
+                userRegion.setRegion(region);
+                userRegion.setUser(user);
+                userRegion.setAccessAlowed(true);
+                user.addUserRegion(userRegion);
+            }
+
+        }
 
         if(user.getDivision() != null && !Utils.isNullString(user.getDivision().getName() )) {
             DivisionService divisionService = CommonUtil.getDivisionService();
@@ -108,10 +124,24 @@ public class UserValidator extends AbstractValidator {
 
         }
 
-
-
-
         return results;
 
+    }
+
+    @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+        User user = (User) model ;
+        if(!Utils.isNullCollection(user.getUserRegions()))   {
+            String array[] = new String[user.getUserRegions().size()];
+            AtomicInteger ct = new AtomicInteger() ;
+            user.getUserRegions().forEach( userRegion ->  {
+                if(!userRegion.isDeleted()  && userRegion.getAccessAlowed() ==true)  {
+                    array[ct.getAndIncrement() ] = String.valueOf(userRegion.getRegion().getId());
+                }
+
+            });
+            user.setSelectedRegions(array);
+        }
+        return null;
     }
 }

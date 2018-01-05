@@ -8,6 +8,8 @@ import com.primus.common.company.model.Company;
 import com.techtrade.rads.framework.annotations.RadsPropertySet;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USERS")
@@ -42,6 +44,12 @@ public class User extends PrimusModel{
     Division division;
 
     User managerUser;
+
+    Boolean allowAllRegionAccess;
+    Collection<UserRegion> userRegions;
+
+    String [] selectedRegions;
+
 
     @ManyToOne(cascade=CascadeType.DETACH)
     @JoinColumn(name  ="MANAGER_USER_ID"  )
@@ -212,5 +220,40 @@ public class User extends PrimusModel{
 
     public void setDivision(Division division) {
         this.division = division;
+    }
+
+
+    @Column(name  ="ALLOW_ALL_REGIONACCESS")
+    public Boolean getAllowAllRegionAccess() {
+        return allowAllRegionAccess;
+    }
+
+    public void setAllowAllRegionAccess(Boolean allowAllRegionAccess) {
+        this.allowAllRegionAccess = allowAllRegionAccess;
+    }
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "user")
+    public Collection<UserRegion> getUserRegions() {
+        return userRegions;
+    }
+
+    public void setUserRegions(Collection<UserRegion> userRegions) {
+        this.userRegions = userRegions;
+    }
+
+    public void addUserRegion(UserRegion userRegion) {
+        if (userRegions == null )
+            userRegions = new ArrayList<UserRegion>();
+        this.userRegions.add(userRegion);
+    }
+
+
+    @Transient
+    public String[] getSelectedRegions() {
+        return selectedRegions;
+    }
+
+    public void setSelectedRegions(String selectedRegions[]) {
+        this.selectedRegions = selectedRegions;
     }
 }

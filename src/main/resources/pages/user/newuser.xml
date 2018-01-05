@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Page id = "UserCRUD" showinFrame ="true" title ="New User | Rainbow CRM" Object = "com.primus.common.user.model.User"
       Controller = "com.primus.common.user.controller.UserController">
-    <Template type= "CRUD"  name = "CRUDTemplate"></Template>
+    <Template type= "Transaction"  name = "TransactionTemplate"></Template>
     <Forwards>
         <Forward key ="CANCEL">controller?page=users</Forward>
         <Forward key ="SAVE">users</Forward>
@@ -55,13 +55,18 @@
                     <Element label = "Address1"  type = "UIText" Id = "txtAdd1" size="30" property ="Address1" />
                     <Element label = "Address2"  type = "UIText" Id = "txtAdd2" size="30" property ="Address2" />
                     <Element label = "City"  type = "UIText" Id = "txtCity" size="30"  property ="City" />
-                    <Element label = "Pin_code"  type = "UIText" Id = "txtPinCode" size="7" property ="ZipCode" />
+                    <Element label = "Zipcode"  type = "UIText" Id = "txtPinCode" size="7" property ="ZipCode" />
                     <Element label = "Email"  type = "UIText" Id = "txtemail" size="30" isMandatory="true" property ="Email" />
                     <Element label = "Phone"  type = "UIText" Id = "txtPhone" size="30" isMandatory="true" property ="Phone" />
                     <Element label = "Role"  type = "UIList" Id = "lstRole"  isMandatory="true"  property ="RoleType"  externalise= "true">
                         <options populator =  "Controller.getRoleTypes">
                         </options>
                     </Element>
+                    <Element label="All_Region_Access" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtlinksunday" property="allowAllRegionAccess"/>
+
+
+
 
 
 

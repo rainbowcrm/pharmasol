@@ -47,13 +47,13 @@
                 </FilterNode>
                 <FilterNode>
                     <Element label="Region" type="UIList" Id="lstRegion" property="region.id">
-                        <options populator="getAllRegions" populatorParam="true">
+                        <options populator="getAllRegions"   populatorParam="true"  >
                         </options>
                     </Element>
                 </FilterNode>
                 <FilterNode>
-                    <Element label="Status" type="UIList" Id="lstStatus" property="lststatus.code">
-                        <options populator="getAllStatus" >
+                    <Element label="Status" type="UIList" Id="lstStatus" property="orderStatus.code">
+                        <options populator="getFiniteValues" populatorParam="IBORDSTAT">
                         </options>
                     </Element>
                 </FilterNode>
@@ -87,9 +87,10 @@
         </CoreSection>
         <Section type="summary">
 
-            <Element caption="Process" type="UIButton" Id="btnEdit" style="btn btn-warning"
-                     iconStyle="glyphicon glyphicon-pencil" fixedAction="FixedAction.ACTION_GOEDITMODE"
-                     fixedActionParam="EDIT"/>
+            <Element caption = "Add"  type = "UIButton"    Id = "btnAdd"  style="btn btn-primary" iconStyle="glyphicon glyphicon-plus" fixedAction ="FixedAction.ACTION_PAGEFORWARD" fixedActionParam =  "NEW" />
+            <Element caption = "Edit"  type = "UIButton"    Id = "btnEdit"  style="btn btn-warning" iconStyle="glyphicon glyphicon-pencil" fixedAction ="FixedAction.ACTION_GOEDITMODE"  fixedActionParam =  "EDIT"  />
+            <Element caption = "Delete"  type = "UIButton" Id = "btnDel"  style="btn btn-danger" iconStyle="glyphicon glyphicon-trash"  fixedAction ="FixedAction.ACTION_DELETE"  fixedActionParam =  "DELETE"
+                     fixedActionvalidateFunc ="deleteFromList()"/>
             <Element type="Panel" key="NavPanel" style="sameline"></Element>
         </Section>
         <Section type="copyRightSection"/>

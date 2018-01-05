@@ -128,6 +128,12 @@ public  abstract  class AbstractTransactionController extends TransactionControl
 
     }
 
+    public Map<String,String> getFiniteValuesWithSelect(String groupCode)
+    {
+        return CommonUtil.getFiniteValuesWithSelect(groupCode);
+
+    }
+
     @Override
     public List<RadsError> adaptfromUI(ModelObject modelObject) {
         return getValidator().adaptFromUI((PrimusModel) modelObject, (ProductContext) getContext());
@@ -143,6 +149,8 @@ public  abstract  class AbstractTransactionController extends TransactionControl
     public PageResult print() {
         return null;
     }
+
+
 
 
     public Map<String,String> getReasonCodes(String groupCode)

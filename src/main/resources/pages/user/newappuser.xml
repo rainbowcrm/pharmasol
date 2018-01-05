@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Page id = "UserCRUD" showinFrame ="true" title ="New User | Rainbow CRM" Object = "com.primus.common.user.model.User"
       Controller = "com.primus.common.user.controller.UserController">
-    <Template type= "CRUD"  name = "CRUDTemplate"></Template>
+    <Template type= "Transaction"  name = "TransactionTemplate"></Template>
     <Forwards>
         <Forward key ="CANCEL">controller?page=appusers</Forward>
         <Forward key ="SAVE">appusers</Forward>
@@ -25,7 +25,7 @@
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type ="detail">
+                <Section type ="header">
                     <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
                     <Element label = ""  type = "UIHidden" Id = "hdnCompany" style ="bolded"   size="10" property ="Company.Name" />
                     <Element label = ""  type = "UIHidden" Id = "hdnUserID" style ="bolded"   size="10" property ="UserId" />
@@ -41,7 +41,7 @@
 
                     <Element label = ""  type = "UIHidden" Id = "txthdnCompany" isMandatory="true" size="30" property ="Company.Name" />
                     <If check  = "Controller.isUpdateMode" >
-                        <Element label = "User_Id"  type = "UILabel" Id = "lblCompany" style ="bolded"   size="10" property ="UserId" externalise="false" />
+                        <Element label = "User_Id"  type = "UILabel" Id = "lblCompany" style="crudlabel"  size="10" property ="UserId" externalise="false" />
                     </If>
                     <If check  = "Controller.isCreateMode" >
                         <Element label = "User_Id"  type = "UIText" Id = "txtCode"  isMandatory="true" size="10" property ="Prefix" />
@@ -70,13 +70,23 @@
                     <Element label = "Address1"  type = "UIText" Id = "txtAdd1" size="30" property ="Address1" />
                     <Element label = "Address2"  type = "UIText" Id = "txtAdd2" size="30" property ="Address2" />
                     <Element label = "City"  type = "UIText" Id = "txtCity" size="30"  property ="City" />
-                    <Element label = "Zip_Code"  type = "UIText" Id = "txtPinCode" size="7" property ="ZipCode" />
+                    <Element label = "Zipcode"  type = "UIText" Id = "txtPinCode" size="7" property ="ZipCode" />
                     <Element label = "Email"  type = "UIText" Id = "txtemail" size="30" isMandatory="true" property ="Email" />
                     <Element label = "Phone"  type = "UIText" Id = "txtPhone" size="30" isMandatory="true" property ="Phone" />
                     <Element label = "Role"  type = "UIList" Id = "lstRole"  isMandatory="true"  property ="Role.Id"  externalise= "true">
                         <options populator =  "Controller.getRoles">
                         </options>
                     </Element>
+                    <Element label="All_Region_Access" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                             Id="txtlinksunday" property="allowAllRegionAccess"/>
+
+                    <Element label = "RegionsAccess"  type = "UIList" Id = "lstAccessiblleRegions"  multiple ="true" property ="selectedRegions"  externalise= "true">
+                        <options populator =  "getAllRegions">
+                        </options>
+                    </Element>
+
+
+
 
                 </Section>
             </CoreSection>
