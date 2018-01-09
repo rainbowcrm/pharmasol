@@ -116,6 +116,8 @@
 
         <Page id = "inboundorders" definition ="/resources/pages/iborders/ibOrdersList.xml" modelclass = "com.primus.operations.iborder.model.InboundOrder" >
         </Page>
+        <Page id = "apptcalendar" definition ="/resources/pages/calendar/apptcalendar.xml" >
+        </Page>
 
         <Page id = "roles" definition ="/resources/pages/role/roleList.xml" modelclass = "com.primus.admin.role.model.Role" >
         </Page>
@@ -276,7 +278,7 @@
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Appointment" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newadhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Open_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointments" iconStyle="fa fa-fw fa-tags"  />
-                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=apptcalendar" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Past_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
@@ -292,7 +294,7 @@
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Visit" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newmgradhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Completed_Visits" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrcmpappointments" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Archived_Visits" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrclsappointments" iconStyle="fa fa-fw fa-medkit"  />
-                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
+                <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=apptcalendar" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
             <Element label = "" type = "UIMenu" Id = "menu10" style="menustyleParent" title="Summary" groupId= "menuGRP003"  >

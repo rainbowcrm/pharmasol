@@ -155,7 +155,7 @@ public abstract class AbstractService {
         StringBuffer additionalCondition = new StringBuffer();
         additionalCondition = additionalCondition.append(" ");
         if (Utils.isNullString(whereCondition)) {
-            additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany());
+            additionalCondition = additionalCondition.append(" where deleted = false and company.id = " + context.getLoggedinCompany() );
         } else {
             additionalCondition = additionalCondition.append(whereCondition + " and deleted = false and company.id= " + context.getLoggedinCompany());
         }

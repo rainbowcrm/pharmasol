@@ -40,6 +40,7 @@ public class UserService extends AbstractService {
 
                 }else  {
                     findMatchByRegion.setId(oldRecord.getId());
+                    findMatchByRegion.setVersion(oldRecord.getVersion());
                 }
 
             });

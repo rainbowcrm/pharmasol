@@ -6,6 +6,7 @@ import com.primus.common.filter.service.FilterService;
 import com.primus.common.login.model.Login;
 import com.primus.common.login.service.LoginService;
 import com.primus.common.user.model.User;
+import com.primus.common.user.model.UserRegion;
 import com.primus.common.user.service.UserService;
 import com.primus.util.ServiceLibrary;
 import com.primus.admin.role.service.RoleService;
@@ -74,6 +75,8 @@ public class CommonUtil  extends  ServiceFactory {
         ctx = service.generateContext(authToken);
         CompanyService companyService = getCompanyService();
         ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
+        User user = getUser(ctx.getUser()) ;
+        ctx.setLoggedInUser(user);
         if (page != null)
             ctx.setPageAccessCode(page.getAccessCode());
         return ctx;
@@ -88,6 +91,8 @@ public class CommonUtil  extends  ServiceFactory {
         ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
         if (page != null)
             ctx.setPageAccessCode(page.getAccessCode());
+        User user = getUser(ctx.getUser()) ;
+        ctx.setLoggedInUser(user);
         return ctx;
 
     }
@@ -188,4 +193,27 @@ public class CommonUtil  extends  ServiceFactory {
         return true ;
     }
 
+
+   public String getRegionAccess(ProductContext context, boolean fromlocation)
+   {
+       StringBuffer buff = new StringBuffer( ) ;
+       if(context.getLoggedInUser().getAllowAllRegionAccess() == true ) {
+          return "" ;
+        }else  {
+        buff.append(" location.region.id in ( ") ;
+
+        for (int i =0 ; i < ((List)context.getLoggedInUser().getUserRegions()).size() ; i  ++ )  {
+            UserRegion userRegion =  (UserRegion)(((List) (context.getLoggedInUser().getUserRegions()))).get(i) ;
+            if (userRegion.getAccessAlowed() && !userRegion.isDeleted()) {
+                buff.append(userRegion.getRegion().getId());
+                if (i < ((List) context.getLoggedInUser().getUserRegions()).size() - 1)
+                    buff.append(" , ");
+            }
+        }
+            buff.append(" ) ");
+       }
+
+       return buff.toString();
+
+   }
 }
