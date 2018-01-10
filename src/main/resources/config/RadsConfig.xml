@@ -163,12 +163,16 @@
     <AjaxService service ="allFilters" class = "com.primus.common.ajaxservices.AllFiltersAjaxService">
         <key>page</key>
     </AjaxService>
+    <AjaxService service ="allappts" class = "com.primus.crm.appointment.service.AllAppointmentAjaxService">
+
+    </AjaxService>
     <AjaxService service ="itemSearch" class = "com.primus.merchandise.item.service.ItemSearchAjaxService">
         <key>Code</key>
     </AjaxService>
     <AjaxService service ="skuSearch" class = "com.primus.merchandise.item.service.SkuSearchAjaxService">
         <key>Code</key>
     </AjaxService>
+
     <AjaxService service ="skuSecondSearch" class = "com.primus.merchandise.item.service.SkuSearchAjaxService">
         <key>Code</key>
     </AjaxService>
