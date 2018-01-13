@@ -14,29 +14,29 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
         String ans = "\n" +
                 "\n" +
                 "\t\t\t\t{\n" +
-                "\t\t\t\t\ttitle: 'All Day Event',\n" +
-                "\t\t\t\t\tstart: new Date(2018, 0, 12)\n" +
+                "\t\t\t\t\t\"title\": \"All Day Event\",\n" +
+                "\t\t\t\t\t\"start\": \"2018-01-11\"\n" +
                 "\t\t\t\t},\n" +
                 "\t\t\t\t{\n" +
-                "\t\t\t\t\tid: 999,\n" +
-                "\t\t\t\t\ttitle: 'Morning Event',\n" +
-                "\t\t\t\t\tstart: new Date(2018, 0, 11, 8, 0),\n" +
-                "\t\t\t\t\tallDay: false,\n" +
-                "\t\t\t\t\tclassName: 'info'\n" +
+                "\t\t\t\t\t\"id\": 999,\n" +
+                "\t\t\t\t\t\"title\": \"Morning Event\",\n" +
+                "\t\t\t\t\t\"start\": \"2018-01-11 11:00\",\n" +
+                "\t\t\t\t\t\"allDay\": false,\n" +
+                "\t\t\t\t\t\"className\": \"info\"\n" +
                 "\t\t\t\t},\n" +
                 "\t\t\t\t{\n" +
-                "\t\t\t\t\tid: 999,\n" +
-                "\t\t\t\t\ttitle: 'Afternoon Event',\n" +
-                "\t\t\t\t\tstart: new Date(2018, 0, 11, 16, 0),\n" +
-                "\t\t\t\t\tallDay: false,\n" +
-                "\t\t\t\t\tclassName: 'info'\n" +
+                "\t\t\t\t\t\"id\": 999,\n" +
+                "\t\t\t\t\t\"title\": \"Afternoon Event\",\n" +
+                "\t\t\t\t\t\"start\": \"2018-01-12 16:00\",\n" +
+                "\t\t\t\t\t\"allDay\": false,\n" +
+                "\t\t\t\t\t\"className\": \"info\"\n" +
                 "\t\t\t\t},\n" +
                 "\t\t\t\t{\n" +
-                "\t\t\t\t\tid: 999,\n" +
-                "\t\t\t\t\ttitle: 'Timepass Event',\n" +
-                "\t\t\t\t\tstart: new Date(2018, 0, 18, 10, 0),\n" +
-                "\t\t\t\t\tallDay: false,\n" +
-                "\t\t\t\t\tclassName: 'info'\n" +
+                "\t\t\t\t\t\"id\": 999,\n" +
+                "\t\t\t\t\t\"title\": \"Timepass Event\",\n" +
+                "\t\t\t\t\t\"start\": \"2018-01-18 11:00\",\n" +
+                "\t\t\t\t\t\"allDay\": false,\n" +
+                "\t\t\t\t\t\"className\": \"info\"\n" +
                 "\t\t\t\t}\n" +
                 "\t\t\t ";
         return ans ;

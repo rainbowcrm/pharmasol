@@ -1455,13 +1455,26 @@ function Calendar(element, options, eventSources) {
 		if (elementVisible()) {
 		var requestStr = "http://localhost:10210/controller?ajxService=allappts";
 		var reqObject = new XMLHttpRequest();
+		reqObject.onreadystatechange = function() {
+               if (this.readyState == 4 && this.status == 200) {
+               debugger
+                events  =   JSON.parse('['+reqObject.responseText+']')  ;
+                for (i in events) {
+                   events[i].start = new Date(events[i].start);
+                }
+                console.log("fetching events =" + events.toString());
+			    currentView.setEventData(events); // for View.js, TODO: unify with renderEvents
+			    currentView.renderEvents(events, modifiedEventID); // actually render the DOM elements
+			    currentView.trigger('eventAgfterAllRender');
+              }
+         };
         reqObject.open("GET",requestStr,false);
         reqObject.send();
         console.log("Responsse =" + reqObject.responseText);
 
-			//	events  =  [ JSON.parse(reqObject.responseText) ] ;
 
-		events = [
+
+		/*events = [
 
 				{
 					title: 'All Day Event',
@@ -1488,13 +1501,10 @@ function Calendar(element, options, eventSources) {
 					allDay: false,
 					className: 'info'
 				}
-				];
+				];*/
 
 
-			console.log("fetching events =" + events.toString());
-			currentView.setEventData(events); // for View.js, TODO: unify with renderEvents
-			currentView.renderEvents(events, modifiedEventID); // actually render the DOM elements
-			currentView.trigger('eventAgfterAllRender');
+
 		}
 	}
 
