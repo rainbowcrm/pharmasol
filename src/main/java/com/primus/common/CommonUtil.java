@@ -27,28 +27,27 @@ import java.util.Map;
 
 public class CommonUtil  extends  ServiceFactory {
 
-    public static  Map<String,String> getFiniteValues(String typeCode) {
-        return ServiceLibrary.services().getGeneralSQL().getFiniteValues(typeCode) ;
+    public static Map<String, String> getFiniteValues(String typeCode) {
+        return ServiceLibrary.services().getGeneralSQL().getFiniteValues(typeCode);
     }
 
     public static List<FiniteValue> getAllFiniteValues() {
-        return ServiceLibrary.services().getGeneralSQL().getAllFiniteValues() ;
+        return ServiceLibrary.services().getGeneralSQL().getAllFiniteValues();
     }
 
 
-    public static  Map<String,String> getFiniteValuesWithSelect(String typeCode) {
-        Map  valuesMap = new LinkedHashMap();
-        valuesMap.put("null" ,"--Select one--");
-        valuesMap.putAll(ServiceLibrary.services().getGeneralSQL().getFiniteValues(typeCode)) ;
-        return  valuesMap ;
+    public static Map<String, String> getFiniteValuesWithSelect(String typeCode) {
+        Map valuesMap = new LinkedHashMap();
+        valuesMap.put("null", "--Select one--");
+        valuesMap.putAll(ServiceLibrary.services().getGeneralSQL().getFiniteValues(typeCode));
+        return valuesMap;
     }
 
-    public  static ProductContext generateContext(Login login)
-    {
+    public static ProductContext generateContext(Login login) {
         ProductContext ctx = new ProductContext();
         ctx.setUser(login.getUsername());
-        UserService userService = getUserService() ;
-        User user =  (User)userService.getById(login.getUsername()) ;
+        UserService userService = getUserService();
+        User user = (User) userService.getById(login.getUsername());
         ctx.setLoggedinCompany(user.getCompany().getId());
         ctx.setLoggedinCompanyCode(user.getCompany().getCode());
         ctx.setCompany(user.getCompany());
@@ -57,25 +56,25 @@ public class CommonUtil  extends  ServiceFactory {
 
         return ctx;
     }
-    public static String getTokenfromSession(String sessionId)
-    {
+
+    public static String getTokenfromSession(String sessionId) {
         return sessionId;
     }
 
     public static IRadsContext generateContext(HttpServletRequest request, UIPage page) {
         ProductContext ctx = new ProductContext();
-        String authToken  =  String.valueOf(request.getHeader("authToken"));
-        if(Utils.isNullString(authToken))
-            authToken  =  String.valueOf(request.getParameter("authToken"));
-        if(Utils.isNullString(authToken))
-            authToken  =  String.valueOf(request.getAttribute("authToken"));
-        if(Utils.isNullString(authToken))
+        String authToken = String.valueOf(request.getHeader("authToken"));
+        if (Utils.isNullString(authToken))
+            authToken = String.valueOf(request.getParameter("authToken"));
+        if (Utils.isNullString(authToken))
+            authToken = String.valueOf(request.getAttribute("authToken"));
+        if (Utils.isNullString(authToken))
             authToken = getTokenfromSession(request.getSession().getId());
-        LoginService service = getLoginService() ;
+        LoginService service = getLoginService();
         ctx = service.generateContext(authToken);
         CompanyService companyService = getCompanyService();
-        ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
-        User user = getUser(ctx.getUser()) ;
+        ctx.setCompany((Company) companyService.getById(ctx.getLoggedinCompany()));
+        User user = getUser(ctx.getUser());
         ctx.setLoggedInUser(user);
         if (page != null)
             ctx.setPageAccessCode(page.getAccessCode());
@@ -83,45 +82,48 @@ public class CommonUtil  extends  ServiceFactory {
 
     }
 
-    public static IRadsContext generateContext(String  authToken, UIPage page) {
+    public static IRadsContext generateContext(String authToken, UIPage page) {
         ProductContext ctx = new ProductContext();
-        LoginService service = getLoginService() ;
+        LoginService service = getLoginService();
         ctx = service.generateContext(authToken);
         CompanyService companyService = getCompanyService();
-        ctx.setCompany((Company)companyService.getById(ctx.getLoggedinCompany()));
+        ctx.setCompany((Company) companyService.getById(ctx.getLoggedinCompany()));
         if (page != null)
             ctx.setPageAccessCode(page.getAccessCode());
-        User user = getUser(ctx.getUser()) ;
+        User user = getUser(ctx.getUser());
         ctx.setLoggedInUser(user);
         return ctx;
 
     }
 
-    public  static User getUser(String userId)
-    {
-        UserService userService = getUserService() ;
-        User user = (User)userService.getById(userId);
+    public static User getUser(String userId) {
+        UserService userService = getUserService();
+        User user = (User) userService.getById(userId);
         return user;
     }
 
-    public  static Company getCompany(int companyId)
-    {
-        CompanyService service = getCompanyService() ;
-        Company company = (Company)service.getById(companyId);
+    public static Company getCompany(int companyId) {
+        CompanyService service = getCompanyService();
+        Company company = (Company) service.getById(companyId);
         return company;
     }
 
 
     public static String getFileExtn(String fullName) {
         if (fullName.contains(".")) {
-            String laterPart = fullName.substring(fullName.indexOf(".")+1,fullName.length());
+            String laterPart = fullName.substring(fullName.indexOf(".") + 1, fullName.length());
             return laterPart;
         }
         return "";
     }
 
+    public static void uploadFile(byte[] bytes, String fileName, ProductContext context, String subFolder)
+    {
+        uploadFile(bytes,fileName ,context,subFolder,context.getLoggedinCompanyCode()  );
+    }
 
-    public static void uploadFile (byte[] bytes, String fileName, ProductContext context, String subFolder )
+
+    public static void uploadFile (byte[] bytes, String fileName, ProductContext context, String subFolder, String companyCode )
     {
         if (Utils.isNullString(fileName))
             return;
@@ -149,7 +151,7 @@ public class CommonUtil  extends  ServiceFactory {
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(
                         bytes);
                 System.out.println("Start uploading first file");
-                changeFolder(ftpClient, context.getLoggedinCompanyCode(),subFolder);
+                changeFolder(ftpClient, companyCode,subFolder);
                 boolean done = ftpClient.storeFile(fileName, inputStream);
                 inputStream.close();
 /*				InputStream st2 = ftpClient.retrieveFileStream("/public_html/pics/MP003-a.jpg");

@@ -20,7 +20,7 @@
     </AjaxGroups>
 
     <Elements>
-        <UIForm Id ="cust" method = "POST" >
+        <UIForm Id ="cust" method = "POST" enctype="multipart/form-data" >
             <!--<Section type ="topBar"></Section>
             <Section type ="leftsideBar"></Section>-->
             <CoreSection>
@@ -37,10 +37,16 @@
                         <Element label = "Company_Code"  type = "UILabel" Id = "txtCode" style ="bolded"   size="10" property ="Code" externalise ="false" />
                     </If>
                     <Element label = "Company_Name"  type = "UIText" Id = "txtName"  isMandatory="true" size="40" property ="Name" />
+
                     <Element label = "Industry"  type = "UIList" Id = "lstIndustry"   property ="industryType.code"  externalise= "true">
                         <options populator =  "getFiniteValues" populatorParam = "INDUSTRY"  >
                         </options>
                     </Element>
+                    <Element label = "Logo" type = "UIFileUpload" Id = "txtPhoto3" property ="image" maxSize="30720"
+                             multiple ="false"  fileNameProperty="fileName"   onChangeJS ="readURL(this,'idIMG3')" accept= ".png, .jpg, .jpeg, .gif"  />
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "200" weight ="200" src= "#" property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithLink"   property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithoutLink"   property ="fileWithoutLink" />
                     <Element label = "Business"  type = "UIList" Id = "lstBusiness"   property ="businessType.code"  externalise= "true">
                         <options populator =  "getFiniteValues" populatorParam = "BUSINESS" >
                         </options>

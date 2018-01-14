@@ -3,6 +3,8 @@ package com.primus.common.company.validator;
 import com.primus.abstracts.*;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
+import com.primus.externals.doctor.model.Doctor;
+import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -38,6 +40,15 @@ public class CompanyValidator  extends AbstractValidator{
     public List<RadsError> checkforValueRanges(PrimusModel model, ProductContext context) {
 
         return null;
+    }
+
+    @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+        Company object = (Company) model;
+        String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
+        object.setFileWithLink(serverURL + object.getLogo());
+        object.setFileWithoutLink(object.getLogo());
+        return  null ;
     }
 
     @Override
