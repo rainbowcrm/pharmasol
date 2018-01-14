@@ -55,6 +55,13 @@
                         <options populator="getFiniteValues" populatorParam="SPECIAL">
                         </options>
                     </Element>
+
+                    <Element label="Class" type="UIList" isMandatory="false" Id="lstClass"
+                             property="doctorClass.code">
+                        <options populator="getFiniteValues" populatorParam="DOCCLASS">
+                        </options>
+                    </Element>
+
                     <Element label="Hospital" type="UIText" isMandatory="false" Id="txtHospital"
                              property="hospital"/>
                     <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"

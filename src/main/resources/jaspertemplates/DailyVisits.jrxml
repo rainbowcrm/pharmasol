@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DailyVisits" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac7beecb-bda0-43bc-90d5-50feed9640b2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="258"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="742"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Visits_PerDay.xml"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="481"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="505"/>
+	<parameter name="RegionId" class="java.lang.Integer"/>
+	<parameter name="fromDate" class="java.util.Date"/>
+	<parameter name="toDate" class="java.util.Date"/>
+	<parameter name="Region" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select doc_no ,  appt_date , appt_time  , agent_user_id,doctors.name Doctor , stores.name Store ,stockists.name Stockist,
+companies.company_name,
+users.first_name , users.last_name , finite_values.description,appt_party_type
+from 
+ appointments left outer join doctors on appointments.doctor_id   = doctors.id  
+ left outer join stores on appointments.store_id = stores.id
+  left outer join locations on appointments.location_id = locations.id 
+ left outer join stockists on appointments.stockist_id = stockists.id 
+left outer join companies on appointments.company_id =   companies.id  and locations.region_id =$P{RegionId} 
+left outer join users on appointments.agent_user_id = users.user_id 
+left outer join finite_values on appointments.appt_status = finite_values.code
+and appt_date <=   $P{toDate}  and appt_time <=  $P{fromDate} 
+ order by appointments.appt_date]]>
+	</queryString>
+	<field name="doc_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="doc_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="appt_date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="appt_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="appt_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="appt_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="agent_user_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="agent_user_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<field name="Doctor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="doctors"/>
+	</field>
+	<field name="Store" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stores"/>
+	</field>
+	<field name="Stockist" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stockists"/>
+	</field>
+	<field name="company_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="company_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companies"/>
+	</field>
+	<field name="first_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
+	</field>
+	<field name="last_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="last_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="finite_values"/>
+	</field>
+	<field name="appt_party_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="appt_party_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="appointments"/>
+	</field>
+	<variable name="VisitParty" class="java.lang.String">
+		<variableExpression><![CDATA[($F{appt_party_type}.compareTo( "PTSTCK" )==0)  ?$F{Stockist}:(($F{appt_party_type}.compareTo( "PTSTRE" )==0) ?$F{Store}:$F{Doctor})]]></variableExpression>
+	</variable>
+	<variable name="doc_no1" class="java.lang.Integer" resetType="Group" resetGroup="Date" calculation="Count">
+		<variableExpression><![CDATA[$F{doc_no}]]></variableExpression>
+	</variable>
+	<variable name="partyType" class="java.lang.String">
+		<variableExpression><![CDATA[($F{appt_party_type}.compareTo( "PTSTCK" )==0) ?" [Stockist] ":(($F{appt_party_type}.compareTo( "PTSTRE" )==0) ? " [Store]":" [Doctor]")]]></variableExpression>
+	</variable>
+	<variable name="doc_no2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{doc_no}]]></variableExpression>
+	</variable>
+	<group name="Date">
+		<groupExpression><![CDATA[$F{appt_date}]]></groupExpression>
+		<groupHeader>
+			<band height="34">
+				<textField pattern="dd-MMM-yyyy">
+					<reportElement x="0" y="9" width="90" height="20" uuid="f6ddd1b6-7601-4933-a09a-0e9c1fbdede5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f916755b-f9b9-407a-98ae-da945c72dc8a"/>
+					</reportElement>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{appt_date}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="23">
+				<textField>
+					<reportElement x="440" y="0" width="100" height="20" uuid="8b5f5ead-524c-4c8e-a362-2e0cb3680356"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{doc_no1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="310" y="0" width="120" height="20" uuid="54392c15-668e-40c9-8956-1d989c361f39"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Visits for the day]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="3" width="280" height="30" uuid="c9a4f3fa-4be3-48d2-8457-fb788b4e274d"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{company_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="120" height="20" uuid="5d20bc4c-0297-433b-9b2e-b18a5aab9037"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Region Wise Visits From]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="20" uuid="79956aa3-8dce-4c57-bd99-49fc5bd87cda"/>
+				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="41" y="20" width="79" height="17" uuid="60c9d08b-1fed-4664-9750-61a8156a9a6a"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="20" width="100" height="17" uuid="69469b55-dc51-4ab5-ae64-2acb34b24d3b"/>
+				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="16bf9372-652f-43eb-9d6e-d22e1b0455a8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22233997-e7e1-4960-9682-83addf123d11"/>
+				</reportElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="80" width="90" height="19" uuid="8853f16e-1abd-4c71-9bb1-3771433fc20d"/>
+				<text><![CDATA[Agent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="80" width="100" height="22" uuid="697f6ff0-3514-41e2-8d15-4f8152dfe27a"/>
+				<text><![CDATA[Visit To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="80" width="74" height="19" uuid="cb245955-3435-4c3c-8d7b-b66b8906e73c"/>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="40" width="100" height="20" uuid="46b08064-c4bb-4dbc-ba74-f235414c7c51"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Region]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="40" width="100" height="20" uuid="d0b136df-1cbd-4a3d-90aa-dedcece3ae80"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Region}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="8a81f96a-097f-49d7-b36b-8fbab291e22e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22233997-e7e1-4960-9682-83addf123d11"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{doc_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="90" height="20" uuid="1a5b8873-c052-4e5b-b4a5-fa606ac9cab8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="824d131d-7372-4d2b-bfa5-2ee9dda76aad"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{agent_user_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="hh:mm">
+				<reportElement x="120" y="0" width="80" height="21" uuid="89bfc845-d1fc-4d2a-b54f-0a0065dd50cf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a042f80b-052f-4696-882e-a1f7a57d1be4"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{appt_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="110" height="20" uuid="494d747a-80c8-410f-994c-2d08dfa1b670"/>
+				<textFieldExpression><![CDATA[$V{VisitParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="1" width="100" height="18" uuid="e4a4de90-24cf-4153-86c8-8770a8e4b0c3"/>
+				<textFieldExpression><![CDATA[$V{partyType}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="440" y="0" width="100" height="20" uuid="a845df07-553c-49d3-a6f8-78aa316d51fd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{doc_no2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="2" width="120" height="18" uuid="c7599897-116c-48b6-881b-eb843ba1edba"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Visits]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

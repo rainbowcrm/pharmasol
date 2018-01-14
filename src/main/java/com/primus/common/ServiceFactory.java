@@ -26,6 +26,7 @@ import com.primus.merchandise.item.service.SkuService;
 import com.primus.merchandise.item.service.UOMService;
 import com.primus.merchandise.product.service.ProductService;
 import com.primus.profiles.service.ProfileService;
+import com.primus.report.service.ReportService;
 import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.utils.Utils;
 
@@ -169,9 +170,15 @@ public class ServiceFactory {
         return service ;
     }
 
+
     public static ProfileService getProfileService()
     {
         return ServiceLibrary.services().getProfileService() ;
+    }
+
+    public static ReportService getReportService() {
+        ReportService service  =(ReportService)ServiceLibrary.services().getService("ReportService")  ;
+        return service ;
     }
     public static Location getLocation (Location location, ProductContext context) {
         RegionService service = getRegionService() ;

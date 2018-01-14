@@ -421,6 +421,8 @@
                 </Section>-->
             </CoreSection>
             <Section type="optionalsummary">
+
+
                 <Element caption="Close_Visit" type="UIButton" Id="btnAlink" style="btn btn-success"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="CLOSE_APPOINTMENT"/>

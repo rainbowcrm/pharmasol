@@ -72,16 +72,28 @@ public class Doctor extends PrimusBusinessModel {
 		this.specialization = specialization;
 	}
 
+	FiniteValue doctorClass;
+
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name  ="DOCCLASS")
+	public FiniteValue getDoctorClass() {
+		return doctorClass;
+	}
+
+	public void setDoctorClass(FiniteValue doctorClass) {
+		this.doctorClass = doctorClass;
+	}
+
 	String description ;
 
-	
+
 	@Column(name  ="DESCRIPTION")
 	public String  getDescription ()
 	{
 		return description;
 	}
 
-	
+
 	public void setDescription ( String   val )
 	{
 		description  = val;

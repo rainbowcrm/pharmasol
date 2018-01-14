@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newAdhowAppointment" showinFrame="true" title="Visit Summary  | Primus CRM"
+      Object="com.primus.report.model.ReportModel"
+      Controller="com.primus.report.controller.ReportController">
+    <Template type="General" name="generalTemplate"></Template>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+
+    </AjaxGroups>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="mainSection">
+                    <Element label="Region" type="UIList" Id="LstRegion" property="region.id">
+                        <options populator="getAllRegions">
+                        </options>
+                    </Element>
+                    <Element label="from" type="UIDate" Id ="txtFrom" style="custom30width" property="fromDate"></Element>
+                    <Element label="to" type="UIDate" Id ="txtTo" style="custom30width"  property="toDate"></Element>
+
+
+                    <!-- <Element label="" type="UILabel"  Id="lblblank1" value ="" />
+                     <Element label="" type="UILabel"  Id="lblblank2" value ="" />-->
+                    <Element caption="Report" type="UIButton" Id="btnAlink" style="btn btn-success"
+                             iconStyle="glyphicon glyphicon-forward" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                             fixedActionParam="viewReport"/>
+                </Section>
+                <Section type="summary">
+                    <!--<Element caption="Proceed" type="UIButton" Id="btnAlink" style="btn btn-success"
+                             iconStyle="glyphicon glyphicon-forward" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                             fixedActionParam="INITIATEVISIT"/>-->
+                </Section>
+
+            </CoreSection>
+        </UIForm>
+    </Elements>
+
+</Page>

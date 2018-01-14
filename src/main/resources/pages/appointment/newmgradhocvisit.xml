@@ -138,7 +138,7 @@
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
                         <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
 
-                            <Element label="Agent" type="UILookupDataList"  listId="lstReportteed" Id="txtagent"  style="CRUDLabel"    property="agent.userId">
+                            <Element label="Agent" type="UILookupDataList"   listId="lstReportteed" Id="txtagent"  style="custom30width"    property="agent.userId">
                                 <lookupType>user</lookupType>
                             </Element>
 

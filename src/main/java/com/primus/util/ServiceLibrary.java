@@ -46,6 +46,7 @@ import com.primus.merchandise.product.validator.ProductValidator;
 import com.primus.operations.iborder.service.InboundOrderService;
 import com.primus.operations.iborder.validator.InboundOrderValidator;
 import com.primus.profiles.service.ProfileService;
+import com.primus.report.service.ReportService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -195,6 +196,9 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     InboundOrderValidator inboundOrderValidator ;
 
+    @Autowired
+    ReportService reportService ;
+
 
     public  ApplicationManager getApplicationManager()
    {
@@ -240,6 +244,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "ReasonCodeService" : return reasonCodeService ;
             case "CompetitorService" : return competitorService ;
             case "InboundOrderService" : return  inboundOrderService;
+            case "ReportService"  : return reportService ;
 
         }
         return null;

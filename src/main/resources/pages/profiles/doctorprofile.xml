@@ -28,6 +28,8 @@
                     <Element label="" type="UIHidden"  Id="hdnEmployeeId" showInPrevCol="true" style="crudlabel"  size="10"
                              property="doctor.id"/>
 
+
+
                 </Section>
                 <Section type="detailForSale">
 
@@ -44,6 +46,9 @@
 
                         <Element label="Specialization" type="UILabel"  Id="txtfirstName" style="crudlabel"
                                  property="doctor.specialization.description"/>
+
+                        <Element label="Class" type="UILabel"  Id="txtDoctorClass" showInPrevCol="false" style="crudlabel"  size="10"
+                                 property="doctor.doctorClass.description"/>
 
                         <Element label="Hospital" type="UILabel"   style="crudlabel" Id="txtfirstName"
                                  property="doctor.hospital"/>

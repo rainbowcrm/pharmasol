@@ -33,7 +33,7 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
                 "\t\t\t\t},\n" +
                 "\t\t\t\t{\n" +
                 "\t\t\t\t\t\"id\": 999,\n" +
-                "\t\t\t\t\t\"title\": \"Timepass Event\",\n" +
+                "\t\t\t\t\t\"title\": \"Timepass Mod Event\",\n" +
                 "\t\t\t\t\t\"start\": \"2018-01-18 11:00\",\n" +
                 "\t\t\t\t\t\"allDay\": false,\n" +
                 "\t\t\t\t\t\"className\": \"info\"\n" +

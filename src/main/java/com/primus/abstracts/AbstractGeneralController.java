@@ -1,13 +1,19 @@
 package com.primus.abstracts;
 
+import com.primus.admin.region.model.Region;
+import com.primus.admin.region.service.RegionService;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.controller.abstracts.GeneralController;
 import com.techtrade.rads.framework.ui.abstracts.UIPage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractGeneralController extends GeneralController {
 
@@ -27,4 +33,22 @@ public abstract class AbstractGeneralController extends GeneralController {
         else
             return  ((ProductContext) getContext()).getLoggedinCompanyCode();
     }
+
+    public Map<String,String> getAllRegions()
+    {
+        Map ans = new LinkedHashMap() ;
+        RegionService service = ServiceFactory.getRegionService() ;
+        List<Region> regions =(List<Region> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        regions.forEach( region ->  {
+            ans.put(String.valueOf(region.getId()),region.getName());
+        });
+        return ans;
+
+    }
+
+    public  ProductContext getProductContext()
+    {
+        return (ProductContext) getContext() ;
+    }
+
 }
