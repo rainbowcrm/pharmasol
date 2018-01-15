@@ -1,11 +1,17 @@
 package com.primus.crm.appointment.service;
 
 import com.primus.common.CommonUtil;
+import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
+import com.primus.crm.appointment.model.Appointment;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.controller.abstracts.IAjaxLookupService;
+import com.techtrade.rads.framework.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class AllAppointmentAjaxService implements IAjaxLookupService {
@@ -39,15 +45,40 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
                 "\t\t\t\t\t\"className\": \"info\"\n" +
                 "\t\t\t\t}\n" +
                 "\t\t\t ";
-        return ans ;
+
+        AppointmentService appointmentService = ServiceFactory.getAppointmentService() ;
+        Date fromDate =  new java.util.Date(new java.util.Date().getTime() - ( 6l * 30l * 24l * 3600l * 1000l ));
+        Date toDate =  new java.util.Date(new java.util.Date().getTime() + ( 6l * 30l * 24l * 3600l * 1000l ));
+        List<Appointment> appointments = appointmentService.getAllManagedAppointment(iRadsContext.getUser(),fromDate,toDate,(ProductContext) iRadsContext) ;
+        if (!Utils.isNullList(appointments)) {
+            StringBuffer buffer = new StringBuffer("");
+            appointments.forEach( appointment ->  {
+                if (buffer.length()  >3  )
+                      buffer.append(",\n") ;
+                buffer.append("\n{\n");
+                buffer.append("\"id\":" + appointment.getId() + ",\n");
+                if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointment.getPartyType().getCode()))
+                    buffer.append("\"title\":\"" + appointment.getDoctor().getName() + "\",\n");
+                else if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointment.getPartyType().getCode()))
+                    buffer.append("\"title\":\"" + appointment.getStockist().getName() + "\",\n");
+                else
+                    buffer.append("\"title\":\"" + appointment.getStore().getName() + "\",\n");
+                buffer.append("\"start\":\"" + appointmentService.getAppointmentTimeAsString(appointment,"yyyy-MM-dd","HH:mm") + "\",\n");
+                buffer.append("\"allDay\":false,\n");
+                buffer.append("\"className\":\"info\"\n");
+                buffer.append("\n}");
+
+            });
+            return buffer.toString();
+
+        }
+
+        return "" ;
     }
 
-    @Override
+    @OverrideApp
     public IRadsContext generateContext(HttpServletRequest httpServletRequest) {
-        ProductContext ctx = new ProductContext();
-        ctx.setAuthenticated(true);
-        ctx.setAuthorized(true);
-        return ctx;
-      //  return CommonUtil.generateContext(httpServletRequest,null);
+
+        return CommonUtil.generateContext(httpServletRequest,null);
     }
 }

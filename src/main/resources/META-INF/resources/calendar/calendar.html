@@ -1453,11 +1453,16 @@ function Calendar(element, options, eventSources) {
 
 	function renderEvents(modifiedEventID) { // TODO: remove modifiedEventID hack
 		if (elementVisible()) {
-		var requestStr = "http://localhost:10210/controller?ajxService=allappts";
+		//var requestStr = "http://localhost:10210/controller?ajxService=allappts";
 		var reqObject = new XMLHttpRequest();
+		console.log('appURL=' +window.location.href);
+		var windowLoc = window.location.href;
+		var index = windowLoc.indexOf('/calendar/calendar.html');
+		console.log('index = ' + index);
+		console.log('first part = ' + windowLoc.substring(0,index)) ;
+		requestStr = windowLoc.substring(0,index) +  "/controller?ajxService=allappts"
 		reqObject.onreadystatechange = function() {
                if (this.readyState == 4 && this.status == 200) {
-               debugger
                 events  =   JSON.parse('['+reqObject.responseText+']')  ;
                 for (i in events) {
                    events[i].start = new Date(events[i].start);

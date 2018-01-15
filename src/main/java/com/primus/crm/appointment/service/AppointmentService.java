@@ -707,4 +707,25 @@ public class AppointmentService extends AbstractService {
     {
         return appointmentDAO.getAllDoctorSurveys(doctor.getId(),context.getLoggedinCompany(),fromDate);
     }
+
+    public List<Appointment> getAllManagedAppointment(String managerUserId, Date fromDate, Date toDate ,ProductContext context)
+    {
+        return appointmentDAO.getAllManagedAppointments(managerUserId,context.getLoggedinCompany(),fromDate,toDate);
+    }
+
+    public String getAppointmentTimeAsString( Appointment appointment, String dateFormat, String timeFormat)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
+        String timeString = sdf.format(appointment.getApptTime()) ;
+        String hhPart = timeString.substring(0,2);
+        String mmPart = timeString.substring(3,5);
+        appointment.setHh(Integer.parseInt(hhPart));
+        appointment.setMm(Integer.parseInt(mmPart));
+
+        SimpleDateFormat dateFormatObj = new SimpleDateFormat(dateFormat);
+        String dateString = dateFormatObj.format(appointment.getApptDate()) ;
+        return dateString + " " +  timeString ;
+
+
+    }
 }

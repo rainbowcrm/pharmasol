@@ -74,5 +74,20 @@ public class AppointmentDAO extends AbstractDAO{
         return ans;
 
     }
+
+    public List<Appointment> getAllManagedAppointments( String managerUserId, int companyId, Date fromDate , Date toDate   )
+    {
+        Query query = em.createQuery("from  Appointment appointment where manager.userId = :managerUserId  and company.id = :company and " +
+                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate  and status.code  not in ('CNCLD','CLSCNCLD') ");
+        query.setParameter("managerUserId", managerUserId);
+        query.setParameter("company", companyId);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        List<Appointment> ans = query.getResultList();
+        return ans;
+
+    }
+
+
 }
 
