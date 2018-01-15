@@ -5,9 +5,11 @@ import com.primus.admin.region.service.RegionService;
 import com.primus.common.CommonUtil;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.controller.abstracts.GeneralController;
 import com.techtrade.rads.framework.ui.abstracts.UIPage;
+import com.techtrade.rads.framework.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,20 @@ public abstract class AbstractGeneralController extends GeneralController {
             return  ((ProductContext) getContext()).getCompany().getName();
         else
             return  ((ProductContext) getContext()).getLoggedinCompanyCode();
+    }
+
+    public String  getLogo() {
+        if(((ProductContext) getContext()).getCompany() != null) {
+            String logo =  ((ProductContext) getContext()).getCompany().getLogo() ;  //./images/logo1.gif
+            if (Utils.isNull(logo))
+                return "./images/logo1.gif";
+            else  {
+                String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
+                return serverURL + logo;
+            }
+        }
+        return "./images/logo1.gif";
+
     }
 
     public Map<String,String> getAllRegions()

@@ -221,7 +221,7 @@
         <Panel key = "topBar"   showInDiv = "false">
             <Element type = "UITable" rows = "1" cols = "3">
                 <Element type = "UITableRow">
-                    <Element type = "UITableCol" width ="14%"> <Element label="" type= "UIImage" height = "40%" width ="100%" src= "./images/logo1.gif" /> </Element>
+                    <Element type = "UITableCol" width ="14%"> <Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" /> </Element>
                     <Element type = "UITableCol" width ="25%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/> </Element>
                     <Element type = "UITableCol" width ="50%" align ="center"></Element>
                     <Element type = "UITableCol" width ="25%" align="right"> <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/> </Element>
