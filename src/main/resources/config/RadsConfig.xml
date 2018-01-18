@@ -4,7 +4,8 @@
 
     </ExternalizeFacade>
     <Properties>
-        <appURL>http://localhost:10210/</appURL>
+         <appURL>http://localhost:10210/</appURL>
+        <!-- <appURL>http://pharmacrm.duckdns.org/</appURL> -->
         <settings>com.primus.common.DefaultSettings</settings>
         <portalPrefix></portalPrefix>
         <!-- AWS entry <appURL>http://ec2-35-154-225-199.ap-south-1.compute.amazonaws.com:8080/</appURL>
@@ -220,11 +221,11 @@
         </Panel>
         <Panel key = "topBar"   showInDiv = "false">
             <Element type = "UITable" rows = "1" cols = "3">
-                <Element type = "UITableRow">
-                    <Element type = "UITableCol" width ="14%"> <Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" /> </Element>
-                    <Element type = "UITableCol" width ="25%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/> </Element>
-                    <Element type = "UITableCol" width ="50%" align ="center"></Element>
-                    <Element type = "UITableCol" width ="25%" align="right"> <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/> </Element>
+                <Element type = "UITableRow"> <!--<Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" />-->
+                    <Element type = "UITableCol" style="darkshaded" width ="14%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyCode" style="topBar"/> </Element>
+                    <Element type = "UITableCol" style="lightshaded" width ="25%"> <!--<Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/>--> </Element>
+                    <Element type = "UITableCol" style="lightshaded" width ="50%" align ="center"></Element>
+                    <Element type = "UITableCol" style="lightshaded" width ="25%" align="right"> <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/> </Element>
                 </Element>
             </Element>
         </Panel>
@@ -239,18 +240,19 @@
         </Panel>
 
         <Panel key = "adminMenuPanel"   showInDiv = "false">
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Setup" groupId= "menuGRP001"  >
-                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Zones"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=zones" iconStyle="fa fa-fw fa-sitemap"  />
+            <Element label = "" type = "UIMenuSet">
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Setup" groupId= "menuGRP001" iconStyle="fa fa-fw fa-sitemap"  >
+                <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Zones"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=zones"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Regions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=regions" iconStyle="fa fa-fw fa-flag"  />
                 <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Roles" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=roles" iconStyle="fa fa-fw fa-lock"  />
-                <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions" iconStyle="fa fa-fw fa-university"  />
+                <Element label = "" type = "UIMenu" Id = "menu02" style="menustyle" title="Divisions"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=divisions"  />
                 <!--<Element label = "" type = "UIMenu" Id = "menu03" style="menustyle" title="Deparments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=departments" iconStyle="fa fa-fw fa-tags"  />-->
                 <Element label = "" type = "UIMenu" Id = "menu05" style="menustyle" title="Users" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appusers" iconStyle="fa fa-fw fa-camera" />
                 <Element label = "" type = "UIMenu" Id = "menu06" style="menustyle" title="Reason_Codes" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=reasoncodes" />
 
             </Element>
 
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="External_Parties" groupId= "menuGRP002"  >
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="External_Parties" groupId= "menuGRP002"   iconStyle="fa fa-fw fa-university" >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Stockists"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stockists" iconStyle="fa fa-fw fa-tags"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stores" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Doctors"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
@@ -258,17 +260,17 @@
 
             </Element>
 
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  >
+            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Merchandise" groupId= "menuGRP003"  iconStyle="fa fa-fw fa-magic" >
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Categories"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=categories" iconStyle="fa fa-fw fa-folder"  />
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Products"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=products" iconStyle="fa fa-fw fa-file"  />
-                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items" iconStyle="fa fa-fw fa-magic"  />
+                <Element label = "" type = "UIMenu" Id = "menu04" style="menustyle" title="Items" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=items"   />
             </Element>
 
-
+            </Element>
         </Panel>
 
         <Panel key = "operationsMenuPanel"   showInDiv = "false">
-
+            <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Inbound" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Store_Requests"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=inboundorders" iconStyle="fa fa-fw fa-tags"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Stockist_Requests" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=stores" iconStyle="fa fa-fw fa-medkit"  />
@@ -276,12 +278,13 @@
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Receiving"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Audit"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
             </Element>
+            </Element>
 
         </Panel>
 
 
         <Panel key = "agentmenuPanel"   showInDiv = "false">
-
+            <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Appointment" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newadhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Open_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointments" iconStyle="fa fa-fw fa-tags"  />
@@ -289,29 +292,29 @@
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Past_Appointments"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=doctors" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
-
+            </Element>
         </Panel>
 
 
         <Panel key = "managermenuPanel"   showInDiv = "false">
-
-            <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
-                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates" iconStyle="fa fa-fw fa-tags"  />
+            <Element label = "" type = "UIMenuSet">
+            <Element label = "" type = "UIMenu" Id = "menu00" style="arrow menustyleParent" title="Appointments" groupId= "menuGRP002" iconStyle="fa fa-fw fa-tags" >
+                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates"   />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Open_Appointments" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrappointments" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Visit" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newmgradhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Completed_Visits" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrcmpappointments" iconStyle="fa fa-fw fa-medkit"  />
-                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Archived_Visits" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrclsappointments" iconStyle="fa fa-fw fa-medkit"  />
+                <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Archived_Visits" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=mgrclsappointments"   />
                 <Element label = "" type = "UIMenu" Id = "menu202" style="menustyle" title="Calendar"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=apptcalendar" iconStyle="fa fa-fw fa-stethoscope"  />
 
             </Element>
-            <Element label = "" type = "UIMenu" Id = "menu10" style="menustyleParent" title="Summary" groupId= "menuGRP003"  >
+            <Element label = "" type = "UIMenu" Id = "menu10" style="arrow menustyleParent" title="Summary" groupId= "menuGRP003" iconStyle="fa fa-fw fa-medkit"  >
                 <Element label = "" type = "UIMenu" Id = "menu301" style="menustyle" title="Profiles"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=profiles"   />
             </Element>
-            <Element label = "" type = "UIMenu" Id = "menu20" style="menustyleParent" title="Reports" groupId= "menuGRP004"  >
+            <Element label = "" type = "UIMenu" Id = "menu20" style="arrow menustyleParent" title="Reports" groupId= "menuGRP004" iconStyle="fa fa-fw fa-stethoscope"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Visit_Summary"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=visitreport"   />
             </Element>
 
-
+            </Element>
         </Panel>
 
 

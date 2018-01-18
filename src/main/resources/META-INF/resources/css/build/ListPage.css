@@ -79,7 +79,7 @@ input.fiftyper {
   width: 50%; }
 
 thead {
-  background-color: #282828;
+  background-color: #3c8dbc;
   color: white;
   font-weight: 600; }
 
@@ -390,7 +390,7 @@ tr.evenRowError {
   background-color: #222; }
 
 span.listPageTitle {
-  font-size: 16px; }
+  font-size: 14px; }
 
 tr.oddRow {
   background-color: inherit;

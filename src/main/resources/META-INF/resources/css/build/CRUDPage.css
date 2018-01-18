@@ -100,57 +100,6 @@ body {
 div.seventyfive {
 width:75%;
 }
-div.shortcutbar {
-  position: absolute;
-  top: 6%;
-  left: 14%;
-  height: 5%;
-  width: 86%;
-  background: grey;
-  color: #f4f4f4;
-  text-align: center;
-  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5); }
-
-div.topBar {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 6%;
-  width: 100%;
-  background: #31708f;
-  color: #f4f4f4;
-  text-align: center;
-  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5); }
-  div.topBar button.btn {
-    background: none;
-    color: white; }
-  div.topBar .menu:hover {
-    cursor: hand; }
-  div.topBar .menu {
-    display: none; }
-  div.topBar .menu:before {
-    content: "\f039";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    color: #f4f4f4;
-    font-size: 30px;
-    padding-right: 0.5em;
-    position: absolute;
-    left: 25px; }
-  div.topBar .table-striped > tbody > tr:nth-of-type(odd) {
-    background: none; }
-  div.topBar .table-bordered > tbody > tr > td, div.topBar .table-bordered > tbody > tr > th, div.topBar .table-bordered > tfoot > tr > td, div.topBar .table-bordered > tfoot > tr > th, div.topBar .table-bordered > thead > tr > td, div.topBar .table-bordered > thead > tr > th {
-    border: none; }
-  div.topBar .table-bordered {
-    border: none; }
-
-span.topBar {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  line-height: 40px; }
 
 .headerStyle table tbody tr td, .filterStyle table tbody tr td {
   border: none; }
@@ -200,11 +149,10 @@ ul {
   list-style-type: none; }
 
 .menustyle {
-  font-size: 17px;
+  font-size: 13px;
   color: #f4f4f4;
   list-style-type: none;
   text-align: left;
-  display: block;
   padding: 15px; }
 
 .menustyle:first-child {
@@ -217,7 +165,7 @@ ul {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24); }
 
 .menustyleParent {
-  font-size: 18px;
+  font-size: 14px;
   color: #f4f4f4;
   list-style-type: none;
   text-align: left;
@@ -413,13 +361,14 @@ div.summaryStyle {
 
 span {
   color: #373a3c;
-  font-size: 14px;
+  font-size: 12px;
   display: inline-block;
   min-width: 150px; }
 
 span.glyphicon-span
  {
 min-width: 1px;
+font-size:14px;
  }
 
 span.crudlabel {
@@ -481,7 +430,7 @@ span.highlighted {
   color: "Black"; }
 
 thead.listPageTitle {
-  background: #263238;
+  background: #3c8dbc;
   color: #f4f4f4;
   font-weight: bold;
   font-size: 18px; }
@@ -591,3 +540,5 @@ th.listPageTitle {
 button.lookupbutton {
 background :antiquewhite
 }
+
+

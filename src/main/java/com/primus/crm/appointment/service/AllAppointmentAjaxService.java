@@ -58,11 +58,11 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
                 buffer.append("\n{\n");
                 buffer.append("\"id\":" + appointment.getId() + ",\n");
                 if (FVConstants.EXTERNAL_PARTY.DOCTOR.equalsIgnoreCase(appointment.getPartyType().getCode()))
-                    buffer.append("\"title\":\"" + appointment.getDoctor().getName() + "\",\n");
+                    buffer.append("\"title\":\"-" + appointment.getDoctor().getName() + "\",\n");
                 else if (FVConstants.EXTERNAL_PARTY.STOCKIST.equalsIgnoreCase(appointment.getPartyType().getCode()))
-                    buffer.append("\"title\":\"" + appointment.getStockist().getName() + "\",\n");
+                    buffer.append("\"title\":\"-" + appointment.getStockist().getName() + "\",\n");
                 else
-                    buffer.append("\"title\":\"" + appointment.getStore().getName() + "\",\n");
+                    buffer.append("\"title\":\"-" + appointment.getStore().getName() + "\",\n");
                 buffer.append("\"start\":\"" + appointmentService.getAppointmentTimeAsString(appointment,"yyyy-MM-dd","HH:mm") + "\",\n");
                 buffer.append("\"allDay\":false,\n");
                 buffer.append("\"className\":\"info\"\n");
@@ -76,7 +76,7 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
         return "" ;
     }
 
-    @OverrideApp
+    @Override
     public IRadsContext generateContext(HttpServletRequest httpServletRequest) {
 
         return CommonUtil.generateContext(httpServletRequest,null);

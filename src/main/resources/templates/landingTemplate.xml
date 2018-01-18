@@ -8,6 +8,7 @@
         <Renderer>
             <RendererType>HTML</RendererType>
             <StyleSheet>./css/build/CRUDPage.css</StyleSheet>
+            <StyleSheet>./css/build/navPage.css</StyleSheet>
             <PageStyle>landingpagestyle</PageStyle>
         </Renderer>
     </Renderers>
@@ -40,22 +41,22 @@
         <Section Id ="managershortCutBar"  style ="shortcutbar"  >
             <Panel key ="mgrShortcutbar"  Id ="hrBR" > </Panel>
         </Section>
-        <Section Id ="leftsideBar"  style ="leftnav"  >
+        <Section Id ="leftsideBar"    >
             <Panel key ="menuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="adminleftsideBar"  style ="leftnav"  >
+        <Section Id ="adminleftsideBar"    >
             <Panel key ="adminMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="operationsleftsideBar"  style ="leftnav"  >
+        <Section Id ="operationsleftsideBar"   >
             <Panel key ="operationsMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="managerleftsidebar"  style ="leftnav"  >
+        <Section Id ="managerleftsidebar"   >
             <Panel key ="managermenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="agentsleftsidebar"  style ="leftnav"  >
+        <Section Id ="agentsleftsidebar"    >
             <Panel key ="agentmenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="leftsideBarApp"  style ="leftnav"  >
+        <Section Id ="leftsideBarApp"  >
             <Panel key ="appMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
         <CoreSection>

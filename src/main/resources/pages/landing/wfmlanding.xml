@@ -55,7 +55,7 @@
                             <Element type = "UILabel" value = "Stockist_Portal" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/stockists.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/Stockist.png" />
                         </Detail>
                     </Element>
 

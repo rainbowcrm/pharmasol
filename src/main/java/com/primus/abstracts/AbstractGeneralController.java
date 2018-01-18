@@ -36,6 +36,13 @@ public abstract class AbstractGeneralController extends GeneralController {
             return  ((ProductContext) getContext()).getLoggedinCompanyCode();
     }
 
+    public String getCompanyCode() {
+        if(((ProductContext) getContext()).getCompany() != null)
+            return  ((ProductContext) getContext()).getCompany().getCode();
+        else
+            return  ((ProductContext) getContext()).getLoggedinCompanyCode();
+    }
+
     public String  getLogo() {
         if(((ProductContext) getContext()).getCompany() != null) {
             String logo =  ((ProductContext) getContext()).getCompany().getLogo() ;  //./images/logo1.gif
