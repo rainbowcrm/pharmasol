@@ -221,10 +221,10 @@
         </Panel>
         <Panel key = "topBar"   showInDiv = "false">
             <Element type = "UITable" rows = "1" cols = "3">
-                <Element type = "UITableRow"> <!--<Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" />-->
-                    <Element type = "UITableCol" style="darkshaded" width ="14%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyCode" style="topBar"/> </Element>
-                    <Element type = "UITableCol" style="lightshaded" width ="25%"> <!--<Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/>--> </Element>
-                    <Element type = "UITableCol" style="lightshaded" width ="50%" align ="center"></Element>
+                <Element type = "UITableRow"> <!---->
+                    <!--<Element type = "UITableCol" style="darkshaded" width ="14%"> <Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" /> </Element> -->
+                    <Element type = "UITableCol" style="lightshaded" width ="25%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/> </Element>
+                    <Element type = "UITableCol" style="lightshaded" width ="36%" align ="center"></Element>
                     <Element type = "UITableCol" style="lightshaded" width ="25%" align="right"> <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/> </Element>
                 </Element>
             </Element>
@@ -240,6 +240,7 @@
         </Panel>
 
         <Panel key = "adminMenuPanel"   showInDiv = "false">
+            <Element label="" type= "UIImage" height = "80" width ="160" generatedValue="Controller.getLogo" />
             <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Setup" groupId= "menuGRP001" iconStyle="fa fa-fw fa-sitemap"  >
                 <Element label = "" type = "UIMenu" Id = "menu01" style="menustyle" title="Zones"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=zones"  />
@@ -270,6 +271,7 @@
         </Panel>
 
         <Panel key = "operationsMenuPanel"   showInDiv = "false">
+            <Element label="" type= "UIImage" height = "80" width ="160" generatedValue="Controller.getLogo" />
             <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Inbound" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Store_Requests"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=inboundorders" iconStyle="fa fa-fw fa-tags"  />
@@ -284,6 +286,7 @@
 
 
         <Panel key = "agentmenuPanel"   showInDiv = "false">
+            <Element label="" type= "UIImage" height = "80" width ="160" generatedValue="Controller.getLogo" />
             <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002"  >
                 <Element label = "" type = "UIMenu" Id = "menu204" style="menustyle" title="Adhoc_Appointment" iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=newadhocvisitinit" iconStyle="fa fa-fw fa-medkit"  />
@@ -297,6 +300,7 @@
 
 
         <Panel key = "managermenuPanel"   showInDiv = "false">
+            <Element label="" type= "UIImage" height = "80" width ="160" generatedValue="Controller.getLogo" />
             <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu00" style="arrow menustyleParent" title="Appointments" groupId= "menuGRP002" iconStyle="fa fa-fw fa-tags" >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates"   />

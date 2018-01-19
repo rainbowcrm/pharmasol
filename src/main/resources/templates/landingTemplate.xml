@@ -41,22 +41,22 @@
         <Section Id ="managershortCutBar"  style ="shortcutbar"  >
             <Panel key ="mgrShortcutbar"  Id ="hrBR" > </Panel>
         </Section>
-        <Section Id ="leftsideBar"    >
+        <Section Id ="leftsideBar"  style ="leftnav"  >
             <Panel key ="menuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="adminleftsideBar"    >
+        <Section Id ="adminleftsideBar"  style ="leftnav"  >
             <Panel key ="adminMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="operationsleftsideBar"   >
+        <Section Id ="operationsleftsideBar"  style ="leftnav"  >
             <Panel key ="operationsMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="managerleftsidebar"   >
+        <Section Id ="managerleftsidebar"  style ="leftnav"  >
             <Panel key ="managermenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="agentsleftsidebar"    >
+        <Section Id ="agentsleftsidebar"  style ="leftnav"  >
             <Panel key ="agentmenuPanel"  Id ="leftnav" > </Panel>
         </Section>
-        <Section Id ="leftsideBarApp"  >
+        <Section Id ="leftsideBarApp"  style ="leftnav"  >
             <Panel key ="appMenuPanel"  Id ="leftnav" > </Panel>
         </Section>
         <CoreSection>
