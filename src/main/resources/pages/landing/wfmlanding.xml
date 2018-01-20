@@ -12,7 +12,7 @@
 
     <Elements>
         <UIForm Id ="cust" method = "POST" >
-            <Section type ="topBar"></Section>
+           <!-- <Section type ="topBar"></Section>-->
 
             <CoreSection>
                 <ErrorSection>
@@ -24,7 +24,7 @@
                             <Element type = "UILabel" value = "Admin" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100"  onClickJS = "openmodule('adminlanding');" src= "./images/admin.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100"  onClickJS = "openmodule('adminlanding');" src= "./images/admin.png" />
                         </Detail>
                     </Element>
 
@@ -42,7 +42,7 @@
                             <Element type = "UILabel" value = "Operations" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('operationslanding');" src= "./images/operations.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('operationslanding');" src= "./images/operations.png" />
                         </Detail>
                     </Element>
 
@@ -73,7 +73,7 @@
                             <Element type = "UILabel" value = "Finance" ></Element>
                         </Header>
                         <Detail>
-                            <Element label = ""  type = "UIImage" Id = "idfinance"  height = "120" width ="100" src= "./images/finance.jpg" />
+                            <Element label = ""  type = "UIImage" Id = "idfinance"  height = "120" width ="100" src= "./images/finance.png" />
                         </Detail>
                     </Element>
 

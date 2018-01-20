@@ -8,6 +8,7 @@
         <Renderer>
             <RendererType>HTML</RendererType>
             <StyleSheet>./css/build/CRUDPage.css</StyleSheet>
+            <StyleSheet>./css/build/navPage.css</StyleSheet>
             <PageStyle>fullandingpagestyle</PageStyle>
         </Renderer>
     </Renderers>

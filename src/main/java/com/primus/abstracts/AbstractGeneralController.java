@@ -57,6 +57,13 @@ public abstract class AbstractGeneralController extends GeneralController {
 
     }
 
+    public String getUserPhoto()
+    {
+        String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
+        String photo =  ((ProductContext) getContext()).getLoggedInUser().getPhoto();
+        return serverURL  + photo ;
+    }
+
     public Map<String,String> getAllRegions()
     {
         Map ans = new LinkedHashMap() ;

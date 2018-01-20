@@ -225,7 +225,10 @@
                     <!--<Element type = "UITableCol" style="darkshaded" width ="14%"> <Element label="" type= "UIImage" height = "40" width ="200" generatedValue="Controller.getLogo" /> </Element> -->
                     <Element type = "UITableCol" style="lightshaded" width ="25%"> <Element label="" type= "UILabel"  width ="33%" Id="compnamespan" generatedValue="Controller.getCompanyName" style="topBar"/> </Element>
                     <Element type = "UITableCol" style="lightshaded" width ="36%" align ="center"></Element>
-                    <Element type = "UITableCol" style="lightshaded" width ="25%" align="right"> <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/> </Element>
+                    <Element type = "UITableCol" style="lightshaded" width ="25%" align="right">
+                        <Element label="" type= "UIImage" height = "30" width ="30" style="roundedimage"  generatedValue="Controller.getUserPhoto" />
+                        <Element label="" type= "UIButton" caption ="Logout" style="btn" iconStyle="glyphicon glyphicon-off"   width ="33%" onClickJS="logout();"/>
+                    </Element>
                 </Element>
             </Element>
         </Panel>
