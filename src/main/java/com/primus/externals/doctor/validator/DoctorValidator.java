@@ -58,6 +58,11 @@ public class DoctorValidator extends AbstractValidator {
         return null;
     }
 
+    /**
+     * @param model
+     * @param context
+     * @return
+     */
     @Override
     public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
         Doctor object = (Doctor) model;

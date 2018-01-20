@@ -6,6 +6,7 @@ import com.primus.admin.role.model.Role;
 import com.primus.common.company.model.Company;
 
 import com.techtrade.rads.framework.annotations.RadsPropertySet;
+import com.techtrade.rads.framework.utils.Utils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class User extends PrimusModel{
     Collection<UserRegion> userRegions;
 
     String [] selectedRegions;
+
+
 
 
     @ManyToOne(cascade=CascadeType.DETACH)
@@ -184,6 +187,9 @@ public class User extends PrimusModel{
 
     @Transient
     public String getPrefix() {
+        if (Utils.isNullString(prefix)  && !Utils.isNullString(userId))  {
+            prefix = userId.substring(0,userId.indexOf('@')-1);
+        }
         return prefix;
     }
 
@@ -232,6 +238,9 @@ public class User extends PrimusModel{
         this.allowAllRegionAccess = allowAllRegionAccess;
     }
 
+
+
+
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "user")
     public Collection<UserRegion> getUserRegions() {
         return userRegions;
@@ -256,4 +265,70 @@ public class User extends PrimusModel{
     public void setSelectedRegions(String selectedRegions[]) {
         this.selectedRegions = selectedRegions;
     }
+
+    String  photo;
+
+    @Column(name  ="PHOTO")
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
+    byte[] image;
+    String fileName;
+    String fileWithLink;
+    String fileWithoutLink;
+
+    String base64Image;
+
+
+    @Transient
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    @Transient
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Transient
+    public String getFileWithLink() {
+        return fileWithLink;
+    }
+
+    public void setFileWithLink(String fileWithLink) {
+        this.fileWithLink = fileWithLink;
+    }
+
+    @Transient
+    public String getFileWithoutLink() {
+        return fileWithoutLink;
+    }
+
+    public void setFileWithoutLink(String fileWithoutLink) {
+        this.fileWithoutLink = fileWithoutLink;
+    }
+
+    @Transient
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+
 }

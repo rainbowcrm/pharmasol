@@ -142,6 +142,12 @@ public class UserValidator extends AbstractValidator {
             });
             user.setSelectedRegions(array);
         }
+
+        String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
+        user.setFileWithLink(serverURL + user.getPhoto());
+        user.setFileWithoutLink(user.getPhoto());
         return null;
     }
+
+
 }

@@ -21,7 +21,7 @@
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
     <Elements>
-        <UIForm Id ="cust" method = "POST" >
+        <UIForm Id ="cust" method = "POST" enctype="multipart/form-data" >
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
@@ -50,6 +50,12 @@
                     <!--  <If check  = "Controller.isUpdateMode" >
                           <Element label = "User_Id"  type = "UILabel" Id = "txtCode" style ="bolded"   size="10" property ="UserId" />
                       </If>-->
+                    <Element label = "Photo" type = "UIFileUpload" Id = "txtPhoto3" property ="image" maxSize="30720"
+                             multiple ="false"  fileNameProperty="fileName"   onChangeJS ="readURL(this,'idIMG3')" accept= ".png, .jpg, .jpeg, .gif"  />
+                    <Element label = ""  type = "UIImage" Id = "idIMG3"  height = "200" weight ="200" src= "#" property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithLink"   property ="fileWithLink" />
+                    <Element label = ""  type = "UIHidden" Id = "idHdnGFileWithoutLink"   property ="fileWithoutLink" />
+
                     <Element label = "Division"   type = "UILookupDataList"  listId="lstdivisionlistings" Id = "txtDivision"   property ="Division.Name"  showLookupAsDialog="true"
                              dialogId="dlgComp"  dialogStyle ="dialogStyle" frameStyle="lookupFrameStyle" >
                         <lookupType>division</lookupType>
