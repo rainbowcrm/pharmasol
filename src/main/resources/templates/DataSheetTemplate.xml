@@ -43,10 +43,10 @@
  <CoreSection style ="pagestyle">
   <ErrorSection showinTable = "true"  style= "errorStyle" >
  </ErrorSection>
-  <FilterSection showinTable = "true"  style= "filterStyle" >
+  <FilterSection showinTable = "true"  style= "filterStyle" Id = "filterGroup" >
  <noRows>Dynamic</noRows>
  <noCols>3</noCols>
- </FilterSection>
+ </FilterSection >
  <ListSection Id ="list" showinTable = "true"  style= "detailStyle" >
   <uniquekeyseperator>:</uniquekeyseperator>
   <HiddenFields>

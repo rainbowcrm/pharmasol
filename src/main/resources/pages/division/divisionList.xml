@@ -27,8 +27,8 @@
         <CoreSection>
             <ErrorSection>
             </ErrorSection>
-            <FilterSection>
-            <FilterNode>
+            <FilterSection >
+            <FilterNode  >
                 <Element label = "Saved_Filters"  type = "UIList" Id = "lstSavedFilters"   property ="" >
                     <options populator =  "getSavedFiters">
                     </options>
