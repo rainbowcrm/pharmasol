@@ -45,6 +45,42 @@ td.fc-today {
     padding: 5px 0px!important;
 }
 
+.fc-event-scheduled {
+	font-family: 'Roboto', sans-serif;
+    background: #03a9f3!important;
+    color: #FFF!important;
+    font-size: 12px!important;
+    font-weight: 500!important;
+    padding: 5px 0px!important;
+}
+
+.fc-event-pending {
+	font-family: 'Roboto', sans-serif;
+    background: red!important;
+    color: #FFF!important;
+    font-size: 12px!important;
+    font-weight: 500!important;
+    padding: 5px 0px!important;
+}
+
+.fc-event-cancelled {
+	font-family: 'Roboto', sans-serif;
+    background: grey!important;
+    color: #FFF!important;
+    font-size: 12px!important;
+    font-weight: 500!important;
+    padding: 5px 0px!important;
+}
+
+.fc-event-completed {
+	font-family: 'Roboto', sans-serif;
+    background: green!important;
+    color: #FFF!important;
+    font-size: 12px!important;
+    font-weight: 500!important;
+    padding: 5px 0px!important;
+}
+
 .fc {
 	direction: ltr;
 	text-align: left;
@@ -6362,8 +6398,15 @@ function DayEventRenderer() {
 				"left:" + segment.left + "px;" +
 				skinCss +
 				"'" +
-			">" +
-			"<div class='fc-event-inner'>";
+			">" ;
+			if (event.className == 'pending')
+			    html +=	"<div class='fc-event-pending'>";
+			else if (event.className == 'scheduled')
+			    html +=	"<div class='fc-event-scheduled'>";
+			else if (event.className == 'cancelled')
+			    html +=	"<div class='fc-event-cancelled'>";
+			else if (event.className == 'completed')
+			    html +=	"<div class='fc-event-completed'>";
 		if (!event.allDay && segment.isStart) {
 			html +=
 				"<span class='fc-event-time'>" +

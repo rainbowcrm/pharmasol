@@ -46,7 +46,12 @@ public class RegionService extends AbstractService {
      }
 
     public Location getLocationByName(String locName, ProductContext context) {
-        return (Location) regionDAO.fetchAllActive("Location" , " where name = '" + locName  +"'", "" );
+        List locations = regionDAO.fetchAllActive("Location" , " where name = '" + locName  +"'", "" );
+        if(locations != null && locations.size() > 0)
+            return (Location)  locations.get(0);
+        else
+            return null;
+
 
     }
 

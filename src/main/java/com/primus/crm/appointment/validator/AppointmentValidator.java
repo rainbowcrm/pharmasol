@@ -84,6 +84,7 @@ public class AppointmentValidator extends AbstractValidator {
     public List<RadsError> stockistSpecificValidations(PrimusModel model, ProductContext context) {
         List<RadsError> results = new ArrayList<RadsError>();
         Appointment appointment = (Appointment) model;
+        if (appointment.getStockistVisitOrderLines() == null || appointment.getStockistVisitOrderLines().size() == 0) return results ;
         if(appointment.getStockistVisitOrderLines().size() == 1 && appointment.getStockistVisitOrderLines().stream().findFirst().orElse(null).isEmpty())
         {
             appointment.setStockistVisitOrderLines(null);
@@ -100,7 +101,8 @@ public class AppointmentValidator extends AbstractValidator {
     public List<RadsError> doctorSpecificValidations(PrimusModel model, ProductContext context) {
         List<RadsError> results = new ArrayList<RadsError>();
         Appointment appointment = (Appointment) model ;
-        if(appointment.getPromotedItems().size() == 1 && appointment.getPromotedItems().stream().findFirst().orElse(null).isEmpty())
+        if (appointment.getPromotedItems() == null || appointment.getPromotedItems().size() == 0) return results ;
+        if( appointment.getPromotedItems().size() == 1 && appointment.getPromotedItems().stream().findFirst().orElse(null).isEmpty())
         {
             appointment.setPromotedItems(null);
         }else {
@@ -117,38 +119,41 @@ public class AppointmentValidator extends AbstractValidator {
     public List<RadsError> storeSpecificValidations(PrimusModel model, ProductContext context) {
         List<RadsError> results = new ArrayList<RadsError>();
         Appointment appointment = (Appointment) model ;
-        if(appointment.getPrescriptionSurveys().size() == 1 && appointment.getPrescriptionSurveys().stream().findFirst().orElse(null).isEmpty())
-        {
-            appointment.setPrescriptionSurveys(null);
-        }else {
-            appointment.getPrescriptionSurveys().forEach( promotedItem ->  {
-                if(promotedItem.isEmpty()) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Prescription_Survey")) ;
-                }
-            });
+        if (appointment.getPrescriptionSurveys() != null && appointment.getPrescriptionSurveys().size() > 0  ) {
+            if (appointment.getPrescriptionSurveys().size() == 1 && appointment.getPrescriptionSurveys().stream().findFirst().orElse(null).isEmpty()) {
+                appointment.setPrescriptionSurveys(null);
+            } else {
+                appointment.getPrescriptionSurveys().forEach(promotedItem -> {
+                    if (promotedItem.isEmpty()) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Prescription_Survey"));
+                    }
+                });
+            }
         }
 
+        if (appointment.getOrderLines() != null && appointment.getOrderLines().size() > 0  ) {
+            if (appointment.getOrderLines().size() == 1 && appointment.getOrderLines().stream().findFirst().orElse(null).isEmpty()) {
+                appointment.setOrderLines(null);
+            } else {
+                appointment.getOrderLines().forEach(line -> {
+                    if (line.isEmpty()) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Order_Line"));
+                    }
+                });
+            }
 
-        if(appointment.getOrderLines().size() == 1 && appointment.getOrderLines().stream().findFirst().orElse(null).isEmpty())
-        {
-            appointment.setOrderLines(null);
-        }else {
-            appointment.getOrderLines().forEach( line ->  {
-                if(line.isEmpty()) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Order_Line")) ;
-                }
-            });
         }
 
-        if(appointment.getCompetitorSalesLines().size() == 1 && appointment.getCompetitorSalesLines().stream().findFirst().orElse(null).isEmpty())
-        {
-            appointment.setCompetitorSalesLines(null);
-        }else {
-            appointment.getCompetitorSalesLines().forEach( line ->  {
-                if(line.isEmpty()) {
-                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Competitor_Line")) ;
-                }
-            });
+        if (appointment.getCompetitorSalesLines() != null && appointment.getCompetitorSalesLines().size() > 0  ) {
+            if (appointment.getCompetitorSalesLines().size() == 1 && appointment.getCompetitorSalesLines().stream().findFirst().orElse(null).isEmpty()) {
+                appointment.setCompetitorSalesLines(null);
+            } else {
+                appointment.getCompetitorSalesLines().forEach(line -> {
+                    if (line.isEmpty()) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Competitor_Line"));
+                    }
+                });
+            }
         }
 
 
@@ -230,11 +235,14 @@ public class AppointmentValidator extends AbstractValidator {
 
     public void  setBusinessKey(Appointment appointment,ProductContext context)
     {
-        if(appointment.getLocation().getId() >0 && Utils.isNull(appointment.getDocNo()) ) {
-            Location location  = ServiceFactory.getLocation(appointment.getLocation(),context);
-            if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
-                String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
-                appointment.setDocNo(no);
+        if (Utils.isNullString(appointment.getDocNo())) {
+            Location location = ServiceFactory.getLocation(appointment.getLocation(), context);
+            if (location != null && location.getId() > 0 ) {
+                appointment.setLocation(location);
+                if (Utils.isNull(appointment.getDocNo()) && location.getRegion() != null && appointment.getApptDate() != null) {
+                    String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
+                    appointment.setDocNo(no);
+                }
             }
         }
     }

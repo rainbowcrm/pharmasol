@@ -74,18 +74,24 @@ public class AppointmentService extends AbstractService {
           if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getPromotedItems())) {
               TransactionUpdateDelta delta = formDelta(oldObj.getPromotedItems(), ((Appointment) newObj).getPromotedItems());
               newObj.getPromotedItems().addAll((List<PromotedItem>) delta.getDeletedRecords());
-
+          }
+          if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getPrescriptionSurveys())) {
               TransactionUpdateDelta delta1 = formDelta(oldObj.getPrescriptionSurveys(), ((Appointment) newObj).getPrescriptionSurveys());
               newObj.getPrescriptionSurveys().addAll((List<PrescriptionSurvey>) delta1.getDeletedRecords());
+          }
 
+          if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getOrderLines())) {
               TransactionUpdateDelta delta2 = formDelta(oldObj.getOrderLines(), ((Appointment) newObj).getOrderLines());
               newObj.getOrderLines().addAll((List<StoreVisitOrderLine>) delta2.getDeletedRecords());
+          }
 
+          if(oldObject !=null &&  !Utils.isNullCollection(oldObj.getStockistVisitOrderLines())) {
               TransactionUpdateDelta delta3 = formDelta(oldObj.getStockistVisitOrderLines(), ((Appointment) newObj).getStockistVisitOrderLines());
               newObj.getStockistVisitOrderLines().addAll((List<StockistVisitOrderLine>) delta3.getDeletedRecords());
-
-
           }
+
+
+
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
 

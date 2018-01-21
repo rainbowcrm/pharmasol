@@ -158,6 +158,7 @@ public class JSONProcessor {
                         ((CRUDController)page.getViewController()).setObject(object);
                     else
                         ((TransactionController)page.getViewController()).setObject(object);
+
                 }else  if (page.getViewController() instanceof ListController && page instanceof UIListPage) {
                     if (Utils.isPositiveInt(pageNumber))
                         ((UIListPage) page).setPageNumber(Integer.parseInt(pageNumber));

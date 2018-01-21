@@ -65,7 +65,14 @@ public class AllAppointmentAjaxService implements IAjaxLookupService {
                     buffer.append("\"title\":\"-" + appointment.getStore().getName() + "\",\n");
                 buffer.append("\"start\":\"" + appointmentService.getAppointmentTimeAsString(appointment,"yyyy-MM-dd","HH:mm") + "\",\n");
                 buffer.append("\"allDay\":false,\n");
-                buffer.append("\"className\":\"info\"\n");
+                if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) || appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) )
+                        buffer.append("\"className\":\"scheduled\"\n");
+                else if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.COMPLETED) ||  appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.CLOSED))
+                    buffer.append("\"className\":\"completed\"\n");
+                else if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.CANCELLED) ||  appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.CLOSEDCANCELED))
+                    buffer.append("\"className\":\"cancelled\"\n");
+                else if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PENDING))
+                    buffer.append("\"className\":\"pending\"\n");
                 buffer.append("\n}");
 
             });
