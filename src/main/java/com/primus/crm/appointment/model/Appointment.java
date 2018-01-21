@@ -78,6 +78,12 @@ public class Appointment extends PrimusBusinessModel {
 
     double duration ;
 
+    String lattitude ;
+
+    String longitude ;
+
+    String googleAddress;
+
     @RadsPropertySet(isBK = true)
     @Column(name = "DOC_NO")
     public String getDocNo() {
@@ -486,5 +492,33 @@ public class Appointment extends PrimusBusinessModel {
 
     public void setDuration(double duration) {
         this.duration = duration;
+    }
+
+
+    @Column(name = "LATITUDE")
+    public String getLattitude() {
+        return lattitude;
+    }
+
+    public void setLattitude(String lattitude) {
+        this.lattitude = lattitude;
+    }
+
+    @Column(name = "LONGITUDE")
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    @Column(name = "GOOGLE_ADDRESS")
+    public String getGoogleAddress() {
+        return googleAddress;
+    }
+
+    public void setGoogleAddress(String googleAddress) {
+        this.googleAddress = googleAddress;
     }
 }

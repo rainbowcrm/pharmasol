@@ -106,6 +106,15 @@
                                      property="managerRemarks">
                                 <rows>4</rows> <cols>25</cols>
                             </Element>
+
+                            <Element label = "Lattitude"  type = "UILabel"  style=  "CRUDLabel"
+                                     Id = "txtLattitude"  property ="lattitude"   size = "15" />
+                            <Element label = "Longitude"  type = "UILabel"  style=  "CRUDLabel"
+                                     Id = "txtLongitude"  property ="longitude"   size = "15" />
+
+                            <Element label="Captured_Location" type="UILabel" style = "CRUDLabel" isMandatory="false" Id="txtEnteredLoc"
+                                     property="googleAddress"/>
+
                         </Element>
 
                         <Element type="UITab" Id="idpromoItem" title="Promoted_Items" rendered="Controller.isDoctorAppointment" showinTable="false">
@@ -123,7 +132,7 @@
                                         </Element>
 
                                         <Element type="UITableCol" width="25%">
-                                            <Element label="" type="UILabel" Id="lblCode" value="Promtion_Details"/>
+                                            <Element label="" type="UILabel" Id="lblCode" value="Promotion_Details"/>
                                         </Element>
                                         <Element type="UITableCol" width="25%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Description"/>

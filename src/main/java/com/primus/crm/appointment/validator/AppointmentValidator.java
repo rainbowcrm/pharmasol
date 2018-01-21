@@ -264,33 +264,35 @@ public class AppointmentValidator extends AbstractValidator {
             appointment.setManager(manager);
         }
 
-       setBusinessKey(appointment,context);
-
         if (appointment.getStockist() != null && appointment.getStockist().getId() <=0  ) {
             StockistService service = ServiceFactory.getStockistService();
             List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + appointment.getStockist().getName() + "'", null, context);
-            if (!Utils.isNullList(stockists))
+            if (!Utils.isNullList(stockists)) {
                 appointment.setStockist(stockists.get(0).getStockist());
-            else
+                appointment.setLocation(stockists.get(0).getLocation());
+            } else
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
 
         }
         if (appointment.getStore() != null && appointment.getStore().getId() <=0  ) {
             StoreService service = ServiceFactory.getStoreService();
             List<StoreAssociation> datas = ( List<StoreAssociation> ) service.fetchAllLinked(" where store.name ='" + appointment.getStore().getName() +"'",null, context) ;
-            if(!Utils.isNullList(datas))
+            if(!Utils.isNullList(datas)) {
                 appointment.setStore(datas.get(0).getStore());
-            else
+                appointment.setLocation(datas.get(0).getLocation());
+            }else
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
         }
         if (appointment.getDoctor()!= null && appointment.getDoctor().getId() <=0  ) {
             DoctorService service = ServiceFactory.getDoctorService();
             List<DoctorAssociation> datas = ( List<DoctorAssociation> ) service.fetchAllLinked(" where doctor.name ='" + appointment.getDoctor().getName() +"'",null, context) ;
-            if(!Utils.isNullList(datas))
+            if(!Utils.isNullList(datas)) {
                 appointment.setDoctor(datas.get(0).getDoctor());
-            else
+                appointment.setLocation(datas.get(0).getLocation());
+            }else
                 results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
         }
+        setBusinessKey(appointment,context);
         try {
             String selectedtime = String.valueOf(appointment.getHh()) + ":" + String.valueOf(appointment.getMm());
             appointment.setApptTime(new SimpleDateFormat("HH:mm").parse(selectedtime));

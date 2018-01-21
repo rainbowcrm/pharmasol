@@ -21,7 +21,7 @@
                 <Section type = "tileSection" >
                     <Element type = "UITile" Id="tileAdmin" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Admin" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idChhrportal"  height = "120" width ="100"  onClickJS = "openmodule('adminlanding');" src= "./images/admin.png" />
@@ -30,7 +30,7 @@
 
                     <Element type = "UITile" Id="tileHR" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Agents_Workbench" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('agentslanding');" src= "./images/agents.png" />
@@ -39,7 +39,7 @@
 
                     <Element type = "UITile" Id="tileOper" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Operations" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idAgportal"  height = "120" width ="100" onClickJS = "openmodule('operationslanding');" src= "./images/operations.png" />
@@ -52,7 +52,7 @@
 
                     <Element type = "UITile" Id="tileSelfSer" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Stockist_Portal" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idChselfservice"  height = "120" width ="100" src= "./images/Stockist.png" />
@@ -61,7 +61,7 @@
 
                     <Element type = "UITile" Id="tileMgr" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Manager_Portal" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idChmanager"  onClickJS = "openmodule('managerlanding');"  height = "120" width ="100" src= "./images/manager.png" />
@@ -70,7 +70,7 @@
 
                     <Element type = "UITile" Id="tileFin" style ="panel-primary tile" >
                         <Header>
-                            <Element type = "UILabel" value = "Finance" ></Element>
+                            <Element type = "UILabel" value = "" ></Element>
                         </Header>
                         <Detail>
                             <Element label = ""  type = "UIImage" Id = "idfinance"  height = "120" width ="100" src= "./images/finance.png" />
