@@ -21,6 +21,8 @@ import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.primus.framework.nextup.NextUpGenerator;
+import com.primus.merchandise.category.model.Category;
+import com.primus.merchandise.category.service.CategoryService;
 import com.primus.merchandise.item.model.Item;
 import com.primus.merchandise.item.model.Sku;
 import com.primus.merchandise.item.service.ItemService;
@@ -379,9 +381,16 @@ public class AppointmentValidator extends AbstractValidator {
                     if (competitor == null) {
                         results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND_WITHVALUE, "Competitor", line.getCompetitor().getName()));
                     }
-                    if(line.getCategory() == null || line.getCategory().getId() < 0 ) {
+                    if(line.getCategory() != null && line.getCategory().getId() <= 0  && !Utils.isNullString(line.getCategory().getName()) ) {
+                        CategoryService categoryService = ServiceFactory.getCategoryService() ;
+                        Category category = (Category)categoryService.fetchOneActive( " where name ='" + line.getCategory().getName() + "'", "", context);
+                        line.setCategory(category);
+                    }
+                    if(line.getCategory() == null || line.getCategory().getId() <= 0 ) {
                         results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Category"));
                     }
+
+
 
                     line.setCompetitor(competitor);
                     line.setCompany(appointment.getCompany());

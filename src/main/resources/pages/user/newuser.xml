@@ -58,6 +58,10 @@
                     <Element label = "Zipcode"  type = "UIText" Id = "txtPinCode" size="7" property ="ZipCode" />
                     <Element label = "Email"  type = "UIText" Id = "txtemail" size="30" isMandatory="true" property ="Email" />
                     <Element label = "Phone"  type = "UIText" Id = "txtPhone" size="30" isMandatory="true" property ="Phone" />
+                    <Element label="Gmail_Id" type="UIText" isMandatory="false" Id="txtgmailId"
+                             property="gmailId"/>
+                    <Element label="Facebook_Id" type="UIText" isMandatory="false" Id="txtfacebookId"
+                             property="faceBookId"/>
                     <Element label = "Role"  type = "UIList" Id = "lstRole"  isMandatory="true"  property ="RoleType"  externalise= "true">
                         <options populator =  "Controller.getRoleTypes">
                         </options>

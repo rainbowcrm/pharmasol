@@ -83,6 +83,10 @@
                         <options populator =  "Controller.getRoles">
                         </options>
                     </Element>
+                    <Element label="Gmail_Id" type="UIText" isMandatory="false" Id="txtgmailId"
+                             property="gmailId"/>
+                    <Element label="Facebook_Id" type="UIText" isMandatory="false" Id="txtfacebookId"
+                             property="faceBookId"/>
                     <Element label="All_Region_Access" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
                              Id="txtlinksunday" property="allowAllRegionAccess"/>
 

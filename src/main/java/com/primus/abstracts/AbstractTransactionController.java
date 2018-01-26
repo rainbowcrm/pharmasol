@@ -104,7 +104,8 @@ public  abstract  class AbstractTransactionController extends TransactionControl
 
     @Override
     public ModelObject populateFullObjectfromPK(ModelObject modelObject) {
-        return null;
+        return  getService().getById(modelObject.getPK());
+        //return null;
     }
 
     @Override
