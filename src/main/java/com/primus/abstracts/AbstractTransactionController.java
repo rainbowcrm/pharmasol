@@ -104,7 +104,9 @@ public  abstract  class AbstractTransactionController extends TransactionControl
 
     @Override
     public ModelObject populateFullObjectfromPK(ModelObject modelObject) {
-        return  getService().getById(modelObject.getPK());
+        ModelObject object =  getService().getById(modelObject.getPK());
+        getValidator().adaptToUI((PrimusModel)object,getProductContext()) ;
+        return object;
         //return null;
     }
 

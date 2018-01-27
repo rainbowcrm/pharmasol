@@ -134,6 +134,13 @@ public class AppointmentController extends AbstractTransactionController{
         return super.submit(object, actionParam);
     }
 
+    public boolean isPopupPage ()
+    {
+        if (getProductContext().getPageAccessCode().contains("POPUP"))
+            return true;
+        else
+            return false;
+    }
     public boolean isDoctorAppointment() {
         Appointment appointment = (Appointment) getObject();
         if (appointment != null && appointment.getPartyType() != null )

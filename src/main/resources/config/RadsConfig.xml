@@ -101,6 +101,8 @@
         </Page>
         <Page id = "mgrapptview" definition ="/resources/pages/appointment/mgrapptview.xml"  accessCode ="MGR::APPTVIEW"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
+        <Page id = "mgrapptpopupview" definition ="/resources/pages/appointment/mgrapptview.xml"  accessCode ="MGR::APPTPOPUPVIEW"  modelclass = "com.primus.crm.appointment.model.Appointment" >
+        </Page>
 
         <Page id = "profiles" definition ="/resources/pages/profiles/profileinit.xml"  accessCode ="MGR::PROFILEVIEW"  modelclass = "com.primus.profiles.model.ProfileInit" >
         </Page>

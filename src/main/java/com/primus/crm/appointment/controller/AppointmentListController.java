@@ -48,6 +48,17 @@ public class AppointmentListController extends AbstractListController{
         else
                 return false ;
     }
+
+    public  boolean isManagerAppOpenListPage ()
+    {
+        ProductContext context = getProductContext() ;
+        if  (context.getPageAccessCode().equalsIgnoreCase("MGR::APPT"))
+            return true ;
+        else
+            return false ;
+    }
+
+
     @Override
     public PageResult submit(List<ModelObject> list, String action) {
          if ("MOVETOCLOSE".equalsIgnoreCase(action) || "VIEW".equalsIgnoreCase(action)) {

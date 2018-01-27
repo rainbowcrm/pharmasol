@@ -434,6 +434,8 @@ public class RadsServlet extends HttpServlet {
                                 object = ((TransactionController)page.getViewController()).populateFullObjectfromPK(object);
                                 ((TransactionController)page.getViewController()).setObject(object);
                             }
+                            displayNextPage(page, page.getPageKey(), object,req,resp,null);
+                            return ;
 
                         }else  if (!Utils.isNullString(navAction) && "loadfromBK".equalsIgnoreCase(navAction)) {
                             if (page.getViewController() instanceof CRUDController)  {
@@ -443,6 +445,8 @@ public class RadsServlet extends HttpServlet {
                                 ((TransactionController)page.getViewController()).read();
                                 object =((TransactionController)page.getViewController()).getObject() ;
                             }
+                            displayNextPage(page, page.getPageKey(), object,req,resp,null);
+                            return ;
 
                         }
 
