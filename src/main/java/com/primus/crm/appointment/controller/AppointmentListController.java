@@ -31,7 +31,11 @@ public class AppointmentListController extends AbstractListController{
 
     @Override
     protected String getAddEditPageKey() {
-        return "newappointment";
+        ProductContext context = getProductContext() ;
+        if  (context.getPageAccessCode().equalsIgnoreCase("MGR::APPT"))
+            return "newmgradhocvisit";
+        else
+            return "newappointment";
     }
 
     @Override

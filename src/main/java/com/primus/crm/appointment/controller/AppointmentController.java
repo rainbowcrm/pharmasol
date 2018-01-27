@@ -2,13 +2,16 @@ package com.primus.crm.appointment.controller;
 
 import com.primus.abstracts.AbstractCRUDController;
 import com.primus.abstracts.AbstractTransactionController;
+import com.primus.abstracts.AbstractValidator;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
 import com.primus.common.ServiceFactory;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
+import com.primus.crm.appointment.validator.AppointmentValidator;
 import com.primus.merchandise.category.model.Category;
 import com.primus.merchandise.category.service.CategoryService;
+import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
@@ -81,6 +84,14 @@ public class AppointmentController extends AbstractTransactionController{
 
     }
 
+    protected AbstractValidator getValidator()
+    {
+        String validatorName =  getValidatorName() ;
+        AbstractValidator validator =  ServiceLibrary.services().getValidator(validatorName);
+        return validator;
+
+    }
+
     @Override
     public PageResult submit(ModelObject object, String actionParam) {
         AppointmentService service = (AppointmentService) getService();
@@ -108,10 +119,22 @@ public class AppointmentController extends AbstractTransactionController{
         } else if ("SCHEDULE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
             PageResult result = service.scheduleAdhocAppointment((Appointment) object, getProductContext());
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
-                result.setNextPageKey("appointments");
+                if("MGR::EDITPOPAPPT".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                    result.setNextPageKey("mgrapptpopupview");
+                else
+                    result.setNextPageKey("appointments");
                 return result;
             } else
                 return result;
+        } else if("MOVETOMGREDIT".equalsIgnoreCase(actionParam)) {
+            PageResult result = new PageResult();
+            AppointmentValidator validator = (AppointmentValidator)getValidator();
+            Appointment appt =  (Appointment) service.getById(((Appointment) object).getId());
+            validator.adaptToUI(appt,getProductContext());
+            result.setObject(appt);
+            result.setNextPageKey("mgrapptvisitpopedit");
+            return result ;
+
         } else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
             PageResult result = new PageResult();
             List<RadsError> errors = service.initateAppointment((Appointment) object, getProductContext());
@@ -134,6 +157,15 @@ public class AppointmentController extends AbstractTransactionController{
         return super.submit(object, actionParam);
     }
 
+    public boolean isManagerEditAllowed()
+    {
+        if (getProductContext().getPageAccessCode().contains("MGR::APPTPOPUPVIEW"))  {
+            Appointment appointment = (Appointment) getObject();
+            if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) || appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) )
+                return true  ;
+        }
+        return false;
+    }
     public boolean isPopupPage ()
     {
         if (getProductContext().getPageAccessCode().contains("POPUP"))

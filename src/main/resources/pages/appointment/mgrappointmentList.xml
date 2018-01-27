@@ -6,7 +6,7 @@
     <Template type="List" name="ListTemplate"></Template>
     <Forwards>
 
-        <Forward key="EDIT">controller?page=mgrapptclose</Forward>
+        <Forward key="EDIT">controller?page=newmgradhocvisit</Forward>
     </Forwards>
     <AjaxGroups>
         <AjaxGroup service="filterSearch">

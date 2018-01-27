@@ -90,6 +90,8 @@
         </Page>
         <Page id = "newmgradhocvisit" definition ="/resources/pages/appointment/newmgradhocvisit.xml" accessCode ="MGR::ADHOCAPPT"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
+        <Page id = "mgrapptvisitpopedit" definition ="/resources/pages/appointment/mgrapptvisitpopupedit.xml" accessCode ="MGR::EDITPOPAPPT"  modelclass = "com.primus.crm.appointment.model.Appointment" >
+        </Page>
         <Page id = "mgrappointments" definition ="/resources/pages/appointment/mgrappointmentList.xml"  accessCode ="MGR::APPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
         <Page id = "mgrcmpappointments" definition ="/resources/pages/appointment/mgrappointmentList.xml"  accessCode ="MGR::CMPAPPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
