@@ -33,6 +33,8 @@ public class ApplicationManager {
     @Value("${Thread_Interval}")
     private String threadInterval;
 
+    @Value("${googlekey}")
+    private String googleKey;
 
     public String getThreadInterval() {
         return threadInterval;
@@ -100,4 +102,11 @@ public class ApplicationManager {
     }
 
 
+    public String getGoogleKey() {
+        return googleKey;
+    }
+
+    public void setGoogleKey(String googleKey) {
+        this.googleKey = googleKey;
+    }
 }

@@ -7,6 +7,7 @@ import com.primus.common.Logger;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.googleaddress.GoogleResponse;
 import com.primus.crm.appointment.service.googleaddress.Result;
+import com.primus.util.ServiceLibrary;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -20,12 +21,13 @@ public class GoogleAddressCapturer {
 
     public GoogleResponse getAddress(String lattitude, String longitude)
     {
-        String finalURL = "http://maps.googleapis.com/maps/api/geocode/json";
+        String finalURL = "https://maps.googleapis.com/maps/api/geocode/json";
 
         if(lattitude !=null && longitude != null ) {
             try {
+                String googleKey = ServiceLibrary.services().getApplicationManager().getGoogleKey()  ;
                 URL url = new URL(finalURL + "?latlng="
-                        + URLEncoder.encode(lattitude + "," + longitude, "UTF-8") + "&sensor=false");
+                        + URLEncoder.encode(lattitude + "," + longitude, "UTF-8") + "&sensor=false&key="+googleKey);
 
                 URLConnection conn = url.openConnection();
                 InputStream in = conn.getInputStream() ;
@@ -54,6 +56,7 @@ public class GoogleAddressCapturer {
                 for (int i = 0; i < response.getResults().length; i++) {
                     Result result = response.getResults()[i];
                     buffer.append(result.getFormatted_address());
+                    if(i >=2 ) break;
                     if (i < response.getResults().length - 1) buffer.append(" | ");
 
                 }

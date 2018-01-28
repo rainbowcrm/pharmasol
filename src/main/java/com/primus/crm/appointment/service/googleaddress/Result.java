@@ -18,6 +18,9 @@ public class Result {
     @JsonIgnore
     private Object types;
 
+    @JsonIgnore
+    private Object place_id;
+
     public String getFormatted_address() {
         return formatted_address;
     }
@@ -59,5 +62,11 @@ public class Result {
     }
 
 
+    public Object getPlace_id() {
+        return place_id;
+    }
 
+    public void setPlace_id(Object place_id) {
+        this.place_id = place_id;
+    }
 }
