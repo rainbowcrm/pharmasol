@@ -511,7 +511,7 @@
                     <Element type="UITableCol" width="5%" align="center">
                         <Element label="" type="UIImage" height="30" width="30" src="./images/Calendar-icon.png" title="Calendar"
                                  style="threedimage"
-                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=calendar')"/>
+                                 onClickJS="refreshIFrameSrc('frmFameId','./controller?page=apptcalendar')"/>
                     </Element>
 
                     <Element type="UITableCol" width="5%" align="center">

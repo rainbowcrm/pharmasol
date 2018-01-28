@@ -1,5 +1,6 @@
 package com.primus.crm.appointment.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.primus.abstracts.*;
 import com.primus.admin.region.model.Location;
 import com.primus.common.*;
@@ -34,6 +35,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.primus.crm.appointment.dao.AppointmentDAO;
 
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -524,7 +527,7 @@ public class AppointmentService extends AbstractService {
         errors.addAll(appointmentValidator.completionValidation(appointment,context));
 
         if(Utils.isNullList(errors)) {
-
+            GoogleAddressCapturer.setCapturedAddress(appointment);
             create(appointment, context);
             result.setResult(TransactionResult.Result.SUCCESS);
             if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
@@ -649,6 +652,7 @@ public class AppointmentService extends AbstractService {
                 app.setStockistVisitOrderLines(appointment.getStockistVisitOrderLines());
                 app.setCompetitorSalesLines(appointment.getCompetitorSalesLines());
                 app.setApptTime(app.getApptTime());
+                GoogleAddressCapturer.setCapturedAddress(appointment);
                 update(app, context);
 
                 if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
