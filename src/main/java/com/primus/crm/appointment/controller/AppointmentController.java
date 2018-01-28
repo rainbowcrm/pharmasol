@@ -119,7 +119,7 @@ public class AppointmentController extends AbstractTransactionController{
         } else if ("SCHEDULE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
             PageResult result = service.scheduleAdhocAppointment((Appointment) object, getProductContext());
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
-                if("MGR::EDITPOPAPPT".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                if("MGR::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
                     result.setNextPageKey("mgrapptpopupview");
                 else
                     result.setNextPageKey("appointments");
@@ -141,9 +141,12 @@ public class AppointmentController extends AbstractTransactionController{
             if (Utils.isNullList(errors)) {
                 result.setResult(TransactionResult.Result.SUCCESS);
                 result.setObject(object);
-                if (getProductContext().getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT"))
-                    result.setNextPageKey("newmgradhocvisit");
-                else
+                if (getProductContext().getPageAccessCode().contains("MGR::ADHOCAPPT")) {
+                    if (getProductContext().getPageAccessCode().contains("MGR::ADHOCAPPTPOPUP"))
+                        result.setNextPageKey("mgrapptvisitpopedit");
+                     else
+                            result.setNextPageKey("newmgradhocvisit");
+                }else
                     result.setNextPageKey("newadhocvisit");
             } else {
                 result.setResult(TransactionResult.Result.FAILURE);

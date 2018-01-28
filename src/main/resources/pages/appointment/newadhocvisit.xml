@@ -642,6 +642,7 @@
                 <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
                          iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
                          fixedActionParam="CANCEL"/>
+
             </Section>
 
         </UIForm>

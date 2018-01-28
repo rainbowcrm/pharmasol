@@ -3507,7 +3507,15 @@ function BasicView(element, calendar, viewName) {
 
 	function dayClick(ev) {
 		console.log('on this one');
-		window.open('./calendar.html','this one','width=560,height=340,toolbar=0,menubar=0,location=0');
+		 var windowLoc = window.location.href;
+                var index = windowLoc.indexOf('/calendar/calendar.html');
+                console.log('index = ' + index);
+                console.log('first part = ' + windowLoc.substring(0,index)) ;
+                var urlBase =  windowLoc.substring(0,index);
+            //    console.log('event.id=' +event.id );
+			   window.open(urlBase + '/controller?page=newmgradhocvisitinitpop','New Visit','width=560,height=540,toolbar=0,menubar=0,location=0');
+
+	//	window.open('./calendar.html','this one','width=560,height=340,toolbar=0,menubar=0,location=0');
 		if (!opt('selectable')) { // if selectable, SelectionManager will worry about dayClick
 			var date = parseISO8601($(this).data('date'));
 			trigger('dayClick', this, date, true, ev);

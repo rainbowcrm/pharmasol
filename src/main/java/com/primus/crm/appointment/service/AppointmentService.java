@@ -437,7 +437,7 @@ public class AppointmentService extends AbstractService {
             appointment.setLocation(location);
         }
         User agent = CommonUtil.getUser(context.getUser());
-        if (context.getPageAccessCode().equalsIgnoreCase("MGR::ADHOCAPPT")) {
+        if (context.getPageAccessCode().contains("MGR::ADHOCAPPT")) {
             appointment.setManager(agent);
         }else{
             appointment.setAgent(agent);
