@@ -639,7 +639,7 @@
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>
                 <Element caption="Close_Popup" type="UIButton" Id="btnAlink" style="btn btn-success"
-                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.CANCELWINDOW" rendered="Controller.isPopupPage"
+                         iconStyle="glyphicon glyphicon-link" onClickJS = "refreshParentFrame()"  rendered="Controller.isPopupPage"
                          fixedActionParam="CANCEL"/>
             </Section>
 

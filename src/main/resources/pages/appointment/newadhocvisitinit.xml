@@ -47,6 +47,8 @@
                      isMandatory="false" property="doctor.name"  additionalInputControl = "LstLocations" >
                 <lookupType>doctor</lookupType>
             </Element>
+            <Element label  ="" type="UIDate"  style="invisible"  Id="txtapptDate" property="apptDate"/>
+
            <!-- <Element label="" type="UILabel"  Id="lblblank1" value ="" />
             <Element label="" type="UILabel"  Id="lblblank2" value ="" />-->
             <Element caption="Proceed" type="UIButton" Id="btnAlink" style="btn btn-success"

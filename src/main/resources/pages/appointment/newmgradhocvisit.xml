@@ -642,7 +642,7 @@
                          iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"  rendered="!Controller.isPopupPage"
                          fixedActionParam="CANCEL"/>
                 <Element caption="Close_Popup" type="UIButton" Id="btnAlink" style="btn btn-success"
-                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.CANCELWINDOW" rendered="Controller.isPopupPage"
+                         iconStyle="glyphicon glyphicon-link" onClickJS = "refreshParentFrame()"  rendered="Controller.isPopupPage"
                          fixedActionParam="CANCEL"/>
             </Section>
 

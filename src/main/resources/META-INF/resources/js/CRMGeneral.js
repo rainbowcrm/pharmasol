@@ -113,3 +113,10 @@ function generateNextup(program,divisionCtrl,opControl)
 	document.getElementById(opControl).value = reqObject.responseText;
 
 }
+
+function refreshParentFrame()
+{
+    window.opener.location.reload(false);
+    window.close();
+
+}
