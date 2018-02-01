@@ -98,21 +98,30 @@ public class AppointmentController extends AbstractTransactionController{
         if ("CANCEL_APPOINTMENT".equalsIgnoreCase(actionParam)) {
             PageResult result = service.cancelAppointment((Appointment) object, getProductContext());
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
-                result.setNextPageKey("appointments");
+                if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                    result.setNextPageKey("agentapptpopview");
+                else
+                    result.setNextPageKey("appointments");
                 return result;
             } else
                 return result;
         } else if ("COMPLETE_APPOINTMENT".equalsIgnoreCase(actionParam)) {
             PageResult result = service.completeAppointment((Appointment) object, getProductContext());
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
-                result.setNextPageKey("appointments");
+                if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                    result.setNextPageKey("agentapptpopview");
+                else
+                    result.setNextPageKey("appointments");
                 return result;
             } else
                 return result;
         } else if ("COMPLETE_ADHAPPOINTMENT".equalsIgnoreCase(actionParam)) {
             PageResult result = service.completeAdhocAppointment((Appointment) object, getProductContext());
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
-                result.setNextPageKey("appointments");
+                if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                    result.setNextPageKey("agentapptpopview");
+                else
+                    result.setNextPageKey("appointments");
                 return result;
             } else
                 return result;
@@ -135,7 +144,15 @@ public class AppointmentController extends AbstractTransactionController{
             result.setNextPageKey("mgrapptvisitpopedit");
             return result ;
 
-        } else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
+        } else if  ("MOVETOAGENTEDIT".equalsIgnoreCase(actionParam)) {
+            PageResult result = new PageResult();
+            AppointmentValidator validator = (AppointmentValidator)getValidator();
+            Appointment appt =  (Appointment) service.getById(((Appointment) object).getId());
+            validator.adaptToUI(appt,getProductContext());
+            result.setObject(appt);
+            result.setNextPageKey("agentapptvisitpopedit");
+            return result ;
+        }else if ("INITIATEVISIT".equalsIgnoreCase(actionParam)) {
             PageResult result = new PageResult();
             List<RadsError> errors = service.initateAppointment((Appointment) object, getProductContext());
             if (Utils.isNullList(errors)) {
@@ -169,6 +186,17 @@ public class AppointmentController extends AbstractTransactionController{
         }
         return false;
     }
+
+    public boolean isAgentEditAllowed()
+    {
+        if (getProductContext().getPageAccessCode().contains("AGENT::APPTPOPUPVIEW"))  {
+            Appointment appointment = (Appointment) getObject();
+            if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) || appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) )
+                return true  ;
+        }
+        return false;
+    }
+
     public boolean isPopupPage ()
     {
         if (getProductContext().getPageAccessCode().contains("POPUP"))

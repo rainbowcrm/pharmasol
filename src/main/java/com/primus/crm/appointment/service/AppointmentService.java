@@ -654,6 +654,7 @@ public class AppointmentService extends AbstractService {
                 app.setApptTime(app.getApptTime());
                 GoogleAddressCapturer.setCapturedAddress(appointment);
                 update(app, context);
+                result.setObject(app);
 
                 if(appointment.getScheduleNextAppointment().booleanValue() == true )  {
                     createFollowupAppointment(appointment,context);

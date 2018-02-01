@@ -3413,7 +3413,7 @@ function BasicView(element, calendar, viewName) {
 		}
 		if (+date == +today) {
 			classNames.push(
-				'fc-today',
+
 				tm + '-state-highlight'
 			);
 		}
@@ -3513,7 +3513,7 @@ function BasicView(element, calendar, viewName) {
                 console.log('first part = ' + windowLoc.substring(0,index)) ;
                 var urlBase =  windowLoc.substring(0,index);
             //    console.log('event.id=' +event.id );
-			   window.open(urlBase + '/controller?page=newmgradhocvisitinitpop&txtapptDate=' +  $(this).data('date'),'New Visit','width=560,height=540,toolbar=0,menubar=0,location=0');
+			   window.open(urlBase + '/controller?page=newadhocvisitinitpop&txtapptDate=' +  $(this).data('date'),'New Visit','width=760,height=740,toolbar=0,menubar=0,location=0');
 
 	//	window.open('./calendar.html','this one','width=560,height=340,toolbar=0,menubar=0,location=0');
 		if (!opt('selectable')) { // if selectable, SelectionManager will worry about dayClick
@@ -6468,7 +6468,7 @@ function DayEventRenderer() {
                 console.log('first part = ' + windowLoc.substring(0,index)) ;
                 var urlBase =  windowLoc.substring(0,index);
                 console.log('event.id=' +event.id );
-			   window.open(urlBase + '/controller?page=mgrapptpopupview&navAction=loadfromPK&hdnUserID=' + event.id,'this one','width=560,height=340,toolbar=0,menubar=0,location=0');
+			   window.open(urlBase + '/controller?page=agentapptpopview&navAction=loadfromPK&hdnUserID=' + event.id,'this one','width=560,height=340,toolbar=0,menubar=0,location=0');
 				ev.preventDefault();
 			})
 			.click(function(ev) {

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="newAppointment" showinFrame="true" title="Appointment | Primus WFM | Primus WFM"
+      Object="com.primus.crm.appointment.model.Appointment"
+      Controller="com.primus.crm.appointment.controller.AppointmentController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=mgrclsappointments</Forward>
+        <Forward key="SAVE">appointments</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service ="itemSearch">
+            <requestElements event = "">
+                <requestElement key = "Code">txtItemCode</requestElement>
+            </requestElements>
+            <responseElements>
+
+                <responseElement key = "Code">txtItemCode</responseElement>
+                <responseElement key = "Name">txtItemName</responseElement>
+
+            </responseElements>
+        </AjaxGroup>
+
+    </AjaxGroups>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="header3col">
+                    <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
+                    <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
+                    <Element label="Doc_No" type="UILabel"  style="CRUDLabel" Id="txtdocNo" property="docNo"/>
+                    <Element label="Template" type="UILabel" style="CRUDLabel"  Id="txttemplate"
+                             property="template.templateNo">
+
+                    </Element>
+                    <Element label="Location" type="UILabel"  style="CRUDLabel" Id="lstlocation" property="location.name">
+
+                    </Element>
+                    <Element label="Visit_To" type="UILabel"  style="CRUDLabel" property="partyType.description">
+
+                    </Element>
+
+
+                    <Element label="Visiting" type="UILabel"  style="CRUDLabel" Id="txtstockist"
+                             isMandatory="false" property="partyNameWithType">
+                    </Element>
+
+                    <Element label="Manager" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
+                             property="manager.userId">
+                    </Element>
+                    <Element label="Agent" type="UILabel"  style="CRUDLabel" Id="txtagent" isMandatory="false"
+                             property="agent.userId">
+                    </Element>
+                    <Element label="Status" type="UILabel"  style="CRUDLabel"  Id="txtstatus" property="status.description"/>
+                    <Element label="Appointment_Date" type="UILabel"  style="CRUDLabel"  Id="txtapptDate" property="apptDate"/>
+                    <Element label="Last_FeedBack" type="UILabel"  Id="txtprediscussion" style = "CRUDLabel"
+                             property="previousFeedBack">
+
+                    </Element>
+
+                </Section>
+                <Section type="detailForSale">
+                    <Element type="UITabset" Id="impeppdetails" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                        <Element type="UITab" Id="idVisitDetails" title="Visit_Details" showinTable="true" cols="2" >
+
+                            <Element label="" type="UILabel" isMandatory="true" Id="txtappointmentTime"
+                                     value="Appointment_Time"/>
+                            <Element label="" type="UIDiv" showInPrevCol="true" style="input-group col-md-12">
+                                <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom10width"
+                                         property="hh">
+                                    <options populator="getHours">
+                                    </options>
+                                </Element>
+                                <Element label="" type="UILabel" isMandatory="true" Id="txtcol"
+                                         style="form-control custom5width" value=":"
+                                />
+                                <Element label="" type="UIList" isMandatory="true" Id="txtappMM" style="custom10width"
+                                         property="mm">
+                                    <options populator="getMinutes">
+                                    </options>
+                                </Element>
+                            </Element>
+
+                            <Element label = "Duration"  type = "UILabel"  style=  "CRUDLabel"
+                                     Id = "txtPrice"  property ="duration"  isNumeric= "true" size = "8" />
+
+                            <Element label="Cancel_Reason" type="UILabel"  Id="txtagentCnclReasons" style="CRUDLabel"
+                                     property="cancelReasonAgent.reason">
+
+                            </Element>
+
+                            <Element label="Feedback" type="UILabel" isMandatory="false" Id="txtdiscussion" style="CRUDLabel"
+                                     property="feedBack">
+
+                            </Element>
+                            <Element label="Agent_Remarks" type="UILabel" style="CRUDLabel" isMandatory="false" Id="txtdescription"
+                                     property="agentRemarks">
+
+                            </Element>
+                            <Element label="Manager_Remarks" type="UILabel" style = "CRUDLabel" isMandatory="false" Id="txtmgrRemarsk"
+                                     property="managerRemarks">
+                            </Element>
+
+                        </Element>
+
+                        <Element type="UITab" Id="idpromoItem" title="Promoted_Items" rendered="Controller.isDoctorAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransComposition"
+                                     property="promotedItems[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Item"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Promotion_Details"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Description"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PromotedItem"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtItemCode" style="CRUDLabel"
+                                                 property="item.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" isMandatory="true" Id="txtItemName"  style="CRUDLabel"
+                                                 property="item.name"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtPromoDetails" style="CRUDLabel"
+                                                 property="promoDetails"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  Id="txtDescriptio" style="CRUDLabel"
+                                                 property="description"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+
+                        <!-- Prescription Survery start-->
+                        <Element type="UITab" Id="idprescSurvey" title="Prescription_Survey" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblTransSurvey"
+                                     property="prescriptionSurveys[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Doctor"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.PrescriptionSurvey"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtSkuName" listId="lstsku"
+                                                 property="sku.name">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtSurveydoctor"
+                                                 isMandatory="false" property="doctor.name"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtSurveyQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtSurveyDate"
+                                                 property="prescriptionDate"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--Prescription Survey End -->
+                        m
+                        <!--  Store Order Lines start-->
+                        <Element type="UITab" Id="idOrderLines" title="Order_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblChemOrderLine"
+                                     property="orderLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="UOM"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Rate"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.StoreVisitOrderLine"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtOrdLineSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtOrdLineSkuName"
+                                                 property="sku.name">
+
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtOrdLineUOMCode" readonly="true"
+                                                 isMandatory="false" property="uom.code"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtOrdLineRate"
+                                                 isMandatory="false" property="rate"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element type="UILabel"  style="CRUDLabel"  Id="txtOrdLineQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtOrdLineDate"
+                                                 property="requiredDate"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!-- Store Order Lines End -->
+
+                        <!--  Stockist Order Lines start-->
+                        <Element type="UITab" Id="idStkOrderLines" title="Order_Lines" rendered="Controller.isStockistAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblStkOrderLine"
+                                     property="stockistVisitOrderLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku_Code"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Sku"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="UOM"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Rate"/>
+                                        </Element>
+
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Date"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.stockistVisitOrderLines"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtStkOrdLineSkuCode"
+                                                 property="sku.code"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtStkOrdLineSkuName"
+                                                 property="sku.name">
+
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtStkOrdLineUOMCode" readonly="true"
+                                                 isMandatory="false" property="uom.code"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel"  Id="txtStkOrdLineRate"
+                                                 isMandatory="false" property="rate"   >
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="15%">
+                                        <Element type="UILabel"  style="CRUDLabel"  Id="txtStkOrdLineQty"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel"  style="CRUDLabel" Id="txtStkOrdLineDate"
+                                                 property="requiredDate"/>
+                                    </Element>
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!-- Stockist Order Lines End -->
+
+                        <!-- Competitor Sales Lines start-->
+                        <Element type="UITab" Id="idCompetitorLines" title="Competitor_Lines" rendered="Controller.isStoreAppointment" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="5" style="grid" applyStyleonChildren="true"
+                                     Id="tblCompeteLLine"
+                                     property="competitorSalesLines[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Category"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Competitor"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Medicine"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="15%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Qty"/>
+                                        </Element>
+
+                                    </Element>
+                                </Element>
+                                <Element type="UITableRow" dataType="com.primus.crm.appointment.model.CompetitorSalesLine"
+                                         rendered="!Object.isDeleted">
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="lstCompSalesCategory"
+                                                 property="category.name">
+                                        </Element>
+                                    </Element>
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" isMandatory="true" Id="txtCompSalesCompetor" listId="lstCompSalesCompetor"
+                                                 property="competitor.name">
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" style="CRUDLabel" Id="txtCompetMedicine"
+                                                 isMandatory="false" property="medicine"   >
+                                        </Element>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="15%">
+                                        <Element label="" type="UILabel" style="CRUDLabel"  Id="txtCompSalesQTY"
+                                                 property="qty" isNumeric="true"/>
+                                    </Element>
+
+
+                                </Element>
+
+                            </Element>
+
+
+                        </Element>
+                        <!--competitor Sales line End -->
+
+
+                    </Element>
+                </Section>
+                <!--<Section type="onefooter">
+
+                </Section>-->
+            </CoreSection>
+            <Section type="optionalsummary">
+
+                <Element caption="Back" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PAGEFORWARD" rendered="!Controller.isPopupPage"
+                         fixedActionParam="CANCEL"/>
+
+                <Element caption="Close_Popup" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" onClickJS = "refreshParentFrame()"  rendered="Controller.isPopupPage"
+                         fixedActionParam="CANCEL"/>
+
+                <Element caption="Edit" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="MOVETOAGENTEDIT" rendered="Controller.isAgentEditAllowed"
+                />
+            </Section>
+
+        </UIForm>
+    </Elements>
+</Page>
