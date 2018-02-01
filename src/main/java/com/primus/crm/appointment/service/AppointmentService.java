@@ -723,6 +723,11 @@ public class AppointmentService extends AbstractService {
         return appointmentDAO.getAllManagedAppointments(managerUserId,context.getLoggedinCompany(),fromDate,toDate);
     }
 
+    public List<Appointment> getAllAgentAppointment(String userId, Date fromDate, Date toDate ,ProductContext context)
+    {
+        return appointmentDAO.getAllAgentAppointments(userId,context.getLoggedinCompany(),fromDate,toDate);
+    }
+
     public String getAppointmentTimeAsString( Appointment appointment, String dateFormat, String timeFormat)
     {
         SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);

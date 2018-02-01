@@ -18,7 +18,7 @@
 
             <CoreSection>
                 <Section type = "fullPage" >
-                    <Element type = "UIIFrame" src ="./controller?page=appointments" Id="frmFameId" style ="coresectionstyle" >
+                    <Element type = "UIIFrame" src ="./controller?page=agentcalendar" Id="frmFameId" style ="coresectionstyle" >
                     </Element>
 
                 </Section>
