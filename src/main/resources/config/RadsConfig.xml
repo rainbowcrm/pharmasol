@@ -84,9 +84,11 @@
         </Page>
         <Page id = "newadhocvisit" definition ="/resources/pages/appointment/newadhocvisit.xml"  accessCode ="AGENT::ADHOCAPPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
+        <Page id = "newadhocvisitpopup" definition ="/resources/pages/appointment/newadhocvisit.xml"  accessCode ="AGENT::ADHOCAPPTPOPUP" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        </Page>
         <Page id = "newadhocvisitinit" definition ="/resources/pages/appointment/newadhocvisitinit.xml"  accessCode ="AGENT::ADHOCAPPT" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
-        <Page id = "newadhocvisitinitpop" definition ="/resources/pages/appointment/newadhocvisitinit.xml"  accessCode ="AGENT::ADHOCAPPTPOP" modelclass = "com.primus.crm.appointment.model.Appointment" >
+        <Page id = "newadhocvisitinitpop" definition ="/resources/pages/appointment/newadhocvisitinit.xml"  accessCode ="AGENT::ADHOCAPPTPOPUP" modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>
         <Page id = "agentapptpopview" definition ="/resources/pages/appointment/agentapptview.xml"  accessCode ="AGENT::APPTPOPUPVIEW"  modelclass = "com.primus.crm.appointment.model.Appointment" >
         </Page>

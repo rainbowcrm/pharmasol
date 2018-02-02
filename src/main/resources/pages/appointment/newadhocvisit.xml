@@ -640,7 +640,10 @@
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>
                 <Element caption="Back" type="UIButton" Id="btCancel" style="btn btn-warning"
-                         iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD"
+                         iconStyle="glyphicon glyphicon-remove" fixedAction="FixedAction.ACTION_PAGEFORWARD" rendered="!Controller.isPopupPage"
+                         fixedActionParam="CANCEL"/>
+                <Element caption="Close_Popup" type="UIButton" Id="btnAlink" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-link" onClickJS = "refreshParentFrame()"  rendered="Controller.isPopupPage"
                          fixedActionParam="CANCEL"/>
 
             </Section>

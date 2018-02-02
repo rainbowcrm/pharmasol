@@ -608,9 +608,9 @@
 
             </CoreSection>
             <Section type="optionalsummary">
-                <Element caption="Schedule_Appointment" type="UIButton" Id="btnAlink" style="btn btn-primary"
+                <!--<Element caption="Schedule_Appointment" type="UIButton" Id="btnAlink" style="btn btn-primary"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
-                         fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>
+                         fixedActionParam="SCHEDULE_ADHAPPOINTMENT"/>-->
                 <Element caption="Complete_Appointment" type="UIButton" Id="btnAlink" style="btn btn-success"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="COMPLETE_APPOINTMENT"/>

@@ -130,7 +130,8 @@ public class AppointmentController extends AbstractTransactionController{
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 if("MGR::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
                     result.setNextPageKey("mgrapptpopupview");
-                else if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                else if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()) ||
+                        "AGENT::ADHOCAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
                     result.setNextPageKey("agentapptpopview");
                 else
                     result.setNextPageKey("appointments");
@@ -165,8 +166,12 @@ public class AppointmentController extends AbstractTransactionController{
                         result.setNextPageKey("mgrapptvisitpopedit");
                      else
                             result.setNextPageKey("newmgradhocvisit");
-                }else
-                    result.setNextPageKey("newadhocvisit");
+                }else {
+                    if (getProductContext().getPageAccessCode().contains("AGENT::ADHOCAPPTPOPUP"))
+                        result.setNextPageKey("newadhocvisitpopup");
+                    else
+                            result.setNextPageKey("newadhocvisit");
+                }
             } else {
                 result.setResult(TransactionResult.Result.FAILURE);
                 result.setErrors(errors);
