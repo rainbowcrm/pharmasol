@@ -130,6 +130,8 @@ public class AppointmentController extends AbstractTransactionController{
             if (result.getResult().equals(TransactionResult.Result.SUCCESS)) {
                 if("MGR::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
                     result.setNextPageKey("mgrapptpopupview");
+                else if("AGENT::EDITAPPTPOPUP".equalsIgnoreCase(getProductContext().getPageAccessCode()))
+                    result.setNextPageKey("agentapptpopview");
                 else
                     result.setNextPageKey("appointments");
                 return result;
