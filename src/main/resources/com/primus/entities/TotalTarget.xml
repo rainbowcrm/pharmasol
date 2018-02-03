@@ -1,0 +1,119 @@
+<CodeGenEntity>
+    <entityName>TotalVisitTarget</entityName>
+    <rootpackage>com.primus.crm.target</rootpackage>
+    <tableName>TOTAL_VISIT_TARGETS</tableName>
+    <controllerType>AbstractTransactionController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\crm\\target</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\target</uiLocation>
+    <codeGenFields>
+
+        <CodeGenField>
+            <fieldName>target</fieldName>
+            <dbFieldName>TARGET_ID</dbFieldName>
+            <dataType>Target</dataType>
+            <optionsPopulator></optionsPopulator>
+            <uiRepresentation>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>lineNumber</fieldName>
+            <dbFieldName>LINE_NUMBER</dbFieldName>
+            <dataType>int</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>visitingType</fieldName>
+            <dbFieldName>VISITING_TARGET_TYPE</dbFieldName>
+            <dataType>FiniteValue</dataType>
+            <finiteValueCategory>VSTTRGT</finiteValueCategory>
+            <uiRepresentation>
+                <uiLabel>Visit_Entity</uiLabel>
+                <uiControl>UIList</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>visitingEntity</fieldName>
+            <dbFieldName>VISIT_ENTITY</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Visit_To</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>35</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>visitEntity</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>stockist</fieldName>
+            <dbFieldName>STOCKIST_ID</dbFieldName>
+            <dataType>Stockist</dataType>
+            <uiRepresentation>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>store</fieldName>
+            <dbFieldName>STORE_ID</dbFieldName>
+            <dataType>Store</dataType>
+            <uiRepresentation>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>doctor</fieldName>
+            <dbFieldName>DOCTOR_ID</dbFieldName>
+            <dataType>Doctor</dataType>
+            <uiRepresentation>
+
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>targettedVisit</fieldName>
+            <dbFieldName>TARGETTED_VISIT</dbFieldName>
+            <dataType>int</dataType>
+            <uiRepresentation>
+                <uiLabel>Target</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>

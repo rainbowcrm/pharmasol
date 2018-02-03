@@ -1,0 +1,134 @@
+<CodeGenEntity>
+    <entityName>Target</entityName>
+    <rootpackage>com.primus.crm.target</rootpackage>
+    <tableName>TARGETS</tableName>
+    <controllerType>AbstractTransactionController</controllerType>
+    <fileLocation>c:\\apps\\pharma\\src\\main\\java\\com\\primus\\crm\\target</fileLocation>
+    <uiLocation>c:\\apps\\pharma\\src\\main\\resources\\pages\\target</uiLocation>
+    <codeGenFields>
+        <CodeGenField>
+            <fieldName>period</fieldName>
+            <dbFieldName>Period</dbFieldName>
+            <dataType>String</dataType>
+            <Bk>true</Bk>
+            <uiRepresentation>
+                <uiLabel>Period</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>location</fieldName>
+            <dbFieldName>LOCATION_ID</dbFieldName>
+            <dataType>Location</dataType>
+            <uiRepresentation>
+                <uiLabel>Location</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>fromDate</fieldName>
+            <dbFieldName>FROM_DATE</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>From</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIDate</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>toDate</fieldName>
+            <dbFieldName>TO_DATE</dbFieldName>
+            <dataType>Date</dataType>
+            <uiRepresentation>
+                <uiLabel>To</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UIDate</uiControl>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>manager</fieldName>
+            <dbFieldName>MANAGER_USER_ID</dbFieldName>
+            <dataType>User</dataType>
+            <uiRepresentation>
+                <uiLabel>Manager</uiLabel>
+                <showInFilter> true </showInFilter>
+                <showInList> true </showInList>
+                <listFieldWidth>20</listFieldWidth>
+                <uiControl>UILookupDataList</uiControl>
+                <lookupKey>name</lookupKey>
+            </uiRepresentation>
+            <Mandatory>true</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>description</fieldName>
+            <dbFieldName>DESCRIPTION</dbFieldName>
+            <dataType>String</dataType>
+            <uiRepresentation>
+                <uiLabel>Description</uiLabel>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth>35</listFieldWidth>
+            </uiRepresentation>
+            <Mandatory>false</Mandatory>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>agentVisitTargets</fieldName>
+            <dbFieldName></dbFieldName>
+            <dataType>Collection</dataType>
+            <entityDefXML>AgentTarget</entityDefXML>
+            <ImportPackage>java.util.Collection</ImportPackage>
+            <ChildObject>
+                <dataType>Target</dataType>
+                <fieldName>target</fieldName>
+            </ChildObject>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+                <uiControl>UITable</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth></listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+
+        <CodeGenField>
+            <fieldName>totalVisitTargets</fieldName>
+            <dbFieldName></dbFieldName>
+            <dataType>Collection</dataType>
+            <entityDefXML>TotalTarget</entityDefXML>
+            <ImportPackage>java.util.Collection</ImportPackage>
+            <ChildObject>
+                <dataType>Target</dataType>
+                <fieldName>target</fieldName>
+            </ChildObject>
+            <uiRepresentation>
+                <uiLabel></uiLabel>
+                <uiControl>UITable</uiControl>
+                <showInFilter> false </showInFilter>
+                <showInList> false </showInList>
+                <listFieldWidth></listFieldWidth>
+            </uiRepresentation>
+        </CodeGenField>
+
+
+    </codeGenFields>
+</CodeGenEntity>

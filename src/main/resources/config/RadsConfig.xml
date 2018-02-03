@@ -4,8 +4,8 @@
 
     </ExternalizeFacade>
     <Properties>
-         <appURL>http://localhost:10210/</appURL>
-         <!--<appURL>http://pharmacrm.duckdns.org/</appURL>-->
+          <appURL>http://localhost:10210/</appURL>
+         <!-- <appURL>http://pharmacrm.duckdns.org/</appURL> -->
         <settings>com.primus.common.DefaultSettings</settings>
         <portalPrefix></portalPrefix>
         <!-- AWS entry <appURL>http://ec2-35-154-225-199.ap-south-1.compute.amazonaws.com:8080/</appURL>
