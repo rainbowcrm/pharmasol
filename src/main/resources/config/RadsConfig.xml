@@ -645,5 +645,10 @@
         <Lookup type ="externalParty" lookupservice="com.primus.common.lookups.LookupExternalParties"
                 lookuppage= "lookup">
         </Lookup>
+
+        <Lookup type ="visitingEntity" lookupservice="com.primus.common.lookups.LookupVisitingEntities"
+                lookuppage= "lookup">
+        </Lookup>
+
     </Lookups>
 </Config>

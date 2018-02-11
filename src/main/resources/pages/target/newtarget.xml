@@ -166,7 +166,7 @@
                                 <Element label="" type="UILookupDataList" listId="lstvisitingEntity"
                                          Id="txtvisitingEntity" isMandatory="true" additionalInputControl="lstvisitingType"
                                          property="visitingEntity">
-                                    <lookupType>externalParty</lookupType>
+                                    <lookupType>visitingEntity</lookupType>
                                 </Element>
                             </Element>
 

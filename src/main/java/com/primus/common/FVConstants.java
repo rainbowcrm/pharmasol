@@ -14,6 +14,8 @@ public class FVConstants {
     public final static String FV_DATEPATTERN = "DTPTTN";
     public final static String FV_APPOINTMENTSTATUS = "APPTSTATUS";
     public final static String FV_EXTERNALPARTYTPE = "EXPTYTYPE";
+    public final static String FV_VISITTARGET =  "VSTTRGT";
+    public final static String FV_DOCTORCLASS = "DOCCLASS";
 
     public final static class DATE_PATTERN {
         public final static String DAILY ="PTNDLY";
@@ -26,6 +28,24 @@ public class FVConstants {
         public final static String STOCKIST ="PTSTCK";
         public final static String STORE ="PTSTRE";
         public final static String DOCTOR ="PTDCT";
+    }
+
+    public final static class DOCTOR_CLASS {
+        public final static String CLASSA ="DCCLSC";
+        public final static String CLASSB ="DCCLSB";
+        public final static String CLASSC ="DCCLSA";
+    }
+
+    public final static class VISIT_TO {
+
+        public final static String ALL ="VSALL";
+        public final static String DOCTOR_CLASS ="VSDCLASS";
+        public final static String ALL_STOCKIST ="VSALLSTCKS";
+        public final static String ALL_STORE ="VSALLSTRS";
+        public final static String ALL_DOCTOR ="VSALLDOCS";
+        public final static String IND_STOCKIST ="VSINDSTK";
+        public final static String IND_STORE ="VSINDSTR";
+        public final static String IND_DOCTOR ="VSINDDOC";
 
     }
 
