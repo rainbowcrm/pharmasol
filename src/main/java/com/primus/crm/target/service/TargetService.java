@@ -3,6 +3,7 @@ package com.primus.crm.target.service;
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
+import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,10 @@ public class TargetService extends AbstractService {
          Target oldObj = (Target) oldObject;
 
          TransactionUpdateDelta delta = formDelta(oldObj.getTotalVisitTargets(), ((Target) newObj).getTotalVisitTargets()) ;
-         newObj.getTotalVisitTargets().addAll((List<Target>)delta.getDeletedRecords());
+         newObj.getTotalVisitTargets().addAll((List<TotalVisitTarget>)delta.getDeletedRecords());
 
           TransactionUpdateDelta delta1 = formDelta(oldObj.getAgentVisitTargets(), ((Target) newObj).getAgentVisitTargets()) ;
-          newObj.getAgentVisitTargets().addAll((List<Target>)delta1.getDeletedRecords());
+          newObj.getAgentVisitTargets().addAll((List<AgentVisitTarget>)delta1.getDeletedRecords());
 
 
 

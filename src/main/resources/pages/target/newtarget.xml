@@ -9,6 +9,16 @@
     </Forwards>
     <IncludeJS>./js/CRMGeneral.js</IncludeJS>
     <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <AjaxGroups>
+        <AjaxGroup service="regionLocationSearch">
+            <requestElements>
+                <requestElement key="region">LstRegion</requestElement>
+            </requestElements>
+            <responseElements>
+                <responseElement key="location">LstLocations</responseElement>
+            </responseElements>
+        </AjaxGroup>
+    </AjaxGroups>
     <Elements>
         <UIForm Id="cust" method="POST">
             <CoreSection>
@@ -17,13 +27,18 @@
                 <Section type="header">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
-                    <Element label="Period" type="UIText" isMandatory="true" Id="txtperiod" property="period"/>
-                    <Element label="Location" type="UIList" isMandatory="true" Id="lstlocation" property="location.id">
-                        <options populator="null"
-                        ></options>
+
+                    <Element label="Region" type="UIList" Id="LstRegion" property="location.region.id">
+                        <options populator="getAllRegions">
+                        </options>
+                    </Element>
+                    <Element label="Location" type="UIList" Id="LstLocations" property="location.id">
+                        <options populator="getAllLocations">
+                        </options>
                     </Element>
                     <Element label="From" type="UIDate" isMandatory="true" Id="txtfromDate" property="fromDate"/>
                     <Element label="To" type="UIDate" isMandatory="true" Id="txttoDate" property="toDate"/>
+                    <Element label="Period" type="UIText" isMandatory="true" Id="txtperiod" property="period"/>
                     <Element label="Manager" type="UILookupDataList" listId="lstmanager" Id="txtmanager"
                              isMandatory="true" property="manager.name">
                         <lookupType>user</lookupType>
@@ -35,34 +50,25 @@
                 </Section>
 
                 <Section type="detailForSale">
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                    <Element type="UITab" Id="idEmployeDetails" title="Agent_Targets" showinTable="false">
                     <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true" Id="tblTrans"
-                             property="agentVisitTargets  []">
+                             property="agentVisitTargets[]">
                         <Element type="UITableHead" style="listPageTitle">
                             <Element type="UITableRow">
                                 <Element type="UITableCol" width="20%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Agent"/>
                                 </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
+
                                 <Element type="UITableCol" width="20%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Visit_Entity"/>
                                 </Element>
                                 <Element type="UITableCol" width="35%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Visit_To"/>
                                 </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
+
                                 <Element type="UITableCol" width="35%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Target"/>
                                 </Element>
@@ -74,50 +80,35 @@
 
                         <Element type="UITableRow" dataType="Target" rendered="!Object.isDeleted">
                             <Element type="UITableCol" width="20%">
-                                <Element label="Agent" type="UILookupDataList" listId="lstagent" Id="txtagent"
+                                <Element label="" type="UILookupDataList" listId="lstagent" Id="txtagent"
                                          isMandatory="true" property="agent.name">
                                     <lookupType>user</lookupType>
                                 </Element>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txttarget"
-                                         property="target"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtlineNumber"
+                                <Element label="" type="UIHidden" isMandatory="false" Id="txtAgentlineNumber"
                                          property="lineNumber"/>
                             </Element>
+
                             <Element type="UITableCol" width="20%">
-                                <Element label="Visit_Entity" type="UIList" isMandatory="true" Id="lstvisitingType"
+                                <Element label="" type="UIList" isMandatory="true" Id="lstAgentTrgtvisitingType"
                                          property="visitingType.code">
                                     <options populator="getFiniteValues" populatorParam="VSTTRGT">
                                     </options>
                                 </Element>
                             </Element>
                             <Element type="UITableCol" width="35%">
-                                <Element label="Visit_To" type="UILookupDataList" listId="lstvisitingEntity"
-                                         Id="txtvisitingEntity" isMandatory="true"
-                                         property="visitingEntity.visitEntity">
-                                    <lookupType>string</lookupType>
+                                <Element label="" type="UILookupDataList" listId="lstAgentTrgtvisitingEntity"
+                                         Id="txtAgentTgtvisitingEntity"   additionalInputControl = "lstAgentTrgtvisitingType"
+                                         property="visitingEntity">
+                                    <lookupType>externalParty</lookupType>
                                 </Element>
                             </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtstockist"
-                                         property="stockist"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtstore" property="store"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtdoctor"
-                                         property="doctor"/>
-                            </Element>
+
                             <Element type="UITableCol" width="35%">
-                                <Element label="Target" type="UIText" isMandatory="false" Id="txttargettedVisit"
+                                <Element label="" type="UIText" isMandatory="false" Id="txtAgentTrgttargettedVisit"
                                          property="targettedVisit"/>
                             </Element>
                             <Element type="UITableCol" width="35%">
-                                <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                                <Element label="" type="UIText" isMandatory="false" Id="txtAgentTrgtdescription"
                                          property="description"/>
                             </Element>
                             <Element type="UITableCol" width="10%">
@@ -134,31 +125,23 @@
 
 
                     </Element>
+                    </Element>
+                    <Element type="UITab" Id="idCompoSDetails" title="Total_Targets" showinTable="false">
+
                     <Element type="UITable" rows="1" cols="9" style="grid" applyStyleonChildren="true" Id="tblTrans"
-                             property="totalVisitTargets  []">
+                             property="totalVisitTargets[]">
                         <Element type="UITableHead" style="listPageTitle">
                             <Element type="UITableRow">
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
+
+
                                 <Element type="UITableCol" width="20%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Visit_Entity"/>
                                 </Element>
                                 <Element type="UITableCol" width="35%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Visit_To"/>
                                 </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
-                                <Element type="UITableCol" width="0%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="null"/>
-                                </Element>
+
+
                                 <Element type="UITableCol" width="35%">
                                     <Element label="" type="UILabel" Id="lblCode" value="Target"/>
                                 </Element>
@@ -169,45 +152,30 @@
                         </Element>
 
                         <Element type="UITableRow" dataType="Target" rendered="!Object.isDeleted">
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txttarget"
-                                         property="target"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtlineNumber"
-                                         property="lineNumber"/>
-                            </Element>
+
                             <Element type="UITableCol" width="20%">
-                                <Element label="Visit_Entity" type="UIList" isMandatory="true" Id="lstvisitingType"
+                                <Element label="" type="UIList" isMandatory="true" Id="lstvisitingType"
                                          property="visitingType.code">
                                     <options populator="getFiniteValues" populatorParam="VSTTRGT">
                                     </options>
                                 </Element>
+                                <Element label="null" type="UIHidden" isMandatory="false" Id="txtlineNumber"
+                                         property="lineNumber"/>
                             </Element>
                             <Element type="UITableCol" width="35%">
-                                <Element label="Visit_To" type="UILookupDataList" listId="lstvisitingEntity"
-                                         Id="txtvisitingEntity" isMandatory="true"
-                                         property="visitingEntity.visitEntity">
-                                    <lookupType>string</lookupType>
+                                <Element label="" type="UILookupDataList" listId="lstvisitingEntity"
+                                         Id="txtvisitingEntity" isMandatory="true" additionalInputControl="lstvisitingType"
+                                         property="visitingEntity">
+                                    <lookupType>externalParty</lookupType>
                                 </Element>
                             </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtstockist"
-                                         property="stockist"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtstore" property="store"/>
-                            </Element>
-                            <Element type="UITableCol" width="0%">
-                                <Element label="null" type="UIText" isMandatory="false" Id="txtdoctor"
-                                         property="doctor"/>
-                            </Element>
+
                             <Element type="UITableCol" width="35%">
-                                <Element label="Target" type="UIText" isMandatory="false" Id="txttargettedVisit"
+                                <Element label="" type="UIText" isMandatory="false" Id="txttargettedVisit"
                                          property="targettedVisit"/>
                             </Element>
                             <Element type="UITableCol" width="35%">
-                                <Element label="Description" type="UIText" isMandatory="false" Id="txtdescription"
+                                <Element label="" type="UIText" isMandatory="false" Id="txtdescription"
                                          property="description"/>
                             </Element>
                             <Element type="UITableCol" width="10%">
@@ -223,6 +191,9 @@
                         </Element>
 
 
+                    </Element>
+
+                    </Element>
                     </Element>
                 </Section>
             </CoreSection>

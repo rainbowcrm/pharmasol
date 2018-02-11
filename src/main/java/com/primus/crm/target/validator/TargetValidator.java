@@ -27,31 +27,31 @@ public class TargetValidator extends AbstractValidator {
     @Override
     public List<RadsError> checkforMandatoryFields(PrimusModel model, ProductContext context) {
         Target target = (Target) model;
-        List<RadsError> results =new ArrayList<RadsError>();
-                if(Utils.isNull(target.getPeriod  () ) ) {
-            results.add( getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY,"Period"));
+        List<RadsError> results = new ArrayList<RadsError>();
+        if (Utils.isNull(target.getPeriod())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Period"));
         }
 
-                if(Utils.isNull(target.getLocation  () ) ) {
-            results.add( getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY,"Location"));
+        if (Utils.isNull(target.getLocation())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Location"));
         }
 
-                if(Utils.isNull(target.getFromDate  () ) ) {
-            results.add( getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY,"From"));
+        if (Utils.isNull(target.getFromDate())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "From"));
         }
 
-                if(Utils.isNull(target.getToDate  () ) ) {
-            results.add( getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY,"To"));
+        if (Utils.isNull(target.getToDate())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "To"));
         }
 
-                if(Utils.isNull(target.getManager  () ) ) {
-            results.add( getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY,"Manager"));
+        if (Utils.isNull(target.getManager())) {
+            results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Manager"));
         }
 
-        
+
         return results;
 
-     }
+    }
 
      @Override
     public List<RadsError> checkforValueRanges(PrimusModel model, ProductContext context) {
