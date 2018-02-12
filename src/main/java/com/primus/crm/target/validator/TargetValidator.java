@@ -4,7 +4,15 @@ import com.primus.abstracts.AbstractValidator;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
+import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
+import com.primus.externals.doctor.model.DoctorAssociation;
+import com.primus.externals.doctor.service.DoctorService;
+import com.primus.externals.stockist.model.StockistAssociation;
+import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.store.model.StoreAssociation;
+import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -61,6 +69,67 @@ public class TargetValidator extends AbstractValidator {
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
        super.adaptFromUI(model,context) ;
+       Target target  =(Target)  model;
+        List<RadsError> results = new ArrayList<RadsError>();
+        StockistService service = ServiceFactory.getStockistService();
+        StoreService storeService = ServiceFactory.getStoreService();
+        DoctorService doctorService = ServiceFactory.getDoctorService();
+
+       if  (!Utils.isNullCollection(target.getTotalVisitTargets()))  {
+           target.getTotalVisitTargets().forEach( visitTarget ->  {
+               if( visitTarget.getVisitingType() !=null &&  visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {
+                   List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
+                   if (!Utils.isNullList(stockists)) {
+                       visitTarget.setStockist(stockists.get(0).getStockist());
+                   } else
+                       results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+               }
+               if(  visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STORE)) {
+
+                   List<StoreAssociation> datas = ( List<StoreAssociation> ) storeService.fetchAllLinked(" where store.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
+                   if(!Utils.isNullList(datas)) {
+                       visitTarget.setStore(datas.get(0).getStore());
+                   }else
+                       results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
+               }
+               if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_DOCTOR)) {
+                   List<DoctorAssociation> datas = ( List<DoctorAssociation> ) doctorService.fetchAllLinked(" where doctor.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
+                   if(!Utils.isNullList(datas)) {
+                       visitTarget.setDoctor(datas.get(0).getDoctor());
+                   }else
+                       results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+
+               }
+           } );
+       }
+
+        if  (!Utils.isNullCollection(target.getAgentVisitTargets()))  {
+            target.getAgentVisitTargets().forEach( visitTarget ->  {
+                if(  visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {
+                    List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
+                    if (!Utils.isNullList(stockists)) {
+                        visitTarget.setStockist(stockists.get(0).getStockist());
+                    } else
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+                }
+                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STORE)) {
+
+                    List<StoreAssociation> datas = ( List<StoreAssociation> ) storeService.fetchAllLinked(" where store.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
+                    if(!Utils.isNullList(datas)) {
+                        visitTarget.setStore(datas.get(0).getStore());
+                    }else
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
+                }
+                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_DOCTOR)) {
+                    List<DoctorAssociation> datas = ( List<DoctorAssociation> ) doctorService.fetchAllLinked(" where doctor.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
+                    if(!Utils.isNullList(datas)) {
+                        visitTarget.setDoctor(datas.get(0).getDoctor());
+                    }else
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+
+                }
+            } );
+        }
 
        return null;
     }

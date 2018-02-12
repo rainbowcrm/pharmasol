@@ -6,10 +6,13 @@ import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.externals.doctor.model.Doctor;
+import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.model.StockistAssociation;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.Store;
+import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.context.IRadsContext;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -40,7 +43,7 @@ public class LookupVisitingEntities implements ILookupService {
                 StockistService service = ServiceFactory.getStockistService();
                 List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
                 for (ModelObject obj :  companies) {
-                    ans.put(((Stockist)obj).getName(),((Stockist)obj).getName());
+                    ans.put(((StockistAssociation)obj).getStockist().getName(),((StockistAssociation)obj).getStockist().getName());
                 }
             }else if (FVConstants.VISIT_TO.IND_STORE.equalsIgnoreCase(lookupParam)) {
                 if (!Utils.isNull(searchString)) {
@@ -50,7 +53,7 @@ public class LookupVisitingEntities implements ILookupService {
                 StoreService service = ServiceFactory.getStoreService();
                 List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
                 for (ModelObject obj :  companies) {
-                    ans.put(((Store)obj).getName(),((Store)obj).getName());
+                    ans.put(((StoreAssociation)obj).getStore().getName(),((StoreAssociation)obj).getStore().getName());
                 }
             }else if (FVConstants.VISIT_TO.IND_DOCTOR.equalsIgnoreCase(lookupParam)) {
                 if (!Utils.isNull(searchString)) {
@@ -60,14 +63,11 @@ public class LookupVisitingEntities implements ILookupService {
                 DoctorService service = ServiceFactory.getDoctorService();
                 List<? extends PrimusModel> companies = service.fetchAllLinked(condition, "",(ProductContext) iRadsContext);
                 for (ModelObject obj :  companies) {
-                    ans.put(((Doctor)obj).getName(),((Doctor)obj).getName());
+                    ans.put(((DoctorAssociation)obj).getDoctor().getName(),((DoctorAssociation)obj).getDoctor().getName());
                 }
             }else if (FVConstants.VISIT_TO.DOCTOR_CLASS.equalsIgnoreCase(lookupParam)) {
                 return CommonUtil.getFiniteValuesWithSelect(FVConstants.FV_DOCTORCLASS);
-
             }
-
-
             return ans;
         }
     }

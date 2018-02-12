@@ -217,11 +217,13 @@ function getLookupWithAjax(lookupType, currentCtrl,dataListCtrlName,additionalFi
 {
 	var srValue = currentCtrl.value ;
 	//console.log('srValue.indexOf(*)=' + srValue.indexOf('*'));
-	
+	var index  = getCurrentObjectIndex(currentCtrl);
+    	console.log( "index==" + index) ;
+
 	if(srValue.length  > 2 || srValue.indexOf('?') !=  -1 ) {
 	var additionalInputVal = '';
 	if (additionalInputControl != 'null' &&  additionalInputControl != '') {
-		additionalInputVal = document.getElementById(additionalInputControl).value;
+		additionalInputVal = document.getElementsByName(additionalInputControl)[index].value;
 		console.log('additionalInputVal=' + additionalInputVal);
 	}
 	currentCtrl.autocomplete ="on";
@@ -231,8 +233,7 @@ function getLookupWithAjax(lookupType, currentCtrl,dataListCtrlName,additionalFi
         searchString = "*" ;
 	var requestStr = appURL + "controller?page=Lookup&returnAsJSON=true&lookupType=" + lookupType
 	+ "&additionalFields=" + additionalFields +  "&additionalParam=" + additionalInputVal   + "&searchString=" + searchString ;
-	var index  = getCurrentObjectIndex(currentCtrl);
-	console.log( "index" + index) ;
+
 
 
 	var reqObject = new XMLHttpRequest();

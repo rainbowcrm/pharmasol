@@ -47,7 +47,7 @@ public class AgentVisitTarget extends PrimusBusinessModel {
 
 	Target target ;
 
-	@RadsPropertySet(useBKForJSON =  true, useBKForMap = true, useBKForXML = true)
+	@RadsPropertySet(excludeFromMap = true, excludeFromXML = true  , excludeFromJSON =  true)
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name  ="TARGET_ID")
 	public Target  getTarget ()
@@ -61,20 +61,7 @@ public class AgentVisitTarget extends PrimusBusinessModel {
 		target  = val;
 	}
 
-	int lineNumber ;
 
-	@RadsPropertySet(isBK =  true )
-	@Column(name  ="LINE_NUMBER")
-	public int  getLineNumber ()
-	{
-		return lineNumber;
-	}
-
-	@RadsPropertySet(isBK =  true )
-	public void setLineNumber ( int   val )
-	{
-		lineNumber  = val;
-	}
 
 	FiniteValue visitingType ;
 
