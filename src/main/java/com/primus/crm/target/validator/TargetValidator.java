@@ -7,6 +7,7 @@ import com.primus.abstracts.PrimusModel;
 import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.StockistAssociation;
@@ -63,7 +64,16 @@ public class TargetValidator extends AbstractValidator {
 
      @Override
     public List<RadsError> checkforValueRanges(PrimusModel model, ProductContext context) {
-        return null;
+
+         Target target  =(Target)  model;
+         List<RadsError> results = new ArrayList<RadsError>();
+         if(!target.getFromDate().after(target.getToDate()))  {
+             results.add(getErrorforCode(context, TargetErrorCodes.FROMDATE_LATER_THAN_TO));
+         }
+
+
+         return results ;
+
     }
 
     @Override
@@ -77,10 +87,16 @@ public class TargetValidator extends AbstractValidator {
 
        if  (!Utils.isNullCollection(target.getTotalVisitTargets()))  {
            target.getTotalVisitTargets().forEach( visitTarget ->  {
+               visitTarget.setTarget(target);
+               visitTarget.setCompany(target.getCompany());
+
                if( visitTarget.getVisitingType() !=null &&  visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {
                    List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
                    if (!Utils.isNullList(stockists)) {
                        visitTarget.setStockist(stockists.get(0).getStockist());
+                       if(stockists.get(0).getStockist().getStockistAssociation().getLocation().getId() !=  target.getLocation().getId() )  {
+                           results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, stockists.get(0).getStockist().getName()));
+                       }
                    } else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
                }
@@ -88,6 +104,9 @@ public class TargetValidator extends AbstractValidator {
 
                    List<StoreAssociation> datas = ( List<StoreAssociation> ) storeService.fetchAllLinked(" where store.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
                    if(!Utils.isNullList(datas)) {
+                       if(datas.get(0).getStore().getStoreAssociation().getLocation().getId() !=  target.getLocation().getId() )  {
+                           results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getStore().getName()));
+                       }
                        visitTarget.setStore(datas.get(0).getStore());
                    }else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
@@ -95,6 +114,9 @@ public class TargetValidator extends AbstractValidator {
                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_DOCTOR)) {
                    List<DoctorAssociation> datas = ( List<DoctorAssociation> ) doctorService.fetchAllLinked(" where doctor.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
                    if(!Utils.isNullList(datas)) {
+                       if(datas.get(0).getDoctor().getDoctorAssociation().getLocation().getId() !=  target.getLocation().getId() )  {
+                           results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getDoctor().getName()));
+                       }
                        visitTarget.setDoctor(datas.get(0).getDoctor());
                    }else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
@@ -104,33 +126,52 @@ public class TargetValidator extends AbstractValidator {
        }
 
         if  (!Utils.isNullCollection(target.getAgentVisitTargets()))  {
-            target.getAgentVisitTargets().forEach( visitTarget ->  {
-                if(  visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {
-                    List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
-                    if (!Utils.isNullList(stockists)) {
-                        visitTarget.setStockist(stockists.get(0).getStockist());
-                    } else
-                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
-                }
-                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STORE)) {
+            AgentVisitTarget agentVisitTarget = (AgentVisitTarget) target.getAgentVisitTargets().stream().findFirst().orElse(null);
+           if  (agentVisitTarget.getAgent() == null  && agentVisitTarget.getVisitingType() == null   )  {
+                // do nothing
+            } else {
+               target.getAgentVisitTargets().forEach(visitTarget -> {
+                   visitTarget.setTarget(target);
+                   visitTarget.setCompany(target.getCompany());
+                   if  (visitTarget.getAgent() == null  ) {
+                       results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Agent"));
+                   }
+                   if (visitTarget.getVisitingType() != null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {
+                       List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
+                       if (!Utils.isNullList(stockists)) {
+                           if (stockists.get(0).getStockist().getStockistAssociation().getLocation().getId() != target.getLocation().getId()) {
+                               results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, stockists.get(0).getStockist().getName()));
+                           }
+                           visitTarget.setStockist(stockists.get(0).getStockist());
+                       } else
+                           results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Stockist"));
+                   }
+                   if (visitTarget.getVisitingType() != null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STORE)) {
 
-                    List<StoreAssociation> datas = ( List<StoreAssociation> ) storeService.fetchAllLinked(" where store.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
-                    if(!Utils.isNullList(datas)) {
-                        visitTarget.setStore(datas.get(0).getStore());
-                    }else
-                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
-                }
-                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_DOCTOR)) {
-                    List<DoctorAssociation> datas = ( List<DoctorAssociation> ) doctorService.fetchAllLinked(" where doctor.name ='" + visitTarget.getVisitingEntity() +"'",null, context) ;
-                    if(!Utils.isNullList(datas)) {
-                        visitTarget.setDoctor(datas.get(0).getDoctor());
-                    }else
-                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
+                       List<StoreAssociation> datas = (List<StoreAssociation>) storeService.fetchAllLinked(" where store.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
+                       if (!Utils.isNullList(datas)) {
+                           if (datas.get(0).getStore().getStoreAssociation().getLocation().getId() != target.getLocation().getId()) {
+                               results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getStore().getName()));
+                           }
+                           visitTarget.setStore(datas.get(0).getStore());
+                       } else
+                           results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
+                   }
+                   if (visitTarget.getVisitingType() != null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_DOCTOR)) {
+                       List<DoctorAssociation> datas = (List<DoctorAssociation>) doctorService.fetchAllLinked(" where doctor.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
+                       if (!Utils.isNullList(datas)) {
+                           if (datas.get(0).getDoctor().getDoctorAssociation().getLocation().getId() != target.getLocation().getId()) {
+                               results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getDoctor().getName()));
+                           }
+                           visitTarget.setDoctor(datas.get(0).getDoctor());
+                       } else
+                           results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
 
-                }
-            } );
+                   }
+               });
+           }
         }
 
-       return null;
+       return results;
     }
 }

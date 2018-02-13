@@ -64,7 +64,7 @@
                         <Element label="" type="UINote" Id="idIdNote" property="period"/>
                     </Column>
                     <Column title="Location" sortField="LOCATION_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="location"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="location.name"/>
                     </Column>
                     <Column title="From" sortField="FROM_DATE" width="20%">
                         <Element label="" type="UINote" Id="idIdNote" property="fromDate"/>
@@ -73,7 +73,7 @@
                         <Element label="" type="UINote" Id="idIdNote" property="toDate"/>
                     </Column>
                     <Column title="Manager" sortField="MANAGER_USER_ID" width="20%">
-                        <Element label="" type="UINote" Id="idIdNote" property="manager"/>
+                        <Element label="" type="UINote" Id="idIdNote" property="manager.userId"/>
                     </Column>
                 </Columns>
             </ListSection>
