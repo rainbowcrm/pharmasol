@@ -195,6 +195,19 @@ public class Doctor extends PrimusBusinessModel {
 		this.doctorAssociations = doctorAssociations;
 	}*/
 
+	Collection<DoctorAppointmentPreference> appointmentPreferences;
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.LAZY)
+	public Collection<DoctorAppointmentPreference> getAppointmentPreferences() {
+		return appointmentPreferences;
+	}
+
+	public void setAppointmentPreferences(Collection<DoctorAppointmentPreference> appointmentPreferences) {
+		this.appointmentPreferences = appointmentPreferences;
+	}
+
+
+
 	Boolean associatedForCompany;
 
 	@Transient
