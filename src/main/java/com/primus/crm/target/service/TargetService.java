@@ -3,6 +3,8 @@ package com.primus.crm.target.service;
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
+import com.primus.admin.region.model.Location;
+import com.primus.common.ProductContext;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.primus.abstracts.PrimusModel;
 import com.primus.crm.target.dao.TargetDAO;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -45,6 +48,11 @@ public class TargetService extends AbstractService {
 
 
 
+     }
+
+     public Target getTargetforDate(Location location , Date evalDate , ProductContext context)
+     {
+         return targetDAO.getTargetforDate(location.getId(),evalDate,context.getLoggedinCompany());
      }
 
 }

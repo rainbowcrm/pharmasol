@@ -2,6 +2,7 @@ package com.primus.crm.target.dao;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.PrimusModel;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
 import com.primus.crm.target.model.Target;
 
@@ -26,7 +27,7 @@ public class TargetDAO extends AbstractDAO{
     }
 
 
-    public List<Target> getTargetsforDate(int location , Date evalDate , int companyId)
+    public Target getTargetforDate(int location , Date evalDate , int companyId)
     {
         Query query = em.createQuery("from  Target target where location.id = :location  and company.id = :company and " +
                 "  deleted =false and target.fromDate <= :evalDate and  target.toDate >=   :evalDate");
@@ -34,7 +35,10 @@ public class TargetDAO extends AbstractDAO{
         query.setParameter("company", companyId);
         query.setParameter("evalDate", evalDate);
         List<Target> ans = query.getResultList();
-        return ans;
+        if(!Utils.isNullList(ans))
+            return ans.get(0);
+        else
+            return null;
     }
 }
 

@@ -8,6 +8,7 @@ import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.crm.target.model.AgentVisitTarget;
+import com.primus.crm.target.service.TargetService;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.model.StockistAssociation;
@@ -56,6 +57,16 @@ public class TargetValidator extends AbstractValidator {
         if (Utils.isNull(target.getManager())) {
             results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Manager"));
         }
+        TargetService service =  ServiceFactory.getTargetService() ;
+        Target existingTarget  = service.getTargetforDate(target.getLocation(),target.getFromDate(),context) ;
+        if(existingTarget !=null  && existingTarget.getId() != target.getId())  {
+            results.add(getErrorforCode(context, TargetErrorCodes.TARGET_EXIST_FORTHIS_PERIOD_LOC,existingTarget.getPeriod()));
+        } else {
+            existingTarget = service.getTargetforDate(target.getLocation(), target.getToDate(), context);
+            if (existingTarget != null && existingTarget.getId() != target.getId()) {
+                results.add(getErrorforCode(context, TargetErrorCodes.TARGET_EXIST_FORTHIS_PERIOD_LOC, existingTarget.getPeriod()));
+            }
+        }
 
 
         return results;
@@ -67,7 +78,7 @@ public class TargetValidator extends AbstractValidator {
 
          Target target  =(Target)  model;
          List<RadsError> results = new ArrayList<RadsError>();
-         if(!target.getFromDate().after(target.getToDate()))  {
+         if(!target.getFromDate().before(target.getToDate()))  {
              results.add(getErrorforCode(context, TargetErrorCodes.FROMDATE_LATER_THAN_TO));
          }
 
