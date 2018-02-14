@@ -19,6 +19,7 @@ public class AppointmentPreference extends PrimusBusinessModel {
     protected Integer rank;
     protected String description;
 
+    protected String hhMM;
 
 
     @Column(name  ="WEEKDAY")
@@ -87,5 +88,14 @@ public class AppointmentPreference extends PrimusBusinessModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Transient
+    public String getHhMM() {
+        return hhMM;
+    }
+
+    public void setHhMM(String hhMM) {
+        this.hhMM = hhMM;
     }
 }

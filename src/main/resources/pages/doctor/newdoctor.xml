@@ -25,6 +25,10 @@
                 <ErrorSection>
                 </ErrorSection>
                 <Section type="detail">
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                    <Element type="UITab" Id="idEmployeDetails" title="Basic_Info" cols ="4" showinTable="true">
                     <Element label="" type="UIHidden" Id="hdnVersion" property="version"/>
                     <Element label="" type="UIHidden" Id="hdnUserID" property="Id"/>
                     <Element label="" type="UIHidden" Id="hdnAssocationID" property="doctorAssociation.Id"/>
@@ -84,6 +88,64 @@
                              property="gmailId"/>
                     <Element label="Facebook_Id" type="UIText" isMandatory="false" Id="txtfacebookId"
                              property="faceBookId"/>
+                    </Element>
+                    <Element type="UITab" Id="idPreferredTim" title="Preferred_Visits" showinTable="false">
+                        <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
+                                 Id="tblvisitPrefs"
+                                 property="appointmentPreferences[]">
+                            <Element type="UITableHead" style="listPageTitle">
+                                <Element type="UITableRow">
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Day"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Time"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Rank"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                    </Element>
+                                </Element>
+                            </Element>
+                            <Element type="UITableRow" dataType="com.primus.common.appointmentpreference.model.AppointmentPreference"
+                                     rendered="!Object.isDeleted">
+
+                                <Element type="UITableCol" width="20%">
+                                    <Element label="" type="UIList"  Id="lstWeekDays"
+                                             property="weekday">
+                                        <options populator="getDays"></options>
+                                    </Element>
+                                </Element>
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom10width"
+                                             property="hh">
+                                        <options populator="getHours">
+                                        </options>
+                                    </Element>
+
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIText" isMandatory="false" Id="txtRank"
+                                             style="form-control custom5width" property="rank"/>
+                                </Element>
+                                <Element type="UITableCol" width="10%">
+                                    <Element label="" type="UIHidden" Id="hdnsplitlineNo" property="id"/>
+                                    <Element label="" type="UIHidden" Id="hdnsplitlineversion" property="version"/>
+                                    <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                             type="UIButton" Id="btnAddRow"
+                                             fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                             fixedActionParam="this"/>
+                                    <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                             type="UIButton" Id="btnDelRow"
+                                             fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                             fixedActionParam="this"/>
+                                </Element>
+                            </Element>
+                        </Element>
+
+                    </Element>
+                    </Element>
                 </Section>
             </CoreSection>
             <Section type="summary">

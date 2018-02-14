@@ -168,4 +168,42 @@ public abstract class AbstractCRUDController   extends CRUDController {
 
     }
 
+    public Map<String,String > getDays()
+    {
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        ans.put("1", "Monday");
+        ans.put("2", "Tuesday");
+        ans.put("3", "Wednesday");
+        ans.put("4", "Thursday");
+        ans.put("5", "Friday");
+        ans.put("6", "Saturday");
+        ans.put("7", "Sunday");
+        return ans;
+    }
+
+    public Map<String, String> getHours() {
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        for (int i = 0; i < 24; i++) {
+            ans.put(String.valueOf(i) + ":00", prefixZero(i) + ":00");
+            ans.put(String.valueOf(i) + ":15", prefixZero(i) + ":15");
+            ans.put(String.valueOf(i) + ":30" , prefixZero(i) + ":30");
+            ans.put(String.valueOf(i) + ":45", prefixZero(i) + ":45");
+        }
+        return ans;
+    }
+
+    public Map<String, String> getMinutes() {
+        Map<String, String> ans = new LinkedHashMap<String, String>();
+        ans.put("00", "00");
+        ans.put("15", "15");
+        ans.put("30", "30");
+        ans.put("45", "45");
+        return ans;
+
+    }
+
+    private String prefixZero(int value) {
+        return (value < 10) ? "0" + value : String.valueOf(value);
+    }
+
 }

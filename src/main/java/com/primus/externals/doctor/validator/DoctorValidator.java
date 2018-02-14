@@ -87,6 +87,8 @@ public class DoctorValidator extends AbstractValidator {
             object.getDoctorAssociation().setCompany(object.getCompany());
             object.getDoctorAssociation().setDoctor(object);
         }
+
+
        return null;
     }
 }
