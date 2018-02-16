@@ -108,7 +108,7 @@
                                     </Element>
                                 </Element>
                             </Element>
-                            <Element type="UITableRow" dataType="com.primus.common.appointmentpreference.model.AppointmentPreference"
+                            <Element type="UITableRow" dataType="com.primus.externals.doctor.model.DoctorAppointmentPreference"
                                      rendered="!Object.isDeleted">
 
                                 <Element type="UITableCol" width="20%">
@@ -118,8 +118,8 @@
                                     </Element>
                                 </Element>
                                 <Element type="UITableCol" width="25%">
-                                    <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom10width"
-                                             property="hh">
+                                    <Element label="" type="UIList" isMandatory="true" Id="txtapptHH" style="custom30width"
+                                             property="hhMM">
                                         <options populator="getHours">
                                         </options>
                                     </Element>
@@ -127,7 +127,7 @@
                                 </Element>
                                 <Element type="UITableCol" width="10%">
                                     <Element label="" type="UIText" isMandatory="false" Id="txtRank"
-                                             style="form-control custom5width" property="rank"/>
+                                             style="form-control custom30width" property="rank"/>
                                 </Element>
                                 <Element type="UITableCol" width="10%">
                                     <Element label="" type="UIHidden" Id="hdnsplitlineNo" property="id"/>

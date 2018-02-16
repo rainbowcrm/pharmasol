@@ -171,6 +171,7 @@ public abstract class AbstractCRUDController   extends CRUDController {
     public Map<String,String > getDays()
     {
         Map<String, String> ans = new LinkedHashMap<String, String>();
+        ans.put("-1", "--Select one--");
         ans.put("1", "Monday");
         ans.put("2", "Tuesday");
         ans.put("3", "Wednesday");

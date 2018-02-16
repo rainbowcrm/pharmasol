@@ -4,12 +4,16 @@ import com.primus.abstracts.AbstractValidator;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
+import com.primus.externals.doctor.model.DoctorAppointmentPreference;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import com.primus.externals.doctor.model.Doctor;
@@ -69,6 +73,13 @@ public class DoctorValidator extends AbstractValidator {
         String serverURL = ServiceLibrary.services().getApplicationManager().getDocServer();
         object.setFileWithLink(serverURL + object.getPhoto());
         object.setFileWithoutLink(object.getPhoto());
+        if(!Utils.isNullCollection(object.getAppointmentPreferences())) {
+            object.getAppointmentPreferences().forEach( preference -> {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                String timeString = sdf.format(preference.getPreferredTime()) ;
+                preference.setHhMM(timeString);
+            } );
+        }
         return  null ;
     }
 
@@ -88,7 +99,24 @@ public class DoctorValidator extends AbstractValidator {
             object.getDoctorAssociation().setDoctor(object);
         }
 
+        if(!Utils.isNullCollection(object.getAppointmentPreferences())) {
+            List<DoctorAppointmentPreference> preferences = new ArrayList<>() ;
+            object.getAppointmentPreferences().forEach( preference -> {
+                if(preference.getWeekday() >=0 ) {
+                    try {
+                        String selectedtime = preference.getHhMM();
+                        preference.setPreferredTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
+                        preference.setCompany(object.getCompany());
+                        preference.setDoctor(object);
+                    }catch (Exception ex) {
+                        Logger.logException("parse Error",this.getClass(),ex);
+                    }
+                    preferences.add(preference);
+                }
+            } );
+            object.setAppointmentPreferences(preferences);
 
+        }
        return null;
     }
 }

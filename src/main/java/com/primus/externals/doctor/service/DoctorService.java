@@ -2,12 +2,15 @@ package com.primus.externals.doctor.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.common.CommonUtil;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
+import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.primus.common.company.model.Company;
 import com.primus.externals.doctor.model.Doctor;
+import com.primus.externals.doctor.model.DoctorAppointmentPreference;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
@@ -45,8 +48,9 @@ public class DoctorService extends AbstractService {
      protected void collateBeforUpdate(PrimusModel newObject, PrimusModel oldObject) {
          Doctor newObj = (Doctor) newObject;
          Doctor oldObj = (Doctor) oldObject;
-         /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
-         payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+         TransactionUpdateDelta delta = formDelta(oldObj.getAppointmentPreferences(), ((Doctor) newObj).getAppointmentPreferences()) ;
+         //payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+          newObj.getAppointmentPreferences().addAll((List<DoctorAppointmentPreference> )delta.getDeletedRecords());
      }
 
     public DoctorAssociation getDoctorAssociation (int doctorId,  ProductContext context)
