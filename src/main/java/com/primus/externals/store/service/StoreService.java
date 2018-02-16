@@ -2,12 +2,14 @@ package com.primus.externals.store.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.common.CommonUtil;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
 import com.primus.externals.store.model.Store;
+import com.primus.externals.store.model.StoreAppointmentPreference;
 import com.primus.externals.store.model.StoreAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
@@ -47,6 +49,9 @@ public class StoreService extends AbstractService {
          Store oldObj = (Store) oldObject;
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+
+          TransactionUpdateDelta delta = formDelta(oldObj.getAppointmentPreferences(), ((Store) newObj).getAppointmentPreferences()) ;
+          newObj.getAppointmentPreferences().addAll((List<StoreAppointmentPreference> )delta.getDeletedRecords());
      }
 
     public StoreAssociation getStoreAssociation (int storeId,  ProductContext context)

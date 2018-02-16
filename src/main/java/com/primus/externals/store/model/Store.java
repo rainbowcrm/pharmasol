@@ -133,6 +133,18 @@ public class Store extends PrimusBusinessModel {
 	}*/
 
 
+	Collection<StoreAppointmentPreference> appointmentPreferences;
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "doctor",fetch = FetchType.LAZY)
+	public Collection<StoreAppointmentPreference> getAppointmentPreferences() {
+		return appointmentPreferences;
+	}
+
+	public void setAppointmentPreferences(Collection<StoreAppointmentPreference> appointmentPreferences) {
+		this.appointmentPreferences = appointmentPreferences;
+	}
+
+
 	StoreAssociation storeAssociation;
 
 	@OneToOne(cascade= CascadeType.ALL, mappedBy = "store",fetch = FetchType.LAZY)
