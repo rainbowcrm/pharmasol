@@ -103,7 +103,7 @@ public class StoreValidator extends AbstractValidator {
                         String selectedtime = preference.getHhMM();
                         preference.setPreferredTime(new SimpleDateFormat("HH:mm").parse(selectedtime));
                         preference.setCompany(object.getCompany());
-                        preference.setDoctor(object);
+                        preference.setStore(object);
                     }catch (Exception ex) {
                         Logger.logException("parse Error",this.getClass(),ex);
                     }

@@ -1,4 +1,4 @@
-package com.primus.externals.store.model;
+package com.primus.externals.stockist.model;
 
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.techtrade.rads.framework.annotations.RadsPropertySet;
@@ -6,7 +6,7 @@ import com.techtrade.rads.framework.annotations.RadsPropertySet;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "STORE_PREF_APPT_TIMES")
+@Table(name = "STOCKIST_PREF_APPT_TIMES")
 @AttributeOverrides({
         @AttributeOverride(name="ID", column=@Column(name="ID")),
         @AttributeOverride(name="createdDate", column=@Column(name="CREATED_DATE")),
@@ -16,21 +16,21 @@ import javax.persistence.*;
         @AttributeOverride(name="version", column=@Column(name="VERSION"))
 
 })
+public class StockistAppointmentPreference extends AppointmentPreference {
 
-public class StoreAppointmentPreference extends AppointmentPreference {
 
+    Stockist stockist ;
 
-    Store store ;
-
-    @ManyToOne(cascade=CascadeType.DETACH  )
-    @JoinColumn(name  ="STORE_ID" )
+    @ManyToOne(cascade= CascadeType.DETACH  )
+    @JoinColumn(name  ="STOCKIST_ID" )
     @RadsPropertySet(excludeFromMap = true, excludeFromJSON = true, excludeFromXML = true)
-    public Store getStore() {
-        return store;
+    public Stockist getStockist() {
+        return stockist;
     }
 
     @RadsPropertySet(excludeFromMap = true, excludeFromJSON = true, excludeFromXML = true)
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStockist(Stockist stockist) {
+        this.stockist = stockist;
     }
 }
+

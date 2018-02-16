@@ -131,6 +131,19 @@ public class Stockist extends PrimusBusinessModel {
 		this.stockistAssociation = storeAssociation;
 	}
 
+	Collection<StockistAppointmentPreference> appointmentPreferences;
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "stockist",fetch = FetchType.LAZY)
+	public Collection<StockistAppointmentPreference> getAppointmentPreferences() {
+		return appointmentPreferences;
+	}
+
+	public void setAppointmentPreferences(Collection<StockistAppointmentPreference> appointmentPreferences) {
+		this.appointmentPreferences = appointmentPreferences;
+	}
+
+
+
 	Boolean associatedForCompany;
 
 	@Transient

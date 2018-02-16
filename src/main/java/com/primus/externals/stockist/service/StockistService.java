@@ -2,12 +2,14 @@ package com.primus.externals.stockist.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.common.CommonUtil;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
 import com.primus.externals.stockist.model.Stockist;
+import com.primus.externals.stockist.model.StockistAppointmentPreference;
 import com.primus.externals.stockist.model.StockistAssociation;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.model.transaction.TransactionResult;
@@ -47,6 +49,10 @@ public class StockistService extends AbstractService {
          Stockist oldObj = (Stockist) oldObject;
          /*TransactionUpdateDelta delta = formDelta(oldObj.getPayScaleSplits(), ((PayScale) newObj).getPayScaleSplits()) ;
          payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+
+          TransactionUpdateDelta delta = formDelta(oldObj.getAppointmentPreferences(), ((Stockist) newObj).getAppointmentPreferences()) ;
+          //payScale.getPayScaleSplits().addAll((List<PayScaleSplit>)delta.getDeletedRecords());*/
+          newObj.getAppointmentPreferences().addAll((List<StockistAppointmentPreference> )delta.getDeletedRecords());
      }
 
     public StockistAssociation getStockistAssociation (int stockistId,  ProductContext context)
