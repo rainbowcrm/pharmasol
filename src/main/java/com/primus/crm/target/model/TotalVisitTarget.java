@@ -156,6 +156,14 @@ public class TotalVisitTarget extends PrimusBusinessModel {
 	}
 
 
+	Integer  entityId;
 
+	@Column(name  ="ENTITY_ID")
+	public Integer getEntityId() {
+		return entityId;
+	}
 
+	public void setEntityId(Integer entityId) {
+		this.entityId = entityId;
+	}
 }

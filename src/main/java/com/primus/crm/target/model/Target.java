@@ -152,7 +152,16 @@ public class Target extends PrimusBusinessModel {
 		totalVisitTargets  = val;
 	}
 
+	Boolean  instanceCreated;
 
 
+	@Column(name  ="INSTANCE_CREATED")
+	public Boolean getInstanceCreated() {
+		return instanceCreated;
+	}
+
+	public void setInstanceCreated(Boolean instanceCreated) {
+		this.instanceCreated = instanceCreated;
+	}
 
 }
