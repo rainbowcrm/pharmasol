@@ -1,6 +1,7 @@
 package com.primus.crm.appointmentplan;
 
 import com.primus.common.ProductContext;
+import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.primus.common.user.model.User;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
@@ -9,6 +10,7 @@ import com.primus.externals.IAppointmentEntity;
 import com.techtrade.rads.framework.utils.Utils;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AppointmentPlanner{
@@ -63,15 +65,34 @@ public class AppointmentPlanner{
              Date startTime =  target.getFromDate() ;
              for(int i = 0 ; i  < count ; i  ++  )  {
                  TimeRange range = new TimeRange(startTime,new Date(startTime.getTime() + timeinterval)) ;
-                 
-                 ranges.add(range);
                  startTime.setTime(startTime.getTime() + timeinterval);
-
-
-
              }
 
              return ranges;
+         }
+
+         private Calendar getPreferredTime (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
+         {
+              Calendar retCalendar = new GregorianCalendar();
+              Collections.sort((List<AppointmentPreference>) appointmentEntity.getAppointmentPreferences());
+              for (AppointmentPreference preference :  appointmentEntity.getAppointmentPreferences()) {
+                Date curDate = startDate  ;
+                while(curDate.before(endDate))  {
+                    Calendar iterateDate  = new GregorianCalendar();
+                    iterateDate.setTime(curDate);
+                    if(iterateDate.get(Calendar.DAY_OF_WEEK) ==  preference.getWeekday())  {
+                        String prefTimeStr =  preference.getHhMM() ;
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                        String timeString = sdf.format(prefTimeStr) ;
+                        String hhPart = timeString.substring(0,2);
+                        String mmPart = timeString.substring(3,5);
+                        iterateDate.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hhPart));
+                        iterateDate.set(Calendar.HOUR_OF_DAY,Integer.parseInt(mmPart));
+                        return iterateDate ;
+                    }
+                }
+             }
+             return retCalendar;
          }
 
          private User getPreferredAgent (IAppointmentEntity entity, Target target)
@@ -97,43 +118,51 @@ public class AppointmentPlanner{
          }
 
     /**
-     *  Sets all the preferred to
+     *  Preferred Agent Preferred Time
      */
     public void passOne(Target target , List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
     {
-
         entities.forEach( entity ->  {
-            int countoFappts = -1;
             List<TimeRange> intervals  = getInterval(entity,target);
             intervals.forEach( interval -> {     //Date iteration
 
-                   Date date  = interval.getStart()  ;
                    User preferredAgent = getPreferredAgent(entity,target)   ;
-                   AppointmentUnit appointmentUnit = createApptUnit(entity, date, preferredAgent) ;
+                   Calendar calendar  =getPreferredTime(interval.getStart(),interval.getEnd(),entity);
+                   AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent) ;
                    if (isFeasibleForAgent(appointmentUnit)) {
                        saveForUse (appointmentUnit) ;
                    }
             });
 
     });
-
-
     }
 
+    private List<User> getAllAgents(Target  target  , ProductContext context)
+    {
+        return  null;
+    }
+
+    /**
+     *  Preferred Time Non Preffered Agent
+     * @param target
+     * @param entities
+     * @param context
+     * @param from
+     * @param to
+     */
     public void passtwo(Target target , List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
     {
-
         entities.forEach( entity ->  {
-            int countoFappts = -1;
             List<TimeRange> intervals  = getInterval(entity,target);
-            intervals.forEach( interval -> {  //Date iteration
-
-                Date date = null;
-                for (; ; ) { // iteratewith Other Agent=
-                    User otherAgent = null;
-                    AppointmentUnit otherAgentappointmentUnit = createApptUnit(entity, date, otherAgent);
-                    if (isFeasibleForAgent(otherAgentappointmentUnit)) {
-                        saveForUse(otherAgentappointmentUnit);
+            intervals.forEach( interval -> {     //Date iteration
+                User preferredAgent = getPreferredAgent(entity,target)   ;
+                List<User> allAgents=  getAllAgents(target, context);
+                for  (User agent  : allAgents ) {
+                    Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
+                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent);
+                    if (isFeasibleForAgent(appointmentUnit)) {
+                        saveForUse(appointmentUnit);
+                        break  ;
                     }
                 }
             });
@@ -142,6 +171,14 @@ public class AppointmentPlanner{
     }
 
 
+    /**
+     * Non Prefferred Tim    Preffered Agent
+     * @param target
+     * @param entities
+     * @param context
+     * @param from
+     * @param to
+     */
     public void passThree(Target target ,List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
     {
 

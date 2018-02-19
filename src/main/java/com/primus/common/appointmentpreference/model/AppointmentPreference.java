@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class AppointmentPreference extends PrimusBusinessModel {
+public class AppointmentPreference extends PrimusBusinessModel implements  Comparable{
 
     protected int weekday;
     protected  Date preferredTime;
@@ -97,5 +97,11 @@ public class AppointmentPreference extends PrimusBusinessModel {
 
     public void setHhMM(String hhMM) {
         this.hhMM = hhMM;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        AppointmentPreference compared   =(AppointmentPreference) o;
+        return this.getRank()<compared.getRank()?1:-1;
     }
 }
