@@ -71,6 +71,11 @@ public class AppointmentPlanner{
              return ranges;
          }
 
+        private List<Calendar> getPossibleTimings (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
+        {
+            return  null;
+
+        }
          private Calendar getPreferredTime (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
          {
               Calendar retCalendar = new GregorianCalendar();
@@ -181,44 +186,48 @@ public class AppointmentPlanner{
      */
     public void passThree(Target target ,List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
     {
-
         entities.forEach( entity ->  {
-            int countoFappts = -1;
             List<TimeRange> intervals  = getInterval(entity,target);
-            intervals.forEach( interval -> {      //Date iteration
+            intervals.forEach( interval -> {     //Date iteration
 
-                Date nonPreferreddate = null;
-                for (; ; ) { // iteratewith Other Agent=
-                    User prefferedAgent = null;
-                    AppointmentUnit noPrefTimeappointmentUnit = createApptUnit(entity, nonPreferreddate, prefferedAgent);
-                    if (isFeasibleForAgent(noPrefTimeappointmentUnit)) {
-                        saveForUse(noPrefTimeappointmentUnit);
+                User preferredAgent = getPreferredAgent(entity,target)   ;
+                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity) ;
+                for (Calendar calendar   : calendars) {
+                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent);
+                    if (isFeasibleForAgent(appointmentUnit)) {
+                        saveForUse(appointmentUnit);
+                        break ;
                     }
                 }
             });
 
         });
+
     }
 
     public void passFour(Target target ,List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
     {
-
         entities.forEach( entity ->  {
-            int countoFappts = -1;
             List<TimeRange> intervals  = getInterval(entity,target);
-            intervals.forEach( interval -> {      //Date iteration
+            intervals.forEach( interval -> {     //Date iteration
 
-                Date nonPreferreddate = null;
-                for (; ; ) { // iteratewith Other Agent=
-                    User notPrefferedAgent = null;
-                    AppointmentUnit noPrefTimeappointmentUnit = createApptUnit(entity, nonPreferreddate, notPrefferedAgent);
-                    if (isFeasibleForAgent(noPrefTimeappointmentUnit)) {
-                        saveForUse(noPrefTimeappointmentUnit);
-                    }
+                List<User> allAgents=  getAllAgents(target, context);
+                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity) ;
+  outer:         for (Calendar calendar   : calendars) {
+                     for (User agent : allAgents ) {
+
+                         AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent);
+                         if (isFeasibleForAgent(appointmentUnit)) {
+                             saveForUse(appointmentUnit);
+                             break  outer;
+                         }
+                     }
                 }
             });
 
         });
+
+
     }
 
 
