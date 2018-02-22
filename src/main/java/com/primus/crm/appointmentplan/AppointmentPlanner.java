@@ -1,6 +1,7 @@
 package com.primus.crm.appointmentplan;
 
 import com.primus.common.ProductContext;
+import com.primus.common.ServiceFactory;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.primus.common.user.model.User;
 import com.primus.crm.target.model.AgentVisitTarget;
@@ -10,8 +11,10 @@ import com.primus.externals.IAppointmentEntity;
 import com.techtrade.rads.framework.utils.Utils;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AppointmentPlanner{
 
@@ -28,20 +31,51 @@ public class AppointmentPlanner{
 
         Map<User,List<AppointmentUnit>> agentAppointmentUnitMap  = new HashMap < User,List<AppointmentUnit>>();
 
+        int dayofWeeks[] ={ 1,2,3,4,5,6}  ;
+        String timeofDays[] = {"10.00" , "11.00"  , "12.00"  , "13.00" ,  "14.00" , "15.00" , "16.00" , "17.00"} ;
+
 
          private AppointmentUnit createApptUnit(IAppointmentEntity entity , Date curDate, User agent ) {
              return null ;
          }
 
+         private boolean closeSlots(Timestamp t1, Timestamp t2)
+         {
+             if(Math.abs(t1.getTime() - t2.getTime()) < (3600 * 1000) ) return true;
+             return false;
+         }
+
          private boolean isFeasibleForAgent (AppointmentUnit appointmentUnit)
          {
+
+             List<AppointmentUnit> agentUnits =agentAppointmentUnitMap.get(appointmentUnit.getAgent())       ;
+             if(agentUnits != null )   {
+              //   agentUnits.stream().filter( agentUnit ->  agentUnit.getApptTime() ).collect(Collectors.toCollection())
+             }
              return false;
+
          }
 
          public void saveForUse(AppointmentUnit appointmentUnit)
          {
+             List units=   appointmentUnitMap.get(appointmentUnit.getEntity());
+             if(units == null) {
+                 units = new ArrayList()  ;
+             }
+             units.add(appointmentUnit);
+             appointmentUnitMap.put(appointmentUnit.getEntity(),units) ;
+
+             List agentUnits =agentAppointmentUnitMap.get(appointmentUnit.getAgent())       ;
+             if (agentUnits==null){
+                 agentUnits =new ArrayList() ;
+             }
+             agentUnits.add(appointmentUnit);
+
+             agentAppointmentUnitMap.put(appointmentUnit.getAgent(),agentUnits) ;
 
          }
+
+
          private List<TimeRange> getInterval(IAppointmentEntity entity, Target target)
          {
              int count ;
@@ -71,10 +105,29 @@ public class AppointmentPlanner{
              return ranges;
          }
 
-        private List<Calendar> getPossibleTimings (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
+        private List<Calendar> getPossibleTimings (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity, int roundRobinDay, int roundRobinTime)
         {
-            return  null;
+            Calendar retCalendar = new GregorianCalendar();
+            Map <Calendar , Integer > calendarSores =  new HashMap<>() ;
+            //Collections.sort((List<AppointmentPreference>) appointmentEntity.getAppointmentPreferences());
+            List<Calendar>  calendars = new ArrayList<>()  ;
+            Date curDate = startDate  ;
+            while(curDate.before(endDate))  {
+                int score  = -1 ;
+                Calendar iterateDate  = new GregorianCalendar();
+                iterateDate.setTime(curDate);
+                if(iterateDate.get(Calendar.DAY_OF_WEEK) ==  roundRobinDay)  {
+                    score ++  ;
+                }
+                if(iterateDate.get(Calendar.HOUR_OF_DAY) ==  roundRobinTime)  {
+                    score ++  ;
+                }
 
+                curDate.setTime(curDate.getTime()   + (24 * 60 *  1000 ));
+
+            }
+
+            return calendars ;
         }
          private Calendar getPreferredTime (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
          {
@@ -95,6 +148,7 @@ public class AppointmentPlanner{
                         iterateDate.set(Calendar.HOUR_OF_DAY,Integer.parseInt(mmPart));
                         return iterateDate ;
                     }
+                    curDate.setTime(curDate.getTime()   + (24 * 60 * 60 * 1000 ));
                 }
              }
              return retCalendar;
@@ -144,7 +198,8 @@ public class AppointmentPlanner{
 
     private List<User> getAllAgents(Target  target  , ProductContext context)
     {
-        return  null;
+        return ServiceFactory.getUserService().getAllDirectReportees(target.getManager(),context) ;
+
     }
 
     /**
@@ -191,7 +246,7 @@ public class AppointmentPlanner{
             intervals.forEach( interval -> {     //Date iteration
 
                 User preferredAgent = getPreferredAgent(entity,target)   ;
-                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity) ;
+                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity,-1,-1) ;
                 for (Calendar calendar   : calendars) {
                     AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent);
                     if (isFeasibleForAgent(appointmentUnit)) {
@@ -212,7 +267,7 @@ public class AppointmentPlanner{
             intervals.forEach( interval -> {     //Date iteration
 
                 List<User> allAgents=  getAllAgents(target, context);
-                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity) ;
+                List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity,-1,-1) ;
   outer:         for (Calendar calendar   : calendars) {
                      for (User agent : allAgents ) {
 

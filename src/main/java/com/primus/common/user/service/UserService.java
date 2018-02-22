@@ -141,5 +141,10 @@ public class UserService extends AbstractService {
         return super.update(object, productContext);
     }
 
+    public List<User> getAllDirectReportees(User manager , ProductContext context)
+    {
+        return ( (UserDAO)getDAO()).getAllDirectReportees(manager,context.getLoggedinCompany());
+    }
+
 }
 
