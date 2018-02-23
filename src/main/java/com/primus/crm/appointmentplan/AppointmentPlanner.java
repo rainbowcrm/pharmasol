@@ -14,14 +14,39 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class AppointmentPlanner{
 
 
 
-    public static void generateAppointments (Target target, ProductContext context)
+    private  List<IAppointmentEntity> getEntities(TotalVisitTarget totalVisitTarget)
     {
+        return null;
+
+    }
+
+    public  void generateAppointments (Target target, ProductContext context)
+    {
+        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            passOne(target,entities,context);
+        });
+        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            passtwo(target,entities,context);
+        });
+        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            passThree(target,entities,context);
+        });
+        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            passFour(target,entities,context);
+        });
+
+
 
 
 
@@ -47,14 +72,20 @@ public class AppointmentPlanner{
 
          private boolean isFeasibleForAgent (AppointmentUnit appointmentUnit)
          {
-
+             AtomicBoolean isFeasible = new AtomicBoolean(true) ;
              List<AppointmentUnit> agentUnits =agentAppointmentUnitMap.get(appointmentUnit.getAgent())       ;
              if(agentUnits != null )   {
-              //   agentUnits.stream().filter( agentUnit ->  agentUnit.getApptTime() ).collect(Collectors.toCollection())
-             }
-             return false;
+                agentUnits.forEach( agentUnit ->  {
+                    if (  closeSlots(appointmentUnit.getApptTime(),agentUnit.getApptTime()) ){
+                        isFeasible.set(false);
+                    }
 
+                });
+             }
+             return isFeasible.get();
          }
+
+
 
          public void saveForUse(AppointmentUnit appointmentUnit)
          {
@@ -70,8 +101,9 @@ public class AppointmentPlanner{
                  agentUnits =new ArrayList() ;
              }
              agentUnits.add(appointmentUnit);
-
              agentAppointmentUnitMap.put(appointmentUnit.getAgent(),agentUnits) ;
+
+
 
          }
 
@@ -179,7 +211,7 @@ public class AppointmentPlanner{
     /**
      *  Preferred Agent Preferred Time
      */
-    public void passOne(Target target , List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
+    public void passOne(Target target , List<IAppointmentEntity> entities , ProductContext context  )
     {
         entities.forEach( entity ->  {
             List<TimeRange> intervals  = getInterval(entity,target);
@@ -210,7 +242,7 @@ public class AppointmentPlanner{
      * @param from
      * @param to
      */
-    public void passtwo(Target target , List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
+    public void passtwo(Target target , List<IAppointmentEntity> entities , ProductContext context  )
     {
         entities.forEach( entity ->  {
             List<TimeRange> intervals  = getInterval(entity,target);
@@ -239,7 +271,7 @@ public class AppointmentPlanner{
      * @param from
      * @param to
      */
-    public void passThree(Target target ,List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
+    public void passThree(Target target ,List<IAppointmentEntity> entities , ProductContext context )
     {
         entities.forEach( entity ->  {
             List<TimeRange> intervals  = getInterval(entity,target);
@@ -260,7 +292,7 @@ public class AppointmentPlanner{
 
     }
 
-    public void passFour(Target target ,List<IAppointmentEntity> entities , ProductContext context  , Date from, Date to)
+    public void passFour(Target target ,List<IAppointmentEntity> entities , ProductContext context  )
     {
         entities.forEach( entity ->  {
             List<TimeRange> intervals  = getInterval(entity,target);
