@@ -1,5 +1,6 @@
 package com.primus.crm.appointmentplan;
 
+import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
@@ -8,6 +9,9 @@ import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
 import com.primus.externals.IAppointmentEntity;
+import com.primus.externals.doctor.service.DoctorService;
+import com.primus.externals.stockist.service.StockistService;
+import com.primus.externals.store.service.StoreService;
 import com.techtrade.rads.framework.utils.Utils;
 
 import java.sql.Time;
@@ -21,28 +25,60 @@ public class AppointmentPlanner{
 
 
 
-    private  List<IAppointmentEntity> getEntities(TotalVisitTarget totalVisitTarget)
+    private  List<IAppointmentEntity> getEntities(TotalVisitTarget totalVisitTarget,ProductContext context)
     {
-        return null;
+        List<IAppointmentEntity> entities = new ArrayList<>();
+
+        if (FVConstants.VISIT_TO.ALL_STORE.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            StoreService service  =  ServiceFactory.getStoreService() ;
+            List allStores = service.fetchAllActive( " storeAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            entities.addAll(allStores);
+        }
+
+        if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            DoctorService service  =  ServiceFactory.getDoctorService();
+            List allDoctors = service.fetchAllActive( " doctorAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            entities.addAll(allDoctors);
+        }
+
+        if (FVConstants.VISIT_TO.ALL_STOCKIST.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            StockistService service  =  ServiceFactory.getStockistService();
+            List allStockists = service.fetchAllActive( " doctorAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            entities.addAll(allStockists);
+        }
+
+        if (FVConstants.VISIT_TO.IND_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            entities.add(totalVisitTarget.getDoctor());
+        }
+        if (FVConstants.VISIT_TO.IND_STORE.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            entities.add(totalVisitTarget.getStore());
+        }
+        if (FVConstants.VISIT_TO.IND_STOCKIST.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            entities.add(totalVisitTarget.getStockist());
+        }
+
+
+
+        return entities;
 
     }
 
     public  void generateAppointments (Target target, ProductContext context)
     {
         target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
             passOne(target,entities,context);
         });
         target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
             passtwo(target,entities,context);
         });
         target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
             passThree(target,entities,context);
         });
         target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget);
+            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
             passFour(target,entities,context);
         });
 
@@ -239,8 +275,6 @@ public class AppointmentPlanner{
      * @param target
      * @param entities
      * @param context
-     * @param from
-     * @param to
      */
     public void passtwo(Target target , List<IAppointmentEntity> entities , ProductContext context  )
     {
@@ -268,8 +302,7 @@ public class AppointmentPlanner{
      * @param target
      * @param entities
      * @param context
-     * @param from
-     * @param to
+
      */
     public void passThree(Target target ,List<IAppointmentEntity> entities , ProductContext context )
     {
