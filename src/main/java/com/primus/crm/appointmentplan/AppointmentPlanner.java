@@ -94,12 +94,16 @@ public class AppointmentPlanner{
 
 
     }
+
+
+
     public  void generateAppointments (Target target, ProductContext context)
     {
 
         initCounters();
         List<IAppointmentEntity> entities  = new ArrayList<>() ;
-        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+        Set<TotalVisitTarget> totalVisitTargets = sortTargetVisits( (List)target.getTotalVisitTargets()) ;
+        totalVisitTargets.forEach( totalVisitTarget  ->   {
             List<IAppointmentEntity> selectEntities =  getEntities(totalVisitTarget,context);
             selectEntities.forEach( selectEntity -> {
                 if (!entities.contains(selectEntity))
@@ -226,6 +230,33 @@ public class AppointmentPlanner{
          }
 
 
+    private   Set<TotalVisitTarget> sortTargetVisits(List <TotalVisitTarget> listToBeSorted)
+    {
+        Map<TotalVisitTarget,String> mapToBeSorted  = new HashMap<>();
+        for (TotalVisitTarget totalVisitTarget : listToBeSorted) {
+            mapToBeSorted.put(totalVisitTarget,totalVisitTarget.getVisitingType().getCode());
+        }
+        List<Map.Entry<TotalVisitTarget, String>> list = new LinkedList<Map.Entry<TotalVisitTarget, String>>(mapToBeSorted.entrySet());
+        // Sorting the list based on valueents
+        Collections.sort(list, new Comparator<Map.Entry<TotalVisitTarget, String>>()
+        {
+            public int compare(Map.Entry<TotalVisitTarget, String> o1,
+                               Map.Entry<TotalVisitTarget, String> o2)
+            {
+                return 1;
+            }
+        });
+
+        // Maintaining insertion order with the help of LinkedList
+        Map<TotalVisitTarget, String> sortedMap = new LinkedHashMap<TotalVisitTarget, String>();
+        for (Map.Entry<TotalVisitTarget, String> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap.keySet();
+
+    }
 
     private Set< User> sortAgentByCount (Map<User,AtomicInteger> mapToBeSorted)
     {
