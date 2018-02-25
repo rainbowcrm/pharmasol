@@ -1,6 +1,12 @@
 package com.primus.crm.target.controller;
 
-import com.primus.abstracts.AbstractTransactionController;;
+import com.primus.abstracts.AbstractTransactionController;
+import com.primus.common.ServiceFactory;
+import com.primus.crm.appointmentplan.AppointmentPlanner;
+import com.primus.crm.target.model.Target;
+import com.primus.crm.target.service.TargetService;
+import com.techtrade.rads.framework.model.abstracts.ModelObject;
+import com.techtrade.rads.framework.ui.abstracts.PageResult;;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,6 +27,16 @@ public class TargetController extends AbstractTransactionController{
         return "TargetValidator";
     }
 
-     
+    @Override
+    public PageResult submit(ModelObject object, String actionParam) {
+        if ("schedule".equalsIgnoreCase(actionParam)) {
+            TargetService targetService  = ServiceFactory.getTargetService()   ;
+            Target target =  (Target)targetService.getById(((Target)object).getId());
+            AppointmentPlanner planner = new AppointmentPlanner() ;
+            planner.generateAppointments(target,getProductContext());
+            return  new PageResult();
+        }
+        return new PageResult();
+    }
 
 }

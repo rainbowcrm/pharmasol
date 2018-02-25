@@ -1,6 +1,7 @@
 package com.primus.crm.appointmentplan;
 
 import com.primus.common.FVConstants;
+import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
@@ -122,8 +123,10 @@ public class AppointmentPlanner{
         appointmentUnitMap.keySet().forEach(  appointmentEntity ->    {
                 List< AppointmentUnit >  appointmentUnits =  appointmentUnitMap.get(appointmentEntity) ;
 
+            Logger.logDebug(appointmentEntity.toString(),this.getClass());
 
         });
+
 
     }
 
@@ -243,7 +246,7 @@ public class AppointmentPlanner{
             public int compare(Map.Entry<TotalVisitTarget, String> o1,
                                Map.Entry<TotalVisitTarget, String> o2)
             {
-                return 1;
+                return o1.getValue().compareTo(o2.getValue());
             }
         });
 

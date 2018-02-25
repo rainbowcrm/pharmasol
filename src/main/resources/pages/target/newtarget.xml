@@ -53,7 +53,77 @@
                     <Element type="UITabset" Id="impexp" style="uitabstyle"
                              selectedTabStyle="titleStyleSelected active nav-link"
                              unSelectedTabStyle="titleStyleUnSelected nav-link">
-                    <Element type="UITab" Id="idEmployeDetails" title="Agent_Targets" showinTable="false">
+                        <Element type="UITab" Id="idCompoSDetails" title="Total_Targets" showinTable="false">
+
+                            <Element type="UITable" rows="1" cols="9" style="grid" applyStyleonChildren="true" Id="tblTrans"
+                                     property="totalVisitTargets[]">
+                                <Element type="UITableHead" style="listPageTitle">
+                                    <Element type="UITableRow">
+
+
+                                        <Element type="UITableCol" width="20%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Visit_Entity"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="35%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Visit_To"/>
+                                        </Element>
+
+
+                                        <Element type="UITableCol" width="10%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Target"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="35%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Description"/>
+                                        </Element>
+                                        <Element type="UITableCol" width="10%">
+                                        </Element>
+                                    </Element>
+                                </Element>
+
+                                <Element type="UITableRow" dataType="com.primus.crm.target.model.TotalVisitTarget" rendered="!Object.isDeleted">
+
+                                    <Element type="UITableCol" width="20%">
+                                        <Element label="" type="UIList" isMandatory="true" Id="lstvisitingType"
+                                                 property="visitingType.code">
+                                            <options populator="getFiniteValues" populatorParam="VSTTRGT">
+                                            </options>
+                                        </Element>
+
+                                    </Element>
+                                    <Element type="UITableCol" width="35%">
+                                        <Element label="" type="UILookupDataList" listId="lstvisitingEntity"
+                                                 Id="txtvisitingEntity" isMandatory="true" additionalInputControl="lstvisitingType"
+                                                 property="visitingEntity">
+                                            <lookupType>visitingEntity</lookupType>
+                                        </Element>
+                                    </Element>
+
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIText" isMandatory="false" Id="txttargettedVisit"
+                                                 property="targettedVisit"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="35%">
+                                        <Element label="" type="UIText" isMandatory="false" Id="txttottargetdescription"
+                                                 property="description"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="10%">
+                                        <Element label="" type="UIHidden" Id="hdntotallineNo" property="id"/>
+                                        <Element label="" type="UIHidden" Id="hdntotallineversion" property="version"/>
+                                        <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
+                                                 type="UIButton" Id="btnAddRow" fixedAction="FixedAction.ACTION_ADDTABLEROW"
+                                                 fixedActionParam="this"/>
+                                        <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
+                                                 type="UIButton" Id="btnDelRow" fixedAction="FixedAction.ACTION_DELETETABLEROW"
+                                                 fixedActionParam="this"/>
+                                    </Element>
+                                </Element>
+
+
+                            </Element>
+
+                        </Element>
+
+                        <Element type="UITab" Id="idEmployeDetails" title="Agent_Targets" showinTable="false">
                     <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true" Id="tblTrans"
                              property="agentVisitTargets[]">
                         <Element type="UITableHead" style="listPageTitle">
@@ -127,79 +197,13 @@
 
                     </Element>
                     </Element>
-                    <Element type="UITab" Id="idCompoSDetails" title="Total_Targets" showinTable="false">
-
-                    <Element type="UITable" rows="1" cols="9" style="grid" applyStyleonChildren="true" Id="tblTrans"
-                             property="totalVisitTargets[]">
-                        <Element type="UITableHead" style="listPageTitle">
-                            <Element type="UITableRow">
-
-
-                                <Element type="UITableCol" width="20%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="Visit_Entity"/>
-                                </Element>
-                                <Element type="UITableCol" width="35%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="Visit_To"/>
-                                </Element>
-
-
-                                <Element type="UITableCol" width="10%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="Target"/>
-                                </Element>
-                                <Element type="UITableCol" width="35%">
-                                    <Element label="" type="UILabel" Id="lblCode" value="Description"/>
-                                </Element>
-                                <Element type="UITableCol" width="10%">
-                                </Element>
-                            </Element>
-                        </Element>
-
-                        <Element type="UITableRow" dataType="com.primus.crm.target.model.TotalVisitTarget" rendered="!Object.isDeleted">
-
-                            <Element type="UITableCol" width="20%">
-                                <Element label="" type="UIList" isMandatory="true" Id="lstvisitingType"
-                                         property="visitingType.code">
-                                    <options populator="getFiniteValues" populatorParam="VSTTRGT">
-                                    </options>
-                                </Element>
-
-                            </Element>
-                            <Element type="UITableCol" width="35%">
-                                <Element label="" type="UILookupDataList" listId="lstvisitingEntity"
-                                         Id="txtvisitingEntity" isMandatory="true" additionalInputControl="lstvisitingType"
-                                         property="visitingEntity">
-                                    <lookupType>visitingEntity</lookupType>
-                                </Element>
-                            </Element>
-
-                            <Element type="UITableCol" width="10%">
-                                <Element label="" type="UIText" isMandatory="false" Id="txttargettedVisit"
-                                         property="targettedVisit"/>
-                            </Element>
-                            <Element type="UITableCol" width="35%">
-                                <Element label="" type="UIText" isMandatory="false" Id="txttottargetdescription"
-                                         property="description"/>
-                            </Element>
-                            <Element type="UITableCol" width="10%">
-                                <Element label="" type="UIHidden" Id="hdntotallineNo" property="id"/>
-                                <Element label="" type="UIHidden" Id="hdntotallineversion" property="version"/>
-                                <Element caption="" style="btn btn-primary" iconStyle="glyphicon glyphicon-plus"
-                                         type="UIButton" Id="btnAddRow" fixedAction="FixedAction.ACTION_ADDTABLEROW"
-                                         fixedActionParam="this"/>
-                                <Element caption="" style="btn btn-danger" iconStyle="glyphicon glyphicon-minus"
-                                         type="UIButton" Id="btnDelRow" fixedAction="FixedAction.ACTION_DELETETABLEROW"
-                                         fixedActionParam="this"/>
-                            </Element>
-                        </Element>
-
-
-                    </Element>
-
-                    </Element>
                     </Element>
                 </Section>
             </CoreSection>
             <Section type="summary">
+                <Element caption="Schedule_Appointments" type="UIButton" Id="btnAlink" style="btn btn-success" rendered = "Controller.isUpdateMode"
+                         iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="schedule"/>
             </Section>
 
         </UIForm>
