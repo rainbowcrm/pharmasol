@@ -288,11 +288,13 @@ public class Doctor extends PrimusBusinessModel  implements IAppointmentEntity{
 	}
 
 	@Override
+	@Transient
 	public String getIndividualVisitType() {
 		return FVConstants.VISIT_TO.IND_DOCTOR;
 	}
 
 	@Override
+	@Transient
 	public String getTotalVisitType() {
 		return FVConstants.VISIT_TO.ALL_DOCTOR;
 	}

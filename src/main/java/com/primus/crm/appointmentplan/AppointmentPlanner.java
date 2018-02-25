@@ -16,13 +16,23 @@ import com.techtrade.rads.framework.utils.Utils;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class AppointmentPlanner{
 
+
+    Map<IAppointmentEntity,List<AppointmentUnit>> appointmentUnitMap  = new HashMap < IAppointmentEntity,List<AppointmentUnit>>();
+
+    Map<User,List<AppointmentUnit>> agentAppointmentUnitMap  = new HashMap < User,List<AppointmentUnit>>();
+
+    Map<User,AtomicInteger> agentCounts=new HashMap<>() ;
+    Map<AtomicInteger,AtomicInteger> dayCount =  new HashMap<> ();
+    Map<AtomicInteger,AtomicInteger> timeCount =  new HashMap<> ();
 
 
     private  List<IAppointmentEntity> getEntities(TotalVisitTarget totalVisitTarget,ProductContext context)
@@ -63,41 +73,62 @@ public class AppointmentPlanner{
 
     }
 
-    public  void generateAppointments (Target target, ProductContext context)
+    private void initCounters()
     {
-        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
-            passOne(target,entities,context);
-        });
-        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
-            passtwo(target,entities,context);
-        });
-        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
-            passThree(target,entities,context);
-        });
-        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
-            List<IAppointmentEntity> entities =  getEntities(totalVisitTarget,context);
-            passFour(target,entities,context);
-        });
+        dayCount.put(new AtomicInteger(1),new AtomicInteger(0));
+        dayCount.put(new AtomicInteger(2),new AtomicInteger(0));
+        dayCount.put(new AtomicInteger(3),new AtomicInteger(0));
+        dayCount.put(new AtomicInteger(4),new AtomicInteger(0));
+        dayCount.put(new AtomicInteger(5),new AtomicInteger(0));
+        dayCount.put(new AtomicInteger(6),new AtomicInteger(0));
 
-
+        timeCount.put(new AtomicInteger(10),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(11),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(12),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(13),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(14),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(15),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(16),new AtomicInteger(0));
+        timeCount.put(new AtomicInteger(17),new AtomicInteger(0));
 
 
 
     }
+    public  void generateAppointments (Target target, ProductContext context)
+    {
 
-        Map<IAppointmentEntity,List<AppointmentUnit>> appointmentUnitMap  = new HashMap < IAppointmentEntity,List<AppointmentUnit>>();
+        initCounters();
+        List<IAppointmentEntity> entities  = new ArrayList<>() ;
+        target.getTotalVisitTargets().forEach( totalVisitTarget  ->   {
+            List<IAppointmentEntity> selectEntities =  getEntities(totalVisitTarget,context);
+            selectEntities.forEach( selectEntity -> {
+                if (!entities.contains(selectEntity))
+                    entities.add(selectEntity) ;
 
-        Map<User,List<AppointmentUnit>> agentAppointmentUnitMap  = new HashMap < User,List<AppointmentUnit>>();
-
-        int dayofWeeks[] ={ 1,2,3,4,5,6}  ;
-        String timeofDays[] = {"10.00" , "11.00"  , "12.00"  , "13.00" ,  "14.00" , "15.00" , "16.00" , "17.00"} ;
+            } );
 
 
-         private AppointmentUnit createApptUnit(IAppointmentEntity entity , Date curDate, User agent ) {
-             return null ;
+        });
+        passOne(target,entities,context);
+        passtwo(target,entities,context);
+        passThree(target,entities,context);
+        passFour(target,entities,context);
+
+
+        appointmentUnitMap.keySet().forEach(  appointmentEntity ->    {
+                List< AppointmentUnit >  appointmentUnits =  appointmentUnitMap.get(appointmentEntity) ;
+
+
+        });
+
+    }
+
+
+
+
+         private AppointmentUnit createApptUnit(IAppointmentEntity entity , Date curDate,   User agent, Target target ) {
+             AppointmentUnit appointmentUnit = new AppointmentUnit(entity,agent,target.getManager(),new java.sql.Timestamp(curDate.getTime()),60);
+             return appointmentUnit ;
          }
 
          private boolean closeSlots(Timestamp t1, Timestamp t2)
@@ -139,6 +170,27 @@ public class AppointmentPlanner{
              agentUnits.add(appointmentUnit);
              agentAppointmentUnitMap.put(appointmentUnit.getAgent(),agentUnits) ;
 
+             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+             String timeString = sdf.format(appointmentUnit.getApptTime()) ;
+             String hhPart = timeString.substring(0,2);
+             String mmPart = timeString.substring(3,5);
+
+             AtomicInteger counter  =  timeCount.get(new AtomicInteger((Integer.parseInt(hhPart)))) ;
+             counter.incrementAndGet() ;
+             Calendar calendar = new GregorianCalendar();
+             calendar.setTime(appointmentUnit.getApptTime());
+             int dayOfWeek=  calendar.get(Calendar.DAY_OF_WEEK);
+
+             AtomicInteger counterDay  =  dayCount.get(new AtomicInteger((dayOfWeek))) ;
+             counterDay.incrementAndGet();
+
+             AtomicInteger counterAgents = agentCounts.get(appointmentUnit.getAgent());
+             if(counterAgents  ==  null) {
+                 counterAgents = new AtomicInteger(1);
+                 agentCounts.put(appointmentUnit.getAgent(),counterAgents);
+             }else
+                 counterAgents.incrementAndGet();
 
 
          }
@@ -173,9 +225,101 @@ public class AppointmentPlanner{
              return ranges;
          }
 
+
+
+    private Set< User> sortAgentByCount (Map<User,AtomicInteger> mapToBeSorted)
+    {
+        List<Map.Entry<User, AtomicInteger>> list = new LinkedList<Map.Entry<User, AtomicInteger>>(mapToBeSorted.entrySet());
+        // Sorting the list based on valueents
+        Collections.sort(list, new Comparator<Map.Entry<User, AtomicInteger>>()
+        {
+            public int compare(Map.Entry<User, AtomicInteger> o1,
+                               Map.Entry<User, AtomicInteger> o2)
+            {
+                return (o2.getValue().get()) > (o1.getValue().get())?1:0;
+            }
+        });
+
+        // Maintaining insertion order with the help of LinkedList
+        Map<User, AtomicInteger> sortedMap = new LinkedHashMap<User, AtomicInteger>();
+        for (Map.Entry<User, AtomicInteger> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap.keySet();
+    }
+
+
+    private Set< AtomicInteger> sortByCount (Map<AtomicInteger,AtomicInteger> mapToBeSorted)
+         {
+             List<Map.Entry<AtomicInteger, AtomicInteger>> list = new LinkedList<Map.Entry<AtomicInteger, AtomicInteger>>(mapToBeSorted.entrySet());
+             // Sorting the list based on values
+             Collections.sort(list, new Comparator<Map.Entry<AtomicInteger, AtomicInteger>>()
+             {
+                 public int compare(Map.Entry<AtomicInteger, AtomicInteger> o1,
+                                    Map.Entry<AtomicInteger, AtomicInteger> o2)
+                 {
+                         return (o2.getValue().get()) > (o1.getValue().get())?1:0;
+                 }
+             });
+
+             // Maintaining insertion order with the help of LinkedList
+             Map<AtomicInteger, AtomicInteger> sortedMap = new LinkedHashMap<AtomicInteger, AtomicInteger>();
+             for (Map.Entry<AtomicInteger, AtomicInteger> entry : list)
+             {
+                 sortedMap.put(entry.getKey(), entry.getValue());
+             }
+
+             return sortedMap.keySet();
+         }
+
         private List<Calendar> getPossibleTimings (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity, int roundRobinDay, int roundRobinTime)
         {
-            Calendar retCalendar = new GregorianCalendar();
+            List<Calendar> newCalendars =  new ArrayList<>() ;
+            Set< AtomicInteger> sortedDays =  sortByCount(dayCount)  ;
+            Set<AtomicInteger> sortedTimings = sortByCount(timeCount)  ;
+            Map<Calendar,AtomicInteger>  calendarScores=  new LinkedHashMap<>() ;
+            Date curDate = startDate  ;
+            long MAXDAYSCORE =  100 +  sortedDays.size()  ;
+            long MAXTIMESCORE=  sortedTimings.size() ;
+
+            long dayScore = MAXDAYSCORE ;
+
+                for (AtomicInteger day : sortedDays) {
+                    long timeScore= MAXTIMESCORE ;
+                    for (AtomicInteger timing : sortedTimings) {
+                        while(curDate.before(endDate)) {
+                            Calendar currentDay = new GregorianCalendar()  ;
+                            curDate.setTime(curDate.getTime()   + (24 * 60 *  60 *  1000 ));
+                            Date curTime = new java.util.Date() ;
+                            curTime.setTime(curDate.getTime()  + (10 * 60 * 60 * 1000 ));
+                            currentDay.setTime(curTime);
+                                for (int hh = 10 ; hh <= 17 ; hh ++) {
+                                    int currentScore =  1;
+                                     if (hh == timing.get()) {
+                                         currentScore *=  timeScore ;
+                                     }
+                                     if(currentDay.get(Calendar.DAY_OF_WEEK) == day.get()){
+                                         currentScore *=  dayScore ;
+                                     }
+                                     if(currentScore > 1)  {
+                                         currentDay.setTime(new java.util.Date(curDate.getTime()  +  (hh * 60 * 60 * 1000 ) ));
+                                         newCalendars.add(currentDay) ;
+                                     }
+
+                                }
+                        }
+                        timeScore --;
+                    }
+                    dayScore--  ;
+                }
+                return newCalendars ;
+
+
+
+
+            /*Calendar retCalendar = new GregorianCalendar();
             Map <Calendar , Integer > calendarSores =  new HashMap<>() ;
             //Collections.sort((List<AppointmentPreference>) appointmentEntity.getAppointmentPreferences());
             List<Calendar>  calendars = new ArrayList<>()  ;
@@ -195,7 +339,7 @@ public class AppointmentPlanner{
 
             }
 
-            return calendars ;
+            return calendars ;*/
         }
          private Calendar getPreferredTime (Date startDate , Date endDate  ,  IAppointmentEntity appointmentEntity)
          {
@@ -255,7 +399,7 @@ public class AppointmentPlanner{
 
                    User preferredAgent = getPreferredAgent(entity,target)   ;
                    Calendar calendar  =getPreferredTime(interval.getStart(),interval.getEnd(),entity);
-                   AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent) ;
+                   AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent,target) ;
                    if (isFeasibleForAgent(appointmentUnit)) {
                        saveForUse (appointmentUnit) ;
                    }
@@ -285,7 +429,7 @@ public class AppointmentPlanner{
                 List<User> allAgents=  getAllAgents(target, context);
                 for  (User agent  : allAgents ) {
                     Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
-                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent);
+                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent,target);
                     if (isFeasibleForAgent(appointmentUnit)) {
                         saveForUse(appointmentUnit);
                         break  ;
@@ -313,7 +457,7 @@ public class AppointmentPlanner{
                 User preferredAgent = getPreferredAgent(entity,target)   ;
                 List<Calendar> calendars  =getPossibleTimings(interval.getStart(),interval.getEnd(),entity,-1,-1) ;
                 for (Calendar calendar   : calendars) {
-                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent);
+                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent,target);
                     if (isFeasibleForAgent(appointmentUnit)) {
                         saveForUse(appointmentUnit);
                         break ;
@@ -336,7 +480,7 @@ public class AppointmentPlanner{
   outer:         for (Calendar calendar   : calendars) {
                      for (User agent : allAgents ) {
 
-                         AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent);
+                         AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent,target);
                          if (isFeasibleForAgent(appointmentUnit)) {
                              saveForUse(appointmentUnit);
                              break  outer;

@@ -259,11 +259,13 @@ public class Store extends PrimusBusinessModel implements IAppointmentEntity {
 	}
 
 	@Override
+	@Transient
 	public String getIndividualVisitType() {
 		return FVConstants.VISIT_TO.IND_STORE;
 	}
 
 	@Override
+	@Transient
 	public String getTotalVisitType() {
 		return FVConstants.VISIT_TO.ALL_STORE;
 	}
