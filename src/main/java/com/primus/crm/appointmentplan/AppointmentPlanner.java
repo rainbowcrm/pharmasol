@@ -42,19 +42,19 @@ public class AppointmentPlanner{
 
         if (FVConstants.VISIT_TO.ALL_STORE.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
             StoreService service  =  ServiceFactory.getStoreService() ;
-            List allStores = service.fetchAllActive( " storeAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            List allStores = service.fetchAllActive( " where  storeAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
             entities.addAll(allStores);
         }
 
         if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
             DoctorService service  =  ServiceFactory.getDoctorService();
-            List allDoctors = service.fetchAllActive( " doctorAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            List allDoctors = service.fetchAllActive( " where  doctorAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
             entities.addAll(allDoctors);
         }
 
         if (FVConstants.VISIT_TO.ALL_STOCKIST.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
             StockistService service  =  ServiceFactory.getStockistService();
-            List allStockists = service.fetchAllActive( " doctorAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
+            List allStockists = service.fetchAllActive( "  where stockistAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
             entities.addAll(allStockists);
         }
 
@@ -123,7 +123,10 @@ public class AppointmentPlanner{
         appointmentUnitMap.keySet().forEach(  appointmentEntity ->    {
                 List< AppointmentUnit >  appointmentUnits =  appointmentUnitMap.get(appointmentEntity) ;
 
-            Logger.logDebug(appointmentEntity.toString(),this.getClass());
+            Logger.logDebug(appointmentEntity.getName(),this.getClass());
+            appointmentUnits.forEach(appointmentUnit ->   {
+                Logger.logDebug(appointmentUnit.shortDisplay(),this.getClass());
+            });
 
         });
 
@@ -223,10 +226,11 @@ public class AppointmentPlanner{
              if (count == 0) return  null;
              long timeinterval = (target.getToDate().getTime() -  target.getFromDate().getTime()) / count ;
              List<TimeRange> ranges = new ArrayList<>() ;
-             Date startTime =  target.getFromDate() ;
+             Date startTime =  new java.util.Date (target.getFromDate().getTime()) ;
              for(int i = 0 ; i  < count ; i  ++  )  {
-                 TimeRange range = new TimeRange(startTime,new Date(startTime.getTime() + timeinterval)) ;
+                 TimeRange range = new TimeRange(new Date(startTime.getTime()),new Date(startTime.getTime() + timeinterval)) ;
                  startTime.setTime(startTime.getTime() + timeinterval);
+                 ranges.add(range);
              }
 
              return ranges;
@@ -387,17 +391,17 @@ public class AppointmentPlanner{
                     if(iterateDate.get(Calendar.DAY_OF_WEEK) ==  preference.getWeekday())  {
                         String prefTimeStr =  preference.getHhMM() ;
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                        String timeString = sdf.format(prefTimeStr) ;
+                        String timeString = sdf.format(preference.getPreferredTime()) ;
                         String hhPart = timeString.substring(0,2);
                         String mmPart = timeString.substring(3,5);
                         iterateDate.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hhPart));
-                        iterateDate.set(Calendar.HOUR_OF_DAY,Integer.parseInt(mmPart));
+                        iterateDate.set(Calendar.MINUTE,Integer.parseInt(mmPart));
                         return iterateDate ;
                     }
                     curDate.setTime(curDate.getTime()   + (24 * 60 * 60 * 1000 ));
                 }
              }
-             return retCalendar;
+             return null;
          }
 
          private User getPreferredAgent (IAppointmentEntity entity, Target target)
@@ -433,9 +437,11 @@ public class AppointmentPlanner{
 
                    User preferredAgent = getPreferredAgent(entity,target)   ;
                    Calendar calendar  =getPreferredTime(interval.getStart(),interval.getEnd(),entity);
-                   AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent,target) ;
-                   if (isFeasibleForAgent(appointmentUnit)) {
-                       saveForUse (appointmentUnit) ;
+                   if (calendar != null) {
+                       AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent, target);
+                       if (isFeasibleForAgent(appointmentUnit)) {
+                           saveForUse(appointmentUnit);
+                       }
                    }
             });
 
@@ -463,10 +469,12 @@ public class AppointmentPlanner{
                 List<User> allAgents=  getAllAgents(target, context);
                 for  (User agent  : allAgents ) {
                     Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
-                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent,target);
-                    if (isFeasibleForAgent(appointmentUnit)) {
-                        saveForUse(appointmentUnit);
-                        break  ;
+                    if (calendar != null  ) {
+                        AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent, target);
+                        if (isFeasibleForAgent(appointmentUnit)) {
+                            saveForUse(appointmentUnit);
+                            break;
+                        }
                     }
                 }
             });

@@ -255,6 +255,6 @@ public class Stockist extends PrimusBusinessModel implements IAppointmentEntity 
 	@Override
 	@Transient
 	public String getTotalVisitType() {
-		return FVConstants.VISIT_TO.IND_STOCKIST;
+		return FVConstants.VISIT_TO.ALL_STOCKIST;
 	}
 }

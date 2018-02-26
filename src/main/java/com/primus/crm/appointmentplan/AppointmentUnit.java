@@ -4,6 +4,7 @@ import com.primus.common.user.model.User;
 import com.primus.externals.IAppointmentEntity;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class AppointmentUnit {
 
@@ -59,5 +60,10 @@ public class AppointmentUnit {
 
     public void setDuration(double duration) {
         this.duration = duration;
+    }
+
+    public String shortDisplay() {
+        SimpleDateFormat dateFormat  = new SimpleDateFormat( "dd/mon/yyyy HH:mm");
+        return  "Agent:"+ agent.getUserId() + "\t time:" + dateFormat.format(apptTime);
     }
 }

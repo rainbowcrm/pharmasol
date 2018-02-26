@@ -14,4 +14,6 @@ public interface IAppointmentEntity {
     public  String getTotalVisitType();
 
     public int getId();
+
+    public String getName();
 }
