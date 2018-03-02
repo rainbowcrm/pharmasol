@@ -78,14 +78,15 @@ public class AppointmentPlanner{
 
     private void initCounters()
     {
-        dayCount.put(new Integer(1),new AtomicInteger(0));
+      //  dayCount.put(new Integer(1),new AtomicInteger(0));
         dayCount.put(new Integer(2),new AtomicInteger(0));
         dayCount.put(new Integer(3),new AtomicInteger(0));
         dayCount.put(new Integer(4),new AtomicInteger(0));
         dayCount.put(new Integer(5),new AtomicInteger(0));
         dayCount.put(new Integer(6),new AtomicInteger(0));
+        dayCount.put(new Integer(7),new AtomicInteger(0));
 
-        timeCount.put(new Integer(0),new AtomicInteger(0));
+        /*timeCount.put(new Integer(0),new AtomicInteger(0));
         timeCount.put(new Integer(1),new AtomicInteger(0));
         timeCount.put(new Integer(2),new AtomicInteger(0));
         timeCount.put(new Integer(3),new AtomicInteger(0));
@@ -94,7 +95,7 @@ public class AppointmentPlanner{
         timeCount.put(new Integer(6),new AtomicInteger(0));
         timeCount.put(new Integer(7),new AtomicInteger(0));
         timeCount.put(new Integer(8),new AtomicInteger(0));
-        timeCount.put(new Integer(9),new AtomicInteger(0));
+        timeCount.put(new Integer(9),new AtomicInteger(0));*/
         timeCount.put(new Integer(10),new AtomicInteger(0));
         timeCount.put(new Integer(11),new AtomicInteger(0));
         timeCount.put(new Integer(12),new AtomicInteger(0));
@@ -103,7 +104,13 @@ public class AppointmentPlanner{
         timeCount.put(new Integer(15),new AtomicInteger(0));
         timeCount.put(new Integer(16),new AtomicInteger(0));
         timeCount.put(new Integer(17),new AtomicInteger(0));
-        timeCount.put(new Integer(18),new AtomicInteger(0));
+        /*timeCount.put(new Integer(18),new AtomicInteger(0));
+        timeCount.put(new Integer(19),new AtomicInteger(0));
+        timeCount.put(new Integer(20),new AtomicInteger(0));
+        timeCount.put(new Integer(21),new AtomicInteger(0));
+        timeCount.put(new Integer(22),new AtomicInteger(0));
+        timeCount.put(new Integer(23),new AtomicInteger(0));
+*/
 
 
 
@@ -155,8 +162,8 @@ public class AppointmentPlanner{
 
 
 
-         private AppointmentUnit createApptUnit(IAppointmentEntity entity , Date curDate,   User agent, Target target ) {
-             AppointmentUnit appointmentUnit = new AppointmentUnit(entity,agent,target.getManager(),new java.sql.Timestamp(curDate.getTime()),60);
+         private AppointmentUnit createApptUnit(IAppointmentEntity entity , Date curDate,   User agent, Target target,int pass ) {
+             AppointmentUnit appointmentUnit = new AppointmentUnit(entity,agent,target.getManager(),new java.sql.Timestamp(curDate.getTime()),60,pass);
              return appointmentUnit ;
          }
 
@@ -164,6 +171,20 @@ public class AppointmentPlanner{
          {
              if(Math.abs(t1.getTime() - t2.getTime()) < (3600 * 1000) ) return true;
              return false;
+         }
+
+         private boolean isAppointmentExistForInterval(Date  intervalStart, Date intervalEnd,IAppointmentEntity entity)
+         {
+               List<AppointmentUnit> existingAppts =  appointmentUnitMap.get(entity) ;
+               if(Utils.isNullList(existingAppts))
+                   return false;
+             for (AppointmentUnit existingAppt : existingAppts) {
+                 if((existingAppt.getApptTime().equals(intervalStart) || existingAppt.getApptTime().after(intervalStart)) && existingAppt.getApptTime().before(intervalEnd)  )
+                     return true ;
+
+             }
+             return false;
+
          }
 
          private boolean isFeasibleForAgent (AppointmentUnit appointmentUnit)
@@ -318,7 +339,7 @@ public class AppointmentPlanner{
                  public int compare(Map.Entry<Integer, AtomicInteger> o1,
                                     Map.Entry<Integer, AtomicInteger> o2)
                  {
-                         return (o2.getValue().get()) < (o1.getValue().get())?1:0;
+                         return (o2.getValue().get()) > (o1.getValue().get())?1:0;
                  }
              });
 
@@ -338,7 +359,7 @@ public class AppointmentPlanner{
             Set< Integer> sortedDays =  sortByCount(dayCount)  ;
             Set<Integer> sortedTimings = sortByCount(timeCount)  ;
             Map<Calendar,AtomicInteger>  calendarScores=  new LinkedHashMap<>() ;
-            Date curDate = startDate  ;
+            Date curDate = new java.util.Date(startDate.getTime())  ;
             long MAXDAYSCORE =  100 +  sortedDays.size()  ;
             long MAXTIMESCORE=  sortedTimings.size() ;
 
@@ -349,33 +370,35 @@ public class AppointmentPlanner{
                     for (Integer timing : sortedTimings) {
                         while(curDate.before(endDate)) {
                             Calendar currentDay = new GregorianCalendar()  ;
-                            curDate.setTime(curDate.getTime()   + (24 * 60 *  60 *  1000 ));
-                            Date curTime = new java.util.Date() ;
-                            curTime.setTime(curDate.getTime()  + (10 * 60 * 60 * 1000 ));
-                            currentDay.setTime(curTime);
-                            if(currentDay.get(Calendar.DAY_OF_WEEK) == 7){
+                            curDate.setTime(curDate.getTime()   + ( 60 *  60 *  1000 ));
+                            currentDay.setTime(new java.util.Date(curDate.getTime()));
+                            if(currentDay.get(Calendar.DAY_OF_WEEK) == 1){
                                 continue;
                             }
-                                for (int hh = 10 ; hh <= 17 ; hh ++) {
-                                    int currentScore =  1;
-                                     if (hh == timing.intValue()) {
-                                         currentScore *=  timeScore ;
-                                     }
-                                     if(currentDay.get(Calendar.DAY_OF_WEEK) == day.intValue()){
-                                         currentScore *=  dayScore ;
-                                     }
-                                     if(currentScore > 1)  {
-                                         currentDay.setTime(new java.util.Date(curDate.getTime()  +  (hh * 60 * 60 * 1000 ) ));
-                                         newCalendars.add(currentDay) ;
-                                     }
-
+                            if(currentDay.get(Calendar.HOUR_OF_DAY) <= 9 || currentDay.get(Calendar.HOUR_OF_DAY) > 17 )  {
+                                continue;
+                            }
+                            int currentScore = 1;
+                            if (currentDay.get(Calendar.HOUR_OF_DAY) == timing.intValue()) {
+                                currentScore *= timeScore;
+                            }
+                            if (currentDay.get(Calendar.DAY_OF_WEEK) == day.intValue()) {
+                                currentScore *= dayScore;
+                            }
+                            if (currentScore > 1) {
+                                if(currentDay.get(Calendar.HOUR_OF_DAY) <= 9 || currentDay.get(Calendar.HOUR_OF_DAY) > 17 )  {
+                                    System.out.println("break");
                                 }
+                                newCalendars.add(currentDay); //currentDay.get(Calendar.HOUR_OF_DAY)
+
+
+                            }
                         }
                         timeScore --;
                     }
                     dayScore--  ;
                 }
-                return newCalendars ;
+                return newCalendars ; //newCalendars.get(11).get(Calendar.HOUR_OF_DAY)
 
 
 
@@ -457,25 +480,41 @@ public class AppointmentPlanner{
         entities.forEach( entity ->  {
             if( ! isCountReached(entity)) {
                 List<TimeRange> intervals = getInterval(entity, target);
-                intervals.forEach(interval -> {     //Date iteration
+                User preferredAgent = getPreferredAgent(entity, target);
+                if (preferredAgent != null) {
+                    intervals.forEach(interval -> {     //Date iteration
 
-                    User preferredAgent = getPreferredAgent(entity, target);
-                    Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
-                    if (calendar != null) {
-                        AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent, target);
-                        if (isFeasibleForAgent(appointmentUnit)) {
-                            saveForUse(appointmentUnit);
+
+                        Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
+                        if (calendar != null) {
+                            AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent, target, 1);
+                            if (isFeasibleForAgent(appointmentUnit) && !isCountReached(entity)) {
+                                saveForUse(appointmentUnit);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
     });
     }
 
-    private List<User> getAllAgents(Target  target  , ProductContext context)
+    private Set<User> getAllAgents(Target  target  , ProductContext context)
     {
-        return ServiceFactory.getUserService().getAllDirectReportees(target.getManager(),context) ;
+        List<User> agents =  ServiceFactory.getUserService().getAllDirectReportees(target.getManager(),context) ;
+        agents.forEach(agent ->  {
+            if(!agentAppointmentUnitMap.containsKey(agent)) {
+                agentAppointmentUnitMap.put(agent,new ArrayList<>()) ;
+            }
+        });
+        Map<User,AtomicInteger> paramMap =  new HashMap<User,AtomicInteger>() ;
+        agentAppointmentUnitMap.keySet().forEach( key ->  {
+            paramMap.put(key, new AtomicInteger(agentAppointmentUnitMap.get(key).size())) ;
+        });
+
+        Set<User> sortedAgents= sortAgentByCount(paramMap);
+
+        return sortedAgents;
 
     }
 
@@ -491,15 +530,17 @@ public class AppointmentPlanner{
                     if( ! isCountReached(entity)) {
                         List<TimeRange> intervals = getInterval(entity, target);
                         intervals.forEach(interval -> {     //Date iteration
-                            User preferredAgent = getPreferredAgent(entity, target);
-                            List<User> allAgents = getAllAgents(target, context);
-                            for (User agent : allAgents) {
-                                Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
-                                if (calendar != null) {
-                                    AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent, target);
-                                    if (isFeasibleForAgent(appointmentUnit)) {
-                                        saveForUse(appointmentUnit);
-                                        break;
+                            if (! isAppointmentExistForInterval(interval.getStart(),interval.getEnd(),entity )) {
+                                User preferredAgent = getPreferredAgent(entity, target);
+                                Set<User> allAgents = getAllAgents(target, context);
+                                for (User agent : allAgents) {
+                                    Calendar calendar = getPreferredTime(interval.getStart(), interval.getEnd(), entity);
+                                    if (calendar != null) {
+                                        AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent, target, 2);
+                                        if (isFeasibleForAgent(appointmentUnit) && !isCountReached(entity)) {
+                                            saveForUse(appointmentUnit);
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -520,19 +561,25 @@ public class AppointmentPlanner{
     {
         entities.forEach( entity ->  {
             if( ! isCountReached(entity)) {
-                List<TimeRange> intervals = getInterval(entity, target);
-                intervals.forEach(interval -> {     //Date iteration
+                User preferredAgent = getPreferredAgent(entity, target);
+                if (preferredAgent != null) {
+                    List<TimeRange> intervals = getInterval(entity, target);
+                    intervals.forEach(interval -> {     //Date iteration
 
-                    User preferredAgent = getPreferredAgent(entity, target);
-                    List<Calendar> calendars = getPossibleTimings(interval.getStart(), interval.getEnd(), entity, -1, -1);
-                    for (Calendar calendar : calendars) {
-                        AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent, target);
-                        if (isFeasibleForAgent(appointmentUnit)) {
-                            saveForUse(appointmentUnit);
-                            break;
+                        if (!isAppointmentExistForInterval(interval.getStart(), interval.getEnd(), entity)) {
+
+                            List<Calendar> calendars = getPossibleTimings(interval.getStart(), interval.getEnd(), entity, -1, -1);
+                            for (Calendar calendar : calendars) {
+
+                                AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), preferredAgent, target, 3);
+                                if (isFeasibleForAgent(appointmentUnit) && !isCountReached(entity)) {
+                                    saveForUse(appointmentUnit);
+                                    break;
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
         });
@@ -545,17 +592,19 @@ public class AppointmentPlanner{
             if( ! isCountReached(entity)) {
                 List<TimeRange> intervals = getInterval(entity, target);
                 intervals.forEach(interval -> {     //Date iteration
+                    if (! isAppointmentExistForInterval(interval.getStart(),interval.getEnd(),entity )) {
+                        Set<User> allAgents = getAllAgents(target, context);
+                        List<Calendar> calendars = getPossibleTimings(interval.getStart(), interval.getEnd(), entity, -1, -1);
 
-                    List<User> allAgents = getAllAgents(target, context);
-                    List<Calendar> calendars = getPossibleTimings(interval.getStart(), interval.getEnd(), entity, -1, -1);
-                    outer:
-                    for (Calendar calendar : calendars) {
-                        for (User agent : allAgents) {
+                        outer:
+                        for (Calendar calendar : calendars) {
+                            for (User agent : allAgents) {
 
-                            AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent, target);
-                            if (isFeasibleForAgent(appointmentUnit)) {
-                                saveForUse(appointmentUnit);
-                                break outer;
+                                AppointmentUnit appointmentUnit = createApptUnit(entity, calendar.getTime(), agent, target, 4);
+                                if (isFeasibleForAgent(appointmentUnit) && !isCountReached(entity)) {
+                                    saveForUse(appointmentUnit);
+                                    break outer;
+                                }
                             }
                         }
                     }

@@ -38,4 +38,21 @@ public class PrimusBusinessModel extends  PrimusModel {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PrimusBusinessModel that = (PrimusBusinessModel) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+
 }

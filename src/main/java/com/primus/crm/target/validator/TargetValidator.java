@@ -105,7 +105,7 @@ public class TargetValidator extends AbstractValidator {
                    List<StockistAssociation> stockists = (List<StockistAssociation>) service.fetchAllLinked(" where stockist.name ='" + visitTarget.getVisitingEntity() + "'", null, context);
                    if (!Utils.isNullList(stockists)) {
                        visitTarget.setStockist(stockists.get(0).getStockist());
-                       visitTarget.setEntityId(stockists.get(0).getId());
+                       visitTarget.setEntityId(stockists.get(0).getStockist().getId());
                        if(stockists.get(0).getStockist().getStockistAssociation().getLocation().getId() !=  target.getLocation().getId() )  {
                            results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, stockists.get(0).getStockist().getName()));
                        }
@@ -120,7 +120,7 @@ public class TargetValidator extends AbstractValidator {
                            results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getStore().getName()));
                        }
                        visitTarget.setStore(datas.get(0).getStore());
-                       visitTarget.setEntityId(datas.get(0).getId());
+                       visitTarget.setEntityId(datas.get(0).getStore().getId());
                    }else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Store"));
                }
@@ -131,7 +131,7 @@ public class TargetValidator extends AbstractValidator {
                            results.add(getErrorforCode(context, TargetErrorCodes.ENTITY_IN_DIFFERENT_LOCATION, datas.get(0).getDoctor().getName()));
                        }
                        visitTarget.setDoctor(datas.get(0).getDoctor());
-                       visitTarget.setEntityId(datas.get(0).getId());
+                       visitTarget.setEntityId(datas.get(0).getDoctor().getId());
                    }else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
 
@@ -141,8 +141,9 @@ public class TargetValidator extends AbstractValidator {
 
         if  (!Utils.isNullCollection(target.getAgentVisitTargets()))  {
             AgentVisitTarget agentVisitTarget = (AgentVisitTarget) target.getAgentVisitTargets().stream().findFirst().orElse(null);
-           if  (agentVisitTarget.getAgent() == null  && agentVisitTarget.getVisitingType() == null   )  {
-                // do nothing
+           if  (agentVisitTarget.getAgent().getUserId() == null && target.getAgentVisitTargets().size() ==1   )  {
+                // do nothingu
+               target.setAgentVisitTargets(null);
             } else {
                target.getAgentVisitTargets().forEach(visitTarget -> {
                    visitTarget.setTarget(target);

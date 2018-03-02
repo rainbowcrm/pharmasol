@@ -8,6 +8,7 @@ import com.primus.common.ProductContext;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
+import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,8 @@ public class TargetService extends AbstractService {
          newObj.getTotalVisitTargets().addAll((List<TotalVisitTarget>)delta.getDeletedRecords());
 
           TransactionUpdateDelta delta1 = formDelta(oldObj.getAgentVisitTargets(), ((Target) newObj).getAgentVisitTargets()) ;
-          newObj.getAgentVisitTargets().addAll((List<AgentVisitTarget>)delta1.getDeletedRecords());
+          if (!Utils.isNullCollection(newObj.getAgentVisitTargets()))
+            newObj.getAgentVisitTargets().addAll((List<AgentVisitTarget>)delta1.getDeletedRecords());
 
 
 

@@ -13,6 +13,7 @@ public class AppointmentUnit {
     User manager  ;
     Timestamp apptTime;
     double duration ;
+    int pass ;
 
     public IAppointmentEntity getEntity() {
         return entity;
@@ -28,6 +29,15 @@ public class AppointmentUnit {
         this.manager = manager;
         this.apptTime = apptTime;
         this.duration = duration;
+    }
+
+    public AppointmentUnit(IAppointmentEntity entity, User agent, User manager, Timestamp apptTime, double duration,int pass) {
+        this.entity = entity;
+        this.agent = agent;
+        this.manager = manager;
+        this.apptTime = apptTime;
+        this.duration = duration;
+        this.pass = pass;
     }
 
     public User getAgent() {
@@ -63,7 +73,15 @@ public class AppointmentUnit {
     }
 
     public String shortDisplay() {
-        SimpleDateFormat dateFormat  = new SimpleDateFormat( "dd/mon/yyyy HH:mm");
-        return  "Agent:"+ agent.getUserId() + "\t time:" + dateFormat.format(apptTime);
+        SimpleDateFormat dateFormat  = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
+        return  "Agent:"+ agent.getUserId() + "\t time:" + dateFormat.format(apptTime) +" \tpass:" + pass;
+    }
+
+    public int getPass() {
+        return pass;
+    }
+
+    public void setPass(int pass) {
+        this.pass = pass;
     }
 }
