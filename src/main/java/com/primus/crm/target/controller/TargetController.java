@@ -3,6 +3,7 @@ package com.primus.crm.target.controller;
 import com.primus.abstracts.AbstractTransactionController;
 import com.primus.common.ServiceFactory;
 import com.primus.crm.appointmentplan.AppointmentPlanner;
+import com.primus.crm.appointmentplan.model.AppointmentPlan;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.service.TargetService;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -33,8 +34,11 @@ public class TargetController extends AbstractTransactionController{
             TargetService targetService  = ServiceFactory.getTargetService()   ;
             Target target =  (Target)targetService.getById(((Target)object).getId());
             AppointmentPlanner planner = new AppointmentPlanner() ;
-            planner.generateAppointments(target,getProductContext());
-            return  new PageResult();
+            AppointmentPlan plan  = planner.generatePlan(target,getProductContext());
+            PageResult result = new PageResult();
+            result.setObject(plan);
+            result.setNextPageKey("appointmentPlan");
+            return  result;
         }
         return new PageResult();
     }

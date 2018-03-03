@@ -2,11 +2,12 @@ package com.primus.crm.appointmentplan;
 
 import com.primus.common.user.model.User;
 import com.primus.externals.IAppointmentEntity;
+import com.techtrade.rads.framework.model.abstracts.ModelObject;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class AppointmentUnit {
+public class AppointmentUnit extends ModelObject {
 
     IAppointmentEntity entity ;
     User agent;

@@ -69,6 +69,8 @@
         </Page>
         <Page id = "newtarget" definition ="/resources/pages/target/newtarget.xml" modelclass = "com.primus.crm.target.model.Target" >
         </Page>
+        <Page id = "appointmentPlan" definition ="/resources/pages/target/appointmentPlan.xml" modelclass = "com.primus.crm.appointmentplan.model.AppointmentPlan" >
+        </Page>
 
         <Page id = "items" definition ="/resources/pages/item/itemList.xml" modelclass = "com.primus.merchandise.item.model.Item" >
         </Page>
@@ -332,7 +334,7 @@
             <Element label="" type= "UIImage" height = "80" width ="160" generatedValue="Controller.getLogo" />
             <Element label = "" type = "UIMenuSet">
             <Element label = "" type = "UIMenu" Id = "menu05" style="menustyleParent" title="Panning" groupId= "menuGRP005" iconStyle="fa fa-fw fa-plug" >
-                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="targets"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=targets"  iconStyle="fa fa-fw fa-eye"  />
+                <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Targets"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=targets"  iconStyle="fa fa-fw fa-eye"  />
             </Element>
             <Element label = "" type = "UIMenu" Id = "menu00" style="menustyleParent" title="Appointments" groupId= "menuGRP002" iconStyle="fa fa-fw fa-book" >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Templates"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=appointmenttemplates"  iconStyle="fa fa-fw fa-certificate"  />

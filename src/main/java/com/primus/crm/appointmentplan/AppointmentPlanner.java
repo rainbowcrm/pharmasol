@@ -6,6 +6,7 @@ import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.primus.common.user.model.User;
+import com.primus.crm.appointmentplan.model.AppointmentPlan;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
@@ -121,6 +122,17 @@ public class AppointmentPlanner{
         return  appointmentUnitMap.get(entity)!=null && appointmentUnitMap.get(entity).size() >=entityExpectedApptCount.get(entity).intValue() ;
     }
 
+    public AppointmentPlan generatePlan(Target target, ProductContext context)
+    {
+        AppointmentPlan appointmentPlan = new AppointmentPlan()  ;
+        generateAppointments(target,context);
+        appointmentUnitMap.keySet().forEach(  appointmentEntity -> {
+            List<AppointmentUnit> appointmentUnits = appointmentUnitMap.get(appointmentEntity);
+            appointmentPlan.addAppointmentUnits(appointmentUnits);
+        });
+
+        return  appointmentPlan;
+    }
 
     public  void generateAppointments (Target target, ProductContext context)
     {
@@ -339,7 +351,7 @@ public class AppointmentPlanner{
                  public int compare(Map.Entry<Integer, AtomicInteger> o1,
                                     Map.Entry<Integer, AtomicInteger> o2)
                  {
-                         return (o2.getValue().get()) > (o1.getValue().get())?1:0;
+                         return (o2.getValue().get()) < (o1.getValue().get())?1:0;
                  }
              });
 

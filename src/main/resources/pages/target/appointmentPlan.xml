@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id="appointmentPlan" showinFrame="true" title="Target | Primus WFM "
+      Object="com.primus.crm.appointmentplan.model.AppointmentPlan"
+      Controller="com.primus.crm.appointmentplan.controller.AppointmentPlanController">
+    <Template type="Transaction" name="TransactionTemplate"></Template>
+    <Forwards>
+        <Forward key="CANCEL">controller?page=targets</Forward>
+        <Forward key="SAVE">targets</Forward>
+    </Forwards>
+    <IncludeJS>./js/CRMGeneral.js</IncludeJS>
+    <IncludeJS>./js/RadsLib.js</IncludeJS>
+    <Elements>
+        <UIForm Id="cust" method="POST">
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type="detailForSale">
+
+                    <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true" Id="tblTrans"
+                    property="appointmentUnits[]">
+                    <Element type="UITableHead" style="listPageTitle">
+                        <Element type="UITableRow">
+                            <Element type="UITableCol" width="25%">
+                                <Element label="" type="UILabel" Id="lblCode" value="Agent"/>
+                            </Element>
+
+                            <Element type="UITableCol" width="25%">
+                                <Element label="" type="UILabel" Id="lblCode" value="Visit_Entity"/>
+                            </Element>
+                            <Element type="UITableCol" width="25%">
+                                <Element label="" type="UILabel" Id="lblCode" value="Visit_To"/>
+                            </Element>
+
+                            <Element type="UITableCol" width="25%">
+                                <Element label="" type="UILabel" Id="lblCode" value="Date_Time"/>
+                            </Element>
+
+                        </Element>
+                    </Element>
+
+                    <Element type="UITableRow" dataType="com.primus.crm.appointmentplan.AppointmentUnit" >
+                    <Element type="UITableCol" width="25%">
+                        <Element label="" type="UILabel" isMandatory="false" Id="txtAgent"
+                                 property="agent.userId"/>
+                    </Element>
+                    <Element type="UITableCol" width="25%">
+                        <Element label="" type="UILabel" isMandatory="false" Id="txtVisitType"
+                                 property=""/>
+                    </Element>
+                    <Element type="UITableCol" width="25%">
+                        <Element label="" type="UILabel" isMandatory="false" Id="txtVisitin"
+                                 property="entity.Name"/>
+                    </Element>
+                    <Element type="UITableCol" width="25%">
+                        <Element label="" type="UILabel" isMandatory="false" Id="txtDTTime"
+                                 property="apptTime"/>
+                    </Element>
+                    </Element>
+                    </Element>
+                </Section>
+            </CoreSection>
+        </UIForm>
+    </Elements>
+</Page>
