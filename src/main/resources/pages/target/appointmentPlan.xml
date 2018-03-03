@@ -14,7 +14,7 @@
             <CoreSection>
                 <ErrorSection>
                 </ErrorSection>
-                <Section type="detailForSale">
+                <Section type="detailFullPage">
 
                     <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true" Id="tblTrans"
                     property="appointmentUnits[]">
@@ -45,7 +45,7 @@
                     </Element>
                     <Element type="UITableCol" width="25%">
                         <Element label="" type="UILabel" isMandatory="false" Id="txtVisitType"
-                                 property=""/>
+                                 property="visitType"/>
                     </Element>
                     <Element type="UITableCol" width="25%">
                         <Element label="" type="UILabel" isMandatory="false" Id="txtVisitin"
@@ -53,12 +53,20 @@
                     </Element>
                     <Element type="UITableCol" width="25%">
                         <Element label="" type="UILabel" isMandatory="false" Id="txtDTTime"
-                                 property="apptTime"/>
+                                 property="fullTime"/>
                     </Element>
                     </Element>
                     </Element>
                 </Section>
             </CoreSection>
+            <Section type="optionalsummary">
+                <Element caption="Replan" type="UIButton" Id="btnReplan" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-plus" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="replan"/>
+                <Element caption="Confirm" type="UIButton" Id="btnReplan" style="btn btn-success"
+                         iconStyle="glyphicon glyphicon-flash" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
+                         fixedActionParam="confirm"/>
+            </Section>
         </UIForm>
     </Elements>
 </Page>

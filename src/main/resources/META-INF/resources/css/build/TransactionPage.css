@@ -353,6 +353,13 @@ div.detailCRUDStyleForSale {
   overflow: auto;
   height: 52%; }
 
+div.detailFullLengthPage {
+    position: relative;
+    overflow: auto;
+    height: 90%;
+    }
+
+
 div.detailCRUDStyleForPage {
   position: relative;
   overflow: auto;

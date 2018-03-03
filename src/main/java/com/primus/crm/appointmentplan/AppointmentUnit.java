@@ -1,5 +1,6 @@
 package com.primus.crm.appointmentplan;
 
+import com.primus.common.FVConstants;
 import com.primus.common.user.model.User;
 import com.primus.externals.IAppointmentEntity;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
@@ -76,6 +77,22 @@ public class AppointmentUnit extends ModelObject {
     public String shortDisplay() {
         SimpleDateFormat dateFormat  = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
         return  "Agent:"+ agent.getUserId() + "\t time:" + dateFormat.format(apptTime) +" \tpass:" + pass;
+    }
+
+    public String getFullTime()
+    {
+        SimpleDateFormat dateFormat  = new SimpleDateFormat( "dd/MM/yyyy HH:mm");
+        return dateFormat.format(apptTime);
+    }
+
+    public String getVisitType()
+    {
+        if (entity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_DOCTOR))
+            return "Doctor" ;
+        else if (entity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_STOCKIST))
+            return "Stockist" ;
+        else
+            return "Store" ;
     }
 
     public int getPass() {

@@ -60,6 +60,10 @@
   <noRows>-1</noRows>
   <noCols>1</noCols>
  </Section>
+  <Section Id ="detailFullPage" showinTable = "false"  style= "detailFullLengthPage"  tabStyle ="CRUDtableContainer">
+   <noRows>-1</noRows>
+   <noCols>1</noCols>
+  </Section>
  <Section Id ="detailCRUDStyleForPage" showinTable = "true"  style= "detailCRUDStyleForPage"  tabStyle ="CRUDtableContainer">
   <noRows>-1</noRows>
   <noCols>2</noCols>
