@@ -15,6 +15,8 @@
                 <ErrorSection>
                 </ErrorSection>
                 <Section type="detailFullPage">
+                    <Element label="" type="UIHidden" isMandatory="false" Id="txtTargetID"
+                             property="target.id"/>
 
                     <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true" Id="tblTrans"
                     property="appointmentUnits[]">
@@ -60,7 +62,7 @@
                 </Section>
             </CoreSection>
             <Section type="optionalsummary">
-                <Element caption="Replan" type="UIButton" Id="btnReplan" style="btn btn-success"
+                <Element caption="Replan" type="UIButton" Id="btnReplan" style="btn btn-primary"
                          iconStyle="glyphicon glyphicon-plus" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="replan"/>
                 <Element caption="Confirm" type="UIButton" Id="btnReplan" style="btn btn-success"

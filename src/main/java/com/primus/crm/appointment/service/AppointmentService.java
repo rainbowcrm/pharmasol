@@ -10,6 +10,7 @@ import com.primus.crm.appointment.model.*;
 import com.primus.crm.appointment.validator.AppointmentTemplateErrorCodes;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.externals.IAppointmentEntity;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
@@ -236,6 +237,44 @@ public class AppointmentService extends AbstractService {
         }
         return false;
     }
+
+    public void createWithMinimum(User agent, Date dateTime, IAppointmentEntity appointmentEntity , Location location , double duration , ProductContext context )
+    {
+        try {
+            Appointment appointment = new Appointment();
+            appointment.setLocation(location);
+            appointment.setAgent(agent);
+            appointment.setManager(agent.getManagerUser());
+            appointment.setCompany(context.getCompany());
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            String hhmm = sdf.format(dateTime);
+            appointment.setApptTime(new SimpleDateFormat("HH:mm").parse(hhmm));
+            appointment.setApptDate(dateTime);
+            appointment.setDuration(duration);
+            appointment.setStatus(new FiniteValue(FVConstants.APPT_STATUS.PLANNED));
+            if (appointmentEntity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_DOCTOR)) {
+                appointment.setDoctor((Doctor) appointmentEntity);
+                appointment.setPartyType(new FiniteValue(FVConstants.EXTERNAL_PARTY.DOCTOR));
+
+            }
+            if (appointmentEntity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_STOCKIST)) {
+                appointment.setStockist((Stockist) appointmentEntity);
+                appointment.setPartyType(new FiniteValue(FVConstants.EXTERNAL_PARTY.STOCKIST));
+            }
+            if (appointmentEntity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_STORE)) {
+                appointment.setStore((Store) appointmentEntity);
+                appointment.setPartyType(new FiniteValue(FVConstants.EXTERNAL_PARTY.STORE));
+            }
+            String no = NextUpGenerator.getNextNumber(FVConstants.PGM_APPT, context, null, location.getRegion(), appointment.getApptDate());
+            appointment.setDocNo(no);
+            create(appointment, context);
+        }catch (Exception ex) {
+            Logger.logException("failite",this.getClass(),ex);
+        }
+
+
+    }
+
 
     private void generateDailyAppointments(AppointmentTemplate template, ProductContext context) {
 

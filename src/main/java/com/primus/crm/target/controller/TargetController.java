@@ -35,6 +35,7 @@ public class TargetController extends AbstractTransactionController{
             Target target =  (Target)targetService.getById(((Target)object).getId());
             AppointmentPlanner planner = new AppointmentPlanner() ;
             AppointmentPlan plan  = planner.generatePlan(target,getProductContext());
+            plan.setTarget(target);
             PageResult result = new PageResult();
             result.setObject(plan);
             result.setNextPageKey("appointmentPlan");

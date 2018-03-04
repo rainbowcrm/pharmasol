@@ -5,9 +5,13 @@ import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.common.ProductContext;
+import com.primus.crm.appointment.service.AppointmentService;
+import com.primus.crm.appointmentplan.AppointmentUnit;
+import com.primus.crm.appointmentplan.model.AppointmentPlan;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
+import com.techtrade.rads.framework.model.transaction.TransactionResult;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +33,9 @@ public class TargetService extends AbstractService {
 
  @Autowired
  TargetDAO targetDAO ;
+
+ @Autowired
+ AppointmentService appointmentService;
 
   @Override
      public AbstractDAO getDAO() {
@@ -55,6 +62,21 @@ public class TargetService extends AbstractService {
      public Target getTargetforDate(Location location , Date evalDate , ProductContext context)
      {
          return targetDAO.getTargetforDate(location.getId(),evalDate,context.getLoggedinCompany());
+     }
+
+     private TransactionResult createAppointment(Location location, AppointmentUnit unit, ProductContext context)
+     {
+        appointmentService.createWithMinimum(unit.getAgent(), unit.getApptTime() ,unit.getEntity(),location,unit.getDuration(),context);
+        return new TransactionResult(TransactionResult.Result.SUCCESS) ;
+     }
+
+     public TransactionResult createAppointments(AppointmentPlan plan, ProductContext context)
+     {
+         for (AppointmentUnit unit : plan.getAppointmentUnits() )  {
+             createAppointment(plan.getTarget().getLocation() , unit,context) ;
+         }
+
+         return new TransactionResult(TransactionResult.Result.SUCCESS) ;
      }
 
 }
