@@ -201,7 +201,7 @@
                 </Section>
             </CoreSection>
             <Section type="summary">
-                <Element caption="Review_Plan" type="UIButton" Id="btnAlink" style="btn btn-success" rendered = "Controller.isUpdateMode"
+                <Element caption="Review_Plan" type="UIButton" Id="btnAlink" style="btn btn-success" rendered = "Controller.IsReadyToPlan"
                          iconStyle="glyphicon glyphicon-link" fixedAction="FixedAction.ACTION_PLAINSUBMIT"
                          fixedActionParam="schedule"/>
             </Section>

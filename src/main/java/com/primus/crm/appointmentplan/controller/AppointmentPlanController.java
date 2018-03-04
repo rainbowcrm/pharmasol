@@ -26,6 +26,7 @@ public class AppointmentPlanController extends AbstractTransactionController {
     }
 
 
+
     @Override
     public PageResult submit(ModelObject object, String actionParam) {
         if("confirm".equalsIgnoreCase(actionParam))  {
@@ -35,6 +36,7 @@ public class AppointmentPlanController extends AbstractTransactionController {
             AppointmentPlan plan  = planner.generatePlan(target,getProductContext());
             plan.setTarget(target);
             targetService.createAppointments(plan,getProductContext()) ;
+            target.setInstanceCreated(new Boolean(true));
             PageResult result  = new PageResult( );
             result.setResult(TransactionResult.Result.SUCCESS);
             result.setNextPageKey("apptcalendar");
@@ -47,6 +49,7 @@ public class AppointmentPlanController extends AbstractTransactionController {
             PageResult result  = new PageResult( );
             result.setResult(TransactionResult.Result.SUCCESS);
             result.setObject(target);
+            result.setMode(Mode.UPDATE);
             result.setNextPageKey("newtarget");
             return result;
         }

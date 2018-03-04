@@ -28,6 +28,15 @@ public class TargetController extends AbstractTransactionController{
         return "TargetValidator";
     }
 
+    public boolean IsReadyToPlan()
+    {
+        if (getObject()==  null) return false;
+        Target target = (Target) getObject() ;
+        if (target != null && ( target.getInstanceCreated() == null  || target.getInstanceCreated().booleanValue() == false)  ) return true;
+        return false;
+
+    }
+
     @Override
     public PageResult submit(ModelObject object, String actionParam) {
         if ("schedule".equalsIgnoreCase(actionParam)) {

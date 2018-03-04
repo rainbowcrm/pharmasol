@@ -405,6 +405,9 @@ public class RadsServlet extends HttpServlet {
                             if (page.getFixedAction() == FixedAction.ACTION_GOADDMODE ) {
                                 mode =ViewController.Mode.CREATE;
                             }
+                            if(mode == null) {
+                                mode = pageResult.getMode();
+                            }
                             displayNextPage(page, nextPageKey, object,req,resp,mode);
                             return ;
                         }else {
@@ -469,7 +472,7 @@ public class RadsServlet extends HttpServlet {
                     }else  if (res != null && !Utils.isNullString(res.getNextPageKey()) && !nextPageKey.equals(curKey) ) {
                         if(res.getObject() != null)
                             object = res.getObject();
-                        displayNextPage(page, nextPageKey, object,req,resp,null);
+                        displayNextPage(page, nextPageKey, object,req,resp,res.getMode());
                         return ;
                     } else  {
                         if(res.getObject() != null)
@@ -501,11 +504,15 @@ public class RadsServlet extends HttpServlet {
                     if (res != null &&  !res.hasErrors() && !Utils.isNullString(res.getNextPageKey()) && !nextPageKey.equals(curKey) ) {
                         if(res.getObject() != null)
                             object = res.getObject();
+                        if(mode ==null)
+                            mode= res.getMode();
                         displayNextPage(page, nextPageKey, object,req,resp,mode);
                         return ;
                     } else if (!Utils.isNullList(res.getErrors())) {
                         page.setErrors(res.getErrors());
                     }else {
+                        if(mode ==null)
+                            mode= res.getMode();
                         if (res.getResponseAction() == PageResult.ResponseAction.RELOADSTATICCONTS) {
                             page = reloadPage(page, object, req, resp, mode);
                         }else if (res.getResponseAction() == PageResult.ResponseAction.FULLRELOAD) {
