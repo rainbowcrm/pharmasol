@@ -7,7 +7,9 @@ import com.primus.abstracts.PrimusModel;
 import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
+import com.primus.crm.target.model.AgentSaleTarget;
 import com.primus.crm.target.model.AgentVisitTarget;
+import com.primus.crm.target.model.ItemSaleTarget;
 import com.primus.crm.target.service.TargetService;
 import com.primus.externals.doctor.model.DoctorAssociation;
 import com.primus.externals.doctor.service.DoctorService;
@@ -15,6 +17,8 @@ import com.primus.externals.stockist.model.StockistAssociation;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
+import com.primus.merchandise.item.model.Item;
+import com.primus.merchandise.item.service.ItemService;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -139,6 +143,51 @@ public class TargetValidator extends AbstractValidator {
            } );
        }
 
+        if  (!Utils.isNullCollection(target.getAgentSaleTargets()))  {
+            AgentSaleTarget agentSaleTarget = (AgentSaleTarget) target.getAgentSaleTargets().stream().findFirst().orElse(null);
+            if (target.getAgentSaleTargets().size()  == 1  && (agentSaleTarget.getAgent() ==null ||  agentSaleTarget.getAgent().getUserId() == null )) {
+                target.setAgentVisitTargets(null);
+            }
+            target.getAgentSaleTargets().forEach(agentSaleTarget1 ->  {
+                agentSaleTarget1.setTarget(target);
+                agentSaleTarget1.setCompany(target.getCompany());
+                if  (agentSaleTarget1.getAgent() == null  || Utils.isNullString(agentSaleTarget1.getAgent().getUserId()) ) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Agent"));
+                }
+                if (agentSaleTarget1.getTargettedAmount() == null || agentSaleTarget1.getTargettedAmount().floatValue()  <= 0 ) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Target_Amount"));
+                }
+
+            });
+
+        }
+
+        if  (!Utils.isNullCollection(target.getItemSaleTargets()))  {
+            ItemSaleTarget itemSaleTarget = (ItemSaleTarget) target.getItemSaleTargets().stream().findFirst().orElse(null);
+            if (target.getItemSaleTargets().size()  == 1  && (itemSaleTarget.getItem() ==null ||  itemSaleTarget.getItem().getName() == null )) {
+                target.setItemSaleTargets(null);
+            }
+            target.getItemSaleTargets().forEach(itemSaleTarget1 ->  {
+                itemSaleTarget1.setTarget(target);
+                itemSaleTarget1.setCompany(target.getCompany());
+                if  (itemSaleTarget1.getItem() == null  || Utils.isNullString(itemSaleTarget1.getItem().getName()) ) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Item"));
+                }else {
+                    ItemService itemService = ServiceFactory.getItemService() ;
+                    Item item = (Item)itemService.fetchOneActive( " where name= '" + itemSaleTarget1.getItem().getName() +"'" ,"",context);
+                    if (item== null ) {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Item"));
+                    }else
+                        itemSaleTarget1.setItem(item);
+                }
+                if (itemSaleTarget1.getTargettedAmount() == null || itemSaleTarget1.getTargettedAmount().floatValue()  <= 0 ) {
+                    results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Target_Amount"));
+                }
+
+            });
+
+        }
+
         if  (!Utils.isNullCollection(target.getAgentVisitTargets()))  {
             AgentVisitTarget agentVisitTarget = (AgentVisitTarget) target.getAgentVisitTargets().stream().findFirst().orElse(null);
            if  (agentVisitTarget.getAgent().getUserId() == null && target.getAgentVisitTargets().size() ==1   )  {
@@ -148,7 +197,7 @@ public class TargetValidator extends AbstractValidator {
                target.getAgentVisitTargets().forEach(visitTarget -> {
                    visitTarget.setTarget(target);
                    visitTarget.setCompany(target.getCompany());
-                   if  (visitTarget.getAgent() == null  ) {
+                   if  (visitTarget.getAgent() == null  || Utils.isNullString(visitTarget.getAgent().getUserId()) ) {
                        results.add(getErrorforCode(context, CommonErrorCodes.CANNOT_BE_EMPTY, "Agent"));
                    }
                    if (visitTarget.getVisitingType() != null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.IND_STOCKIST)) {

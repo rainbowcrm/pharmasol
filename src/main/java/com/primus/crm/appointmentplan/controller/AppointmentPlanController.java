@@ -37,6 +37,7 @@ public class AppointmentPlanController extends AbstractTransactionController {
             plan.setTarget(target);
             targetService.createAppointments(plan,getProductContext()) ;
             target.setInstanceCreated(new Boolean(true));
+            targetService.update(target,getProductContext());
             PageResult result  = new PageResult( );
             result.setResult(TransactionResult.Result.SUCCESS);
             result.setNextPageKey("apptcalendar");

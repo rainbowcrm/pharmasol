@@ -122,6 +122,28 @@ public class Target extends PrimusBusinessModel {
 		description  = val;
 	}
 
+	Collection<AgentSaleTarget> agentSaleTargets ;
+	Collection<ItemSaleTarget> itemSaleTargets ;
+
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "target")
+	public Collection<AgentSaleTarget> getAgentSaleTargets() {
+		return agentSaleTargets;
+	}
+
+	public void setAgentSaleTargets(Collection<AgentSaleTarget> agentSaleTargets) {
+		this.agentSaleTargets = agentSaleTargets;
+	}
+
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "target")
+	public Collection<ItemSaleTarget> getItemSaleTargets() {
+		return itemSaleTargets;
+	}
+
+	public void setItemSaleTargets(Collection<ItemSaleTarget> itemSaleTargets) {
+		this.itemSaleTargets = itemSaleTargets;
+	}
+
 	Collection<AgentVisitTarget> agentVisitTargets ;
 
 	
