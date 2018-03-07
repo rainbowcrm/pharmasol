@@ -4,9 +4,7 @@ import com.primus.abstracts.AbstractValidator;
 import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusBusinessModel;
 import com.primus.abstracts.PrimusModel;
-import com.primus.common.FVConstants;
-import com.primus.common.ProductContext;
-import com.primus.common.ServiceFactory;
+import com.primus.common.*;
 import com.primus.crm.target.model.AgentSaleTarget;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.ItemSaleTarget;
@@ -19,6 +17,7 @@ import com.primus.externals.store.model.StoreAssociation;
 import com.primus.externals.store.service.StoreService;
 import com.primus.merchandise.item.model.Item;
 import com.primus.merchandise.item.service.ItemService;
+import com.primus.util.ServiceLibrary;
 import com.techtrade.rads.framework.model.abstracts.RadsError;
 import com.techtrade.rads.framework.utils.Utils;
 import org.springframework.stereotype.Component;
@@ -91,6 +90,28 @@ public class TargetValidator extends AbstractValidator {
 
     }
 
+
+    @Override
+    public List<RadsError> adaptToUI(PrimusModel model, ProductContext context) {
+         super.adaptToUI(model, context);
+        Target target  =(Target)  model;
+        List<RadsError> results = new ArrayList<RadsError>();
+      /*  if  (!Utils.isNullCollection(target.getTotalVisitTargets())) {
+            target.getTotalVisitTargets().forEach(visitTarget -> {
+
+                if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.DOCTOR_CLASS)) {
+                    FiniteValue FVvalue = ServiceLibrary.services().getGeneralSQL().getFiniteValue(visitTarget.getVisitingEntity()) ;
+                    if (FVvalue == null)  {
+                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor_Class"));
+                    }else
+                        visitTarget.setVisitingEntity(FVvalue.getDescription());
+                }
+
+            });
+        }*/
+        return results;
+    }
+
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
        super.adaptFromUI(model,context) ;
@@ -139,6 +160,15 @@ public class TargetValidator extends AbstractValidator {
                    }else
                        results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor"));
 
+               }
+
+               if( visitTarget.getVisitingType() !=null && visitTarget.getVisitingType().equals(FVConstants.VISIT_TO.DOCTOR_CLASS)) {
+                  FiniteValue FVvalue = ServiceLibrary.services().getGeneralSQL().getFiniteValueByTypeAndDesc(FVConstants.FV_DOCTORCLASS,visitTarget.getVisitingEntity()) ;
+                   if (FVvalue == null)  {
+                       results.add(getErrorforCode(context, CommonErrorCodes.NOT_FOUND, "Doctor_Class"));
+                   }else {
+                        visitTarget.setDoctorClass(FVvalue);
+                   }
                }
            } );
        }

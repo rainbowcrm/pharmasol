@@ -61,5 +61,22 @@ public class GeneralSQL {
         return null;
     }
 
+    public  FiniteValue getFiniteValueByTypeAndDesc(String typeCode,String description) {
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select CODE,DESCRIPTION,TYPE_CODE from FINITE_VALUES where TYPE_CODE = ?AND DESCRIPTION = ?  ", new Object[]{typeCode,description});
+
+        if (rowSet.next()) {
+            FiniteValue finiteValue = new FiniteValue();
+            String desc = rowSet.getString(2);
+            String code = rowSet.getString(1);
+            finiteValue.setCode(code);
+            finiteValue.setType(typeCode);
+            finiteValue.setDescription(desc);
+            return finiteValue ;
+        }
+
+        return null;
+    }
+
 
 }

@@ -5,6 +5,7 @@ import com.primus.abstracts.AbstractService;
 import com.primus.abstracts.TransactionUpdateDelta;
 import com.primus.admin.region.model.Location;
 import com.primus.common.CommonUtil;
+import com.primus.common.FiniteValue;
 import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
@@ -148,6 +149,14 @@ public class DoctorService extends AbstractService {
             additionalCondition = additionalCondition.append(whereCondition + " and company.id= " + context.getLoggedinCompany());
         }
         return getDAO().fetchAllActive(getDAO().getEntityClassName(), additionalCondition.toString(), orderBy);
+
+    }
+
+    public List<Doctor> getAllDoctorByClass(FiniteValue doctorClass, Location location,  ProductContext context) {
+        StringBuffer additionalCondition = new StringBuffer();
+         additionalCondition = additionalCondition.append(" where doctorClass.code  ='" +doctorClass.getCode()  + "' and doctorAssociation.location.id="   +  location.getId()  +"  and company.id= " + context.getLoggedinCompany());
+
+        return (List ) getDAO().fetchAllActive("Doctor", additionalCondition.toString(), "") ;
 
     }
 

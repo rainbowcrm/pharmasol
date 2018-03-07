@@ -77,6 +77,19 @@ public class TotalVisitTarget extends PrimusBusinessModel {
 		visitingEntity  = val;
 	}
 
+	FiniteValue doctorClass;
+
+	@RadsPropertySet(useBKForJSON =  true, useBKForMap = true, useBKForXML = true)
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name  ="DOCTOR_CLASS")
+	public FiniteValue getDoctorClass() {
+		return doctorClass;
+	}
+
+	public void setDoctorClass(FiniteValue doctorClass) {
+		this.doctorClass = doctorClass;
+	}
+
 	Stockist stockist ;
 
 	@RadsPropertySet(useBKForJSON =  true, useBKForMap = true, useBKForXML = true)

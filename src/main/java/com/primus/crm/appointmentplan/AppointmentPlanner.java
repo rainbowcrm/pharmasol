@@ -1,9 +1,6 @@
 package com.primus.crm.appointmentplan;
 
-import com.primus.common.FVConstants;
-import com.primus.common.Logger;
-import com.primus.common.ProductContext;
-import com.primus.common.ServiceFactory;
+import com.primus.common.*;
 import com.primus.common.appointmentpreference.model.AppointmentPreference;
 import com.primus.common.user.model.User;
 import com.primus.crm.appointmentplan.model.AppointmentPlan;
@@ -59,6 +56,12 @@ public class AppointmentPlanner{
             StockistService service  =  ServiceFactory.getStockistService();
             List allStockists = service.fetchAllActive( "  where stockistAssociation.location.id =  " + totalVisitTarget.getTarget().getLocation().getId(), "" ,context  );
             entities.addAll(allStockists);
+        }
+
+        if (FVConstants.VISIT_TO.DOCTOR_CLASS.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            DoctorService service = ServiceFactory.getDoctorService();
+            List allDoctors = service.getAllDoctorByClass(totalVisitTarget.getDoctorClass(),totalVisitTarget.getTarget().getLocation() ,context);
+            entities.addAll(allDoctors);
         }
 
         if (FVConstants.VISIT_TO.IND_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
@@ -271,6 +274,7 @@ public class AppointmentPlanner{
                  count  = totalSpecificTarget.getTargettedVisit() ;
 
              }else {
+                 
                  TotalVisitTarget totalGroupTarget = target.getTotalVisitTargets().stream().filter(totalVisitTarget ->
                          entity.getTotalVisitType().equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode()) ).findFirst().orElse(null);
                  count  = totalGroupTarget.getTargettedVisit() ;
