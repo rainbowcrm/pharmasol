@@ -8,6 +8,7 @@ import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
 import com.primus.externals.IAppointmentEntity;
+import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.doctor.service.DoctorService;
 import com.primus.externals.stockist.service.StockistService;
 import com.primus.externals.store.service.StoreService;
@@ -274,9 +275,19 @@ public class AppointmentPlanner{
                  count  = totalSpecificTarget.getTargettedVisit() ;
 
              }else {
-                 
-                 TotalVisitTarget totalGroupTarget = target.getTotalVisitTargets().stream().filter(totalVisitTarget ->
-                         entity.getTotalVisitType().equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode()) ).findFirst().orElse(null);
+                 TotalVisitTarget totalGroupTarget =null;
+                if(entity.getIndividualVisitType().equalsIgnoreCase(FVConstants.VISIT_TO.IND_DOCTOR))  {
+                    FiniteValue doctorClass=  ((Doctor)entity).getDoctorClass()  ;
+                    totalGroupTarget = target.getTotalVisitTargets().stream().filter(totalVisitTarget ->
+                            (totalVisitTarget.getDoctorClass()!=null &&  doctorClass.getCode().equalsIgnoreCase(totalVisitTarget.getDoctorClass().getCode())) )
+                            .findFirst().orElse(null);
+                   // count  = totalGroupTarget.getTargettedVisit() ;
+                }
+
+                 if (totalGroupTarget == null ) {
+                     totalGroupTarget = target.getTotalVisitTargets().stream().filter(totalVisitTarget ->
+                             entity.getTotalVisitType().equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())).findFirst().orElse(null);
+                 }
                  count  = totalGroupTarget.getTargettedVisit() ;
              }
 
