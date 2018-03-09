@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Page id = "corpsalestargetanalyse" showinFrame ="true"  title ="Target Analysis| Primus CRM" Object = "com.primus.crm.targetanalysis.model.TargetAnalyzer"
+      Controller = "com.primus.crm.targetanalysis.controller.TargetAnalyzerController">
+    <Template type= "General"  name = "GraphTemplate"></Template>
+
+    <Elements>
+        <UIForm Id ="cust" method = "POST" enctype="multipart/form-data" >
+
+            <CoreSection>
+                <ErrorSection>
+                </ErrorSection>
+                <Section type= "mainSection">
+                    <Element type = "UITable" rows = "1" cols = "3"  style = "outlinedTable">
+                        <Element type = "UITableRow">
+                            <Element type ="UITableCol"><Element label = "Sales_Period"  type = "UIList" Id = "txtcode"    property ="target"  >
+                                <options populator =  "getTargetPeriods">
+                                </options>
+                            </Element>
+                            </Element>
+                            <Element type ="UITableCol">
+                                <Element label = "Based on"  type = "UIRadioBox" Id = "rdoType"   property ="basedOn" >
+                                    <options>
+                                        <option key ="IT"> Total Visits </option>
+                                        <option key ="DIV"> Agent Visits </option>
+                                        <option key ="BR"> Agent Sales </option>
+                                        <option key ="CTG"> Item Sales </option>
+                                    </options>
+                                </Element>
+                            </Element>
+
+                            <Element type ="UITableCol">
+                                <Element caption = "Analyze"  type = "UIButton" Id = "btnFilterCleas"  style="button" fixedAction ="FixedAction.ACTION_READ"   />
+                            </Element>
+                        </Element>
+                    </Element>
+                </Section>
+                <Section type= "displaySection">
+                    <Element type = "UIBarChart" Id = "brChrt" useGoogleGraph="true" dataProvider = "targetData" >
+                        <xStart>0</xStart>
+                        <yStart>20</yStart>
+                        <rangeHeight>600</rangeHeight>
+                        <rangeWidth>1000</rangeWidth>
+                        <marginWidth>30</marginWidth>
+                        <barWidth>30</barWidth>
+                        <noYAxisDivisions>6</noYAxisDivisions>
+                    </Element>
+                </Section>
+            </CoreSection>
+            <Section type ="copyRightSection"/>
+        </UIForm>
+    </Elements>
+</Page>

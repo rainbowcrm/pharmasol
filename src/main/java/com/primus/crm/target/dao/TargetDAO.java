@@ -40,5 +40,15 @@ public class TargetDAO extends AbstractDAO{
         else
             return null;
     }
+
+    public List<Target> getTargetsforManager(String managerUserId , int companyId)
+    {
+        Query query = em.createQuery("from  Target target where manager.userId = :managerUserId  and company.id = :company and " +
+                "  deleted =false");
+        query.setParameter("managerUserId", managerUserId);
+        query.setParameter("company", companyId);
+        List<Target> ans = query.getResultList();
+       return ans;
+    }
 }
 

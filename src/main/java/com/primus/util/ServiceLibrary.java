@@ -22,6 +22,8 @@ import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
 import com.primus.crm.target.service.TargetService;
 import com.primus.crm.target.validator.TargetValidator;
+import com.primus.crm.targetanalysis.service.TargetAnalyzeService;
+import com.primus.crm.targetanalysis.sqls.TargetAnalyseSQLs;
 import com.primus.externals.competitor.service.CompetitorService;
 import com.primus.externals.competitor.validator.CompetitorValidator;
 import com.primus.externals.doctor.service.DoctorService;
@@ -80,6 +82,9 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
 
     @Autowired
     NextUPSQL nextUPSQL ;
+
+    @Autowired
+    TargetAnalyseSQLs targetAnalyseSQLs ;
 
     @Autowired
     CompanyValidator companyValidator;
@@ -207,6 +212,8 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     TargetValidator targetValidator  ;
 
+    @Autowired
+    TargetAnalyzeService targetAnalyzeService ;
 
     public  ApplicationManager getApplicationManager()
    {
@@ -223,6 +230,9 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
         return nextUPSQL;
     }
 
+    public  TargetAnalyseSQLs getTargetAnalyseSQLs (){
+        return targetAnalyseSQLs ;
+    }
     public ProfileService getProfileService() {
         return  profileService ;
     }
@@ -254,6 +264,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "InboundOrderService" : return  inboundOrderService;
             case "ReportService"  : return reportService ;
             case  "TargetService" : return targetService ;
+            case  "TargetAnalyzerService" : return targetAnalyzeService;
 
         }
         return null;

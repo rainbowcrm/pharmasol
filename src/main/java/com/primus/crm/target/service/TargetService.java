@@ -20,7 +20,9 @@ import com.primus.abstracts.PrimusModel;
 import com.primus.crm.target.dao.TargetDAO;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -77,6 +79,18 @@ public class TargetService extends AbstractService {
          }
 
          return new TransactionResult(TransactionResult.Result.SUCCESS) ;
+     }
+
+     public Map<String,String> getAllTargetsForManager(ProductContext context)
+     {
+         Map<String,String> ans = new LinkedHashMap<>();
+         List<Target> targets = targetDAO.getTargetsforManager(context.getUser(),context.getLoggedinCompany()) ;
+         if (targets != null ) {
+             for (Target target : targets)  {
+                ans.put(String.valueOf(target.getId()) , target.getPeriod());
+             }
+         }
+         return ans;
      }
 
 }
