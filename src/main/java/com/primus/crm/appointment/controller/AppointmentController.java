@@ -198,7 +198,9 @@ public class AppointmentController extends AbstractTransactionController{
     {
         if (getProductContext().getPageAccessCode().contains("AGENT::APPTPOPUPVIEW"))  {
             Appointment appointment = (Appointment) getObject();
-            if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) || appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) )
+            if(appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PLANNED) ||
+                    appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.PENDING) ||
+                    appointment.getStatus().getCode().equalsIgnoreCase(FVConstants.APPT_STATUS.SCHEDULED) )
                 return true  ;
         }
         return false;

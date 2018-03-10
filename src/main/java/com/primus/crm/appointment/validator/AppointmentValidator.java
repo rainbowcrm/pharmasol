@@ -10,7 +10,7 @@ import com.primus.common.Logger;
 import com.primus.common.ProductContext;
 import com.primus.common.ServiceFactory;
 import com.primus.common.user.model.User;
-import com.primus.crm.appointment.model.AppointmentTemplate;
+import com.primus.crm.appointment.model.*;
 import com.primus.externals.competitor.model.Competitor;
 import com.primus.externals.competitor.service.CompetitorService;
 import com.primus.externals.doctor.model.Doctor;
@@ -36,8 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import com.primus.crm.appointment.model.Appointment;
 
 
 /**
@@ -248,6 +246,44 @@ public class AppointmentValidator extends AbstractValidator {
             }
         }
     }
+
+    private void nullifyChildifRequired(Appointment appointment, ProductContext context) {
+        if(appointment.getPromotedItems() != null && appointment.getPromotedItems().size() == 1   ) {
+            PromotedItem childLine=  appointment.getPromotedItems().stream().findFirst().orElse(null);
+            if(childLine == null || childLine.isEmpty() )  {
+                appointment.setPromotedItems(null);
+            }
+        }
+
+        if(appointment.getStockistVisitOrderLines() != null && appointment.getStockistVisitOrderLines().size() == 1   ) {
+            StockistVisitOrderLine childLine=  appointment.getStockistVisitOrderLines().stream().findFirst().orElse(null);
+            if(childLine == null || childLine.isEmpty() )  {
+                appointment.setStockistVisitOrderLines(null);
+            }
+        }
+
+        if(appointment.getOrderLines() != null && appointment.getOrderLines().size() == 1   ) {
+            StoreVisitOrderLine childLine=  appointment.getOrderLines().stream().findFirst().orElse(null);
+            if(childLine == null || childLine.isEmpty() )  {
+                appointment.setOrderLines(null);
+            }
+        }
+
+        if(appointment.getCompetitorSalesLines() != null && appointment.getCompetitorSalesLines().size() == 1   ) {
+            CompetitorSalesLine childLine=  appointment.getCompetitorSalesLines().stream().findFirst().orElse(null);
+            if(childLine == null || childLine.isEmpty() )  {
+                appointment.setCompetitorSalesLines(null);
+            }
+        }
+
+        if(appointment.getPrescriptionSurveys() != null && appointment.getPrescriptionSurveys().size() == 1   ) {
+            PrescriptionSurvey childLine=  appointment.getPrescriptionSurveys().stream().findFirst().orElse(null);
+            if(childLine == null || childLine.isEmpty() )  {
+                appointment.setPrescriptionSurveys(null);
+            }
+        }
+
+    }
     @Override
     public List<RadsError> adaptFromUI(PrimusModel model, ProductContext context) {
         super.adaptFromUI(model, context);
@@ -301,7 +337,7 @@ public class AppointmentValidator extends AbstractValidator {
         }catch (ParseException ex) {
             Logger.logException(  "Error in parsing",this.getClass(),ex);
         }
-
+        nullifyChildifRequired(appointment,context);
         if(!Utils.isNullCollection(appointment.getPromotedItems())) {
             appointment.getPromotedItems().forEach( promotedItem ->  {
                 if (!promotedItem.isEmpty()) {

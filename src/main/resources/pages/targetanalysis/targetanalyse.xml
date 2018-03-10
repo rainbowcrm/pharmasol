@@ -10,15 +10,15 @@
                 <ErrorSection>
                 </ErrorSection>
                 <Section type= "mainSection">
-                    <Element type = "UITable" rows = "1" cols = "3"  style = "outlinedTable">
+                    <Element type = "UITable" rows = "1" cols = "2"  style = "outlinedTable">
                         <Element type = "UITableRow">
-                            <Element type ="UITableCol"><Element label = "Sales_Period"  type = "UIList" Id = "txtcode"    property ="target"  >
+                            <Element type ="UITableCol"><Element label = "Sales_Period"  type = "UIList" Id = "txtcode" style="custom30width"    property ="target"  >
                                 <options populator =  "getTargetPeriods">
                                 </options>
                             </Element>
                             </Element>
                             <Element type ="UITableCol">
-                                <Element label = "Based on"  type = "UIRadioBox" Id = "rdoType"   property ="basedOn" >
+                                <Element label = "Based on"  type = "UIList" Id = "rdoType"  style="custom30width"  property ="basedOn" >
                                     <options>
                                         <option key ="IT"> Total Visits </option>
                                         <option key ="DIV"> Agent Visits </option>
@@ -27,9 +27,14 @@
                                     </options>
                                 </Element>
                             </Element>
-
+                        </Element>
+                        <Element type = "UITableRow">
                             <Element type ="UITableCol">
-                                <Element caption = "Analyze"  type = "UIButton" Id = "btnFilterCleas"  style="button" fixedAction ="FixedAction.ACTION_READ"   />
+                                <Element caption = "Analyze"  type = "UIButton" Id = "btncheck"  style="btn btn-success"  iconStyle="glyphicon glyphicon-forward"
+                                         fixedAction ="FixedAction.ACTION_READ"   />
+
+                            </Element>
+                            <Element type ="UITableCol">
                             </Element>
                         </Element>
                     </Element>

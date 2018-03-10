@@ -14,7 +14,7 @@ public class TargetAnalyzerController extends AbstractGeneralController {
 
     @Override
     public PageResult submit(ModelObject modelObject) {
-        return null;
+        return new PageResult();
     }
 
     @Override

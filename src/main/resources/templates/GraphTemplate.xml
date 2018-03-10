@@ -7,7 +7,7 @@
   <Renderers>
  <Renderer>
  <RendererType>HTML</RendererType>
- <StyleSheet>./css/build/GraphPage.css</StyleSheet>
+ <StyleSheet>./css/build/CRUDPage.css</StyleSheet>
  <PageStyle>pagestyle</PageStyle>
  </Renderer>
  </Renderers>
@@ -33,13 +33,13 @@
   <CoreSection>
  <ErrorSection showinTable = "true"  style= "errorStyle" >
  </ErrorSection>
- <Section Id = "mainSection" style= "detailCRUDStyle">
+ <Section Id = "mainSection" style= "headerStyle">
   </Section>
-  <Section Id = "displaySection"  showinTable = "true" style= "childSectionStyle">
+  <Section Id = "displaySection"  showinTable = "true" style= "detailCRUDStyleForSale">
    <noRows>-1</noRows>
  <noCols>2</noCols> 
   </Section>
-    <Section Id = "fullSection"  showinTable = "false" style= "childSectionStyle">
+    <Section Id = "fullSection"  showinTable = "false" style= "detailCRUDStyleForSale">
    <noRows>-1</noRows>
  <noCols>2</noCols> 
   </Section>

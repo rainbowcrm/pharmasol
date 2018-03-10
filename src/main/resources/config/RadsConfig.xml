@@ -351,8 +351,8 @@
             <Element label = "" type = "UIMenu" Id = "menu10" style="menustyleParent" title="Summary" groupId= "menuGRP003" iconStyle="fa fa-fw fa-briefcase"  >
                 <Element label = "" type = "UIMenu" Id = "menu301" style="menustyle" title="Profiles"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=profiles"   iconStyle="fa fa-fw fa-male"  />
             </Element>
-                <Element label = "" type = "UIMenu" Id = "menu30" style="menustyleParent" title="Analytics" groupId= "menuGRP005" iconStyle="fa fa-fw fa-film"  >
-                    <Element label = "" type = "UIMenu" Id = "menu301" style="menustyle" title="Target_Analysis"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=targetanalysis"   iconStyle="fa fa-fw fa-flask" />
+                <Element label = "" type = "UIMenu" Id = "menu60" style="menustyleParent" title="Analytics" groupId= "menuGRP006" iconStyle="fa fa-fw fa-film"  >
+                    <Element label = "" type = "UIMenu" Id = "menu601" style="menustyle" title="Target_Analysis"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=targetanalysis"   iconStyle="fa fa-fw fa-flask" />
                 </Element>
             <Element label = "" type = "UIMenu" Id = "menu20" style="menustyleParent" title="Reports" groupId= "menuGRP004" iconStyle="fa fa-fw fa-film"  >
                 <Element label = "" type = "UIMenu" Id = "menu201" style="menustyle" title="Visit_Summary"  iFrameCtrlId ="frmFameId" iFrameSrc="./controller?page=visitreport"   iconStyle="fa fa-fw fa-flask" />
