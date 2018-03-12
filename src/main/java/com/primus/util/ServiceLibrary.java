@@ -264,7 +264,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "InboundOrderService" : return  inboundOrderService;
             case "ReportService"  : return reportService ;
             case  "TargetService" : return targetService ;
-            case  "TargetAnalyzerService" : return targetAnalyzeService;
+            case  "TargetAnalyzeService" : return targetAnalyzeService;
 
         }
         return null;

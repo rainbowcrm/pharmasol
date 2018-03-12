@@ -2,7 +2,14 @@ package com.primus.crm.targetanalysis.service;
 
 import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
+import com.primus.common.ProductContext;
+import com.primus.crm.target.model.Target;
+import com.primus.crm.target.model.TotalVisitTarget;
+import com.techtrade.rads.framework.model.graphdata.BarChartData;
+import com.techtrade.rads.framework.model.graphdata.BarData;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class TargetAnalyzeService extends AbstractService {
@@ -12,5 +19,52 @@ public class TargetAnalyzeService extends AbstractService {
         return null;
     }
 
+    private int getExpectedCount(TotalVisitTarget totalVisitTarget)
+    {
+        return totalVisitTarget.getTargettedVisit();
+
+    }
+
+    private int getActualCount()
+    {
+        return   3;
+    }
+
+    public BarChartData getTargetVisitBarChart(Target target, ProductContext context)
+    {
+        BarChartData barChartData  = new BarChartData() ;
+        AtomicInteger maxY=  new AtomicInteger(0);
+        if (target.getTotalVisitTargets() != null ) {
+            target.getTotalVisitTargets().forEach( totalVisitTarget ->   {
+                BarChartData.Division division = barChartData.new Division()  ;
+
+                BarData barData = new BarData();
+                barData.setText(totalVisitTarget.getVisitingDisplay());
+                barData.setLegend("Target");
+                barData.setColor("Red");
+                int expectedTarget = getExpectedCount(totalVisitTarget);
+                barData.setValue(expectedTarget);
+                if (maxY.get() < expectedTarget)
+                    maxY.set(expectedTarget) ;
+                division.addBarData(barData);
+
+                BarData actualBarData = new BarData();
+                actualBarData.setText(totalVisitTarget.getVisitingDisplay());
+                actualBarData.setLegend("Actuals");
+                actualBarData.setColor("Blue");
+                actualBarData.setValue(getActualCount());
+                division.addBarData(actualBarData);
+                division.setDivisionTitle(totalVisitTarget.getVisitingDisplay());
+
+                barChartData.addDivision(division);
+
+            });
+            BarChartData.Range range = barChartData.new Range();
+            range.setyMax(maxY.get());
+            range.setyMin(0);
+            barChartData.setRange(range);
+        }
+        return barChartData ;
+    }
 
 }

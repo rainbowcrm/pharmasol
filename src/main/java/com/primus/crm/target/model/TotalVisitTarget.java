@@ -1,6 +1,7 @@
 package com.primus.crm.target.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
+import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.externals.doctor.model.Doctor;
 import com.primus.externals.stockist.model.Stockist;
@@ -69,6 +70,27 @@ public class TotalVisitTarget extends PrimusBusinessModel {
 	public String  getVisitingEntity ()
 	{
 		return visitingEntity;
+	}
+
+	@Transient
+	public String getVisitingDisplay()
+	{
+		if  (doctor !=  null  ) {
+			return doctor.getName() ;
+		} else if (stockist != null  )
+			return stockist.getName() ;
+		else if(store != null)
+			return store.getName() ;
+		else if (doctorClass != null)
+			return doctorClass.getDescription() ;
+		else if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(visitingType.getCode())) {
+			return "Doctors";
+		}else if (FVConstants.VISIT_TO.ALL_STORE.equalsIgnoreCase(visitingType.getCode())) {
+			return "Stores";
+		}else if (FVConstants.VISIT_TO.ALL_STOCKIST.equalsIgnoreCase(visitingType.getCode())) {
+			return "Stockists";
+		}
+		return "";
 	}
 
 	

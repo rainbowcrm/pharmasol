@@ -16,6 +16,8 @@ import com.primus.common.user.service.UserService;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.appointment.service.AppointmentTemplateService;
 import com.primus.crm.target.service.TargetService;
+import com.primus.crm.targetanalysis.model.TargetAnalyzer;
+import com.primus.crm.targetanalysis.service.TargetAnalyzeService;
 import com.primus.externals.competitor.model.Competitor;
 import com.primus.externals.competitor.service.CompetitorService;
 import com.primus.externals.doctor.service.DoctorService;
@@ -139,6 +141,12 @@ public class ServiceFactory {
     public static TargetService getTargetService()
     {
         TargetService service = (TargetService)ServiceLibrary.services().getService("TargetService")  ;
+        return service ;
+    }
+
+    public static TargetAnalyzeService getTargetAnalyzeService()
+    {
+        TargetAnalyzeService service = (TargetAnalyzeService)ServiceLibrary.services().getService("TargetAnalyzeService")  ;
         return service ;
     }
 
