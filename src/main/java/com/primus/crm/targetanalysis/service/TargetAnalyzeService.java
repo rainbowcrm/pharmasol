@@ -31,22 +31,42 @@ public class TargetAnalyzeService extends AbstractService {
 
     }
 
-    private int getActualCount(TotalVisitTarget totalVisitTarget)
+    private double getActualCount(TotalVisitTarget totalVisitTarget,ProductContext context)
     {
         if  (totalVisitTarget.getDoctor() !=  null  ) {
-            return targetAnalyseSQLs.countVisitsToDoctor(totalVisitTarget.getDoctor().getId(),totalVisitTarget.getTarget().getFromDate(),totalVisitTarget.getTarget().getToDate());
+            return targetAnalyseSQLs.countVisitsToDoctor(totalVisitTarget.getDoctor().getId(),totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
         } else if (totalVisitTarget.getStockist() != null  ) {
-            return targetAnalyseSQLs.countVisitsToStockist(totalVisitTarget.getStockist().getId(),totalVisitTarget.getTarget().getFromDate(),totalVisitTarget.getTarget().getToDate());
+            return targetAnalyseSQLs.countVisitsToStockist(totalVisitTarget.getStockist().getId(),totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
         }else if(totalVisitTarget.getStore() != null)
-            return targetAnalyseSQLs.countVisitsToStore(totalVisitTarget.getStore().getId(),totalVisitTarget.getTarget().getFromDate(),totalVisitTarget.getTarget().getToDate());
-        else if (totalVisitTarget.getDoctorClass() != null)
-            return targetAnalyseSQLs.countVisitsToDoctorClass(totalVisitTarget.getDoctorClass().getCode(),totalVisitTarget.getTarget().getFromDate(),totalVisitTarget.getTarget().getToDate());
-        else if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
-            return 3;
+            return targetAnalyseSQLs.countVisitsToStore(totalVisitTarget.getStore().getId(),totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+        else if (totalVisitTarget.getDoctorClass() != null) {
+            double vistCount = targetAnalyseSQLs.countVisitsToDoctorClass(totalVisitTarget.getDoctorClass().getCode(), totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            double doctorsCount = targetAnalyseSQLs.countDoctorsForClass(totalVisitTarget.getDoctorClass().getCode(),totalVisitTarget.getTarget().getLocation().getId(),
+                    context.getLoggedinCompany()) ;
+            if(doctorsCount  == 0 ) return  0 ;
+            return vistCount/doctorsCount;
+        } else if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
+            double vistCount =targetAnalyseSQLs.countVisitsToAllDoctors(totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            double doctorCount =targetAnalyseSQLs.countAllDoctors(totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            if(doctorCount  == 0 ) return  0 ;
+            return vistCount/doctorCount;
         }else if (FVConstants.VISIT_TO.ALL_STORE.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
-            return 5;
+            double vistCount =targetAnalyseSQLs.countVisitsToAllStores(totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            double entityCount =targetAnalyseSQLs.countAllStores(totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            if(entityCount  == 0 ) return  0 ;
+            return vistCount/entityCount;
         }else if (FVConstants.VISIT_TO.ALL_STOCKIST.equalsIgnoreCase(totalVisitTarget.getVisitingType().getCode())) {
-            return 2;
+            double vistCount =targetAnalyseSQLs.countVisitsToAllStockists(totalVisitTarget.getTarget().getFromDate(),
+                    totalVisitTarget.getTarget().getToDate(),totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            double entityCount =targetAnalyseSQLs.countAllStockists(totalVisitTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+            if(entityCount  == 0 ) return  0 ;
+            return vistCount/entityCount;
         }
         return   3;
     }
@@ -73,7 +93,7 @@ public class TargetAnalyzeService extends AbstractService {
                 actualBarData.setText(totalVisitTarget.getVisitingDisplay());
                 actualBarData.setLegend("Actuals");
                 actualBarData.setColor("Blue");
-                actualBarData.setValue(getActualCount(totalVisitTarget));
+                actualBarData.setValue(getActualCount(totalVisitTarget,context));
                 division.addBarData(actualBarData);
                 division.setDivisionTitle(totalVisitTarget.getVisitingDisplay());
 
