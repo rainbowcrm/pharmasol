@@ -20,8 +20,8 @@
                             <Element type ="UITableCol">
                                 <Element label = "Based on"  type = "UIList" Id = "rdoType"  style="custom30width"  property ="basedOn" >
                                     <options>
-                                        <option key ="IT"> Total Visits </option>
-                                        <option key ="DIV"> Agent Visits </option>
+                                        <option key ="TV"> Total Visits </option>
+                                        <option key ="ATV"> Agent Visits </option>
                                         <option key ="BR"> Agent Sales </option>
                                         <option key ="CTG"> Item Sales </option>
                                     </options>

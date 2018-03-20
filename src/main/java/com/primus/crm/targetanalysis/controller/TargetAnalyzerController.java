@@ -33,8 +33,14 @@ public class TargetAnalyzerController extends AbstractGeneralController {
         TargetAnalyzeService targetAnalyzeService =  ServiceFactory.getTargetAnalyzeService() ;
         TargetService targetService = ServiceFactory.getTargetService() ;
         Target target   = (Target)targetService.getById(period);
-        BarChartData barChartData = targetAnalyzeService.getTargetVisitBarChart(target,getProductContext());
-        analyzer.setTargetData(barChartData);
+        if(analyzer.getBasedOn().equalsIgnoreCase("TV")) {
+            BarChartData barChartData = targetAnalyzeService.getTargetVisitBarChart(target, getProductContext());
+            analyzer.setTargetData(barChartData);
+        }
+        if(analyzer.getBasedOn().equalsIgnoreCase("ATV")) {
+            BarChartData barChartData = targetAnalyzeService.getAgentTargetVisitBarChart(target, getProductContext());
+            analyzer.setTargetData(barChartData);
+        }
         PageResult result =new PageResult() ;
         result.setObject(analyzer);
         return  result ;

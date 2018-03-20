@@ -93,6 +93,43 @@ public class TargetAnalyseSQLs {
         return ct;
     }
 
+    public int countAgentVisitsToAllStockists(String agentId, Date from, Date to , int locationId, int company)
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where   "  +
+                "  APPT.STOCKIST_ID IS  NOT NULL AND   APPT.APPT_DATE >= ?  AND APPT.APPT_DATE <= ? AND APPT.APPT_STATUS IN  " +
+                "('CMPLTD','CLSD')  AND APPT.IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.AGENT_USER_ID =  ? AND APPT.COMPANY_ID= ?  ", new Object[]{from,to,locationId,agentId, company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+    public int countAgentVisitsToAllStores(String agentId, Date from, Date to , int locationId, int company)
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where   "  +
+                "  APPT.STORE_ID IS  NOT NULL AND   APPT.APPT_DATE >= ?  AND APPT.APPT_DATE <= ? AND APPT.APPT_STATUS IN  " +
+                "('CMPLTD','CLSD')  AND APPT.IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.AGENT_USER_ID =  ? AND APPT.COMPANY_ID= ?  ", new Object[]{from,to,locationId,agentId, company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+    public int countAgentVisitsToAllDoctors(String agentId, Date from, Date to , int locationId, int company)
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where   "  +
+                "  APPT.DOCTOR_ID IS  NOT NULL AND   APPT.APPT_DATE >= ?  AND APPT.APPT_DATE <= ? AND APPT.APPT_STATUS IN  " +
+                "('CMPLTD','CLSD')  AND APPT.IS_DELETED  = FALSE AND APPT.LOCATION_ID = ?  AND APPT.AGENT_USER_ID =  ? AND APPT.COMPANY_ID= ?  ", new Object[]{from,to,locationId, agentId, company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+
     public int countVisitsToDoctorClass(String doctorClass , Date from, Date to , int locationId, int company)
     {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT,DOCTORS DCTR where APPT.DOCTOR_ID = DCTR.ID  "  +
@@ -132,6 +169,40 @@ public class TargetAnalyseSQLs {
     {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where STOCKIST_ID =  ?  AND APPT_DATE >= ?  AND APPT_DATE <= ? AND APPT_STATUS IN  " +
                 "('CMPLTD','CLSD') AND IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.COMPANY_ID= ?  ", new Object[]{stockistId,from,to,locationId,company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+
+    public int countAgentVisitsToDoctor(String agentId, int doctorId , Date from, Date to, int locationId, int company)
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT  where DOCTOR_ID =  ?  AND APPT_DATE >= ?  AND APPT_DATE <= ? AND APPT_STATUS IN  " +
+                "('CMPLTD','CLSD') AND IS_DELETED  = FALSE AND APPT.LOCATION_ID = ?  AND APPT.AGENT_USER_ID =  ?  AND APPT.COMPANY_ID= ?  ", new Object[]{doctorId,from,to,locationId,agentId,company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+    public int countAgentVisitsToStore(String agentId,int storeId , Date from, Date to, int locationId, int company)
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where STORE_ID =  ?  AND APPT_DATE >= ?  AND APPT_DATE <= ? AND APPT_STATUS IN  " +
+                "('CMPLTD','CLSD') AND IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.AGENT_USER_ID =  ?  AND APPT.COMPANY_ID= ?  ", new Object[]{storeId,from,to,locationId,agentId,company});
+        int ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getInt(1);
+        }
+        return ct;
+    }
+
+    public int countAgentVisitsToStockist(String agentId,  int stockistId , Date from, Date to, int locationId , int company )
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select count(*) from APPOINTMENTS APPT where STOCKIST_ID =  ?  AND APPT_DATE >= ?  AND APPT_DATE <= ? AND APPT_STATUS IN  " +
+                "('CMPLTD','CLSD') AND IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.AGENT_USER_ID =  ? AND APPT.COMPANY_ID= ?  ", new Object[]{stockistId,from,to,locationId,agentId,company});
         int ct = 0 ;
         if (rowSet.next()) {
             ct =  rowSet.getInt(1);

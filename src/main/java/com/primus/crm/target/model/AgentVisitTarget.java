@@ -1,6 +1,7 @@
 package com.primus.crm.target.model;
 
 import com.primus.abstracts.PrimusBusinessModel;
+import com.primus.common.FVConstants;
 import com.primus.common.FiniteValue;
 import com.primus.common.user.model.User;
 import com.primus.externals.doctor.model.Doctor;
@@ -185,4 +186,23 @@ public class AgentVisitTarget extends PrimusBusinessModel {
 	}
 
 
+	@Transient
+	public String getVisitingDisplay()
+	{
+		String prefix  = getAgent().getPrefix() +  ":";
+		if  (doctor !=  null  ) {
+			return prefix  + doctor.getName() ;
+		} else if (stockist != null  )
+			return prefix  + stockist.getName() ;
+		else if(store != null)
+			return prefix  + store.getName() ;
+		else if (FVConstants.VISIT_TO.ALL_DOCTOR.equalsIgnoreCase(visitingType.getCode())) {
+			return prefix  + "Doctors";
+		}else if (FVConstants.VISIT_TO.ALL_STORE.equalsIgnoreCase(visitingType.getCode())) {
+			return prefix  + "Stores";
+		}else if (FVConstants.VISIT_TO.ALL_STOCKIST.equalsIgnoreCase(visitingType.getCode())) {
+			return prefix  + "Stockists";
+		}
+		return "";
+	}
 }
