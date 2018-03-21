@@ -247,7 +247,7 @@ public class AppointmentValidator extends AbstractValidator {
         }
     }
 
-    private void nullifyChildifRequired(Appointment appointment, ProductContext context) {
+    public void nullifyChildifRequired(Appointment appointment, ProductContext context) {
         if(appointment.getPromotedItems() != null && appointment.getPromotedItems().size() == 1   ) {
             PromotedItem childLine=  appointment.getPromotedItems().stream().findFirst().orElse(null);
             if(childLine == null || childLine.isEmpty() )  {

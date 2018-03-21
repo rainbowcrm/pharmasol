@@ -655,7 +655,6 @@ public class AppointmentService extends AbstractService {
         if(FVConstants.APPT_STATUS.PENDING.equalsIgnoreCase(app.getStatus().getCode()) ||
                 FVConstants.APPT_STATUS.SCHEDULED.equalsIgnoreCase(app.getStatus().getCode()) ) {
             app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
-            app.setPromotedItems(appointment.getPromotedItems());
             app.setFeedBack(appointment.getFeedBack());
             app.setVisitCompletion(appointment.getApptDate());
             app.setDescription(appointment.getDescription());

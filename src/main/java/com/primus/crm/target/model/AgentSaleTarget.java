@@ -81,4 +81,6 @@ public class AgentSaleTarget extends PrimusBusinessModel {
     public void setTargettedAmount(Float targettedAmount) {
         this.targettedAmount = targettedAmount;
     }
+
+
 }

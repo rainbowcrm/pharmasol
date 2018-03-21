@@ -209,4 +209,16 @@ public class TargetAnalyseSQLs {
         }
         return ct;
     }
+
+    public double countAgentTotalSale(String agentId,   Date from, Date to, int locationId , int company )
+    {
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("Select sum(OL.RATE * OL.QTY ) from STOCKIST_VISIT_ORDER_LINES OL, APPOINTMENTS APPT where APPT.ID =OL.APPOINTMENT_ID  " +
+                "  AND APPT.APPT_DATE >= ?  AND APPT.APPT_DATE <= ? AND  OL.IS_DELETED  = FALSE AND   APPT.APPT_STATUS IN  " +
+                "('CMPLTD','CLSD') AND APPT.IS_DELETED  = FALSE AND APPT.LOCATION_ID = ? AND APPT.AGENT_USER_ID =  ? AND APPT.COMPANY_ID= ?  ", new Object[]{from,to,locationId,agentId,company});
+        double ct = 0 ;
+        if (rowSet.next()) {
+            ct =  rowSet.getDouble(1);
+        }
+        return ct;
+    }
 }

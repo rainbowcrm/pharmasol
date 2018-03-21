@@ -4,6 +4,7 @@ import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
+import com.primus.crm.target.model.AgentSaleTarget;
 import com.primus.crm.target.model.AgentVisitTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.model.TotalVisitTarget;
@@ -35,6 +36,12 @@ public class TargetAnalyzeService extends AbstractService {
     private int getExpectedCount(AgentVisitTarget agentVisitTarget)
     {
         return agentVisitTarget.getTargettedVisit();
+
+    }
+
+    private double getExpectedSaleAmount(AgentSaleTarget agentSaleTarget)
+    {
+        return agentSaleTarget.getTargettedAmount();
 
     }
 
@@ -78,6 +85,11 @@ public class TargetAnalyzeService extends AbstractService {
         return   3;
     }
 
+    private double getActualAgentSale(AgentSaleTarget agentSalesTarget, ProductContext context)
+    {
+          return targetAnalyseSQLs.countAgentTotalSale(agentSalesTarget.getAgent().getUserId() ,agentSalesTarget.getTarget().getFromDate(),
+                  agentSalesTarget.getTarget().getToDate(),agentSalesTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
+    }
     private double getActualCount(AgentVisitTarget agentVisitTarget, ProductContext context)
     {
         if  (agentVisitTarget.getDoctor() !=  null  ) {
@@ -175,6 +187,43 @@ public class TargetAnalyzeService extends AbstractService {
                 actualBarData.setValue(getActualCount(agentVisitTarget,context));
                 division.addBarData(actualBarData);
                 division.setDivisionTitle(agentVisitTarget.getVisitingDisplay());
+
+                barChartData.addDivision(division);
+
+            });
+            BarChartData.Range range = barChartData.new Range();
+            range.setyMax(maxY.get());
+            range.setyMin(0);
+            barChartData.setRange(range);
+        }
+        return barChartData ;
+    }
+
+    public BarChartData getAgentSaleBarChart(Target target, ProductContext context)
+    {
+        BarChartData barChartData  = new BarChartData() ;
+        AtomicInteger maxY=  new AtomicInteger(0);
+        if (target.getAgentSaleTargets() != null ) {
+            target.getAgentSaleTargets().forEach( agentSaleTarget->   {
+                BarChartData.Division division = barChartData.new Division()  ;
+
+                BarData barData = new BarData();
+                barData.setText(agentSaleTarget.getAgent().getUserId());
+                barData.setLegend("Target");
+                barData.setColor("Red");
+                double expectedTarget = getExpectedSaleAmount(agentSaleTarget);
+                barData.setValue(expectedTarget);
+                if (maxY.get() < expectedTarget)
+                    maxY.set((int)expectedTarget) ;
+                division.addBarData(barData);
+
+                BarData actualBarData = new BarData();
+                actualBarData.setText(agentSaleTarget.getAgent().getUserId());
+                actualBarData.setLegend("Actuals");
+                actualBarData.setColor("Blue");
+                actualBarData.setValue(getActualAgentSale(agentSaleTarget,context));
+                division.addBarData(actualBarData);
+                division.setDivisionTitle(agentSaleTarget.getAgent().getUserId());
 
                 barChartData.addDivision(division);
 
