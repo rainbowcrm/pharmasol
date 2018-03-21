@@ -46,6 +46,11 @@ public class TargetAnalyzerController extends AbstractGeneralController {
             analyzer.setTargetData(barChartData);
         }
 
+        if(analyzer.getBasedOn().equalsIgnoreCase("ITS")) {
+            BarChartData barChartData = targetAnalyzeService.getItemSaleBarChart(target, getProductContext());
+            analyzer.setTargetData(barChartData);
+        }
+
         PageResult result =new PageResult() ;
         result.setObject(analyzer);
         return  result ;

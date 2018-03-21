@@ -23,7 +23,7 @@
                                         <option key ="TV"> Total Visits </option>
                                         <option key ="ATV"> Agent Visits </option>
                                         <option key ="AGS"> Agent Sales </option>
-                                        <option key ="CTG"> Item Sales </option>
+                                        <option key ="ITS"> Item Sales </option>
                                     </options>
                                 </Element>
                             </Element>

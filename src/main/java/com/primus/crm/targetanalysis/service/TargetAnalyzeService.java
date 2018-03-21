@@ -4,10 +4,7 @@ import com.primus.abstracts.AbstractDAO;
 import com.primus.abstracts.AbstractService;
 import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
-import com.primus.crm.target.model.AgentSaleTarget;
-import com.primus.crm.target.model.AgentVisitTarget;
-import com.primus.crm.target.model.Target;
-import com.primus.crm.target.model.TotalVisitTarget;
+import com.primus.crm.target.model.*;
 import com.primus.crm.targetanalysis.sqls.TargetAnalyseSQLs;
 import com.techtrade.rads.framework.model.graphdata.BarChartData;
 import com.techtrade.rads.framework.model.graphdata.BarData;
@@ -44,6 +41,12 @@ public class TargetAnalyzeService extends AbstractService {
         return agentSaleTarget.getTargettedAmount();
 
     }
+    private double getExpectedSaleAmount(ItemSaleTarget itemSaleTarget)
+    {
+        return itemSaleTarget.getTargettedAmount();
+
+    }
+
 
     private double getActualCount(TotalVisitTarget totalVisitTarget,ProductContext context)
     {
@@ -83,6 +86,12 @@ public class TargetAnalyzeService extends AbstractService {
             return vistCount/entityCount;
         }
         return   3;
+    }
+
+    private double getActualItemSale(ItemSaleTarget itemSaleTarget, ProductContext context)
+    {
+        return targetAnalyseSQLs.countItemTotalSale(itemSaleTarget.getItem().getId() ,itemSaleTarget.getTarget().getFromDate(),
+                itemSaleTarget.getTarget().getToDate(),itemSaleTarget.getTarget().getLocation().getId(),context.getLoggedinCompany());
     }
 
     private double getActualAgentSale(AgentSaleTarget agentSalesTarget, ProductContext context)
@@ -224,6 +233,43 @@ public class TargetAnalyzeService extends AbstractService {
                 actualBarData.setValue(getActualAgentSale(agentSaleTarget,context));
                 division.addBarData(actualBarData);
                 division.setDivisionTitle(agentSaleTarget.getAgent().getUserId());
+
+                barChartData.addDivision(division);
+
+            });
+            BarChartData.Range range = barChartData.new Range();
+            range.setyMax(maxY.get());
+            range.setyMin(0);
+            barChartData.setRange(range);
+        }
+        return barChartData ;
+    }
+
+    public BarChartData getItemSaleBarChart(Target target, ProductContext context)
+    {
+        BarChartData barChartData  = new BarChartData() ;
+        AtomicInteger maxY=  new AtomicInteger(0);
+        if (target.getItemSaleTargets() != null ) {
+            target.getItemSaleTargets().forEach( itemSaleTarget->   {
+                BarChartData.Division division = barChartData.new Division()  ;
+
+                BarData barData = new BarData();
+                barData.setText(itemSaleTarget.getItem().getName());
+                barData.setLegend("Target");
+                barData.setColor("Red");
+                double expectedTarget = getExpectedSaleAmount(itemSaleTarget);
+                barData.setValue(expectedTarget);
+                if (maxY.get() < expectedTarget)
+                    maxY.set((int)expectedTarget) ;
+                division.addBarData(barData);
+
+                BarData actualBarData = new BarData();
+                actualBarData.setText(itemSaleTarget.getItem().getName());
+                actualBarData.setLegend("Actuals");
+                actualBarData.setColor("Blue");
+                actualBarData.setValue(getActualItemSale(itemSaleTarget,context));
+                division.addBarData(actualBarData);
+                division.setDivisionTitle(itemSaleTarget.getItem().getName());
 
                 barChartData.addDivision(division);
 
