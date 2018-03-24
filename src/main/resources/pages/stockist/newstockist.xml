@@ -87,6 +87,9 @@
                                         <Element type="UITableCol" width="25%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Time"/>
                                         </Element>
+                                        <Element type="UITableCol" width="25%">
+                                            <Element label="" type="UILabel" Id="lblCode" value="Agent"/>
+                                        </Element>
                                         <Element type="UITableCol" width="10%">
                                             <Element label="" type="UILabel" Id="lblCode" value="Rank"/>
                                         </Element>
@@ -111,6 +114,13 @@
                                         </Element>
 
                                     </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
+                                                 property="preferredAgent.userId">
+                                            <lookupType>user</lookupType>
+                                        </Element>
+                                    </Element>
+
                                     <Element type="UITableCol" width="10%">
                                         <Element label="" type="UIText" isMandatory="false" Id="txtRank"
                                                  style="form-control custom30width" property="rank"/>

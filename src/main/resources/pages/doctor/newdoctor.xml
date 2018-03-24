@@ -90,6 +90,8 @@
                              property="faceBookId"/>
                     </Element>
                     <Element type="UITab" Id="idPreferredTim" title="Preferred_Visits" showinTable="false">
+
+
                         <Element type="UITable" rows="1" cols="10" style="grid" applyStyleonChildren="true"
                                  Id="tblvisitPrefs"
                                  property="appointmentPreferences[]">
@@ -100,6 +102,9 @@
                                     </Element>
                                     <Element type="UITableCol" width="25%">
                                         <Element label="" type="UILabel" Id="lblCode" value="Time"/>
+                                    </Element>
+                                    <Element type="UITableCol" width="25%">
+                                        <Element label="" type="UILabel" Id="lblCode" value="Agent"/>
                                     </Element>
                                     <Element type="UITableCol" width="10%">
                                         <Element label="" type="UILabel" Id="lblCode" value="Rank"/>
@@ -124,6 +129,12 @@
                                         </options>
                                     </Element>
 
+                                </Element>
+                                <Element type="UITableCol" width="25%">
+                                    <Element label="" type="UILookupDataList" listId="lstagent" Id="txtagent" isMandatory="true"
+                                             property="preferredAgent.userId">
+                                        <lookupType>user</lookupType>
+                                    </Element>
                                 </Element>
                                 <Element type="UITableCol" width="10%">
                                     <Element label="" type="UIText" isMandatory="false" Id="txtRank"
