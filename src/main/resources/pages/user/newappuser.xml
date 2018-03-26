@@ -26,6 +26,11 @@
                 <ErrorSection>
                 </ErrorSection>
                 <Section type ="header">
+                    <Element type="UITabset" Id="impexp" style="uitabstyle"
+                             selectedTabStyle="titleStyleSelected active nav-link"
+                             unSelectedTabStyle="titleStyleUnSelected nav-link">
+                    <Element type="UITab" Id="idPreferredTim" title="Basic_Info" cols="3" showinTable="true">
+
                     <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="version" />
                     <Element label = ""  type = "UIHidden" Id = "hdnCompany" style ="bolded"   size="10" property ="Company.Name" />
                     <Element label = ""  type = "UIHidden" Id = "hdnUserID" style ="bolded"   size="10" property ="UserId" />
@@ -94,6 +99,26 @@
                         <options populator =  "getAllRegions">
                         </options>
                     </Element>-->
+                    </Element>
+                    <Element type="UITab" Id="idEmployeDetails" title="Access_Details" cols ="4" showinTable="true">
+                        <Element label="Access" type="UIList" isMandatory="false" Id="lstSpecial"
+                                 property="userPortfolio.accessLevel.code">
+                            <options populator="getFiniteValues" populatorParam="USACCESS">
+                            </options>
+                        </Element>
+
+                        <Element label="Region" type="UIList"  Id="LstRegion"   property="userPortfolio.region.id">
+                            <options populator="getAllRegions" >
+                            </options>
+                        </Element>
+                        <Element label="Location" type="UIList"  Id="LstLocations"   property="userPortfolio.location.id">
+                            <options populator="getAllLocations" >
+                            </options>
+                        </Element>
+
+
+                    </Element>
+                    </Element>
 
 
 

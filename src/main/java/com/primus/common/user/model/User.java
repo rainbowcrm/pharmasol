@@ -49,7 +49,19 @@ public class User extends PrimusModel{
     Boolean allowAllRegionAccess;
     Collection<UserRegion> userRegions;
 
+    Collection<UserPortfolio> userPortfolios ;
+
     String [] selectedRegions;
+
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "user")
+    public Collection<UserPortfolio> getUserPortfolios() {
+        return userPortfolios;
+    }
+
+    public void setUserPortfolios(Collection<UserPortfolio> userPortfolios) {
+        this.userPortfolios = userPortfolios;
+    }
+
 
 
 
