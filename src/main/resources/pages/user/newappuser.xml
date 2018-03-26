@@ -87,13 +87,13 @@
                              property="gmailId"/>
                     <Element label="Facebook_Id" type="UIText" isMandatory="false" Id="txtfacebookId"
                              property="faceBookId"/>
-                    <Element label="All_Region_Access" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
+                    <!--<Element label="All_Region_Access" type="UIBooleanCheckBox" hiddenControlId="hdnlnksunday"
                              Id="txtlinksunday" property="allowAllRegionAccess"/>
 
                     <Element label = "RegionsAccess"  type = "UIList" Id = "lstAccessiblleRegions"  multiple ="true" property ="selectedRegions"  externalise= "true">
                         <options populator =  "getAllRegions">
                         </options>
-                    </Element>
+                    </Element>-->
 
 
 
