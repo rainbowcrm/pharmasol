@@ -101,12 +101,16 @@
                     </Element>-->
                     </Element>
                     <Element type="UITab" Id="idEmployeDetails" title="Access_Details" cols ="4" showinTable="true">
-                        <Element label="Access" type="UIList" isMandatory="false" Id="lstSpecial"
+                        <Element label="Access_Range" type="UIList" isMandatory="false" Id="lstSpecial"
                                  property="userPortfolio.accessLevel.code">
-                            <options populator="getFiniteValues" populatorParam="USACCESS">
+                            <options populator="getFiniteValuesWithSelect" populatorParam="USACCESS">
                             </options>
                         </Element>
 
+                        <Element label="Zone" type="UIList"  Id="LstZone"   property="userPortfolio.zone.id">
+                            <options populator="getAllZones" >
+                            </options>
+                        </Element>
                         <Element label="Region" type="UIList"  Id="LstRegion"   property="userPortfolio.region.id">
                             <options populator="getAllRegions" >
                             </options>

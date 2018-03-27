@@ -21,23 +21,13 @@ import javax.persistence.*;
 })
 public class UserPortfolio extends PrimusBusinessModel {
 
-    User user ;
+
     Zone zone;
     Region region ;
     Location location;
     FiniteValue accessLevel ;
 
 
-    @RadsPropertySet(excludeFromJSON =  true,excludeFromMap = true, excludeFromXML = true )
-    @ManyToOne(cascade= CascadeType.DETACH)
-    @JoinColumn(name  ="USER_ID")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
 
     @RadsPropertySet(useBKForXML =  true,useBKForMap = true, useBKForJSON = true )

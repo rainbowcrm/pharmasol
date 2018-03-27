@@ -5,6 +5,8 @@ import com.primus.admin.reasoncode.service.ReasonCodeService;
 import com.primus.admin.region.model.Location;
 import com.primus.admin.region.model.Region;
 import com.primus.admin.region.service.RegionService;
+import com.primus.admin.zone.model.Zone;
+import com.primus.admin.zone.service.ZoneService;
 import com.primus.common.CommonUtil;
 import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
@@ -143,6 +145,19 @@ public abstract class AbstractCRUDController   extends CRUDController {
         return ans ;
     }
 
+
+
+    public Map<String,String> getAllZones()
+    {
+        Map ans = new LinkedHashMap() ;
+        ZoneService service = ServiceFactory.getZoneService() ;
+        List<Zone> zones =(List<Zone> ) service.fetchAllActive(null,"name", getProductContext()) ;
+        zones.forEach( zone ->  {
+            ans.put(String.valueOf(zone.getId()),zone.getName());
+        });
+        return ans;
+
+    }
 
     public Map<String,String> getAllRegions()
     {

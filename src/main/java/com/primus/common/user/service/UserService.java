@@ -37,7 +37,9 @@ public class UserService extends AbstractService {
         TransactionUpdateDelta transactionUpdateDelta = new TransactionUpdateDelta();
         if (!Utils.isNullCollection(oldList)) {
             oldList.forEach(oldRecord -> {
-                UserRegion findMatchByRegion = newList.stream().filter(newRecord -> oldRecord.getRegion().getId() == newRecord.getRegion().getId()).findFirst().orElse(null);
+                UserRegion findMatchByRegion = null ;
+                if(newList != null )
+                    findMatchByRegion      = newList.stream().filter(newRecord -> oldRecord.getRegion().getId() == newRecord.getRegion().getId()).findFirst().orElse(null);
                 if (findMatchByRegion == null) {
                     oldRecord.setDeleted(true);
                     oldRecord.setAccessAlowed(false);
