@@ -6,6 +6,7 @@ import com.primus.abstracts.CommonErrorCodes;
 import com.primus.abstracts.PrimusModel;
 import com.primus.admin.region.model.Region;
 import com.primus.common.CommonUtil;
+import com.primus.common.FVConstants;
 import com.primus.common.ProductContext;
 import com.primus.common.company.model.Company;
 import com.primus.common.company.service.CompanyService;
@@ -123,6 +124,25 @@ public class UserValidator extends AbstractValidator {
                 results.add( getErrorforCode(context, CommonErrorCodes.NOT_FOUND,"Company"));
 
         }
+
+        if(user.getUserPortfolio() != null )
+        {
+            user.getUserPortfolio().setCompany(user.getCompany());
+            if (user.getUserPortfolio().getAccessLevel().equals(FVConstants.USER_ACCESS.COMPANY)) {
+                user.getUserPortfolio().setRegion(null);
+                user.getUserPortfolio().setZone(null);
+                user.getUserPortfolio().setLocation(null);
+            }
+            if (user.getUserPortfolio().getAccessLevel().equals(FVConstants.USER_ACCESS.ZONE)) {
+                user.getUserPortfolio().setRegion(null);
+                user.getUserPortfolio().setLocation(null);
+            }
+            if (user.getUserPortfolio().getAccessLevel().equals(FVConstants.USER_ACCESS.REGION)) {
+                user.getUserPortfolio().setLocation(null);
+            }
+
+        }
+
 
         return results;
 

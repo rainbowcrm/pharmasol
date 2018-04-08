@@ -88,6 +88,43 @@ public class AppointmentDAO extends AbstractDAO{
 
     }
 
+    public List<Appointment> getAllCompletedAppointmentsForLocation( int location, int companyId, Date fromDate , Date toDate   )
+    {
+        Query query = em.createQuery("from  Appointment appointment where location.id = :location  and company.id = :company and " +
+                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate  and appointment.status.code in ('CMPLTD','CLSD') order by appointment.apptTime desc  ");
+        query.setParameter("location", location);
+        query.setParameter("company", companyId);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        List<Appointment> ans = query.getResultList();
+        return ans;
+
+    }
+
+    public List<Appointment> getAllRecentAppointmentsForLocation( int location, int companyId, Date fromDate , Date toDate   )
+    {
+        Query query = em.createQuery("from  Appointment appointment where location.id = :location  and company.id = :company and " +
+                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate   order by appointment.apptTime desc  ");
+        query.setParameter("location", location);
+        query.setParameter("company", companyId);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        List<Appointment> ans = query.getResultList();
+        return ans;
+    }
+
+    public List<Appointment> getAllManagedRecentAppointments( String managerUserId, int companyId, Date fromDate , Date toDate   )
+    {
+        Query query = em.createQuery("from  Appointment appointment where manager.userId = :managerUserId  and company.id = :company and " +
+                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate  and appointment.status.code in ('CMPLTD','CLSD') order by appointment.apptTime desc  ");
+        query.setParameter("managerUserId", managerUserId);
+        query.setParameter("company", companyId);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        List<Appointment> ans = query.getResultList();
+        return ans;
+
+    }
 
     public List<Appointment> getAllAgentAppointments( String userId, int companyId, Date fromDate , Date toDate   )
     {

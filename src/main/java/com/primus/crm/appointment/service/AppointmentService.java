@@ -761,6 +761,15 @@ public class AppointmentService extends AbstractService {
     {
         return appointmentDAO.getAllManagedAppointments(managerUserId,context.getLoggedinCompany(),fromDate,toDate);
     }
+    public List<Appointment> getAllCompletedAppointmentsForLocation(Location location , Date fromDate, Date toDate ,ProductContext context)
+    {
+        return appointmentDAO.getAllCompletedAppointmentsForLocation(location.getId(),context.getLoggedinCompany(),fromDate,toDate);
+    }
+
+    public List<Appointment> getAllRecentAppointmentsForLocation(Location location , Date fromDate, Date toDate ,ProductContext context)
+    {
+        return appointmentDAO.getAllRecentAppointmentsForLocation(location.getId(),context.getLoggedinCompany(),fromDate,toDate);
+    }
 
     public List<Appointment> getAllAgentAppointment(String userId, Date fromDate, Date toDate ,ProductContext context)
     {
