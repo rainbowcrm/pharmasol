@@ -8,6 +8,7 @@ import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.snapshot.model.FeedbackDetail;
 import com.primus.crm.snapshot.model.OrderFigure;
+import com.primus.crm.snapshot.model.POBFigure;
 import com.primus.crm.snapshot.model.SnapShot;
 import com.primus.crm.snapshot.sqls.SnapShotSQLs;
 import com.primus.crm.target.model.Target;
@@ -36,6 +37,8 @@ public class SnapShotService    {
     public SnapShot   getSnapShot(ProductContext context , Date currentDate)
     {
         SnapShot snapShot  = new SnapShot() ;
+        snapShot.setOrderFigure(new OrderFigure());
+        snapShot.setPobFigure(new POBFigure());
         User user =  context.getLoggedInUser();
         Location location =null  ;
         if (user.getUserPortfolio().getAccessLevel().equals(FVConstants.USER_ACCESS.LOCATION)) {
@@ -67,7 +70,14 @@ public class SnapShotService    {
                        snapShot.getOrderFigure().setAchievedAmount(snapShot.getOrderFigure().getAchievedAmount() + lineTotal) ;
                     });
                 }
-                if   (!Utils.isNullCollection(appointment.getStockistVisitOrderLines())) {
+                if   (!Utils.isNullCollection(appointment.getOrderLines())) {
+                    appointment.getOrderLines().forEach( orderLine ->   {
+                        double lineTotal = orderLine.getRate() * orderLine.getQty()  ;
+                        snapShot.getPobFigure().setAchievedAmount(snapShot.getPobFigure().getAchievedAmount() + lineTotal);
+
+                    });
+
+                }
             });
         }
         snapShot.setFeedbackDetailList(lastFeedBacks);

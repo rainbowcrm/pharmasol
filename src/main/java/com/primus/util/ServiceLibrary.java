@@ -20,6 +20,7 @@ import com.primus.crm.appointment.service.AppointmentService;
 import com.primus.crm.appointment.service.AppointmentTemplateService;
 import com.primus.crm.appointment.validator.AppointmentTemplateValidator;
 import com.primus.crm.appointment.validator.AppointmentValidator;
+import com.primus.crm.snapshot.service.SnapShotService;
 import com.primus.crm.target.service.TargetService;
 import com.primus.crm.target.validator.TargetValidator;
 import com.primus.crm.targetanalysis.service.TargetAnalyzeService;
@@ -215,6 +216,9 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
     @Autowired
     TargetAnalyzeService targetAnalyzeService ;
 
+    @Autowired
+    SnapShotService snapShotService ;
+
     public  ApplicationManager getApplicationManager()
    {
        return applicationManager ;
@@ -237,6 +241,10 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
         return  profileService ;
     }
 
+    public  SnapShotService getSnapShotService ()
+    {
+        return  snapShotService ;
+    }
     @Override
     public AbstractService getService(String serviceName) {
         switch(serviceName) {
@@ -265,6 +273,7 @@ public class ServiceLibrary implements  IServiceLibrary,ApplicationContextAware 
             case "ReportService"  : return reportService ;
             case  "TargetService" : return targetService ;
             case  "TargetAnalyzeService" : return targetAnalyzeService;
+
 
         }
         return null;

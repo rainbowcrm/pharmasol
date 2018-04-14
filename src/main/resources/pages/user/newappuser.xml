@@ -102,7 +102,7 @@
                     </Element>
                     <Element type="UITab" Id="idEmployeDetails" title="Access_Details" cols ="4" showinTable="true">
 
-                        <Element label = "" type = "UIHidden" Id = "hdnVersion" property ="userPortfolio.version" />
+                        <Element label = "" type = "UIHidden" Id = "hdnUSPVersion" property ="userPortfolio.version" />
                         <Element label = ""  type = "UIHidden" Id = "hdnId"   size="10" property ="userPortfolio.id" />
 
                         <Element label="Access_Range" type="UIList" isMandatory="false" Id="lstSpecial"

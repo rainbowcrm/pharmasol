@@ -201,6 +201,10 @@
     <AjaxService service ="allappts" class = "com.primus.crm.appointment.service.AllAppointmentAjaxService">
 
     </AjaxService>
+    <AjaxService service ="mgrsnapShot" class = "com.primus.crm.snapshot.service.SnapShotAjaxService">
+
+    </AjaxService>
+
     <AjaxService service ="agentappts" class = "com.primus.crm.appointment.service.AgentAppointmentAjaxService">
 
     </AjaxService>
