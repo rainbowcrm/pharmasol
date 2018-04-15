@@ -6,10 +6,7 @@ import com.primus.common.ProductContext;
 import com.primus.common.user.model.User;
 import com.primus.crm.appointment.model.Appointment;
 import com.primus.crm.appointment.service.AppointmentService;
-import com.primus.crm.snapshot.model.FeedbackDetail;
-import com.primus.crm.snapshot.model.OrderFigure;
-import com.primus.crm.snapshot.model.POBFigure;
-import com.primus.crm.snapshot.model.SnapShot;
+import com.primus.crm.snapshot.model.*;
 import com.primus.crm.snapshot.sqls.SnapShotSQLs;
 import com.primus.crm.target.model.AgentSaleTarget;
 import com.primus.crm.target.model.Target;
@@ -88,9 +85,20 @@ public class SnapShotService    {
                 }
             });
         }
+
+
+        List<Appointment> upcomingAppointments =  appointmentService.getAllRecentAppointmentsForLocation(location,currentDate, new java.util.Date(currentDate.getTime() + (120 * 3600 * 1000)),context);
+        if (upcomingAppointments!=  null)  {
+            upcomingAppointments.forEach( appt ->  {
+                RecentAppointment recentAppointment =  new RecentAppointment(appt);
+                snapShot.addRecentAppointment(recentAppointment);
+            });
+        }
         snapShot.setFeedbackDetailList(lastFeedBacks);
       //  snapShot.setOrderFigure(orderFigure);
 
+        List<ItemSale> itemSales =  snapShotSQLs.getAllItemSales(location.getId(),context.getLoggedinCompany(),target.getFromDate(),target.getToDate());
+        snapShot.setItemSales(itemSales);
         List<Appointment> recentAppointments =  new ArrayList<>();
 
         //snapShot.set

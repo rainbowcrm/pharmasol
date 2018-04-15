@@ -203,9 +203,7 @@
                                 </div>-->
                                 <script>
                                          var feedbackDetails = snapsotresponse.FeedbackDetailList;
-
                                           for ( var i in feedbackDetails) {
-
                                               document.write('<div class="feed-element">');
                                                document.write(' <div>');
                                                var feedbackDetail = feedbackDetails[i];
@@ -213,7 +211,7 @@
                                                     document.write('<small class="pull-right text-navy">' +  feedbackDetail.Date + '</small>');
                                                     document.write('<strong>'+feedbackDetail.GivenBy + '</strong>');
                                                     document.write('<div>'+feedbackDetail.Feedback + '</div>');
-                                                    document.write('<small class="text-muted">Class A</small>');
+                                                    document.write('<small class="text-muted">'+ feedbackDetail.DoctorClass +'</small>');
                                                 document.write('</div>');
                                             document.write('</div>');
                                           }
@@ -251,41 +249,32 @@
                                                     <th>Type</th>
                                                     <th>Name</th>
                                                     <th class="text-center">Status</th>
-                                                    <th>LM Sales</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
+                                               <!-- <tr>
                                                     <td class="text-center">1</td>
                                                     <td> 10/2/18 10:00 AM </td>
                                                     <td> Doctor </td>
                                                     <td> Dr. John </td>
                                                     <td class="text-center"><span class="label label-primary">Completed</span></td>
                                                     <td class="text-center"><span class="label label-primary">T25.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td> 10/2/18 11:30 AM </td>
-                                                    <td> Doctor </td>
-                                                    <td> Dr. Mathew </td>
-                                                    <td class="text-center"><span class="label label-warning">Cancelled</span></td>
-                                                    <td class="text-center"><span class="label label-primary">T18.00</span></td>                                                    </tr>
-                                                <tr>
-                                                    <td class="text-center">3</td>
-                                                    <td> 10/4/18 10:00 AM </td>
-                                                    <td> Doctor </td>
-                                                    <td> Dr. Abraham </td>
-                                                    <td class="text-center"><span class="label">Pending...</span></td>
-                                                    <td class="text-center"><span class="label label-primary">T15.00</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">4</td>
-                                                    <td> 10/6/18 10:00 AM </td>
-                                                    <td> Stockist </td>
-                                                    <td> Total Pharma </td>
-                                                    <td class="text-center"><span class="label">Pending...</span></td>
-                                                    <td class="text-center"><span class="label label-primary">T120.00</span></td>
-                                                </tr>
+                                                </tr>-->
+                                                <script>
+                                         var recentAppointments = snapsotresponse.RecentAppointments;
+                                          for ( var i in recentAppointments) {
+                                                document.write('<tr>');
+                                                    document.write('<td class="text-center">' + i +1  + '</td>');
+                                                    document.write('<td>'  + recentAppointments[i].Date +  '</td>');
+                                                    document.write('<td>' + recentAppointments[i].PartyType  + '</td>');
+                                                    document.write('<td> '+ recentAppointments[i].AppointmentTo + ' </td>');
+                                                    document.write('<td class="text-center"><span class="label label-primary">'+ recentAppointments[i].Status + '</span></td>');
+
+                                                document.write('</tr>');
+                                          }
+                                </script>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -366,37 +355,25 @@
                                     <table class="table table-hover no-margins">
                                         <thead>
                                         <tr>
-                                            <th>Area</th>
-                                            <th>Product</th>
+                                            <th>Item</th>
                                             <th>Value</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <!--<tr>
                                             <td><small>Area1</small></td>
                                             <td>Product 1</td>
                                             <td class="text-navy"> <i class="fa fa-level-up"></i> 25000 </td>
-                                        </tr>
-                                        <tr>
-                                            <td><small>Area2</small></td>
-                                            <td>Product 1</td>
-                                            <td class="text-navy"> <i class="fa fa-level-up"></i> 2000 </td>
-                                        </tr>
-                                        <tr>
-                                            <td><small>Area1</small></td>
-                                            <td>Product 2</td>
-                                            <td class="text-navy"> <i class="fa fa-level-up"></i> 15000 </td>
-                                        </tr>
-                                        <tr>
-                                            <td><small>Area1</small></td>
-                                            <td>Product 3</td>
-                                            <td class="text-navy"> <i class="fa fa-level-up"></i> 12000 </td>
-                                        </tr>
-                                        <tr>
-                                            <td><small>Area1</small></td>
-                                            <td>Product 4</td>
-                                            <td class="text-navy"> <i class="fa fa-level-up"></i> 16000 </td>
-                                        </tr>
+                                        </tr>-->
+                                        <script>
+                                        var itemSales = snapsotresponse.ItemSales;
+                                        for ( var i in itemSales) {
+                                            document.write('<tr>');
+                                            document.write('<td>'+itemSales[i].Item + '</td>');
+                                            document.write('<td class="text-navy"> <i class="fa fa-level-up"></i>' + itemSales[i].Value +  '</td>');
+                                            document.write('</tr>');
+                                        }
+                                        </script>
                                     </table>
                                 </div>
                             </div>

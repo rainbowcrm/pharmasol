@@ -9,6 +9,7 @@ public class FeedbackDetail extends ModelObject {
     String feedback ;
     String givenBy;
     Date date;
+    String doctorClass ;
 
     public String getFeedback() {
         return feedback;
@@ -32,5 +33,13 @@ public class FeedbackDetail extends ModelObject {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getDoctorClass() {
+        return doctorClass;
+    }
+
+    public void setDoctorClass(String doctorClass) {
+        this.doctorClass = doctorClass;
     }
 }

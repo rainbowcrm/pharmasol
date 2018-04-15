@@ -1,11 +1,14 @@
 package com.primus.crm.snapshot.sqls;
 
 import com.primus.crm.snapshot.model.FeedbackDetail;
+import com.primus.crm.snapshot.model.ItemSale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,22 @@ public class SnapShotSQLs {
 
     }*/
 
+
+    public List<ItemSale> getAllItemSales(int location , int company, Date fromDate, Date toDate)
+    {
+        List<ItemSale> itemSales = new ArrayList<>();
+        String sql = "SELECT ITEMS.ITEM_NAME,  SUM(OL.QTY * OL.RATE) FROM APPOINTMENTS APPTS, STOCKIST_VISIT_ORDER_LINES OL, SKUS SKUS, ITEMS ITEMS  WHERE APPTS.ID = OL.APPOINTMENT_ID" +
+                " AND OL.SKU_ID = SKUS.ID AND SKUS.ITEM_ID = ITEMS.ID AND APPTS.COMPANY_ID = ? AND APPTS.LOCATION_ID  =? AND  APPTS.APPT_DATE >= ? AND APPTS.APPT_DATE<= ? AND" +
+                " OL.IS_DELETED= FALSE  AND APPTS.IS_DELETED = FALSE AND APPTS.APPT_STATUS IN ('CMPLTD','CLSD' ) GROUP BY ITEMS.ITEM_NAME";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{ company, location, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime())});
+        while (rs.next()) {
+            ItemSale itemSale = new ItemSale();
+            itemSale.setItem(rs.getString(1));
+            itemSale.setValue(rs.getDouble(2));
+            itemSales.add(itemSale);
+        }
+        return itemSales;
+    }
 
 
 }

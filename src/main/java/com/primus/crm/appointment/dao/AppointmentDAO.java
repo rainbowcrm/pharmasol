@@ -104,7 +104,7 @@ public class AppointmentDAO extends AbstractDAO{
     public List<Appointment> getAllRecentAppointmentsForLocation( int location, int companyId, Date fromDate , Date toDate   )
     {
         Query query = em.createQuery("from  Appointment appointment where location.id = :location  and company.id = :company and " +
-                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate   order by appointment.apptTime desc  ");
+                "  deleted =false and apptDate >= :fromDate and apptDate <= :toDate   order by appointment.apptTime asc  ");
         query.setParameter("location", location);
         query.setParameter("company", companyId);
         query.setParameter("fromDate", fromDate);

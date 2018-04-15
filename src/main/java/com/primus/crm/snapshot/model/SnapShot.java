@@ -1,7 +1,9 @@
 package com.primus.crm.snapshot.model;
 
+import com.primus.merchandise.item.model.Item;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class SnapShot extends ModelObject {
     POBFigure pobFigure ;
 
     List<FeedbackDetail> feedbackDetailList  ;
+    List<RecentAppointment> recentAppointments ;
+    List<ItemSale> itemSales ;
     int feedbackCount;
 
     public Date getPeriodFrom() {
@@ -101,4 +105,34 @@ public class SnapShot extends ModelObject {
     public void setFeedbackCount(int feedbackCount) {
         this.feedbackCount = feedbackCount;
     }
+
+    public List<RecentAppointment> getRecentAppointments() {
+        return recentAppointments;
+    }
+
+    public void setRecentAppointments(List<RecentAppointment> recentAppointments) {
+        this.recentAppointments = recentAppointments;
+    }
+
+    public void addRecentAppointment(RecentAppointment recentAppointment) {
+        if (recentAppointments == null)
+            recentAppointments = new ArrayList<RecentAppointment>();
+        recentAppointments.add(recentAppointment);
+    }
+
+    public List<ItemSale> getItemSales() {
+        return itemSales;
+    }
+
+    public void setItemSales(List<ItemSale> itemSales) {
+        this.itemSales = itemSales;
+    }
+
+    public void addItemSale (ItemSale itemSale) {
+        if (itemSales == null)
+            itemSales = new ArrayList<>() ;
+        itemSales.add(itemSale);
+    }
 }
+
+
