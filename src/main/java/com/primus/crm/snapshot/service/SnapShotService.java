@@ -11,6 +11,7 @@ import com.primus.crm.snapshot.model.OrderFigure;
 import com.primus.crm.snapshot.model.POBFigure;
 import com.primus.crm.snapshot.model.SnapShot;
 import com.primus.crm.snapshot.sqls.SnapShotSQLs;
+import com.primus.crm.target.model.AgentSaleTarget;
 import com.primus.crm.target.model.Target;
 import com.primus.crm.target.service.TargetService;
 import com.techtrade.rads.framework.utils.Utils;
@@ -49,6 +50,7 @@ public class SnapShotService    {
         if(target != null  )  {
             snapShot.setPeriodFrom(target.getFromDate());
             snapShot.setPeriodTo(target.getToDate());
+            snapShot.setPeriod(target.getPeriod());
 
         }
        /* List<String> lastFeedBacks   =  snapShotSQLs.getFeedBacksForLocation(location.getId(),context.getLoggedinCompany() );if
@@ -58,11 +60,17 @@ public class SnapShotService    {
         OrderFigure  orderFigure  = new OrderFigure() ;
         List<Appointment> completedAppointmentsForLocation =  appointmentService.getAllCompletedAppointmentsForLocation(location,target.getFromDate(),target.getToDate(),context);
         if (!Utils.isNullCollection(completedAppointmentsForLocation)) {
+            snapShot.setVisitCount(completedAppointmentsForLocation.size());
+            snapShot.setFeedbackCount(completedAppointmentsForLocation.size());
             completedAppointmentsForLocation.forEach( appointment ->   {
                 FeedbackDetail feedbackDetail  = new FeedbackDetail();
-                feedbackDetail.setGivenBy(appointment.getPartyName());
+                feedbackDetail.setGivenBy(appointment.getPartyNameWithType());
                 feedbackDetail.setDate(appointment.getApptDate());
                 feedbackDetail.setFeedback(appointment.getFeedBack());
+                for (AgentSaleTarget agentSaleTarget : target.getAgentSaleTargets()) {
+                    snapShot.getOrderFigure().setTargetAmount( snapShot.getOrderFigure().getTargetAmount() +  agentSaleTarget.getTargettedAmount() );
+                }
+
                 lastFeedBacks.add(feedbackDetail);
                 if   (!Utils.isNullCollection(appointment.getStockistVisitOrderLines())) {
                     appointment.getStockistVisitOrderLines().forEach( stockistVisitOrderLine ->   {
@@ -81,7 +89,7 @@ public class SnapShotService    {
             });
         }
         snapShot.setFeedbackDetailList(lastFeedBacks);
-        snapShot.setOrderFigure(orderFigure);
+      //  snapShot.setOrderFigure(orderFigure);
 
         List<Appointment> recentAppointments =  new ArrayList<>();
 

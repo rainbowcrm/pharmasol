@@ -6,6 +6,7 @@ public class OrderFigure extends ModelObject {
 
     double targetAmount;
     double achievedAmount;
+    double achievedPercent;
 
     public double getTargetAmount() {
         return targetAmount;
@@ -21,5 +22,13 @@ public class OrderFigure extends ModelObject {
 
     public void setAchievedAmount(double achievedAmount) {
         this.achievedAmount = achievedAmount;
+    }
+
+    public double getAchievedPercent() {
+        return Math.round(achievedAmount * 100d / targetAmount );
+    }
+
+    public void setAchievedPercent(double achievedPercent) {
+   //     this.achievedPercent = achievedPercent;
     }
 }

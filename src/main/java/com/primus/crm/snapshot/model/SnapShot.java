@@ -13,11 +13,14 @@ public class SnapShot extends ModelObject {
     String  location;
     String  period;
 
+    int visitCount;
+
     SalesFigure salesFigure ;
     OrderFigure orderFigure ;
     POBFigure pobFigure ;
 
     List<FeedbackDetail> feedbackDetailList  ;
+    int feedbackCount;
 
     public Date getPeriodFrom() {
         return periodFrom;
@@ -81,5 +84,21 @@ public class SnapShot extends ModelObject {
 
     public void setFeedbackDetailList(List<FeedbackDetail> feedbackDetailList) {
         this.feedbackDetailList = feedbackDetailList;
+    }
+
+    public int getVisitCount() {
+        return visitCount;
+    }
+
+    public void setVisitCount(int visitCount) {
+        this.visitCount = visitCount;
+    }
+
+    public int getFeedbackCount() {
+        return feedbackCount;
+    }
+
+    public void setFeedbackCount(int feedbackCount) {
+        this.feedbackCount = feedbackCount;
     }
 }
