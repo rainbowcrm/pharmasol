@@ -1,5 +1,6 @@
 package com.primus.crm.snapshot.model;
 
+import com.primus.externals.store.model.Store;
 import com.primus.merchandise.item.model.Item;
 import com.techtrade.rads.framework.model.abstracts.ModelObject;
 
@@ -24,6 +25,7 @@ public class SnapShot extends ModelObject {
     List<FeedbackDetail> feedbackDetailList  ;
     List<RecentAppointment> recentAppointments ;
     List<ItemSale> itemSales ;
+    List<StoreSale> storeSales ;
     int feedbackCount;
 
     public Date getPeriodFrom() {
@@ -132,6 +134,21 @@ public class SnapShot extends ModelObject {
         if (itemSales == null)
             itemSales = new ArrayList<>() ;
         itemSales.add(itemSale);
+    }
+
+    public List<StoreSale> getStoreSales() {
+        return storeSales;
+    }
+
+    public void setStoreSales(List<StoreSale> storeSales) {
+        this.storeSales = storeSales;
+    }
+
+    public void addStoreSale(StoreSale storeSale)
+    {
+        if (storeSales == null)
+            storeSales = new ArrayList<>();
+        storeSales.add(storeSale);
     }
 }
 

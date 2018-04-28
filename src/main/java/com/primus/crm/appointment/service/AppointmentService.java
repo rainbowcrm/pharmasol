@@ -657,6 +657,8 @@ public class AppointmentService extends AbstractService {
             app.setStatus(new FiniteValue(FVConstants.APPT_STATUS.COMPLETED));
             app.setFeedBack(appointment.getFeedBack());
             app.setVisitCompletion(appointment.getApptDate());
+            /*app.setApptDate(appointment.getApptDate());
+            app.setApptTime(appointment.getApptTime());*/
             app.setDescription(appointment.getDescription());
             List<RadsError> errors = appointmentValidator.adaptFromUI(appointment,context);
 
@@ -689,7 +691,8 @@ public class AppointmentService extends AbstractService {
                 app.setOrderLines(appointment.getOrderLines());
                 app.setStockistVisitOrderLines(appointment.getStockistVisitOrderLines());
                 app.setCompetitorSalesLines(appointment.getCompetitorSalesLines());
-                app.setApptTime(app.getApptTime());
+                app.setApptTime(appointment.getApptTime());
+                app.setApptDate(appointment.getApptDate());
                 GoogleAddressCapturer.setCapturedAddress(appointment);
                 update(app, context);
                 result.setObject(app);

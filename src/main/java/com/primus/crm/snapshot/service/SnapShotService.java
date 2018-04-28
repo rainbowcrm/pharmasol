@@ -101,6 +101,8 @@ public class SnapShotService    {
         snapShot.setItemSales(itemSales);
         List<Appointment> recentAppointments =  new ArrayList<>();
 
+        List<StoreSale> storeSales =  snapShotSQLs.getAllStoreSales(location.getId(),context.getLoggedinCompany(),target.getFromDate(),target.getToDate());
+        snapShot.setStoreSales(storeSales);
         //snapShot.set
 
 

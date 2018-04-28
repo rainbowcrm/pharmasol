@@ -305,31 +305,25 @@
                                         <thead>
                                         <tr>
                                             <th>Chemist</th>
-                                            <th>Month</th>
                                             <th>Value</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <!--<tr>
                                             <td>Solomon Medicals</td>
                                             <td>Feb-2018</td>
                                             <td class="text-center"><span class="label label-primary">T8.00</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>No1 Pharmas</td>
-                                            <td>Feb-2018</td>
-                                            <td class="text-center"><span class="label label-primary">T11.20</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alleppey Medicals</td>
-                                            <td>Feb-2018</td>
-                                            <td class="text-center"><span class="label label-primary">T7.80</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Priya Medicals</td>
-                                            <td>Feb-2018</td>
-                                            <td class="text-center"><span class="label label-primary">T5.34</span></td>
-                                        </tr>
+                                        </tr>-->
+                                        <script>
+                                        var storeSales = snapsotresponse.StoreSales;
+                                        for ( var i in storeSales) {
+                                            document.write('<tr>');
+                                            document.write('<td>'+storeSales[i].Store + '</td>');
+                                            document.write('<td class="text-navy"> <i class="fa fa-level-up"></i>' + storeSales[i].Value +  '</td>');
+                                            document.write('</tr>');
+                                        }
+                                        </script>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -363,6 +357,7 @@
                                         <!--<tr>
                                             <td><small>Area1</small></td>
                                             <td>Product 1</td>
+
                                             <td class="text-navy"> <i class="fa fa-level-up"></i> 25000 </td>
                                         </tr>-->
                                         <script>

@@ -2,6 +2,7 @@ package com.primus.crm.snapshot.sqls;
 
 import com.primus.crm.snapshot.model.FeedbackDetail;
 import com.primus.crm.snapshot.model.ItemSale;
+import com.primus.crm.snapshot.model.StoreSale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -51,6 +52,22 @@ public class SnapShotSQLs {
             itemSales.add(itemSale);
         }
         return itemSales;
+    }
+
+    public List<StoreSale> getAllStoreSales(int location , int company, Date fromDate, Date toDate)
+    {
+        List<StoreSale> storeSales = new ArrayList<>();
+        String sql = "SELECT STORES.NAME,  SUM(OL.QTY * OL.RATE) FROM APPOINTMENTS APPTS, STORE_VISIT_ORDER_LINES OL, STORES  WHERE APPTS.ID = OL.APPOINTMENT_ID" +
+                "  AND APPTS.COMPANY_ID = ? AND APPTS.LOCATION_ID  =? AND  APPTS.APPT_DATE >= ? AND APPTS.APPT_DATE<= ? AND APPTS.STORE_ID = STORES.ID AND " +
+                " OL.IS_DELETED= FALSE  AND APPTS.IS_DELETED = FALSE AND APPTS.APPT_STATUS IN ('CMPLTD','CLSD' ) GROUP BY STORES.NAME";
+        SqlRowSet rs = jdbcTemplate.queryForRowSet(sql, new Object[]{ company, location, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime())});
+        while (rs.next()) {
+            StoreSale storeSale = new StoreSale();
+            storeSale.setStore(rs.getString(1));
+            storeSale.setValue(rs.getDouble(2));
+            storeSales.add(storeSale);
+        }
+        return storeSales;
     }
 
 
